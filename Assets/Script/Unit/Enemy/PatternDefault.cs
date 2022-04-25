@@ -10,7 +10,7 @@ public abstract class PatternDefault : MonoBehaviour
     public EnemyDefault enemy = null;
 
     virtual public void Run() {
-
+        Setting();
         enemy.pattern_running = true;
     }
 

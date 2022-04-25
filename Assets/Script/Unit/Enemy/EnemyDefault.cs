@@ -15,7 +15,7 @@ public class EnemyDefault : UnitDefault
         float timer = 0;
         int stack = 1;
         int stackCounter = 0;
-        EnemyDefault enemy;
+        readonly EnemyDefault enemy;
 
         public PatternController(PatternDefault pattern)
         {
@@ -69,5 +69,6 @@ public class EnemyDefault : UnitDefault
 
             pattern.PatternReset();
         }
+        pattern_running = false;
     }
 }
