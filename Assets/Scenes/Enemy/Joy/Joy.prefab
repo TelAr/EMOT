@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 857503854182036495}
   - component: {fileID: 2581700280464098762}
+  - component: {fileID: 3138551798271887089}
+  - component: {fileID: 2358527341288638727}
   m_Layer: 7
   m_Name: Joy
   m_TagString: Enemy
@@ -84,3 +86,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3138551798271887089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc57bc2bbc328224a9e25d1357cfac60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pattern_running: 0
+  health: 0
+--- !u!114 &2358527341288638727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f82463de2a6674bb8d4cd05435e0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 0
+  stack: 0
+  enemy: {fileID: 0}
+  Boomerang_model: {fileID: 6392292533408563140, guid: 9e30a6da16db76142bad0b40657a254c, type: 3}

@@ -101,7 +101,7 @@ public class PlayerMain : UnitDefault
             Debug.Log(collision_point_variance.sqrMagnitude);
             
             if (collision_point_variance.x < collision_point_variance.y&&
-                collision_point_variance.sqrMagnitude>0.00001f)//수평 충돌
+                collision_point_variance.sqrMagnitude>0.00000001f)//수평 충돌
             {
                 transform.position = new Vector3(collision_point_avg.x < transform.position.x ? collision_point_avg.x + transform.localScale.x * 0.5f :
                     collision_point_avg.x - transform.localScale.x * 0.5f, transform.position.y);

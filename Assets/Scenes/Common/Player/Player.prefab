@@ -148,8 +148,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  Speed: 3
+  Speed: 5
   JumpPower: 8
+  Life: 3
+  offset_position: {x: 0, y: 0}
+  is_jump: 0
 --- !u!114 &-7389247827842631633
 MonoBehaviour:
   m_ObjectHideFlags: 0

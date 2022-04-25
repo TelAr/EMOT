@@ -5,7 +5,7 @@ using UnityEngine;
 //적 개체 생성 시 기본적으로 작동되는 메커니즘
 public class EnemyDefault : UnitDefault
 {
-
+    public string statement;
     public bool pattern_running;
     //패턴 관리용 개체
     public class PatternController { 
@@ -34,15 +34,18 @@ public class EnemyDefault : UnitDefault
         }
         public void Tick() {
 
-            if (timer >= cooldown) {
+            if (timer < cooldown)
+            {
                 this.timer += Time.deltaTime;
-                if (stack > stackCounter) {
-
+            }
+            else {
+                if (stackCounter < stack)
+                {
                     stackCounter++;
                     this.timer = 0;
                 }
             }
-            if (stack > 0|| !enemy.pattern_running) {
+            if (stackCounter > 0&& !enemy.pattern_running) {
 
                 pattern.Run();
                 stackCounter--;
@@ -61,6 +64,8 @@ public class EnemyDefault : UnitDefault
             PatternController PC = new PatternController(pattern);
             patternList.Add(PC);
         }
+        Debug.Log(patternList.Count);
+        statement = "normal";
     }
 
     public override void Start()
