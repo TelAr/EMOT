@@ -16,7 +16,6 @@ public class PlayerMain : UnitDefault
     private const float GRAVITY = -20f;
 
     //statement OR effected
-    private bool jump_state;
     private bool is_side_collision;
     private bool is_under_collision;
     private Vector2 accel, m_Move;
@@ -28,21 +27,25 @@ public class PlayerMain : UnitDefault
     //action
     private bool is_jump;
 
-    
-    
-    
-    
+
+
+
+
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         is_side_collision = false;
         is_under_collision = false;
         jump_timer = 0;
-        rb2 = gameObject.GetComponent<Rigidbody2D>();
+        jumpCounter = 0;
+        accel = Vector2.zero;
+        m_Move = Vector2.zero;
+        rb2.velocity = Vector2.zero;
     }
 
-    public override void Awake()
+    public void Awake()
     {
+        rb2 = gameObject.GetComponent<Rigidbody2D>();
 
     }
 

@@ -9,12 +9,11 @@ public abstract class UnitDefault : MonoBehaviour
         if (!this.gameObject.activeSelf) {
             this.gameObject.SetActive(true);
             //시작 시 활동
-            Awake();
+            Start();
         }
         
     }
-
-    public abstract void Awake();
+    public abstract void Start();
 
     public void Sleep() { 
     
