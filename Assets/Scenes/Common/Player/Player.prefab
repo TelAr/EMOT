@@ -148,11 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
-  accel: {x: 0, y: 0}
-  m_Move: {x: 0, y: 0}
   Speed: 3
   JumpPower: 6
-  is_jump: 0
 --- !u!114 &-7389247827842631633
 MonoBehaviour:
   m_ObjectHideFlags: 0

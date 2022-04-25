@@ -5,26 +5,40 @@ using UnityEngine.InputSystem;
 
 public class PlayerMain : UnitDefault
 {
+    //public value
     public int health = 1;
-    public Vector2 accel, m_Move;
     public float Speed = 1;
     public float JumpPower = 6f;
+
+    //const
     private const float JUMP_TIME = 0.1f;
-    private float jump_timer = 0f;
-    private int jumpCounter;
     private const int JUMPMAX = 2;
     private const float GRAVITY = -20f;
+
+    //statement OR effected
+    private bool jump_state;
     private bool is_side_collision;
     private bool is_under_collision;
-    public bool is_jump;
+    private Vector2 accel, m_Move;
+    private Vector2 side_collision_point;
+    private float jump_timer = 0f;
+    private int jumpCounter;
     private Rigidbody2D rb2;
+
+    //action
+    private bool is_jump;
+
+    
+    
+    
+    
     // Start is called before the first frame update
     void Start()
     {
         is_side_collision = false;
         is_under_collision = false;
         jump_timer = 0;
-        rb2 = this.gameObject.GetComponent<Rigidbody2D>();
+        rb2 = gameObject.GetComponent<Rigidbody2D>();
     }
 
     public override void Awake()
@@ -50,38 +64,36 @@ public class PlayerMain : UnitDefault
         is_jump = value.Get<float>() > 0 ? true : false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Block_Up"))
         {
-            Debug.Log("block");
             jumpCounter = JUMPMAX;
             jump_timer = 0;
             is_under_collision = true;
-            transform.position -= new Vector3(0, rb2.velocity.y < 0 ? rb2.velocity.y * Time.deltaTime : 0);
 
         }
-
-        if (collision.gameObject.CompareTag("Block_Side")) {
-            transform.position -= new Vector3(rb2.velocity.x * Time.deltaTime, 0);
+        if (collision.gameObject.CompareTag("Block_Side"))
+        {
+            Debug.Log("attach");
+            side_collision_point = collision.GetContact(0).point;
+            transform.position = new Vector3(side_collision_point.x < transform.position.x ? side_collision_point.x + transform.localScale.x * 0.5f :
+                side_collision_point.x - transform.localScale.x * 0.5f, transform.position.y);
             is_side_collision = true;
         }
     }
 
-
-
-
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Block_Up")) {
-
             is_under_collision = false;
         }
         if (collision.gameObject.CompareTag("Block_Side"))
         {
+            Debug.Log("detach");
             is_side_collision = false;
         }
-
     }
 
 
@@ -99,15 +111,16 @@ public class PlayerMain : UnitDefault
             rb2.velocity = new Vector3(rb2.velocity.x, rb2.velocity.y>0? rb2.velocity.y:0);
         }
 
-
-
-        rb2.velocity = new Vector3(m_Move.x * Speed, rb2.velocity.y + accel.y * Time.deltaTime);
+        rb2.velocity = new Vector3(m_Move.x * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
 
         //벽 판정시
         if (is_side_collision)
         {
-
-            rb2.velocity = new Vector3(0, rb2.velocity.y);
+            rb2.velocity = new Vector2(side_collision_point.x < transform.position.x ?
+                (m_Move.x>0?rb2.velocity.x:0):
+                (m_Move.x<0?rb2.velocity.x:0)
+                , rb2.velocity.y);
+//            rb2.velocity = new Vector3(0, rb2.velocity.y);
         }
 
         //jump
@@ -118,7 +131,7 @@ public class PlayerMain : UnitDefault
 
                 if (jump_timer < JUMP_TIME)
                 {
-                    jump_timer += Time.deltaTime;
+                    jump_timer += Time.fixedDeltaTime;
                     rb2.velocity = new Vector2(rb2.velocity.x, JumpPower * jump_timer / (JUMP_TIME));
                 }
                 else
