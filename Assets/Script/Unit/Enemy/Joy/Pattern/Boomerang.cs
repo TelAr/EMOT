@@ -6,6 +6,8 @@ public class Boomerang : PatternDefault
 {
     
     public GameObject Boomerang_model;
+    public bool IsFixedDistance, IsFixedAVGVelocity;
+    public float FixedDistance, FixedAVGVelocity;
     private GameObject boomerang_object;
     private GameObject player;
     private float timer;
@@ -24,6 +26,10 @@ public class Boomerang : PatternDefault
         max_distance = 10;
         min_distance = 0;
         timer = 0;
+        IsFixedAVGVelocity = false;
+        IsFixedDistance = false;
+        FixedAVGVelocity = 5;
+        FixedDistance = 10;
     }
 
 
@@ -63,7 +69,17 @@ public class Boomerang : PatternDefault
 
                 target_pos = player.transform.position;
                 boomerang_object.transform.position = offset_pos = gameObject.transform.position;
+                if (IsFixedDistance)
+                {
+
+                    target_pos = (target_pos - boomerang_object.transform.position).normalized * FixedDistance + boomerang_object.transform.position;
+                }
+                if (IsFixedAVGVelocity) {
+
+                    flight_one_way_time = (target_pos - boomerang_object.transform.position).magnitude / FixedAVGVelocity;
+                }
                 boomerang_object.SetActive(true);
+                cooldown = targetting_time + flight_one_way_time * 2 + 2f;
             }
             else if (timer < flight_one_way_time + targetting_time)
             {

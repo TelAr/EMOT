@@ -42,7 +42,7 @@ public class EnemyDefault : UnitDefault
         public void Tick() {
 
             float distance = (enemy.gameObject.transform.position - GameController.GetPlayer().transform.position).magnitude;
-//          Debug.Log(this.timer+"/"+this.cooldown+","+this.stack+": "+this.pattern);
+            UpdatePatternInfo();
             if (timer < cooldown)
             {
                 this.timer += Time.deltaTime;
@@ -68,6 +68,14 @@ public class EnemyDefault : UnitDefault
         public void ForcedRun() {
 
             pattern.Run();
+        }
+        public void UpdatePatternInfo() {
+
+            this.cooldown = pattern.cooldown;
+            this.stack = pattern.stack;
+            this.max_distance = pattern.max_distance;
+            this.min_distance = pattern.min_distance;
+            this.post_delay = pattern.post_delay;
         }
     }
 

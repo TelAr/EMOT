@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statement: 
   pattern_running: 0
+  global_delay: 0
   health: 0
 --- !u!114 &2358527341288638727
 MonoBehaviour:
@@ -124,6 +125,10 @@ MonoBehaviour:
   caster: {fileID: 0}
   is_run: 0
   Boomerang_model: {fileID: 6392292533408563140, guid: 9e30a6da16db76142bad0b40657a254c, type: 3}
+  IsFixedDistance: 0
+  IsFixedAVGVelocity: 0
+  FixedDistance: 10
+  FixedAVGVelocity: 5
 --- !u!114 &5769750162642155811
 MonoBehaviour:
   m_ObjectHideFlags: 0
