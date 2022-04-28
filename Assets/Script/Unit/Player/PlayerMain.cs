@@ -11,12 +11,11 @@ public class PlayerMain : UnitDefault
     public float Speed = 1;
     public float JumpPower = 6f;
     public int Life = 3;
-    public Vector2 offset_position;
+    public Vector3 offset_position;
 
     //const
     private const float JUMP_TIME = 0.1f;
     private const int JUMPMAX = 2;
-    private const float GRAVITY = -20f;
 
     //statement OR effected
     private bool is_side_collision;
@@ -26,6 +25,7 @@ public class PlayerMain : UnitDefault
     private float jump_timer = 0f;
     private int jumpCounter;
     private Rigidbody2D rb2;
+    private GameController gc;
 
     //action
     public bool is_jump;
@@ -98,10 +98,10 @@ public class PlayerMain : UnitDefault
         {
             CollsionBlock(collision);
 
-            Debug.Log(collision_point_variance.sqrMagnitude);
+//            Debug.Log(collision_point_variance.sqrMagnitude);
             
             if (collision_point_variance.x < collision_point_variance.y&&
-                collision_point_variance.sqrMagnitude>0.00000001f)//수평 충돌
+                collision_point_variance.magnitude>0.00000001f)//수평 충돌
             {
                 transform.position = new Vector3(collision_point_avg.x < transform.position.x ? collision_point_avg.x + transform.localScale.x * 0.5f :
                     collision_point_avg.x - transform.localScale.x * 0.5f, transform.position.y);
@@ -145,17 +145,38 @@ public class PlayerMain : UnitDefault
             is_side_collision = false;
             if (!is_jump && jumpCounter == JUMPMAX) {
 
-                Debug.Log("dive");
                 jumpCounter--;
             }
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        Debug.Log(collision);
+        if (collision.gameObject.CompareTag("Enemy")) {
+            hurt();
+
+        }
+
+        if (collision.gameObject.GetComponent<MissileDefault>() != null) {
+
+            if (!collision.gameObject.GetComponent<MissileDefault>().is_player_panetrate) { 
+            
+                collision.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void hurt(float immuneTime=2f) { 
+    
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         
-        accel = new Vector2(0, GRAVITY);
+        accel = new Vector2(0, GameController.GRAVITY);
         rb2.velocity = new Vector3(m_Move.x * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
         //벽 판정시
         if (is_side_collision)

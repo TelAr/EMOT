@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public GameObject player_prefabs;
+    public GameObject Player_prefabs;
+    public List<GameObject> Enemy;
     static private GameObject player;
+    static private GameObject enemy;
+    static public float GRAVITY = -20;
     // Start is called before the first frame update
     void Awake()
     {
         
-        player = Instantiate(player_prefabs);
+        player = Instantiate(Player_prefabs);
+        enemy = Instantiate(Enemy[0]);
     }
 
     static public GameObject GetPlayer() {
@@ -18,6 +22,10 @@ public class GameController : MonoBehaviour
         return player;
     }
 
+    static public GameObject GetEnemy() { 
+    
+        return enemy;
+    }
     // Update is called once per frame
     void Update()
     {

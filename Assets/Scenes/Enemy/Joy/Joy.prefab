@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 2581700280464098762}
   - component: {fileID: 3138551798271887089}
   - component: {fileID: 2358527341288638727}
+  - component: {fileID: 5769750162642155811}
+  - component: {fileID: 7006779008719737904}
+  - component: {fileID: -1658839632300799109}
   m_Layer: 7
   m_Name: Joy
   m_TagString: Enemy
@@ -28,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5378690169977018165}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1.5, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -98,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc57bc2bbc328224a9e25d1357cfac60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statement: 
   pattern_running: 0
   health: 0
 --- !u!114 &2358527341288638727
@@ -112,7 +116,80 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f82463de2a6674bb8d4cd05435e0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0
-  stack: 0
-  enemy: {fileID: 0}
+  cooldown: 7
+  stack: 1
+  max_distance: 10
+  min_distance: 0
+  post_delay: 1
+  caster: {fileID: 0}
+  is_run: 0
   Boomerang_model: {fileID: 6392292533408563140, guid: 9e30a6da16db76142bad0b40657a254c, type: 3}
+--- !u!114 &5769750162642155811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5422df7c89cea0f4caf1ca9698470123, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 7
+  stack: 1
+  max_distance: 14
+  min_distance: 3
+  post_delay: 3
+  caster: {fileID: 0}
+  is_run: 0
+  BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
+  Bullet_speed: 7
+  Jump_height: 8
+--- !u!61 &7006779008719737904
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!50 &-1658839632300799109
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

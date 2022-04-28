@@ -7,12 +7,16 @@ public class EnemyDefault : UnitDefault
 {
     public string statement;
     public bool pattern_running;
+    public float global_delay;
     //패턴 관리용 개체
     public class PatternController { 
     
         PatternDefault pattern;
         float cooldown = 10f;
         float timer = 0;
+        float max_distance = 0;
+        float min_distance = 0;
+        float post_delay = 0;
         int stack = 1;
         int stackCounter = 0;
         readonly EnemyDefault enemy;
@@ -24,7 +28,10 @@ public class EnemyDefault : UnitDefault
             this.timer = 0;
             this.stack = pattern.stack;
             this.stackCounter = 0;
-            this.enemy = pattern.enemy;
+            this.enemy = pattern.caster;
+            this.max_distance = pattern.max_distance;
+            this.min_distance = pattern.min_distance;
+            this.post_delay = pattern.post_delay;
         }
         public void PatternReset()
         {
@@ -34,9 +41,12 @@ public class EnemyDefault : UnitDefault
         }
         public void Tick() {
 
+            float distance = (enemy.gameObject.transform.position - GameController.GetPlayer().transform.position).magnitude;
+//          Debug.Log(this.timer+"/"+this.cooldown+","+this.stack+": "+this.pattern);
             if (timer < cooldown)
             {
                 this.timer += Time.deltaTime;
+                
             }
             else {
                 if (stackCounter < stack)
@@ -45,27 +55,44 @@ public class EnemyDefault : UnitDefault
                     this.timer = 0;
                 }
             }
-            if (stackCounter > 0&& !enemy.pattern_running) {
+            if (stackCounter > 0
+                && !enemy.pattern_running
+                && distance >= min_distance && distance <= max_distance
+                && enemy.global_delay<=0) {
 
                 pattern.Run();
+                enemy.global_delay = post_delay;
                 stackCounter--;
             }
+        }
+        public void ForcedRun() {
+
+            pattern.Run();
         }
     }
 
     //패턴 보관용 컨테이너
     public List<PatternController> patternList;
 
+    public virtual void Update() {
+
+        if (!pattern_running) {
+            global_delay -= Time.deltaTime;
+        }
+        
+    }
+
     public void Awake()
     {
         patternList= new List<PatternController>();
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
-            pattern.enemy = this;
+            pattern.caster = this;
             PatternController PC = new PatternController(pattern);
             patternList.Add(PC);
         }
         Debug.Log(patternList.Count);
         statement = "normal";
+        global_delay = 0;
     }
 
     public override void Start()

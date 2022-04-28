@@ -16,7 +16,16 @@ public class Boomerang : PatternDefault
     {
         timer = 0;
     }
-    
+
+    private void Reset()
+    {
+        cooldown = 7f;
+        stack = 1;
+        max_distance = 10;
+        min_distance = 0;
+        timer = 0;
+    }
+
 
     // Start is called before the first frame update
     void Awake()
@@ -33,7 +42,7 @@ public class Boomerang : PatternDefault
     {
         base.Run();
         player = GameController.GetPlayer();
-        enemy.GetComponent<EnemyDefault>().statement = "Boomerang";
+        caster.GetComponent<EnemyDefault>().statement = "Boomerang";
     }
 
     public override void Stop()
