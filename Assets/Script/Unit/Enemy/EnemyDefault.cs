@@ -94,11 +94,14 @@ public class EnemyDefault : UnitDefault
     {
         patternList= new List<PatternController>();
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
-            pattern.caster = this;
-            PatternController PC = new PatternController(pattern);
-            patternList.Add(PC);
+
+            if (pattern.enabled) {
+                Debug.Log(pattern);
+                pattern.caster = this;
+                PatternController PC = new PatternController(pattern);
+                patternList.Add(PC);
+            }
         }
-        Debug.Log(patternList.Count);
         statement = "normal";
         global_delay = 0;
     }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3138551798271887089}
   - component: {fileID: 2358527341288638727}
   - component: {fileID: 5769750162642155811}
+  - component: {fileID: 8921862621721333441}
   - component: {fileID: 7006779008719737904}
   - component: {fileID: -1658839632300799109}
   m_Layer: 7
@@ -141,9 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5422df7c89cea0f4caf1ca9698470123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 7
+  cooldown: 6
   stack: 1
-  max_distance: 14
+  max_distance: 13
   min_distance: 3
   post_delay: 3
   caster: {fileID: 0}
@@ -151,6 +152,28 @@ MonoBehaviour:
   BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
   Bullet_speed: 7
   Jump_height: 8
+--- !u!114 &8921862621721333441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb63f2cae1e9dd3418f92f7b0b7181f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  stack: 1
+  max_distance: 15
+  min_distance: 3
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  PreDelay: 2
+  ThrowPower: 15
+  SmokeshellModel: {fileID: 3784087293714087402, guid: 9fbf1ea26c11c4346a0bdf210ce2a6ae, type: 3}
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0

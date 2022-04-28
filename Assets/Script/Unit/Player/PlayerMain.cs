@@ -161,7 +161,7 @@ public class PlayerMain : UnitDefault
 
         if (collision.gameObject.GetComponent<MissileDefault>() != null) {
 
-            if (!collision.gameObject.GetComponent<MissileDefault>().is_player_panetrate) { 
+            if (!collision.gameObject.GetComponent<MissileDefault>().IsPlayerPanetrate) { 
             
                 collision.gameObject.SetActive(false);
             }

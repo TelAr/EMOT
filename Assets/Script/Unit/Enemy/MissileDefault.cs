@@ -4,8 +4,21 @@ using UnityEngine;
 
 public class MissileDefault : MonoBehaviour
 {
-    public bool is_player_panetrate;
+    public bool IsPlayerPanetrate;
+    public bool IsCollsionDisappear;
     public float MinX, MinY, MaxX, MaxY;
+    public ImpactDefault impact;
+
+    private void Reset()
+    {
+        MinX = -40;
+        MinY = -40;
+        MaxX = 40;
+        MaxY = 40;
+        IsPlayerPanetrate = false;
+        IsCollsionDisappear = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +26,14 @@ public class MissileDefault : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        gameObject.SetActive(false);
+        if (IsCollsionDisappear) {
+            if (impact != null) {
+
+                impact.Impact(collision.gameObject);
+            }
+            gameObject.SetActive(false);
+        }
+
 
     }
 
