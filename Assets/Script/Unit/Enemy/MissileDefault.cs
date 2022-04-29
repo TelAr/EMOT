@@ -6,6 +6,7 @@ public class MissileDefault : MonoBehaviour
 {
     public bool IsPlayerPanetrate;
     public bool IsCollsionDisappear;
+    public bool IsDestroy;
     public float MinX, MinY, MaxX, MaxY;
     public ImpactDefault impact;
 
@@ -26,10 +27,15 @@ public class MissileDefault : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (IsCollsionDisappear) {
-            if (impact != null) {
+        if (impact != null)
+        {
 
-                impact.Impact(collision.gameObject);
+            impact.Impact(collision.gameObject);
+        }
+        if (IsCollsionDisappear) {
+            if (IsDestroy) { 
+            
+                Destroy(gameObject);
             }
             gameObject.SetActive(false);
         }
@@ -40,8 +46,12 @@ public class MissileDefault : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.x < MinX || transform.position.x > MaxX || transform.position.y < MinY || transform.position.y > MaxY) { 
-        
+        if (transform.position.x < MinX || transform.position.x > MaxX || transform.position.y < MinY || transform.position.y > MaxY) {
+
+            if (IsDestroy) { 
+            
+                Destroy(gameObject);
+            }
             gameObject.SetActive(false);
         }
     }

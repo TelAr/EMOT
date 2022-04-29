@@ -19,6 +19,7 @@ public class EnemyDefault : UnitDefault
         float post_delay = 0;
         int stack = 1;
         int stackCounter = 0;
+        public bool Is_Enabled;
         readonly EnemyDefault enemy;
 
         public PatternController(PatternDefault pattern)
@@ -32,6 +33,7 @@ public class EnemyDefault : UnitDefault
             this.max_distance = pattern.max_distance;
             this.min_distance = pattern.min_distance;
             this.post_delay = pattern.post_delay;
+            Is_Enabled = true;
         }
         public void PatternReset()
         {
@@ -43,6 +45,11 @@ public class EnemyDefault : UnitDefault
 
             float distance = (enemy.gameObject.transform.position - GameController.GetPlayer().transform.position).magnitude;
             UpdatePatternInfo();
+            if (!Is_Enabled) {
+
+                return;
+            }
+
             if (timer < cooldown)
             {
                 this.timer += Time.deltaTime;
@@ -77,10 +84,14 @@ public class EnemyDefault : UnitDefault
             this.min_distance = pattern.min_distance;
             this.post_delay = pattern.post_delay;
         }
+        public string GetPatternName() {
+
+            return pattern.ToString();
+        }
     }
 
     //패턴 보관용 컨테이너
-    public List<PatternController> patternList;
+    public List<PatternController> PatternList;
 
     public virtual void Update() {
 
@@ -92,14 +103,14 @@ public class EnemyDefault : UnitDefault
 
     public void Awake()
     {
-        patternList= new List<PatternController>();
+        PatternList= new List<PatternController>();
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
 
             if (pattern.enabled) {
                 Debug.Log(pattern);
                 pattern.caster = this;
                 PatternController PC = new PatternController(pattern);
-                patternList.Add(PC);
+                PatternList.Add(PC);
             }
         }
         statement = "normal";
@@ -108,7 +119,7 @@ public class EnemyDefault : UnitDefault
 
     public override void Start()
     {
-        foreach (PatternController pattern in patternList) {
+        foreach (PatternController pattern in PatternList) {
 
             pattern.PatternReset();
         }

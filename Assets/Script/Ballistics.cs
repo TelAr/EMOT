@@ -10,7 +10,6 @@ public class Ballistics : MonoBehaviour
         float x = target.x;
         float y = target.y;
         float expect_time;
-        Debug.Log(target);
         if (((gravity * y + velocity * velocity)* (gravity * y + velocity * velocity) - (x * x + y * y) * gravity * gravity) >= 0)
         {
             expect_time = Mathf.Sqrt((2 * (gravity * y + velocity * velocity) + 2 * Mathf.Sqrt((gravity * y + velocity * velocity) * (gravity * y + velocity * velocity) - (x * x + y * y) * gravity * gravity)) / (gravity * gravity));
@@ -22,8 +21,6 @@ public class Ballistics : MonoBehaviour
             
             result = new Vector2(Mathf.Sqrt(0.5f) * (x > 0 ? 1 : -1), Mathf.Sqrt(0.5f));
         }
-
-        Debug.Log(result+", " + result.magnitude);
 
         result *= velocity;
 
