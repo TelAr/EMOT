@@ -30,7 +30,7 @@ public class SeparateGrenade : PatternDefault
     {
 
         base.Run();
-        caster.GetComponent<EnemyDefault>().statement = "SmokeShell";
+        caster.GetComponent<EnemyDefault>().statement = "SeparateGrenade";
     }
 
     // Start is called before the first frame update

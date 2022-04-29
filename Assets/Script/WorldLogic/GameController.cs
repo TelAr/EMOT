@@ -48,7 +48,7 @@ public class GameController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 0)
+            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 2)
             {
                 enemy.GetComponent<EnemyDefault>().PatternList[2].Is_Enabled ^= true;
             }
@@ -56,9 +56,39 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
 
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 1)
+            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 3)
             {
                 enemy.GetComponent<EnemyDefault>().PatternList[3].Is_Enabled ^= true;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 4)
+            {
+                enemy.GetComponent<EnemyDefault>().PatternList[4].Is_Enabled ^= true;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+
+            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 5)
+            {
+                enemy.GetComponent<EnemyDefault>().PatternList[5].Is_Enabled ^= true;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 6)
+            {
+                enemy.GetComponent<EnemyDefault>().PatternList[6].Is_Enabled ^= true;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+
+            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 7)
+            {
+                enemy.GetComponent<EnemyDefault>().PatternList[7].Is_Enabled ^= true;
             }
         }
         text = "";

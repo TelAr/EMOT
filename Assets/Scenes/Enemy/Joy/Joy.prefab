@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5769750162642155811}
   - component: {fileID: 8921862621721333441}
   - component: {fileID: -6763720083449920616}
+  - component: {fileID: 3696767264274883472}
   - component: {fileID: 7006779008719737904}
   - component: {fileID: -1658839632300799109}
   m_Layer: 7
@@ -197,6 +198,33 @@ MonoBehaviour:
   PreDelay: 2
   ThrowPower: 15
   GrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
+--- !u!114 &3696767264274883472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da5a74944a6beee49b5f3fe90ab40b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 12
+  stack: 2
+  max_distance: 10
+  min_distance: 2
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
+  BulletSpeed: 15
+  BulletHeight: 10
+  FloatingTime: 1
+  TargetingTime: 0.5
+  RandomPositionRange: 2
+  RandomDelayRange: 0.5
+  BulletCount: 5
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0
