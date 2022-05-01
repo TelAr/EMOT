@@ -19,6 +19,7 @@ public abstract class PatternDefault : MonoBehaviour
     }
 
 
+
     virtual public void Stop() {
 
         is_run = false;

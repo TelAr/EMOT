@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8921862621721333441}
   - component: {fileID: -6763720083449920616}
   - component: {fileID: 3696767264274883472}
+  - component: {fileID: 2188110120337716798}
   - component: {fileID: 7006779008719737904}
   - component: {fileID: -1658839632300799109}
   m_Layer: 7
@@ -225,6 +226,28 @@ MonoBehaviour:
   RandomPositionRange: 2
   RandomDelayRange: 0.5
   BulletCount: 5
+--- !u!114 &2188110120337716798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c94e45e664dfa35499b60e8f807c6af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  stack: 1
+  max_distance: 8
+  min_distance: 0
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  JumpCount: 3
+  JumpDelay: 0.5
+  JumpSpeed: 15
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -6,17 +6,19 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
+    
     public GameObject Player_prefabs;
     public List<GameObject> Enemy;
     public TextMeshProUGUI textMeshProUGUI;
     private string text;
+    static public int Level;
     static private GameObject player;
     static private GameObject enemy;
     static public float GRAVITY = -20;
     // Start is called before the first frame update
     void Awake()
     {
-        
+        Level = 0;
         player = Instantiate(Player_prefabs);
         enemy = Instantiate(Enemy[0]);
     }
@@ -91,11 +93,25 @@ public class GameController : MonoBehaviour
                 enemy.GetComponent<EnemyDefault>().PatternList[7].Is_Enabled ^= true;
             }
         }
+        if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
+
+            Level++;
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadMinus)) {
+
+            if (Level > 0) { 
+            
+                Level--;
+            }
+        }
+
+        //디버깅용 텍스트
         text = "";
         foreach (EnemyDefault.PatternController pc in enemy.GetComponent<EnemyDefault>().PatternList) {
 
             text += pc.GetPatternName() + ":" + (pc.Is_Enabled ? "O" : "X")+"\n";
         }
+        text += "Level: " + Level;
         textMeshProUGUI.text = text;
 
 
