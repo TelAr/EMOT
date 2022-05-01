@@ -159,9 +159,10 @@ MonoBehaviour:
   is_run: 0
   BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
   BulletSpeed: 5
-  BulletSpeedPerLevel: 0
-  JumpHeight: 5
-  ShootDelay: 0
+  BulletSpeedPerLevel: 0.5
+  JumpHeight: 10
+  ShootDelay: 1
+  ShootDelayPerLevel: -0.05
 --- !u!114 &8921862621721333441
 MonoBehaviour:
   m_ObjectHideFlags: 0

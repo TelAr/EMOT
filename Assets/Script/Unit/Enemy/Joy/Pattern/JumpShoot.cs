@@ -23,7 +23,7 @@ public class JumpShoot : PatternDefault
     {
         BulletSpeed = 5;
         BulletSpeedPerLevel = 0.5f;
-        JumpHeight = 5;
+        JumpHeight = 10;
         ShootDelay = 0.6f;
         ShootDelayPerLevel = -0.05f;
     }

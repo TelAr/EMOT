@@ -69,7 +69,7 @@ public class JumpRush : PatternDefault
                 }
                 else {
 
-                    rb.velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position, JumpSpeed+JumpSpeedPerLevel*GameController.Level, GameController.GRAVITY);
+                    rb.velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position-gameObject.transform.position, JumpSpeed+JumpSpeedPerLevel*GameController.Level, GameController.GRAVITY);
                     jumpcounter--;
                     jumpReady = false;
                 }
