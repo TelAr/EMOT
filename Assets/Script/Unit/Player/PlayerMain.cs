@@ -31,6 +31,15 @@ public class PlayerMain : UnitDefault
     public bool is_jump;
 
 
+    public override void Reset()
+    {
+        base.Reset();
+        health = 1;
+        Speed = 5;
+        JumpPower = 8;
+        Life = 3;
+    }
+
     public void LifeSettingStart(int life) {
 
         Start();
@@ -215,10 +224,11 @@ public class PlayerMain : UnitDefault
             }
         }
 
-        if (gameObject.transform.position.y < -100f) {
+        if (is_fall) {
 
             //추락판정
             LifeSettingStart(Life - 1);
+            is_fall = false;
         }
 
     }

@@ -105,6 +105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc57bc2bbc328224a9e25d1357cfac60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinX: -40
+  MinY: -40
+  MaxX: 40
+  MaxY: 40
+  DefaultPos: {x: 0, y: 0, z: 0}
   statement: 
   pattern_running: 0
   global_delay: 0

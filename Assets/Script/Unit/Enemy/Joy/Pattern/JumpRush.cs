@@ -12,13 +12,13 @@ public class JumpRush : PatternDefault
     private bool jumpReady;
     private float timer;
     private int jumpcounter;
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D rb;
     public override void Setting()
     {
         jumpcounter = JumpCount;
         jumpReady = true;
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();
-        rigidbody.velocity = Vector3.zero;
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        rb.velocity = Vector3.zero;
     }
 
     public void Reset()
@@ -35,14 +35,14 @@ public class JumpRush : PatternDefault
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody=gameObject.GetComponent<Rigidbody2D>();
+        rb=gameObject.GetComponent<Rigidbody2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         jumpReady = true;
         timer = 0;
-        rigidbody.velocity = Vector3.zero;
+        rb.velocity = Vector3.zero;
         if (jumpcounter <= 0) { 
         
             Stop();
@@ -54,7 +54,7 @@ public class JumpRush : PatternDefault
     {
         if (is_run) {
 
-            rigidbody.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);
+            rb.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);
 
             if (jumpReady && jumpcounter > 0) {
 
@@ -65,7 +65,7 @@ public class JumpRush : PatternDefault
                 }
                 else {
 
-                    rigidbody.velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position, JumpSpeed, GameController.GRAVITY);
+                    rb.velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position, JumpSpeed, GameController.GRAVITY);
                     jumpcounter--;
                     jumpReady = false;
                 }

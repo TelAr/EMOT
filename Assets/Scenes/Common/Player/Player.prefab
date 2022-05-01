@@ -147,11 +147,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b262177ee639e884db39794a2337f3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinX: -40
+  MinY: -40
+  MaxX: 40
+  MaxY: 40
+  DefaultPos: {x: 0, y: 0, z: 0}
   health: 1
   Speed: 5
   JumpPower: 8
   Life: 3
-  offset_position: {x: 0, y: 0}
+  offset_position: {x: 0, y: 0, z: 0}
   is_jump: 0
 --- !u!114 &-7389247827842631633
 MonoBehaviour:

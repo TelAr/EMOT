@@ -8,6 +8,7 @@ public class EnemyDefault : UnitDefault
     public string statement;
     public bool pattern_running;
     public float global_delay;
+
     //패턴 관리용 개체
     public class PatternController { 
     
@@ -93,8 +94,10 @@ public class EnemyDefault : UnitDefault
     //패턴 보관용 컨테이너
     public List<PatternController> PatternList;
 
-    public virtual void Update() {
+    public virtual new void Update()
+    {
 
+        base.Update();
         if (!pattern_running) {
             global_delay -= Time.deltaTime;
         }
@@ -115,6 +118,7 @@ public class EnemyDefault : UnitDefault
         }
         statement = "normal";
         global_delay = 0;
+        gameObject.transform.position = DefaultPos;
     }
 
     public override void Start()

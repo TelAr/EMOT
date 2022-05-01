@@ -8,6 +8,12 @@ public class Joy : EnemyDefault
     const int MAX_HEALTH = 5;
 
     private Rigidbody2D rb2d;
+
+    public override void Reset()
+    {
+        base.Reset();
+    }
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -27,6 +33,12 @@ public class Joy : EnemyDefault
         foreach (PatternController patternController in PatternList) {
 
             patternController.Tick();
+        }
+        if (is_fall) { 
+        
+        //특수 패턴
+        
+            is_fall = false;
         }
     }
 
