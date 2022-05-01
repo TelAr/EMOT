@@ -11,13 +11,15 @@ public class TargettingShoot : PatternDefault
     public float RandomPositionRange;
     public float RandomDelayRange;
     public int BulletCount;
+    public int BulletCountPerLevel_numerator;
+    public int BulletCountPerLevel_denominator;
 
 
     private class BulletController {
 
         public float timer;
         public float startTime;
-        public int level;
+        public int Phase;
 
         public GameObject bullet;
         public Vector3 floatingPos, startPos;
@@ -30,7 +32,7 @@ public class TargettingShoot : PatternDefault
             bullet = Bullet;
             timer = 0;
             running = false;
-            level = 0;
+            Phase = 0;
         }
         public void Reset(float StartTime) {
 
@@ -39,8 +41,9 @@ public class TargettingShoot : PatternDefault
             bullet.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
             running = false;
             bullet.SetActive(false);
-            level = 0;
-        }
+            Phase = 0;
+            
+    }
         public void SetActive(bool Active) {
 
             active = Active;
@@ -52,7 +55,7 @@ public class TargettingShoot : PatternDefault
         public void Tick()
         {
             timer += Time.fixedDeltaTime;
-            if (level != 0 && !bullet.activeSelf)
+            if (Phase != 0 && !bullet.activeSelf)
             {
 
                 SetActive(false);
@@ -60,7 +63,7 @@ public class TargettingShoot : PatternDefault
         }
         public void setLevel(int Level) { 
         
-            level = Level;
+            Phase = Level;
             
         }
     }
@@ -76,6 +79,8 @@ public class TargettingShoot : PatternDefault
         RandomDelayRange = 1;
         FloatingTime = 1f;
         TargetingTime = 0.5f;
+        BulletCountPerLevel_numerator = 1;
+        BulletCountPerLevel_denominator = 2;
     }
 
     public override void Setting()
@@ -86,7 +91,7 @@ public class TargettingShoot : PatternDefault
 
     public override void Run() {
         Setting();
-        for (int n = 0; n < BulletCount; n++)
+        for (int n = 0; n < BulletCount + (BulletCountPerLevel_numerator * GameController.Level / BulletCountPerLevel_denominator); n++)
         {
 
             bool Is_Awake = false;
@@ -132,7 +137,7 @@ public class TargettingShoot : PatternDefault
 
                 if (b.timer > b.startTime) {
 
-                    if (b.level == 0) {
+                    if (b.Phase == 0) {
 
                         b.bullet.SetActive(true);
                         b.bullet.transform.position = b.startPos = transform.position + offset;
@@ -147,7 +152,7 @@ public class TargettingShoot : PatternDefault
 
                     if (b.timer > b.startTime + FloatingTime + TargetingTime) {
 
-                        if (b.level == 1) {
+                        if (b.Phase == 1) {
 
                             b.bullet.GetComponent<Rigidbody2D>().velocity = 
                                 (GameController.GetPlayer().transform.position - b.floatingPos).normalized * BulletSpeed;

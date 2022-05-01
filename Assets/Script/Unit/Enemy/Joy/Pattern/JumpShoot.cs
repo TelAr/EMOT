@@ -5,12 +5,15 @@ using UnityEngine;
 public class JumpShoot : PatternDefault
 {
     public GameObject BulletModel;
-    public float Bullet_speed, Jump_height;
+    public float BulletSpeed;
+    public float BulletSpeedPerLevel;
+    public float JumpHeight;
+    public float ShootDelay;
+    public float ShootDelayPerLevel;
     private List<GameObject> BulletList;
     private float timer, shoot_timer;
     private GameObject player;
     private const float JUMP_DELAY = 2f;
-    private const float SHOOT_DELAY = 0.6f;
     private const float SHOOT_DISTANCE = 15; 
     private int shoot_count;
     private const int SHOOT_MAX = 3;
@@ -18,8 +21,11 @@ public class JumpShoot : PatternDefault
 
     private void Reset()
     {
-        Bullet_speed = 5;
-        Jump_height = 5;
+        BulletSpeed = 5;
+        BulletSpeedPerLevel = 0.5f;
+        JumpHeight = 5;
+        ShootDelay = 0.6f;
+        ShootDelayPerLevel = -0.05f;
     }
 
     public override void Setting()
@@ -54,14 +60,14 @@ public class JumpShoot : PatternDefault
         if (is_run) {
             if (timer < JUMP_DELAY) {
                 timer += Time.deltaTime;
-                gameObject.transform.position = begin_pos + new Vector2(0, Jump_height - Mathf.Pow((timer - JUMP_DELAY) / JUMP_DELAY, 2) * Jump_height);
+                gameObject.transform.position = begin_pos + new Vector2(0, JumpHeight - Mathf.Pow((timer - JUMP_DELAY) / JUMP_DELAY, 2) * JumpHeight);
             }
             else {
 
                 if (shoot_count < SHOOT_MAX) {
 
                     shoot_timer += Time.deltaTime;
-                    if (shoot_timer > SHOOT_DELAY)
+                    if (shoot_timer > (ShootDelay + ShootDelayPerLevel*GameController.Level)) 
                     {
 
                         shoot_count++;
@@ -113,7 +119,7 @@ public class JumpShoot : PatternDefault
         bullet.SetActive(true);
         bullet.transform.position = transform.position + (Vector3)offset;
         direction = new Vector3(Mathf.Cos(Mathf.Deg2Rad * targetting), Mathf.Sin(Mathf.Deg2Rad * targetting), 0);
-        bullet.GetComponent<Rigidbody2D>().velocity = (Vector2)direction * Bullet_speed;
+        bullet.GetComponent<Rigidbody2D>().velocity = (Vector2)direction * (BulletSpeed + BulletSpeedPerLevel * GameController.Level);
     }
 
     private void shoot(Vector2 targetting) {
@@ -136,6 +142,6 @@ public class JumpShoot : PatternDefault
         bullet.SetActive(true);
         bullet.transform.position = transform.position+(Vector3)offset;
         direction = ((Vector3)targetting - (transform.position + (Vector3)offset)).normalized;
-        bullet.GetComponent<Rigidbody2D>().velocity = direction*Bullet_speed;
+        bullet.GetComponent<Rigidbody2D>().velocity = direction * (BulletSpeed + BulletSpeedPerLevel * GameController.Level);
     }
 }

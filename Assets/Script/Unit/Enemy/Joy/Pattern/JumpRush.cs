@@ -8,6 +8,7 @@ public class JumpRush : PatternDefault
     public int JumpCount;
     public float JumpDelay;
     public float JumpSpeed;
+    public float JumpSpeedPerLevel;
 
     private bool jumpReady;
     private float timer;
@@ -24,6 +25,9 @@ public class JumpRush : PatternDefault
     public void Reset()
     {
         JumpCount = 3;
+        JumpDelay = 0.5f;
+        JumpSpeed = 15;
+        JumpSpeedPerLevel = 1.25f;
     }
 
     public override void Run() { 
@@ -65,7 +69,7 @@ public class JumpRush : PatternDefault
                 }
                 else {
 
-                    rb.velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position, JumpSpeed, GameController.GRAVITY);
+                    rb.velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position, JumpSpeed+JumpSpeedPerLevel*GameController.Level, GameController.GRAVITY);
                     jumpcounter--;
                     jumpReady = false;
                 }

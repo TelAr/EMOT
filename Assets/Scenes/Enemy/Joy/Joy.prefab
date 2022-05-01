@@ -158,8 +158,10 @@ MonoBehaviour:
   caster: {fileID: 0}
   is_run: 0
   BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
-  Bullet_speed: 7
-  Jump_height: 8
+  BulletSpeed: 5
+  BulletSpeedPerLevel: 0
+  JumpHeight: 5
+  ShootDelay: 0
 --- !u!114 &8921862621721333441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +233,8 @@ MonoBehaviour:
   RandomPositionRange: 2
   RandomDelayRange: 0.5
   BulletCount: 5
+  BulletCountPerLevel_numerator: 1
+  BulletCountPerLevel_denominator: 2
 --- !u!114 &2188110120337716798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,6 +257,7 @@ MonoBehaviour:
   JumpCount: 3
   JumpDelay: 0.5
   JumpSpeed: 15
+  JumpSpeedPerLevel: 1.25
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0
