@@ -9,7 +9,6 @@ public class Boomerang : PatternDefault
     public bool IsFixedDistance, IsFixedAVGVelocity;
     public float FixedDistance, FixedAVGVelocity;
     private GameObject boomerang_object;
-    private GameObject player;
     private float timer;
     private float targetting_time = 1f;
     private float flight_one_way_time = 2f;
@@ -47,7 +46,6 @@ public class Boomerang : PatternDefault
     public override void Run()
     {
         base.Run();
-        player = GameController.GetPlayer();
         caster.GetComponent<EnemyDefault>().statement = "Boomerang";
     }
 
@@ -67,7 +65,7 @@ public class Boomerang : PatternDefault
             if (timer < targetting_time)
             {
 
-                target_pos = player.transform.position;
+                target_pos = GameController.GetPlayer().transform.position;
                 boomerang_object.transform.position = offset_pos = gameObject.transform.position;
                 if (IsFixedDistance)
                 {

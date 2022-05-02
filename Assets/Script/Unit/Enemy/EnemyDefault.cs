@@ -67,7 +67,7 @@ public class EnemyDefault : UnitDefault
                 && !enemy.pattern_running
                 && distance >= min_distance && distance <= max_distance
                 && enemy.global_delay<=0) {
-
+                pattern.is_main = true;
                 pattern.Run();
                 enemy.global_delay = post_delay;
                 stackCounter--;
@@ -124,7 +124,7 @@ public class EnemyDefault : UnitDefault
     public override void Start()
     {
         foreach (PatternController pattern in PatternList) {
-
+            
             pattern.PatternReset();
         }
         pattern_running = false;

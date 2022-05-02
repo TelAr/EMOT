@@ -165,11 +165,6 @@ public class TargettingShoot : PatternDefault
 
             }
         }
-        if (counter!= 0)
-        {
-
-            Debug.Log(counter);
-        }
         
     }
 }
