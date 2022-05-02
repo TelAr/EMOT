@@ -22,9 +22,14 @@ public class Smoke : MonoBehaviour
 
             gameObject.GetComponent<SpriteRenderer>().color = color;
         }
-        else if (timer <= DefaultTime + FadeOutTime) {
+        else if (timer <= DefaultTime + FadeOutTime)
+        {
 
             gameObject.GetComponent<SpriteRenderer>().color = new Color(color.r, color.g, color.b, color.a * (DefaultTime + FadeOutTime - timer) / FadeOutTime);
+        }
+        else {
+
+            gameObject.SetActive(false);
         }
     }
 

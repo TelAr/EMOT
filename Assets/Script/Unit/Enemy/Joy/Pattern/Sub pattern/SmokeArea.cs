@@ -28,6 +28,7 @@ public class SmokeArea : MonoBehaviour
 
                 Smoke = Instantiate(SmokeModel, collision.gameObject.transform);
             }
+            Smoke.SetActive(true);
             Smoke.GetComponent<SpriteRenderer>().color = Color.white;
             Smoke.GetComponent<Smoke>().ResetTimer();
         }
