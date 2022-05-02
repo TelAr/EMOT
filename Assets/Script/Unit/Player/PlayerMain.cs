@@ -142,6 +142,8 @@ public class PlayerMain : UnitDefault
             }
             else //수직 충돌
             {
+                jumpCounter = JUMPMAX;
+                jump_timer = 0;
                 is_side_collision = false;
             }
         }

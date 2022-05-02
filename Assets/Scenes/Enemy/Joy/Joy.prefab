@@ -136,9 +136,9 @@ MonoBehaviour:
   is_run: 0
   is_main: 1
   Boomerang_model: {fileID: 6392292533408563140, guid: 9e30a6da16db76142bad0b40657a254c, type: 3}
-  IsFixedDistance: 0
+  IsFixedDistance: 1
   IsFixedAVGVelocity: 1
-  FixedDistance: 10
+  FixedDistance: 15
   FixedAVGVelocity: 5
 --- !u!114 &5769750162642155811
 MonoBehaviour:
@@ -265,7 +265,7 @@ MonoBehaviour:
   JumpCount: 3
   JumpDelay: 0.5
   JumpSpeed: 15
-  JumpSpeedPerLevel: 1.25
+  JumpSpeedPerLevel: 0.25
 --- !u!114 &643946672286765056
 MonoBehaviour:
   m_ObjectHideFlags: 0
