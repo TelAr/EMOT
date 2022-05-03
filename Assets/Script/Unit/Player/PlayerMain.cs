@@ -19,6 +19,7 @@ public class PlayerMain : UnitDefault
 
     //statement OR effected
     private bool is_side_collision;
+    private bool jumping;
     private Vector2 accel, m_Move;
     private Vector2 collision_point_avg;
     private Vector2 collision_point_variance;
@@ -26,6 +27,7 @@ public class PlayerMain : UnitDefault
     private int jumpCounter;
     private Rigidbody2D rb2;
     private GameController gc;
+    private PlayerAudio playerAudio;
 
     //action
     public bool is_jump;
@@ -57,11 +59,13 @@ public class PlayerMain : UnitDefault
         rb2.velocity = Vector2.zero;
         transform.position = offset_position;
         Life = 3;
+        jumping = false;
     }
 
     public void Awake()
     {
         rb2 = gameObject.GetComponent<Rigidbody2D>();
+        playerAudio = gameObject.GetComponent<PlayerAudio>();
 
     }
 
@@ -199,31 +203,44 @@ public class PlayerMain : UnitDefault
         }
 
         //jump
-        if (is_jump) {
+        if (is_jump)
+        {
 
             if (jumpCounter == JUMPMAX)
             {
 
                 if (jump_timer < JUMP_TIME)
                 {
+                    if (!jumping) {
+
+                        playerAudio.JumpPlay();
+                    }
+                    jumping = true;
                     jump_timer += Time.fixedDeltaTime;
                     rb2.velocity = new Vector2(rb2.velocity.x, JumpPower * jump_timer / (JUMP_TIME));
                 }
                 else
                 {
+                    jumping = false;
                     is_jump = false;
                     jumpCounter--;
                 }
             }
-            else {
-
+            else
+            {
                 if (jumpCounter > 0)
                 {
+                    playerAudio.JumpPlay();
                     rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
                     jumpCounter--;
                     is_jump = false;
                 }
             }
+        }
+        else if (jumping) {
+            jumping = false;
+            is_jump = false;
+            jumpCounter--;
         }
 
         if (is_fall) {
