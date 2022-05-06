@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 857503854182036495}
   - component: {fileID: 2581700280464098762}
   - component: {fileID: 3138551798271887089}
-  - component: {fileID: 2358527341288638727}
+  - component: {fileID: 2015292569091779818}
+  - component: {fileID: 2188110120337716798}
   - component: {fileID: 5769750162642155811}
   - component: {fileID: 8921862621721333441}
   - component: {fileID: -6763720083449920616}
-  - component: {fileID: 3696767264274883472}
-  - component: {fileID: 2188110120337716798}
+  - component: {fileID: 2358527341288638727}
   - component: {fileID: 643946672286765056}
+  - component: {fileID: 3696767264274883472}
   - component: {fileID: 7006779008719737904}
   - component: {fileID: -1658839632300799109}
   m_Layer: 7
@@ -115,7 +116,7 @@ MonoBehaviour:
   pattern_running: 0
   global_delay: 0
   health: 0
---- !u!114 &2358527341288638727
+--- !u!114 &2015292569091779818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,22 +125,48 @@ MonoBehaviour:
   m_GameObject: {fileID: 5378690169977018165}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20f82463de2a6674bb8d4cd05435e0ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 13b4ab7cab7786d4dab4375cb5aebf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 7
+  cooldown: 60
   stack: 1
-  max_distance: 10
+  max_distance: 200000
   min_distance: 0
-  post_delay: 1
+  post_delay: 2
   caster: {fileID: 0}
   is_run: 0
   is_main: 1
-  Boomerang_model: {fileID: 6392292533408563140, guid: 9e30a6da16db76142bad0b40657a254c, type: 3}
-  IsFixedDistance: 1
-  IsFixedAVGVelocity: 1
-  FixedDistance: 15
-  FixedAVGVelocity: 5
+  SmokeShellModel: {fileID: 3784087293714087402, guid: 9fbf1ea26c11c4346a0bdf210ce2a6ae, type: 3}
+  SeparateGrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
+  SmokeCounter: 4
+  minX: -13
+  maxX: 13
+  YField: -4.5
+  spellPos: {x: 0, y: 3, z: 0}
+--- !u!114 &2188110120337716798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c94e45e664dfa35499b60e8f807c6af5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  stack: 1
+  max_distance: 8
+  min_distance: 0
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  JumpCount: 3
+  JumpDelay: 0.5
+  JumpSpeed: 15
+  JumpSpeedPerLevel: 0.25
 --- !u!114 &5769750162642155811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd21c374e8add954fb941c0ef5d20d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
+  cooldown: 15
   stack: 2
   max_distance: 10
   min_distance: 4
@@ -212,6 +239,56 @@ MonoBehaviour:
   PreDelay: 2
   ThrowPower: 15
   GrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
+--- !u!114 &2358527341288638727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f82463de2a6674bb8d4cd05435e0ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 7
+  stack: 1
+  max_distance: 10
+  min_distance: 0
+  post_delay: 1
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  Boomerang_model: {fileID: 6392292533408563140, guid: 9e30a6da16db76142bad0b40657a254c, type: 3}
+  IsFixedDistance: 1
+  IsFixedAVGVelocity: 1
+  FixedDistance: 15
+  FixedAVGVelocity: 5
+--- !u!114 &643946672286765056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e0ca3b474132114281ecfd7d738531e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 20
+  stack: 1
+  max_distance: 20
+  min_distance: 0
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  PatternList:
+  - {fileID: 3696767264274883472}
+  - {fileID: 2358527341288638727}
+  PreDelay: []
+  DefaultDelay: 0
 --- !u!114 &3696767264274883472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,55 +319,6 @@ MonoBehaviour:
   BulletCount: 5
   BulletCountPerLevel_numerator: 1
   BulletCountPerLevel_denominator: 2
---- !u!114 &2188110120337716798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5378690169977018165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c94e45e664dfa35499b60e8f807c6af5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 10
-  stack: 1
-  max_distance: 8
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
-  JumpCount: 3
-  JumpDelay: 0.5
-  JumpSpeed: 15
-  JumpSpeedPerLevel: 0.25
---- !u!114 &643946672286765056
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5378690169977018165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e0ca3b474132114281ecfd7d738531e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 20
-  stack: 1
-  max_distance: 20
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
-  PatternList:
-  - {fileID: 3696767264274883472}
-  - {fileID: 2358527341288638727}
-  PreDelay: []
-  DefaultDelay: 0
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0

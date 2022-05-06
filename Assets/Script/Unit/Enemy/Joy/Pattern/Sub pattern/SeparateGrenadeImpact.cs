@@ -17,6 +17,7 @@ public class SeparateGrenadeImpact : ImpactDefault
                 //childGrenade.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
                 childGrenade.transform.position = transform.position;
                 childGrenade.transform.localScale = transform.localScale * 0.5f;
+                childGrenade.GetComponent<GrenadeDefault>().IsDestroy = true;
                 childGrenade.GetComponent<SeparateGrenadeImpact>().SeparateCount = SeparateCount - 1;
                 childGrenade.GetComponent<Rigidbody2D>().velocity = 
                     Ballistics.Ballistic(new Vector2(10*gameObject.transform.localScale.x*(t*2-1),0),20 * gameObject.transform.localScale.x, GameController.GRAVITY);
@@ -26,7 +27,6 @@ public class SeparateGrenadeImpact : ImpactDefault
         GameObject ExplosioInstance = Instantiate(ExplosionModel);
         ExplosioInstance.transform.position = transform.position-new Vector3(0,0,1);
         ExplosioInstance.transform.localScale = transform.localScale * ExplosionSize;
-        Destroy(gameObject);
     }
 
 
