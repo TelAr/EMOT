@@ -12,6 +12,7 @@ public class ResolutionFixed : MonoBehaviour
         setWidth = 1920;
         setHeight = 1080;
         FixedGameResolution();
+        is_fullScreen = true;
     }
 
     static public void FixedGameResolution()
