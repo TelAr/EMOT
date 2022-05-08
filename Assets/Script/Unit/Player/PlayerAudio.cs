@@ -2,18 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAudio : MonoBehaviour
+public class PlayerAudio : AudioDefault
 {
     public AudioClip JumpAudio;
-    public enum State { 
-    Jump, Null
-    };
-    public State AudioState;
-
-    private AudioSource mAudioSource;
-    private float playTime;
-
-    private float timer;
 
     public void JumpPlay() {
 
@@ -26,27 +17,12 @@ public class PlayerAudio : MonoBehaviour
         AudioState=State.Jump;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        mAudioSource=gameObject.GetComponent<AudioSource>();
-    }
+
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        if (timer < playTime)
-        {
-            timer+=Time.deltaTime;
-            if (!mAudioSource.isPlaying) {
+        base.Update();
 
-                mAudioSource.Play();
-            }
-        }
-        else {
-
-            mAudioSource.Stop();
-            AudioState = State.Null;
-        }
     }
 }

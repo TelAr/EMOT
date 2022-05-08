@@ -10,15 +10,18 @@ public class GameController : MonoBehaviour
     public GameObject Player_prefabs;
     public List<GameObject> Enemy;
     public TextMeshProUGUI textMeshProUGUI;
+
     private string text;
     static public int Level;
     static private GameObject player;
     static private GameObject enemy;
     static public float GRAVITY = -20;
+    static public bool is_stop;
     // Start is called before the first frame update
     void Awake()
     {
         Level = 0;
+        is_stop = false;
         player = Instantiate(Player_prefabs);
         enemy = Instantiate(Enemy[0]);
     }
@@ -104,6 +107,10 @@ public class GameController : MonoBehaviour
                 Level--;
             }
         }
+        if (Input.GetKeyDown(KeyCode.P)) {
+
+            is_stop ^= true;
+        }
 
         //디버깅용 텍스트
         text = "";
@@ -114,12 +121,19 @@ public class GameController : MonoBehaviour
         text += "Level: " + Level;
         textMeshProUGUI.text = text;
 
-
-
-
         if (Input.GetKeyDown(KeyCode.Escape)) {
 
             ExitGame();
+        }
+
+        if (is_stop)
+        {
+
+            Time.timeScale = 0;
+        }
+        else { 
+        
+            Time.timeScale = 1;
         }
 
     }

@@ -49,7 +49,6 @@ public class UltimateBomb : PatternDefault
 
         base.Run();
         caster.GetComponent<EnemyDefault>().statement = "UltimateBomb";
-        Debug.Log("UltimateBomb");
     }
 
     // Update is called once per frame
