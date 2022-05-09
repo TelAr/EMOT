@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public GameObject Player_prefabs;
     public List<GameObject> Enemy;
     public TextMeshProUGUI textMeshProUGUI;
+    public Canvas OptionWindow;
 
     private string text;
     static public int Level;
@@ -126,6 +127,8 @@ public class GameController : MonoBehaviour
             ExitGame();
         }
 
+
+        OptionWindow.enabled = is_stop;
         if (is_stop)
         {
 
@@ -138,6 +141,10 @@ public class GameController : MonoBehaviour
 
     }
 
+    public void Again() {
+
+        is_stop = false;
+    }
 
     public void ExitGame()
     {

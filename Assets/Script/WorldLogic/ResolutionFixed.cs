@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class ResolutionFixed : MonoBehaviour
 {
-    static public int setWidth, setHeight;
-    static public bool is_fullScreen;
+    static public int SetWidth, SetHeight;
+    static public bool IsFullScreen;
+    static public int SetGraphicLevel;
     // Start is called before the first frame update
     void Start()
     {
-        setWidth = 1920;
-        setHeight = 1080;
+        SetWidth = 1920;
+        SetHeight = 1080;
+        IsFullScreen = true;
         FixedGameResolution();
-        is_fullScreen = true;
     }
 
     static public void FixedGameResolution()
@@ -22,21 +23,23 @@ public class ResolutionFixed : MonoBehaviour
         int deviceHeight = Screen.height; // 기기 높이 저장
 
 
-        Screen.SetResolution(setWidth, (int)(((float)deviceHeight / deviceWidth) * setWidth), is_fullScreen); // SetResolution 함수 제대로 사용하기
+        Screen.SetResolution(SetWidth, (int)(((float)deviceHeight / deviceWidth) * SetWidth), IsFullScreen);
+        Screen.fullScreen = IsFullScreen;
 
-        if ((float)setWidth / setHeight < (float)deviceWidth / deviceHeight) // 기기의 해상도 비가 더 큰 경우
+        if ((float)SetWidth / SetHeight < (float)deviceWidth / deviceHeight) // 기기의 해상도 비가 더 큰 경우
         {
-            float newWidth = ((float)setWidth / setHeight) / ((float)deviceWidth / deviceHeight); // 새로운 너비
+            float newWidth = ((float)SetWidth / SetHeight) / ((float)deviceWidth / deviceHeight); // 새로운 너비
             Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f); // 새로운 Rect 적용
         }
         else // 게임의 해상도 비가 더 큰 경우
         {
-            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)setWidth / setHeight); // 새로운 높이
+            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)SetWidth / SetHeight); // 새로운 높이
             Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); // 새로운 Rect 적용
         }
 
-        Debug.Log(setWidth + ":" + setHeight);
-        Debug.Log(Screen.width + ":" + Screen.height);
+        Debug.Log("Now Solution: "+SetWidth + ":" + SetHeight);
+        Debug.Log("System Solution: "+Screen.width + ":" + Screen.height);
+        Debug.Log("IsFullScreen:" + Screen.fullScreen);
     }
 
 

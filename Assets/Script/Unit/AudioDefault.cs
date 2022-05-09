@@ -6,6 +6,8 @@ public class AudioDefault : MonoBehaviour
 {
     public enum State { Jump, Null };
     public State AudioState;
+
+    public static float MasterVolume = 1, EffectVolume = 1, BGMVolue = 1;
     protected AudioSource mAudioSource;
     protected float playTime;
 

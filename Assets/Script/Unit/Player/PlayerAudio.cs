@@ -11,7 +11,7 @@ public class PlayerAudio : AudioDefault
         mAudioSource.Stop();
         mAudioSource.clip = JumpAudio;
         mAudioSource.time = 0.05f;
-        mAudioSource.volume = 0.5f;
+        mAudioSource.volume = 0.5f * MasterVolume * EffectVolume;
         playTime = 0.8f;
         timer = 0;
         AudioState=State.Jump;
