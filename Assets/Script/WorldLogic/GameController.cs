@@ -111,6 +111,11 @@ public class GameController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P)) {
 
             is_stop ^= true;
+            if (is_stop)
+            {
+
+                gameObject.GetComponent<OptionSetting>().IsOpen();
+            }
         }
 
         //디버깅용 텍스트

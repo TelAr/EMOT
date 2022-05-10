@@ -10,19 +10,47 @@ public class OptionSetting : MonoBehaviour
 
     public Toggle FullScreen;
     public TMP_Dropdown ResolutionDropDown;
+    private int savedGraphicNum;
+    private bool savedGraphicToggle;
+
+    public Slider Master, Effect, BGM;
+    public Toggle MasterMT, EffectMT, BGMMT;
+    private float savedMS, savedES, savedBS;
+    private bool savedMMT, savedEMT, savedBMT;
 
     private int Width, Height;
     private int GraphicLevel;
     private bool IsFullScreen;
-    private float MasterVolume, EffectVolume, BGMVolume;
 
     private void Start()
     {
-        Width = ResolutionFixed.SetWidth;
-        Height = ResolutionFixed.SetHeight;
-        IsFullScreen = ResolutionFixed.IsFullScreen;
+        SaveValue();
+    }
 
+    private void SaveValue() {
 
+        savedGraphicNum = ResolutionDropDown.value;
+        savedGraphicToggle = FullScreen.isOn;
+
+        Master.value = savedMS = AudioDefault.MasterVolume;
+        Effect.value = savedES = AudioDefault.EffectVolume;
+        BGM.value = savedBS = AudioDefault.BGMVolume;
+        savedMMT = MasterMT.isOn;
+        savedEMT = EffectMT.isOn;
+        savedBMT = BGMMT.isOn;
+    }
+
+    public void IsOpen() {
+
+        ResolutionDropDown.value = savedGraphicNum;
+        FullScreen.isOn = savedGraphicToggle;
+
+        Master.value = savedMS;
+        Effect.value = savedES;
+        BGM.value = savedBS;
+        MasterMT.isOn = savedMMT;
+        EffectMT.isOn = savedEMT;
+        BGMMT.isOn = savedBMT;
     }
 
     void Update()
@@ -47,6 +75,8 @@ public class OptionSetting : MonoBehaviour
             IsFullScreen = FullScreen.isOn;
         }
 
+
+
     }
 
 
@@ -58,5 +88,31 @@ public class OptionSetting : MonoBehaviour
         ResolutionFixed.SetHeight=Height;
         ResolutionFixed.IsFullScreen=IsFullScreen;
         ResolutionFixed.FixedGameResolution();
+
+        AudioDefault.MasterVolume = Master.value;
+        AudioDefault.EffectVolume = Effect.value;
+        AudioDefault.BGMVolume = BGM.value;
+
+
+        SaveValue();
+
+        //음소거 버튼은 ON일때가 정상 재생, off일때가 음소거
+        if (!MasterMT.isOn)
+        {
+
+            AudioDefault.MasterVolume = 0;
+        }
+        if (!EffectMT.isOn)
+        {
+
+            AudioDefault.EffectVolume = 0;
+        }
+        if (!BGMMT.isOn)
+        {
+
+            AudioDefault.BGMVolume = 0;
+        }
+
     }
+
 }
