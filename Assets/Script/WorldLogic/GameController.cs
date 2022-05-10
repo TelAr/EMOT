@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
         }
 
 
-        OptionWindow.enabled = is_stop;
+        OptionWindow.gameObject.SetActive(is_stop);
         if (is_stop)
         {
 
