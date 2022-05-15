@@ -35,9 +35,6 @@ public class Boomerang : PatternDefault
     // Start is called before the first frame update
     void Awake()
     {
-        cooldown = 7f;
-        stack = 1;
-        timer = 0;
         boomerang_object = Instantiate(Boomerang_model);
         boomerang_object.SetActive(false);
         

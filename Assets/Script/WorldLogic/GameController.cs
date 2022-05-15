@@ -8,12 +8,13 @@ public class GameController : MonoBehaviour
 {
     
     public GameObject Player_prefabs;
-    public List<GameObject> Enemy;
-    public TextMeshProUGUI textMeshProUGUI;
+    public List<GameObject> EnemyModel;
+    public TextMeshProUGUI SkillText, CharaText;
     public Canvas OptionWindow;
 
     private string text;
     static public int Level;
+    static public List<GameObject> EnemyList = new(); 
     static private GameObject player;
     static private GameObject enemy;
     static public float GRAVITY = -20;
@@ -23,8 +24,16 @@ public class GameController : MonoBehaviour
     {
         Level = 0;
         is_stop = false;
+        foreach (GameObject enemy in EnemyModel) { 
+        
+            GameObject input = Instantiate(enemy);
+            input.SetActive(false);
+            EnemyList.Add(input);
+        }
+
         player = Instantiate(Player_prefabs);
-        enemy = Instantiate(Enemy[0]);
+        enemy = EnemyList[0];
+        enemy.SetActive(true);
     }
 
     static public GameObject GetPlayer() {
@@ -39,6 +48,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //스킬 토글
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 0) {
@@ -97,6 +107,29 @@ public class GameController : MonoBehaviour
                 enemy.GetComponent<EnemyDefault>().PatternList[7].Is_Enabled ^= true;
             }
         }
+
+        //캐릭터 변경
+        if (Input.GetKeyDown(KeyCode.F1)) {
+
+            if (EnemyList.Count > 0&&enemy!=EnemyList[0]) {
+
+                enemy.SetActive(false);
+                enemy=EnemyList[0];
+                enemy.SetActive(true);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            if (EnemyList.Count > 1 && enemy != EnemyList[1])
+            {
+
+                enemy.SetActive(false);
+                enemy = EnemyList[1];
+                enemy.SetActive(true);
+            }
+        }
+
+
         if (Input.GetKeyDown(KeyCode.KeypadPlus)) {
 
             Level++;
@@ -120,12 +153,27 @@ public class GameController : MonoBehaviour
 
         //디버깅용 텍스트
         text = "";
-        foreach (EnemyDefault.PatternController pc in enemy.GetComponent<EnemyDefault>().PatternList) {
+        if (enemy.GetComponent<EnemyDefault>() != null)
+        {
+            foreach (EnemyDefault.PatternController pc in enemy.GetComponent<EnemyDefault>().PatternList)
+            {
 
-            text += pc.GetPatternName() + ":" + (pc.Is_Enabled ? "O" : "X")+"\n";
+                text += pc.GetPatternName() + ":" + (pc.Is_Enabled ? "O" : "X") + "\n";
+            }
         }
         text += "Level: " + Level;
-        textMeshProUGUI.text = text;
+        SkillText.text = text;
+
+        text = "";
+        foreach (GameObject chara in EnemyList) {
+
+            if (enemy.name == chara.name) {
+
+                text+="->";
+            }
+            text += chara.name + "\n";
+        }
+        CharaText.text = text;
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
 

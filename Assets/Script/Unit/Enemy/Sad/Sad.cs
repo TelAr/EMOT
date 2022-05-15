@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Joy : EnemyDefault
+public class Sad : EnemyDefault
 {
     public int health;
-    const int MAX_HEALTH = 100;
+    const int MAX_HEALTH = 200;
 
     private Rigidbody2D rb2d;
 
@@ -19,34 +19,38 @@ public class Joy : EnemyDefault
     {
         base.Start();
         health = MAX_HEALTH;
-        rb2d= gameObject.GetComponent<Rigidbody2D>();
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     public override void Update()
     {
         base.Update();
-        if (health <= 0) { 
-        
+        if (health <= 0)
+        {
+
             //보스 패턴 종료
         }
-        foreach (PatternController patternController in PatternList) {
+        foreach (PatternController patternController in PatternList)
+        {
 
             patternController.Tick();
         }
-        if (is_fall) { 
-        
-        //특수 패턴
-        
+        if (is_fall)
+        {
+
+            //특수 패턴
+
             is_fall = false;
         }
     }
 
     private void FixedUpdate()
     {
-        if (!pattern_running) {
+        if (!pattern_running)
+        {
 
-            rb2d.velocity += new Vector2(0, GameController.GRAVITY*Time.fixedDeltaTime);
+            rb2d.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);
         }
     }
 }
