@@ -28,6 +28,8 @@ public class PlayerMain : UnitDefault
     private Rigidbody2D rb2;
     private GameController gc;
     private PlayerAudio playerAudio;
+    private float immunTimer = 0;
+    private SpriteRenderer spriteRenderer;
 
     //action
     public bool is_jump;
@@ -66,7 +68,7 @@ public class PlayerMain : UnitDefault
     {
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         playerAudio = gameObject.GetComponent<PlayerAudio>();
-
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
 
@@ -169,7 +171,7 @@ public class PlayerMain : UnitDefault
     {
 
         Debug.Log(collision);
-        if (collision.gameObject.CompareTag("Enemy")) {
+        if (collision.gameObject.CompareTag("Enemy")&& immunTimer<=0) {
             hurt();
 
         }
@@ -183,14 +185,22 @@ public class PlayerMain : UnitDefault
         }
     }
 
-    private void hurt(float immuneTime=2f) { 
-    
+    private void hurt(float immuneTime=2f) {
+
+        immunTimer = immuneTime;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+        if (immunTimer > 0) {
+            immunTimer -= Time.fixedDeltaTime;
+            spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
+        }
+        else
+        {
+            spriteRenderer.color = Color.white;
+        }
         accel = new Vector2(0, GameController.GRAVITY);
         rb2.velocity = new Vector3(m_Move.x * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
         //벽 판정시

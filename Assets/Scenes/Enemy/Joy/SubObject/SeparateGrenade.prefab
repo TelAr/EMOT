@@ -158,5 +158,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeparateCount: 1
-  ExplosionSize: 4
+  ExplosionSize: -1
   ExplosionModel: {fileID: 4701358685397557323, guid: a0366bf0b9f297c4cbfeb62fb912beaa, type: 3}

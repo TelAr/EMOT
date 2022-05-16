@@ -5,8 +5,9 @@ using UnityEngine;
 public class SeparateGrenadeImpact : ImpactDefault
 {
     public int SeparateCount;
-    public int ExplosionSize;
+    public float ExplosionSize;
     public GameObject ExplosionModel;
+    private float explosionSizeOffset = 2;
     public override void Impact(GameObject target = null)
     {
         if (SeparateCount > 0) {
@@ -26,7 +27,15 @@ public class SeparateGrenadeImpact : ImpactDefault
         }
         GameObject ExplosioInstance = Instantiate(ExplosionModel);
         ExplosioInstance.transform.position = transform.position-new Vector3(0,0,1);
-        ExplosioInstance.transform.localScale = transform.localScale * ExplosionSize;
+        if (ExplosionSize < 0)
+        {
+
+            ExplosioInstance.transform.localScale *= transform.localScale.x * explosionSizeOffset;
+        }
+        else {
+
+            ExplosioInstance.transform.localScale *= ExplosionSize;
+        }
     }
 
 

@@ -7,17 +7,47 @@ public class Explosion : MonoBehaviour
     float timer=0;
     Color color;
     public float RemainTime;
-    public float FadeOutTime; 
+    public float FadeOutTime;
+    public bool test = false;
+    public float JudgeStartRadius, JudgeEndRadius;
+    public float Judgetime;
+    private Animator animator;
+    private CircleCollider2D circleCollider;
     // Start is called before the first frame update
     void Start()
     {
         gameObject.tag = "Enemy";
-        color=gameObject.GetComponent<SpriteRenderer>().color;
+        color = gameObject.GetComponent<SpriteRenderer>().color;
+        animator = gameObject.GetComponent<Animator>();
+        circleCollider = gameObject.GetComponent<CircleCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+       
+
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Explosion")) {
+
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < Judgetime)
+            {
+                circleCollider.radius = JudgeStartRadius * (Judgetime - animator.GetCurrentAnimatorStateInfo(0).normalizedTime) / Judgetime + 
+                    JudgeEndRadius * animator.GetCurrentAnimatorStateInfo(0).normalizedTime / Judgetime;
+
+            }
+            else if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            {
+                gameObject.tag = "Untagged";
+            }
+            else {
+
+                Destroy(gameObject);
+            }
+            
+        }
+
+        //LAGACY
+        /*
         timer+=Time.deltaTime;
         if (timer > RemainTime) {
 
@@ -28,5 +58,6 @@ public class Explosion : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        */
     }
 }

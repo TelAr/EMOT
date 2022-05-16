@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8434884685162669120}
   - component: {fileID: 5885470327658993042}
   - component: {fileID: 3816958907722485245}
+  - component: {fileID: -2675717400739025955}
   - component: {fileID: 578178396570474852}
   m_Layer: 8
   m_Name: Explosion
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4701358685397557323}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 2.9, y: 2.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,11 +76,11 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 799572558, guid: dd0359fbfecd9d9468c1280c75795af6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -102,6 +103,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!95 &-2675717400739025955
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4701358685397557323}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 840c8f174ecd5374183032a42f929114, type: 2}
+  m_CullingMode: 2
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &578178396570474852
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,3 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RemainTime: 1
   FadeOutTime: 0.5
+  test: 0
+  JudgeStartRadius: 0.13
+  JudgeEndRadius: 0.36
+  Judgetime: 0.75
