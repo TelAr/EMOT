@@ -51,6 +51,7 @@ public class SeparateGrenade : PatternDefault
             timer += Time.fixedDeltaTime;
             if (timer > PreDelay)
             {
+                Joy.joyAudio.SwingPlay();
                 GrenadeInstance.transform.position = (Vector3)offset + transform.position;
                 GrenadeInstance.SetActive(true);
                 GrenadeInstance.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position - ((Vector3)offset + transform.position), ThrowPower, GameController.GRAVITY);

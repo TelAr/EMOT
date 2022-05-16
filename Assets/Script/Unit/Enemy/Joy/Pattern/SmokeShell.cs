@@ -8,8 +8,6 @@ public class SmokeShell : PatternDefault
     public float ThrowPower;
     public GameObject SmokeshellModel;
 
-
-
     private GameObject smokeshellInstance = null;
     private Vector2 offset;
     private float timer;
@@ -21,7 +19,9 @@ public class SmokeShell : PatternDefault
             smokeshellInstance.SetActive(false);
         }
         smokeshellInstance.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+
         
+
         timer = 0;
     }
 
@@ -47,6 +47,7 @@ public class SmokeShell : PatternDefault
         if (is_run) {
             timer += Time.fixedDeltaTime;
             if (timer > PreDelay) {
+                Joy.joyAudio.SwingPlay();
                 smokeshellInstance.transform.position = (Vector3)offset+transform.position;
                 smokeshellInstance.SetActive(true);
                 smokeshellInstance.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position-((Vector3)offset+transform.position), ThrowPower, GameController.GRAVITY);

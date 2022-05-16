@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioDefault : MonoBehaviour
 {
-    public enum State { Jump, Null };
+    public enum State { Jump, Swing , Null };
     public State AudioState;
 
     public static float MasterVolume = 1, EffectVolume = 1, BGMVolume = 1;
