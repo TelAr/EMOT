@@ -109,6 +109,12 @@ public class PlayerMain : UnitDefault
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Enemy") && immunTimer <= 0)
+        {
+            hurt();
+        }
+
+
         if (collision.gameObject.CompareTag("Block"))
         {
             CollsionBlock(collision);
@@ -173,13 +179,11 @@ public class PlayerMain : UnitDefault
         Debug.Log(collision);
         if (collision.gameObject.CompareTag("Enemy")&& immunTimer<=0) {
             hurt();
-
         }
 
         if (collision.gameObject.GetComponent<MissileDefault>() != null) {
-
-            if (!collision.gameObject.GetComponent<MissileDefault>().IsPlayerPanetrate) { 
-            
+            if (!collision.gameObject.GetComponent<MissileDefault>().IsPlayerPanetrate) {
+                
                 collision.gameObject.SetActive(false);
             }
         }

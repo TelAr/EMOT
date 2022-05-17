@@ -138,7 +138,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsPlayerPanetrate: 0
   IsCollsionDisappear: 1
+  IsDestroy: 0
   MinX: -40
   MinY: -40
   MaxX: 40
   MaxY: 40
+  impact: {fileID: 0}

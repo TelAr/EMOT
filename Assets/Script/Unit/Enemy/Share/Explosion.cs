@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    float timer=0;
-    Color color;
+//    float timer=0;
+//    Color color;
+
+
     public float RemainTime;
     public float FadeOutTime;
     public bool test = false;
@@ -17,9 +19,10 @@ public class Explosion : MonoBehaviour
     void Start()
     {
         gameObject.tag = "Enemy";
-        color = gameObject.GetComponent<SpriteRenderer>().color;
+//        color = gameObject.GetComponent<SpriteRenderer>().color;
         animator = gameObject.GetComponent<Animator>();
         circleCollider = gameObject.GetComponent<CircleCollider2D>();
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
     }
 
     // Update is called once per frame

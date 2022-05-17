@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeparateGrenadeImpact : ImpactDefault
+public class SeparateGrenadeImpact : ExplosionImpactDefault
 {
     public int SeparateCount;
-    public float ExplosionSize;
-    public GameObject ExplosionModel;
-    private float explosionSizeOffset = 2;
     public override void Impact(GameObject target = null)
     {
         if (SeparateCount > 0) {
@@ -25,17 +22,7 @@ public class SeparateGrenadeImpact : ImpactDefault
             }
             
         }
-        GameObject ExplosioInstance = Instantiate(ExplosionModel);
-        ExplosioInstance.transform.position = transform.position-new Vector3(0,0,1);
-        if (ExplosionSize < 0)
-        {
-
-            ExplosioInstance.transform.localScale *= transform.localScale.x * explosionSizeOffset;
-        }
-        else {
-
-            ExplosioInstance.transform.localScale *= ExplosionSize;
-        }
+        base.Impact(target);
     }
 
 

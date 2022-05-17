@@ -124,6 +124,7 @@ public class LockOn : PatternDefault
                             targetting = Instantiate(SnipingModel);
                             snipingList.Add(targetting);
                         }
+                        targetting.transform.position = GameController.GetPlayer().transform.position;
                         targetting.SetActive(true);
                         targetting.GetComponent<SnipingTargetting>().Initiate(TargettingDelay, TargettingFixedDelay);
                         timer = 0;

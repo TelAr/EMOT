@@ -33,5 +33,7 @@ public abstract class PatternDefault : MonoBehaviour
         }
 
     }
+    //해당 함수는 패턴 호출 시 맨 처음에 패턴 클래스를 초기값으로 세팅해줌
     abstract public void Setting();
+    
 }

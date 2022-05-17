@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GrenadeDefault : MissileDefault
 {
-    private Rigidbody2D rb2D;
+    protected Rigidbody2D rb2D;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,7 +12,7 @@ public class GrenadeDefault : MissileDefault
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         rb2D.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);
     }
