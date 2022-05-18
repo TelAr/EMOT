@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6656898b92277446ab72fe0e9d60774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 30
+  cooldown: 35
   stack: 1
   max_distance: 10000
   min_distance: 0
