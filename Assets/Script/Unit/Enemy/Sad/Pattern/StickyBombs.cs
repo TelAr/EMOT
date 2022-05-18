@@ -52,10 +52,10 @@ public class StickyBombs : PatternDefault
                     bomb.GetComponent<StickyBomb>().BombController = this;
                     StickyBombList.Add(bomb);
                 }
-
+                bomb.GetComponent<FixedJoint2D>().connectedBody = null;
                 bomb.transform.position = offset + gameObject.transform.position;
                 bomb.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position - (offset + transform.position), FireVelocity, GameController.GRAVITY);
-
+                Debug.Log(bomb.GetComponent<Rigidbody2D>().velocity);
                 fireTimer = 0;
                 counter++;
             }

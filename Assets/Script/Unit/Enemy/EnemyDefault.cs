@@ -112,7 +112,7 @@ public class EnemyDefault : UnitDefault
             if (pattern.enabled) {
                 Debug.Log(pattern);
                 pattern.caster = this;
-                PatternController PC = new PatternController(pattern);
+                PatternController PC = new(pattern);
                 PatternList.Add(PC);
             }
         }

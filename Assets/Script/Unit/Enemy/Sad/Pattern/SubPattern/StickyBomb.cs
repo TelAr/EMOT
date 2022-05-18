@@ -35,10 +35,7 @@ public class StickyBomb : GrenadeDefault
     protected override void Update()
     {
         base.Update();
-        if (gameObject.GetComponent<FixedJoint2D>().connectedBody == null) {
-
-            gameObject.GetComponent<FixedJoint2D>().enabled = false;
-        }
+ 
         if (BombController != null)
         {
             if (BombController.KaBoom <= 0) {
@@ -51,6 +48,11 @@ public class StickyBomb : GrenadeDefault
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        if (gameObject.GetComponent<FixedJoint2D>().connectedBody == null)
+        {
+
+            gameObject.GetComponent<FixedJoint2D>().enabled = false;
+        }
         if (is_sticky) {
             if (attached != null&&attached!=gameObject.GetComponent<Rigidbody2D>())
             {
