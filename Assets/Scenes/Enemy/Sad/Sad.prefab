@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6314272341990899208}
   - component: {fileID: 868125398017482103}
   - component: {fileID: 6753988263501635909}
+  - component: {fileID: 2064445377246090339}
   - component: {fileID: 8550990062671068985}
   - component: {fileID: -5647268146409375533}
   - component: {fileID: 5864014174496025270}
@@ -122,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6656898b92277446ab72fe0e9d60774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 35
+  cooldown: 40
   stack: 1
   max_distance: 10000
   min_distance: 0
@@ -139,6 +140,35 @@ MonoBehaviour:
   isTargetting: 0
   timer: 0
   status: 0
+--- !u!114 &2064445377246090339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857347809405532536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b8a871270b45b04ebaae4422e9e329b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  stack: 1
+  max_distance: 5
+  min_distance: 0
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  GrenadeList: []
+  GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
+  FireTimes: 2
+  FireDelay: 0.3
+  TargettingDelay: 1
+  EvasionVelocity: 8
+  EvasionDistance: 3
+  AngleDistance: 45
+  GrenadeSpeed: 20
 --- !u!114 &8550990062671068985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,4 +241,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4

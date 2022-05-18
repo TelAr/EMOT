@@ -10,7 +10,7 @@ public class MissileDefault : MonoBehaviour
     public float MinX, MinY, MaxX, MaxY;
     public ImpactDefault impact;
 
-    private void Reset()
+    public void Reset()
     {
         MinX = -40;
         MinY = -40;

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sad : EnemyDefault
 {
     public int health;
-    const int MAX_HEALTH = 200;
+    const int MAX_HEALTH = 300;
 
     private Rigidbody2D rb2d;
 
@@ -36,13 +36,7 @@ public class Sad : EnemyDefault
 
             patternController.Tick();
         }
-        if (is_fall)
-        {
 
-            //특수 패턴
-
-            is_fall = false;
-        }
     }
 
     private void FixedUpdate()

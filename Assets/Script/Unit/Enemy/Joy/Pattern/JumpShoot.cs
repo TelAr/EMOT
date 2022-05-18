@@ -82,7 +82,7 @@ public class JumpShoot : PatternDefault
                         }
                         for (int i = 0; i < 3 + shoot_count % 2; i++)
                         {
-                            shoot(direction - SHOOT_DISTANCE * (3 + shoot_count % 2 - 1) * 0.5f + i * SHOOT_DISTANCE);
+                            Shoot(direction - SHOOT_DISTANCE * (3 + shoot_count % 2 - 1) * 0.5f + i * SHOOT_DISTANCE);
                         }
                     }
                 }
@@ -96,7 +96,7 @@ public class JumpShoot : PatternDefault
     }
 
 
-    private void shoot(float targetting) {
+    private void Shoot(float targetting) {
 
         GameObject bullet = null;
         Vector3 direction;
@@ -122,7 +122,7 @@ public class JumpShoot : PatternDefault
         bullet.GetComponent<Rigidbody2D>().velocity = (Vector2)direction * (BulletSpeed + BulletSpeedPerLevel * GameController.Level);
     }
 
-    private void shoot(Vector2 targetting) {
+    private void Shoot(Vector2 targetting) {
 
         GameObject bullet = null;
         Vector3 direction;

@@ -51,4 +51,8 @@ public abstract class UnitDefault : MonoBehaviour
         }
     }
 
+    public bool GetFall() { 
+    
+        return is_fall;
+    }
 }
