@@ -52,7 +52,7 @@ public class StickyBomb : GrenadeDefault
     {
         base.FixedUpdate();
         if (is_sticky) {
-            if (attached != null)
+            if (attached != null&&attached!=gameObject.GetComponent<Rigidbody2D>())
             {
                 gameObject.GetComponent<FixedJoint2D>().connectedBody = attached;
             }

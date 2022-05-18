@@ -51,7 +51,7 @@ public class SnipingTargetting : MonoBehaviour
             GameObject go;
             go = Instantiate(ExplosionModel);
             go.transform.position = transform.position;
-            go.transform.localScale = effectOriginalScale * 0.5f;
+            go.transform.localScale *= 2;
             gameObject.SetActive(false);
         }
     }
