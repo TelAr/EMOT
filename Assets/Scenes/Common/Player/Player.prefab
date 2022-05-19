@@ -156,10 +156,12 @@ MonoBehaviour:
   DefaultPos: {x: 0, y: 0, z: 0}
   health: 1
   Speed: 5
-  JumpPower: 8
+  JumpPower: 11
   Life: 3
-  offset_position: {x: 0, y: 0, z: 0}
-  is_jump: 0
+  OffsetPosition: {x: 0, y: 0, z: 0}
+  MinimumJumpPowerRatio: 0.5
+  isJump: 0
+  test: 0
 --- !u!114 &-4369695278841071617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,8 +174,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76621fd832725241aaecfb2cf101587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpAudio: {fileID: 8300000, guid: 67d71038b287a0e40bef2196f219e547, type: 3}
   AudioState: 0
+  JumpAudio: {fileID: 8300000, guid: 67d71038b287a0e40bef2196f219e547, type: 3}
 --- !u!114 &-7389247827842631633
 MonoBehaviour:
   m_ObjectHideFlags: 0

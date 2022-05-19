@@ -7,7 +7,7 @@ public abstract class UnitDefault : MonoBehaviour
     public float MinX, MinY, MaxX, MaxY;
     public Vector3 DefaultPos;
 
-    protected bool is_fall;
+    protected bool isFall;
     public virtual void Reset()
     {
         MinX = -40;
@@ -24,7 +24,7 @@ public abstract class UnitDefault : MonoBehaviour
             //시작 시 활동
             Start();
         }
-        is_fall = true;
+        isFall = true;
 
 
     }
@@ -47,12 +47,12 @@ public abstract class UnitDefault : MonoBehaviour
 
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
-            is_fall = true;
+            isFall = true;
         }
     }
 
     public bool GetFall() { 
     
-        return is_fall;
+        return isFall;
     }
 }

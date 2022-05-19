@@ -36,11 +36,11 @@ public class Joy : EnemyDefault
 
             patternController.Tick();
         }
-        if (is_fall) { 
+        if (isFall) { 
         
         //특수 패턴
         
-            is_fall = false;
+            isFall = false;
         }
     }
 

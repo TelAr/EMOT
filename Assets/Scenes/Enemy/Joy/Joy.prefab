@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94e45e664dfa35499b60e8f807c6af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
+  cooldown: 20
   stack: 1
   max_distance: 8
   min_distance: 0

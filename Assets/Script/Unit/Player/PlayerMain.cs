@@ -11,7 +11,8 @@ public class PlayerMain : UnitDefault
     public float Speed = 1;
     public float JumpPower = 6f;
     public int Life = 3;
-    public Vector3 offset_position;
+    public Vector3 OffsetPosition;
+    public float MinimumJumpPowerRatio;
 
     //const
     private const float JUMP_TIME = 0.1f;
@@ -23,7 +24,7 @@ public class PlayerMain : UnitDefault
     private Vector2 accel, m_Move;
     private Vector2 collision_point_avg;
     private Vector2 collision_point_variance;
-    private float jump_timer = 0f;
+    private float jumpTimer = 0f;
     private int jumpCounter;
     private Rigidbody2D rb2;
     private GameController gc;
@@ -32,7 +33,7 @@ public class PlayerMain : UnitDefault
     private SpriteRenderer spriteRenderer;
 
     //action
-    public bool is_jump;
+    public bool isJump;
 
 
     public override void Reset()
@@ -54,12 +55,12 @@ public class PlayerMain : UnitDefault
     public override void Start()
     {
         is_side_collision = false;
-        jump_timer = 0;
+        jumpTimer = 0;
         jumpCounter = 0;
         accel = Vector2.zero;
         m_Move = Vector2.zero;
         rb2.velocity = Vector2.zero;
-        transform.position = offset_position;
+        transform.position = OffsetPosition;
         Life = 3;
         jumping = false;
     }
@@ -86,7 +87,7 @@ public class PlayerMain : UnitDefault
     }
     public void OnJump(InputValue value) {
 
-        is_jump = value.Get<float>() > 0 ? true : false;
+        isJump = value.Get<float>() > 0 ? true : false;
     }
 
 
@@ -134,7 +135,7 @@ public class PlayerMain : UnitDefault
                 if (collision_point_avg.y < transform.position.y)
                 {
                     jumpCounter = JUMPMAX;
-                    jump_timer = 0;
+                    jumpTimer = 0;
                 }
             }
         }
@@ -155,7 +156,7 @@ public class PlayerMain : UnitDefault
             else //수직 충돌
             {
                 jumpCounter = JUMPMAX;
-                jump_timer = 0;
+                jumpTimer = 0;
                 is_side_collision = false;
             }
         }
@@ -166,7 +167,7 @@ public class PlayerMain : UnitDefault
         if (collision.gameObject.CompareTag("Block"))
         {
             is_side_collision = false;
-            if (!is_jump && jumpCounter == JUMPMAX) {
+            if (!isJump && jumpCounter == JUMPMAX) {
 
                 jumpCounter--;
             }
@@ -217,26 +218,30 @@ public class PlayerMain : UnitDefault
         }
 
         //jump
-        if (is_jump)
+        if (isJump)
         {
 
             if (jumpCounter == JUMPMAX)
             {
 
-                if (jump_timer < JUMP_TIME)
+                if (jumpTimer < JUMP_TIME)
                 {
                     if (!jumping) {
 
                         playerAudio.JumpPlay();
+                        rb2.velocity = new Vector2(rb2.velocity.x, JumpPower * (MinimumJumpPowerRatio - (1f - MinimumJumpPowerRatio) * Time.fixedDeltaTime / JUMP_TIME));
+                    }
+                    else
+                    {
+                        rb2.velocity += new Vector2(0, JumpPower * (1f - MinimumJumpPowerRatio)) * Time.fixedDeltaTime / JUMP_TIME;
                     }
                     jumping = true;
-                    jump_timer += Time.fixedDeltaTime;
-                    rb2.velocity = new Vector2(rb2.velocity.x, JumpPower * jump_timer / (JUMP_TIME));
+                    jumpTimer += Time.fixedDeltaTime;
                 }
                 else
                 {
                     jumping = false;
-                    is_jump = false;
+                    isJump = false;
                     jumpCounter--;
                 }
             }
@@ -247,21 +252,21 @@ public class PlayerMain : UnitDefault
                     playerAudio.JumpPlay();
                     rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
                     jumpCounter--;
-                    is_jump = false;
+                    isJump = false;
                 }
             }
         }
         else if (jumping) {
             jumping = false;
-            is_jump = false;
+            isJump = false;
             jumpCounter--;
         }
 
-        if (is_fall) {
+        if (isFall) {
 
             //추락판정
             LifeSettingStart(Life - 1);
-            is_fall = false;
+            isFall = false;
         }
 
     }
