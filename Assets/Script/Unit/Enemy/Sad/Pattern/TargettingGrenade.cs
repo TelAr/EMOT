@@ -72,11 +72,11 @@ public class TargettingGrenade : PatternDefault
     private void Update()
     {
 
-
         if (is_run)
         {
             if (caster.GetFall())
             {
+                Debug.Log("falling");
                 Stop();
                 return;
             }

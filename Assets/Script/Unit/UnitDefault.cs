@@ -8,6 +8,17 @@ public abstract class UnitDefault : MonoBehaviour
     public Vector3 DefaultPos;
 
     protected bool isFall;
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Block")) {
+
+            isFall = false;
+        }
+
+    }
+
+
     public virtual void Reset()
     {
         MinX = -40;
@@ -54,5 +65,10 @@ public abstract class UnitDefault : MonoBehaviour
     public bool GetFall() { 
     
         return isFall;
+    }
+
+    public void SetNotFall()
+    {
+        isFall = false;
     }
 }
