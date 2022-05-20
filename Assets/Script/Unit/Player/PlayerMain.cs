@@ -120,8 +120,7 @@ public class PlayerMain : UnitDefault
         {
             CollsionBlock(collision);
 
-//            Debug.Log(collision_point_variance.sqrMagnitude);
-            
+
             if (collision_point_variance.x < collision_point_variance.y&&
                 collision_point_variance.magnitude>0.00000001f)//수평 충돌
             {
@@ -155,9 +154,13 @@ public class PlayerMain : UnitDefault
             }
             else //수직 충돌
             {
-                jumpCounter = JUMPMAX;
-                jumpTimer = 0;
-                is_side_collision = false;
+                if (collision_point_avg.y < transform.position.y) {
+
+                    jumpCounter = JUMPMAX;
+                    jumpTimer = 0;
+                    is_side_collision = false;
+                }
+                   
             }
         }
     }
