@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TatgettingGrenade : PatternDefault
+public class TargettingGrenade : PatternDefault
 {
 
     public List<GameObject> GrenadeList = new();
@@ -12,6 +12,7 @@ public class TatgettingGrenade : PatternDefault
     public float EvasionVelocity, EvasionDistance;
     public float AngleDistance;
     public float GrenadeSpeed;
+    public float SeperateAngle, SeperateHeightRatio;
 
     private float timer, subTimer;
     private int counter;
@@ -42,8 +43,8 @@ public class TatgettingGrenade : PatternDefault
         
         base.Run();
         caster.statement = "TatgettingGrenade";
-        int rand = Random.Range(1, 2);
-        is_seperate = rand == 1;
+        int rand = Random.Range(0, 100);
+        is_seperate = (rand > 50);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -97,7 +98,6 @@ public class TatgettingGrenade : PatternDefault
                     {
 
                         GameObject grenade = null;
-                        //분열탄 여부 확인 후 분열 관련 스크립트도 작성되어야 함
                         foreach (var g in GrenadeList)
                         {
 
@@ -122,7 +122,21 @@ public class TatgettingGrenade : PatternDefault
                             MissileDefault option = grenade.GetComponent<MissileDefault>();
                             option.Reset();
                             option.impact = grenade.GetComponent<ImpactDefault>();
+                            grenade.AddComponent<TargettingGrenadeSeperateCase>();
+                            GrenadeList.Add(grenade);
                         }
+
+                        //분열 여부는 이후 스프라이트 따라 달라질 수 있음
+                        if (is_seperate)
+                        {
+
+                            grenade.GetComponent<SpriteRenderer>().color = Color.red;
+                        }
+                        else { 
+                        
+                            grenade.GetComponent<SpriteRenderer>().color = Color.green;
+                        }
+
                         grenade.transform.position = gameObject.transform.position + offset;
                         grenade.GetComponent<Rigidbody2D>().velocity = new Vector3(direction * -1, 5, 0) * 12f;
                         firedGrenade.Enqueue(grenade);
@@ -163,6 +177,18 @@ public class TatgettingGrenade : PatternDefault
                 {
 
                     GameObject grenade = firedGrenade.Dequeue();
+                    if (is_seperate)
+                    {
+                        
+                        grenade.GetComponent<TargettingGrenadeSeperateCase>().SeperateAngel = SeperateAngle;
+                        grenade.GetComponent<TargettingGrenadeSeperateCase>().SeperateHeight = firePos.y * SeperateHeightRatio + targetPos.y * (1 - SeperateHeightRatio);
+                        grenade.GetComponent<TargettingGrenadeSeperateCase>().ChildGrenadeModel = grenade;
+                        grenade.GetComponent<TargettingGrenadeSeperateCase>().IsActive = true;
+                    }
+                    else {
+
+                        grenade.GetComponent<TargettingGrenadeSeperateCase>().IsActive = false;
+                    }
                     grenade.SetActive(true);
                     grenade.transform.position = firePos;
                     grenade.GetComponent<Rigidbody2D>().velocity = new Vector3(Mathf.Cos(Mathf.Deg2Rad*FireAngle), Mathf.Sin(Mathf.Deg2Rad*FireAngle), 0) * GrenadeSpeed;

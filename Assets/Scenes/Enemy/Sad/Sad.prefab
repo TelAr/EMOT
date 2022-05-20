@@ -163,12 +163,14 @@ MonoBehaviour:
   GrenadeList: []
   GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
   FireTimes: 2
-  FireDelay: 0.3
+  FireDelay: 0.15
   TargettingDelay: 1
   EvasionVelocity: 8
   EvasionDistance: 3
-  AngleDistance: 45
+  AngleDistance: 30
   GrenadeSpeed: 20
+  SeperateAngle: 45
+  SeperateHeightRatio: 0.6
 --- !u!114 &8550990062671068985
 MonoBehaviour:
   m_ObjectHideFlags: 0

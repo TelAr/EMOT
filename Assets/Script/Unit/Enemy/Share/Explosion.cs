@@ -15,6 +15,7 @@ public class Explosion : MonoBehaviour
     public float Judgetime;
     private Animator animator;
     private CircleCollider2D circleCollider;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,8 @@ public class Explosion : MonoBehaviour
         animator = gameObject.GetComponent<Animator>();
         circleCollider = gameObject.GetComponent<CircleCollider2D>();
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
+        audioSource=gameObject.GetComponent<AudioSource>();
+        audioSource.volume *= AudioDefault.MasterVolume * AudioDefault.EffectVolume;
     }
 
     // Update is called once per frame
