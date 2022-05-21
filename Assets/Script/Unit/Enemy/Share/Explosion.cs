@@ -16,6 +16,7 @@ public class Explosion : MonoBehaviour
     private Animator animator;
     private CircleCollider2D circleCollider;
     private AudioSource audioSource;
+    private bool animation_end;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class Explosion : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
         audioSource=gameObject.GetComponent<AudioSource>();
         audioSource.volume *= AudioDefault.MasterVolume * AudioDefault.EffectVolume;
+        animation_end = false;
     }
 
     // Update is called once per frame
@@ -47,10 +49,18 @@ public class Explosion : MonoBehaviour
             }
             else {
 
-                Destroy(gameObject);
+                gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
+                animation_end = true;
             }
             
         }
+
+        if (animation_end && !audioSource.isPlaying) { 
+        
+            Destroy(gameObject);
+        }
+
+
 
         //LAGACY
         /*

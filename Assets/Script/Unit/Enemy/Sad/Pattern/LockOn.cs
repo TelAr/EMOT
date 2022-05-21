@@ -9,6 +9,7 @@ public class LockOn : PatternDefault
     public float TargettingDelay, TargettingFixedDelay, NextShootDelay;
     public GameObject SnipingModel;
     public bool isTargetting;
+    public AudioClip ExplosionSound;
 
     private int counter;
     public float timer;

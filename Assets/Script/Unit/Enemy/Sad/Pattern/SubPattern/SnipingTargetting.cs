@@ -6,6 +6,7 @@ public class SnipingTargetting : MonoBehaviour
 {
     public GameObject ExplosionModel;
     public float TargettingTime, FixedTime;
+    public AudioClip ExplosionSound;
 
     private float timer;
     private GameObject effect=null;
@@ -50,6 +51,10 @@ public class SnipingTargetting : MonoBehaviour
         else {
             GameObject go;
             go = Instantiate(ExplosionModel);
+            if (go.GetComponent<AudioSource>() != null) {
+                go.GetComponent<AudioSource>().clip = ExplosionSound;
+                go.GetComponent<AudioSource>().Play();
+            }
             go.transform.position = transform.position;
             go.transform.localScale *= 2;
             gameObject.SetActive(false);
