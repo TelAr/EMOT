@@ -137,7 +137,9 @@ MonoBehaviour:
   TargettingFixedDelay: 1
   NextShootDelay: 2
   SnipingModel: {fileID: 2242813233362792678, guid: 6b2620fb803a7064ca0f91a2a1c14c1c, type: 3}
+  HUDModel: {fileID: 6399882224597314530, guid: c206c26e142d58046a7e831a7d1f07d9, type: 3}
   isTargetting: 0
+  HUDColor: {r: 0.5137255, g: 1, b: 0.92534846, a: 1}
   timer: 0
   status: 0
 --- !u!114 &2064445377246090339

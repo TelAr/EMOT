@@ -8,12 +8,14 @@ public class LockOn : PatternDefault
     public float StartDelay;
     public float TargettingDelay, TargettingFixedDelay, NextShootDelay;
     public GameObject SnipingModel;
+    public GameObject HUDModel;
     public bool isTargetting;
-    public AudioClip ExplosionSound;
+    public Color HUDColor;
 
     private int counter;
     public float timer;
     private List<GameObject> snipingList;
+    private GameObject HUD = null;
     private Vector3 startPos;
     private const float jumpScale = 20f;
     public int status;
@@ -23,6 +25,11 @@ public class LockOn : PatternDefault
         timer = 0;
         status = 0;
         isTargetting = false;
+        if (HUD == null) {
+
+            HUD=Instantiate(HUDModel);
+            HUD.SetActive(false);
+        }
     }
     private void Reset()
     {
@@ -96,38 +103,47 @@ public class LockOn : PatternDefault
 
                     if (isTargetting) {
                         status = 1;
-                        timer = NextShootDelay;
+                        timer = 0;
+                        HUD.SetActive(true);
+                        HUD.GetComponent<HUD>().Initiate();
+                        HUD.GetComponent<HUD>().mainColor = HUDColor;
+                        HUD.GetComponent<HUD>().TransitionDelay = TargettingDelay;
                     }
                 }
             }
             else if (status == 1)
             {
 
-                if (counter < HowMuch)
+                if (counter <= HowMuch)
                 {
                     if (timer > NextShootDelay)
                     {
-
-                        GameObject targetting = null;
-                        foreach (GameObject go in snipingList)
+                        if (counter < HowMuch)
                         {
 
-                            if (!go.activeSelf)
+                            GameObject targetting = null;
+                            foreach (GameObject go in snipingList)
                             {
 
-                                targetting = go;
-                                break;
-                            }
-                        }
-                        if (targetting == null)
-                        {
+                                if (!go.activeSelf)
+                                {
 
-                            targetting = Instantiate(SnipingModel);
-                            snipingList.Add(targetting);
+                                    targetting = go;
+                                    break;
+                                }
+                            }
+                            if (targetting == null)
+                            {
+
+                                targetting = Instantiate(SnipingModel);
+                                snipingList.Add(targetting);
+                            }
+                            targetting.transform.position = GameController.GetPlayer().transform.position;
+                            targetting.SetActive(true);
+                            targetting.GetComponent<SnipingTargetting>().Initiate(TargettingDelay, TargettingFixedDelay);
+                            targetting.GetComponent<SnipingTargetting>().effectOriginalColor = HUDColor;
+
                         }
-                        targetting.transform.position = GameController.GetPlayer().transform.position;
-                        targetting.SetActive(true);
-                        targetting.GetComponent<SnipingTargetting>().Initiate(TargettingDelay, TargettingFixedDelay);
                         timer = 0;
                         counter++;
                     }
@@ -142,11 +158,13 @@ public class LockOn : PatternDefault
             }
             else {
                 //환경 매체에 마지막 연출 시작 메세지 보내기
-                if (counter >= HowMuch) { 
-                
-                    counter = 0;
+                timer += Time.deltaTime;
+                if (timer >= TargettingDelay+TargettingFixedDelay) {
+
+                    if (!HUD.GetComponent<HUD>().Is_end) HUD.GetComponent<HUD>().Is_end = true;
                 }
-                isTargetting = false;//임시
+
+                if (!HUD.activeSelf) isTargetting = false;
 
 
                 if (!isTargetting) { 
