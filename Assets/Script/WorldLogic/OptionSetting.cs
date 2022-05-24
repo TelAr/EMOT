@@ -106,6 +106,10 @@ public class OptionSetting : MonoBehaviour
                 Width = 1920;
                 Height= 1080;
                 break;
+            case 2:
+                Width = 1920*2;
+                Height = 1080*2;
+                break;
             default:
                 break;
         }
