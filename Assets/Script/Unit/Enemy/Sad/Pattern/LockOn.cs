@@ -104,10 +104,10 @@ public class LockOn : PatternDefault
                     if (isTargetting) {
                         status = 1;
                         timer = 0;
-                        HUD.SetActive(true);
                         HUD.GetComponent<HUD>().Initiate();
                         HUD.GetComponent<HUD>().mainColor = HUDColor;
                         HUD.GetComponent<HUD>().TransitionDelay = TargettingDelay;
+                        HUD.SetActive(true);
                     }
                 }
             }
@@ -139,9 +139,9 @@ public class LockOn : PatternDefault
                                 snipingList.Add(targetting);
                             }
                             targetting.transform.position = GameController.GetPlayer().transform.position;
-                            targetting.SetActive(true);
                             targetting.GetComponent<SnipingTargetting>().Initiate(TargettingDelay, TargettingFixedDelay);
                             targetting.GetComponent<SnipingTargetting>().effectOriginalColor = HUDColor;
+                            targetting.SetActive(true);
 
                         }
                         timer = 0;

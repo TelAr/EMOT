@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour
     static private GameObject enemy;
     static public float GRAVITY = -20;
     static public bool is_stop;
-    // Start is called before the first frame update
+
     void Awake()
     {
         Level = 0;
