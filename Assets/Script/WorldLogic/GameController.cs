@@ -175,6 +175,8 @@ public class GameController : MonoBehaviour
         }
         CharaText.text = text;
 
+
+
         if (Input.GetKeyDown(KeyCode.Escape)) {
 
             ExitGame();

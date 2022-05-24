@@ -24,7 +24,9 @@ public class OptionSetting : MonoBehaviour
 
     private void Start()
     {
-        SaveValue();
+        ReadValue();
+        IsOpen();
+        SaveOption();
     }
 
     private void SaveValue() {
@@ -38,6 +40,57 @@ public class OptionSetting : MonoBehaviour
         savedMMT = MasterMT.isOn;
         savedEMT = EffectMT.isOn;
         savedBMT = BGMMT.isOn;
+
+        //레지스트리에 저장
+        PlayerPrefs.SetInt("savedGraphicNum", savedGraphicNum);
+        PlayerPrefs.SetInt("savedGraphicToggle", savedGraphicToggle ? 1 : 0);
+        PlayerPrefs.SetFloat("savedMS", savedMS);
+        PlayerPrefs.SetFloat("savedES", savedES);
+        PlayerPrefs.SetFloat("savedBS", savedBS);
+        PlayerPrefs.SetInt("savedMMT", savedMMT ? 1 : 0);
+        PlayerPrefs.SetInt("savedEMT", savedEMT ? 1 : 0);
+        PlayerPrefs.SetInt("savedBMT", savedBMT ? 1 : 0);
+    }
+
+    private void ReadValue() {
+
+
+        Debug.Log("Read");
+        if (PlayerPrefs.HasKey("savedGraphicNum")) {
+            savedGraphicNum = PlayerPrefs.GetInt("savedGraphicNum");
+        }
+        if (PlayerPrefs.HasKey("savedGraphicToggle"))
+        {
+            savedGraphicToggle = PlayerPrefs.GetInt("savedGraphicToggle")==1;
+        }
+        if (PlayerPrefs.HasKey("savedMS")) {
+
+            savedMS = PlayerPrefs.GetFloat("savedMS");
+        }
+        if (PlayerPrefs.HasKey("savedES"))
+        {
+
+            savedES = PlayerPrefs.GetFloat("savedES");
+        }
+        if (PlayerPrefs.HasKey("savedBS"))
+        {
+
+            savedBS = PlayerPrefs.GetFloat("savedBS");
+        }
+        if (PlayerPrefs.HasKey("savedMMT")) {
+
+            savedMMT = PlayerPrefs.GetInt("savedMMT") == 1;
+        }
+        if (PlayerPrefs.HasKey("savedEMT"))
+        {
+
+            savedEMT = PlayerPrefs.GetInt("savedEMT") == 1;
+        }
+        if (PlayerPrefs.HasKey("savedBMT"))
+        {
+
+            savedBMT = PlayerPrefs.GetInt("savedBMT") == 1;
+        }
     }
 
     public void IsOpen() {
@@ -84,6 +137,8 @@ public class OptionSetting : MonoBehaviour
 
     public void SaveOption() {
         //resolution
+        Update();
+
         ResolutionFixed.SetWidth=Width;
         ResolutionFixed.SetHeight=Height;
         ResolutionFixed.IsFullScreen=IsFullScreen;
