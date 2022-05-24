@@ -54,43 +54,29 @@ public class OptionSetting : MonoBehaviour
 
     private void ReadValue() {
 
+        if (PlayerPrefs.HasKey("savedGraphicNum")) savedGraphicNum = PlayerPrefs.GetInt("savedGraphicNum");
+        else savedGraphicNum = 0;
 
-        Debug.Log("Read");
-        if (PlayerPrefs.HasKey("savedGraphicNum")) {
-            savedGraphicNum = PlayerPrefs.GetInt("savedGraphicNum");
-        }
-        if (PlayerPrefs.HasKey("savedGraphicToggle"))
-        {
-            savedGraphicToggle = PlayerPrefs.GetInt("savedGraphicToggle")==1;
-        }
-        if (PlayerPrefs.HasKey("savedMS")) {
+        if (PlayerPrefs.HasKey("savedGraphicToggle")) savedGraphicToggle = PlayerPrefs.GetInt("savedGraphicToggle") == 1;
+        else savedGraphicToggle = false;
 
-            savedMS = PlayerPrefs.GetFloat("savedMS");
-        }
-        if (PlayerPrefs.HasKey("savedES"))
-        {
+        if (PlayerPrefs.HasKey("savedMS")) savedMS = PlayerPrefs.GetFloat("savedMS");
+        else savedMS = 1;
 
-            savedES = PlayerPrefs.GetFloat("savedES");
-        }
-        if (PlayerPrefs.HasKey("savedBS"))
-        {
+        if (PlayerPrefs.HasKey("savedES")) savedES = PlayerPrefs.GetFloat("savedES");
+        else savedES = 1;
 
-            savedBS = PlayerPrefs.GetFloat("savedBS");
-        }
-        if (PlayerPrefs.HasKey("savedMMT")) {
+        if (PlayerPrefs.HasKey("savedBS")) savedBS = PlayerPrefs.GetFloat("savedBS");
+        else savedBS = 1;
 
-            savedMMT = PlayerPrefs.GetInt("savedMMT") == 1;
-        }
-        if (PlayerPrefs.HasKey("savedEMT"))
-        {
+        if (PlayerPrefs.HasKey("savedMMT")) savedMMT = PlayerPrefs.GetInt("savedMMT") == 1;
+        else savedMMT = true;
 
-            savedEMT = PlayerPrefs.GetInt("savedEMT") == 1;
-        }
-        if (PlayerPrefs.HasKey("savedBMT"))
-        {
+        if (PlayerPrefs.HasKey("savedEMT")) savedEMT = PlayerPrefs.GetInt("savedEMT") == 1;
+        else savedEMT = true;
 
-            savedBMT = PlayerPrefs.GetInt("savedBMT") == 1;
-        }
+        if (PlayerPrefs.HasKey("savedBMT")) savedBMT = PlayerPrefs.GetInt("savedBMT") == 1;
+        else savedBMT = true;
     }
 
     public void IsOpen() {
