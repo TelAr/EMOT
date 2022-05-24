@@ -19,7 +19,7 @@ public class HUD : MonoBehaviour
     {
         AS = A.transform.localScale;
         BS = B.transform.localScale;
-        CS = C.transform.localScale;    
+        CS = C.transform.localScale;
     }
 
     // Start is called before the first frame update
@@ -39,8 +39,12 @@ public class HUD : MonoBehaviour
 
             target = Target;
         }
+        A.transform.localScale = B.transform.localScale = C.transform.localScale = Vector3.zero;
         timer = 0;
         Is_end = false;
+        if (gameObject.GetComponent<AudioSource>() != null) {
+            gameObject.GetComponent<AudioSource>().volume *= AudioDefault.MasterVolume * AudioDefault.EffectVolume;
+        }
         Update();
     }
 

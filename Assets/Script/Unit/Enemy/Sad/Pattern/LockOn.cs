@@ -28,6 +28,7 @@ public class LockOn : PatternDefault
         if (HUD == null) {
 
             HUD=Instantiate(HUDModel);
+            HUD.GetComponent<HUD>().Initiate();
             HUD.SetActive(false);
         }
     }
