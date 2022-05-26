@@ -2,18 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResolutionFixed : MonoBehaviour
+public class GraphicSetting : MonoBehaviour
 {
     static public int SetWidth, SetHeight;
     static public bool IsFullScreen;
+    static public bool isGraphicEffect;
     static public int SetGraphicLevel;
+
     // Start is called before the first frame update
     void Start()
     {
         SetWidth = 1920;
         SetHeight = 1080;
         IsFullScreen = true;
+        isGraphicEffect = true;
+        GraphicSettingUpdate();
+    }
+
+    static public void GraphicSettingUpdate() {
+
+
+        Debug.Log("isGraphicEffect:"+isGraphicEffect);
         FixedGameResolution();
+        if (GlobalVolume.GlobalVolumeObject != null) {
+            GlobalVolume.GlobalVolumeObject.SetActive(isGraphicEffect);
+        }
+        
+
     }
 
     static public void FixedGameResolution()

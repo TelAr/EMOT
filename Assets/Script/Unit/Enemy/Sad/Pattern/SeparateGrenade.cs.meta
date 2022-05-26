@@ -3,7 +3,9 @@ guid: bd21c374e8add954fb941c0ef5d20d2c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - caster: {instanceID: 0}
+  - GrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

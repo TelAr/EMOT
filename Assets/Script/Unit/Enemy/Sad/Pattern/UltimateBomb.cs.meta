@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 13b4ab7cab7786d4dab4375cb5aebf84
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - caster: {instanceID: 0}
+  - SmokeShellModel: {fileID: 3784087293714087402, guid: 9fbf1ea26c11c4346a0bdf210ce2a6ae, type: 3}
+  - SeparateGrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

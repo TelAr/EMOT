@@ -3,7 +3,9 @@ guid: 20f82463de2a6674bb8d4cd05435e0ba
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - caster: {instanceID: 0}
+  - Boomerang_model: {fileID: 6392292533408563140, guid: 9e30a6da16db76142bad0b40657a254c, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

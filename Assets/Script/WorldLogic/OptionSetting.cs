@@ -8,10 +8,10 @@ public class OptionSetting : MonoBehaviour
 {
 
 
-    public Toggle FullScreen;
+    public Toggle FullScreen, GraphicEffect;
     public TMP_Dropdown ResolutionDropDown;
     private int savedGraphicNum;
-    private bool savedGraphicToggle;
+    private bool savedFullScreenToggle, saveGraphicEffectToggle;
 
     public Slider Master, Effect, BGM;
     public Toggle MasterMT, EffectMT, BGMMT;
@@ -32,7 +32,8 @@ public class OptionSetting : MonoBehaviour
     private void SaveValue() {
 
         savedGraphicNum = ResolutionDropDown.value;
-        savedGraphicToggle = FullScreen.isOn;
+        savedFullScreenToggle = FullScreen.isOn;
+        saveGraphicEffectToggle = GraphicEffect.isOn;
 
         Master.value = savedMS = AudioDefault.MasterVolume;
         Effect.value = savedES = AudioDefault.EffectVolume;
@@ -43,7 +44,8 @@ public class OptionSetting : MonoBehaviour
 
         //레지스트리에 저장
         PlayerPrefs.SetInt("savedGraphicNum", savedGraphicNum);
-        PlayerPrefs.SetInt("savedGraphicToggle", savedGraphicToggle ? 1 : 0);
+        PlayerPrefs.SetInt("savedFullScreenToggle", savedFullScreenToggle ? 1 : 0);
+        PlayerPrefs.SetInt("saveGraphicEffectToggle", saveGraphicEffectToggle ? 1 : 0);
         PlayerPrefs.SetFloat("savedMS", savedMS);
         PlayerPrefs.SetFloat("savedES", savedES);
         PlayerPrefs.SetFloat("savedBS", savedBS);
@@ -57,8 +59,11 @@ public class OptionSetting : MonoBehaviour
         if (PlayerPrefs.HasKey("savedGraphicNum")) savedGraphicNum = PlayerPrefs.GetInt("savedGraphicNum");
         else savedGraphicNum = 0;
 
-        if (PlayerPrefs.HasKey("savedGraphicToggle")) savedGraphicToggle = PlayerPrefs.GetInt("savedGraphicToggle") == 1;
-        else savedGraphicToggle = false;
+        if (PlayerPrefs.HasKey("savedFullScreenToggle")) savedFullScreenToggle = PlayerPrefs.GetInt("savedFullScreenToggle") == 1;
+        else savedFullScreenToggle = false;
+
+        if (PlayerPrefs.HasKey("saveGraphicEffectToggle")) saveGraphicEffectToggle = PlayerPrefs.GetInt("saveGraphicEffectToggle") == 1;
+        else saveGraphicEffectToggle = true;
 
         if (PlayerPrefs.HasKey("savedMS")) savedMS = PlayerPrefs.GetFloat("savedMS");
         else savedMS = 1;
@@ -82,7 +87,8 @@ public class OptionSetting : MonoBehaviour
     public void IsOpen() {
 
         ResolutionDropDown.value = savedGraphicNum;
-        FullScreen.isOn = savedGraphicToggle;
+        FullScreen.isOn = savedFullScreenToggle;
+        GraphicEffect.isOn = saveGraphicEffectToggle;
 
         Master.value = savedMS;
         Effect.value = savedES;
@@ -129,10 +135,11 @@ public class OptionSetting : MonoBehaviour
         //resolution
         Update();
 
-        ResolutionFixed.SetWidth=Width;
-        ResolutionFixed.SetHeight=Height;
-        ResolutionFixed.IsFullScreen=IsFullScreen;
-        ResolutionFixed.FixedGameResolution();
+        GraphicSetting.SetWidth=Width;
+        GraphicSetting.SetHeight=Height;
+        GraphicSetting.IsFullScreen=IsFullScreen;
+        GraphicSetting.isGraphicEffect = GraphicEffect.isOn;
+        GraphicSetting.GraphicSettingUpdate();
 
         AudioDefault.MasterVolume = Master.value;
         AudioDefault.EffectVolume = Effect.value;

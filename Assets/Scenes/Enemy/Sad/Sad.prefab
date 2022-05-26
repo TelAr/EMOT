@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 6753988263501635909}
   - component: {fileID: 2064445377246090339}
   - component: {fileID: 8550990062671068985}
+  - component: {fileID: 1820840841350390322}
+  - component: {fileID: 8863447811872937105}
+  - component: {fileID: 5905208331941147593}
   - component: {fileID: -5647268146409375533}
   - component: {fileID: 5864014174496025270}
   m_Layer: 7
@@ -199,6 +202,79 @@ MonoBehaviour:
   FireDelay: 1.5
   GlobarBoomTime: 10
   FireVelocity: 20
+--- !u!114 &1820840841350390322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857347809405532536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb63f2cae1e9dd3418f92f7b0b7181f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  stack: 1
+  max_distance: 10
+  min_distance: 0
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  PreDelay: 1
+  ThrowPower: 20
+  SmokeshellModel: {fileID: 3784087293714087402, guid: 9fbf1ea26c11c4346a0bdf210ce2a6ae, type: 3}
+--- !u!114 &8863447811872937105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857347809405532536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd21c374e8add954fb941c0ef5d20d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 10
+  stack: 1
+  max_distance: 10
+  min_distance: 0
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  PreDelay: 1
+  ThrowPower: 20
+  GrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
+--- !u!114 &5905208331941147593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857347809405532536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b4ab7cab7786d4dab4375cb5aebf84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 60
+  stack: 1
+  max_distance: 100
+  min_distance: 0
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  SmokeShellModel: {fileID: 3784087293714087402, guid: 9fbf1ea26c11c4346a0bdf210ce2a6ae, type: 3}
+  SeparateGrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
+  SmokeCounter: 4
+  minX: -13
+  maxX: 13
+  YField: -4.5
+  spellPos: {x: 0, y: 3, z: 0}
 --- !u!61 &-5647268146409375533
 BoxCollider2D:
   m_ObjectHideFlags: 0
