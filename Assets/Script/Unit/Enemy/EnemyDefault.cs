@@ -54,24 +54,25 @@ public class EnemyDefault : UnitDefault
             if (timer < cooldown)
             {
                 this.timer += Time.deltaTime;
-                
+
             }
-            else {
+            else
+            {
                 if (stackCounter < stack)
                 {
+                    enemy.PatternQueue.Enqueue(this);
                     stackCounter++;
                     this.timer = 0;
                 }
+
             }
-            if (stackCounter > 0
-                && !enemy.pattern_running
-                && distance >= min_distance && distance <= max_distance
-                && enemy.global_delay<=0) {
-                pattern.is_main = true;
-                pattern.Run();
-                enemy.global_delay = post_delay;
-                stackCounter--;
-            }
+        }
+        public void Run() {
+
+            pattern.is_main = true;
+            pattern.Run();
+            enemy.global_delay = post_delay;
+            stackCounter--;
         }
         public void ForcedRun() {
 
@@ -93,6 +94,7 @@ public class EnemyDefault : UnitDefault
 
     //패턴 보관용 컨테이너
     public List<PatternController> PatternList;
+    public Queue<PatternController> PatternQueue = new Queue<PatternController>();
 
     public virtual new void Update()
     {
@@ -100,8 +102,18 @@ public class EnemyDefault : UnitDefault
         base.Update();
         if (!pattern_running) {
             global_delay -= Time.deltaTime;
+            if (PatternQueue.Count > 0&&global_delay<0)
+            {
+
+                PatternQueue.Dequeue().Run();
+            }
         }
-        
+        foreach (PatternController patternController in PatternList)
+        {
+
+            patternController.Tick();
+        }
+
     }
 
     public void Awake()

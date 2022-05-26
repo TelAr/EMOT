@@ -32,10 +32,6 @@ public class Joy : EnemyDefault
         
             //보스 패턴 종료
         }
-        foreach (PatternController patternController in PatternList) {
-
-            patternController.Tick();
-        }
         if (isFall) { 
         
         //특수 패턴

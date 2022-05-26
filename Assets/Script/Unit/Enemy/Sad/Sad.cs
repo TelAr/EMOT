@@ -31,11 +31,6 @@ public class Sad : EnemyDefault
 
             //보스 패턴 종료
         }
-        foreach (PatternController patternController in PatternList)
-        {
-
-            patternController.Tick();
-        }
 
     }
 
