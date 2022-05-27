@@ -5,11 +5,11 @@ using UnityEngine;
 public class ExplosionImpactDefault : ImpactDefault
 {
     public float ExplosionSize;
-    public GameObject ExplosionModel;
-    private float explosionSizeOffset = 2;
+
+    private float explosionSizeOffset = 8;
     public override void Impact(GameObject target = null)
     {
-        GameObject ExplosioInstance = Instantiate(ExplosionModel);
+        GameObject ExplosioInstance = EffectPoolingController.EffectObjectController.GetComponent<EffectPoolingController>().GetExplosion();
         ExplosioInstance.transform.position = transform.position-new Vector3(0,0,1);
         if (ExplosionSize < 0)
         {

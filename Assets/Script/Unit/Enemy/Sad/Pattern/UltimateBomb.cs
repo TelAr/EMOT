@@ -125,6 +125,7 @@ public class UltimateBomb : PatternDefault
                             spgr.SetActive(true);
                             spgr.transform.position = spellPos;
                             spgr.transform.localScale = SeparateGrenadeModel.transform.localScale;
+                            spgr.GetComponent<GrenadeDefault>().ResetTimer();
                             spgr.GetComponent<GrenadeDefault>().IsDestroy = false;
                             spgr.GetComponent<SeparateGrenadeImpact>().SeparateCount = 1;
                             spgr.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 2), YField - transform.position.y), VELOCITY, GameController.GRAVITY, true);
@@ -160,6 +161,7 @@ public class UltimateBomb : PatternDefault
                             spgr.SetActive(true);
                             spgr.transform.position = spellPos;
                             spgr.transform.localScale = SeparateGrenadeModel.transform.localScale * 2;
+                            spgr.GetComponent<GrenadeDefault>().ResetTimer();
                             spgr.GetComponent<GrenadeDefault>().IsDestroy = false;
                             spgr.GetComponent<SeparateGrenadeImpact>().SeparateCount = 2;
                             spgr.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 3), YField - transform.position.y), VELOCITY, GameController.GRAVITY, true);

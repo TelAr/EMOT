@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6656898b92277446ab72fe0e9d60774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 40
+  cooldown: 20
   stack: 1
   max_distance: 10000
   min_distance: 0
@@ -134,11 +134,11 @@ MonoBehaviour:
   caster: {fileID: 0}
   is_run: 0
   is_main: 1
-  HowMuch: 3
-  StartDelay: 2
-  TargettingDelay: 2
-  TargettingFixedDelay: 1
-  NextShootDelay: 2
+  HowMuch: 5
+  StartDelay: 1
+  TargettingDelay: 1
+  TargettingFixedDelay: 0.5
+  NextShootDelay: 1
   SnipingModel: {fileID: 2242813233362792678, guid: 6b2620fb803a7064ca0f91a2a1c14c1c, type: 3}
   HUDModel: {fileID: 6399882224597314530, guid: c206c26e142d58046a7e831a7d1f07d9, type: 3}
   isTargetting: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8a871270b45b04ebaae4422e9e329b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
+  cooldown: 6
   stack: 1
   max_distance: 5
   min_distance: 0
@@ -167,14 +167,14 @@ MonoBehaviour:
   is_main: 1
   GrenadeList: []
   GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
-  FireTimes: 2
+  FireTimes: 5
   FireDelay: 0.15
   TargettingDelay: 1
-  EvasionVelocity: 8
+  EvasionVelocity: 5
   EvasionDistance: 3
-  AngleDistance: 30
-  GrenadeSpeed: 20
-  SeperateAngle: 45
+  AngleDistance: 20
+  GrenadeSpeed: 15
+  SeperateAngle: 30
   SeperateHeightRatio: 0.6
 --- !u!114 &8550990062671068985
 MonoBehaviour:
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1b0255c2aab343be8a3d2d5cfa7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 8
+  cooldown: 10
   stack: 1
   max_distance: 15
   min_distance: 0
@@ -200,8 +200,8 @@ MonoBehaviour:
   StickyBombModel: {fileID: 7030550621233004471, guid: 41f44dac65ea68946b674a6927a4ef27, type: 3}
   FireCount: 4
   FireDelay: 1.5
-  GlobarBoomTime: 10
-  FireVelocity: 20
+  GlobarBoomTime: 5
+  FireVelocity: 30
 --- !u!114 &1820840841350390322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,7 +223,7 @@ MonoBehaviour:
   is_run: 0
   is_main: 1
   PreDelay: 1
-  ThrowPower: 20
+  ThrowPower: 30
   SmokeshellModel: {fileID: 3784087293714087402, guid: 9fbf1ea26c11c4346a0bdf210ce2a6ae, type: 3}
 --- !u!114 &8863447811872937105
 MonoBehaviour:
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd21c374e8add954fb941c0ef5d20d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
+  cooldown: 6
   stack: 1
   max_distance: 10
   min_distance: 0

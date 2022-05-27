@@ -136,7 +136,7 @@ MonoBehaviour:
   is_main: 1
   JumpCount: 3
   JumpDelay: 0.5
-  JumpSpeed: 15
+  JumpSpeed: 25
   JumpSpeedPerLevel: 0.25
 --- !u!114 &5769750162642155811
 MonoBehaviour:
@@ -159,10 +159,10 @@ MonoBehaviour:
   is_run: 0
   is_main: 1
   BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
-  BulletSpeed: 5
+  BulletSpeed: 15
   BulletSpeedPerLevel: 0.5
   JumpHeight: 10
-  ShootDelay: 1
+  ShootDelay: 0.5
   ShootDelayPerLevel: -0.05
 --- !u!114 &2358527341288638727
 MonoBehaviour:
@@ -176,10 +176,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f82463de2a6674bb8d4cd05435e0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 7
-  stack: 1
+  cooldown: 5.5
+  stack: 3
   max_distance: 10
-  min_distance: 0
+  min_distance: 3
   post_delay: 1
   caster: {fileID: 0}
   is_run: 0
@@ -201,22 +201,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5a74944a6beee49b5f3fe90ab40b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 12
+  cooldown: 9
   stack: 2
-  max_distance: 10
+  max_distance: 20
   min_distance: 2
   post_delay: 2
   caster: {fileID: 0}
   is_run: 0
   is_main: 1
   BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
-  BulletSpeed: 15
-  BulletHeight: 10
-  FloatingTime: 1
-  TargetingTime: 0.5
-  RandomPositionRange: 2
-  RandomDelayRange: 0.5
-  BulletCount: 5
+  BulletSpeed: 25
+  BulletHeight: 7
+  FloatingTime: 0.4
+  TargetingTime: 0.4
+  RandomPositionRange: 1
+  RandomDelayRange: 0.2
+  BulletCount: 8
   BulletCountPerLevel_numerator: 1
   BulletCountPerLevel_denominator: 2
 --- !u!61 &7006779008719737904

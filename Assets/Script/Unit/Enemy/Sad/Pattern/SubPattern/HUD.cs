@@ -20,6 +20,7 @@ public class HUD : MonoBehaviour
         AS = A.transform.localScale;
         BS = B.transform.localScale;
         CS = C.transform.localScale;
+        A.GetComponent<SpriteRenderer>().color = B.GetComponent<SpriteRenderer>().color = C.GetComponent<SpriteRenderer>().color = Color.clear;
     }
 
     // Start is called before the first frame update

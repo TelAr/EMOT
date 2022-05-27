@@ -9,7 +9,9 @@ public class MissileDefault : MonoBehaviour
     public bool IsDestroy;
     public float MinX, MinY, MaxX, MaxY;
     public ImpactDefault impact;
+    public float MinimumJegdeLoseTime;
 
+    private float timer;
     public void Reset()
     {
         MinX = -40;
@@ -18,34 +20,43 @@ public class MissileDefault : MonoBehaviour
         MaxY = 40;
         IsPlayerPanetrate = false;
         IsCollsionDisappear = true;
+        MinimumJegdeLoseTime = 0.1f;
+    }
+
+    public void ResetTimer() {
+
+        timer = 0;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        timer = 0;
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (impact != null)
-        {
+        if (timer > MinimumJegdeLoseTime) {
+            if (impact != null)
+            {
 
-            impact.Impact(collision.gameObject);
-        }
-        if (IsCollsionDisappear) {
-            if (IsDestroy) { 
-            
-                Destroy(gameObject);
+                impact.Impact(collision.gameObject);
             }
-            gameObject.SetActive(false);
+            if (IsCollsionDisappear)
+            {
+                if (IsDestroy)
+                {
+
+                    Destroy(gameObject);
+                }
+                gameObject.SetActive(false);
+            }
         }
-
-
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
+        timer += Time.fixedDeltaTime;
         if (transform.position.x < MinX || transform.position.x > MaxX || transform.position.y < MinY || transform.position.y > MaxY) {
 
             if (IsDestroy) { 

@@ -13,27 +13,58 @@ public class Explosion : MonoBehaviour
     public bool test = false;
     public float JudgeStartRadius, JudgeEndRadius;
     public float Judgetime;
-    private Animator animator;
+    public AudioClip DefaultSound;
+    private Animator animator = null;
     private CircleCollider2D circleCollider;
-    private AudioSource audioSource;
-    private bool animation_end;
+    private AudioSource audioSource=null;
+    private bool animation_end, isPlay;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        gameObject.tag = "Enemy";
-//        color = gameObject.GetComponent<SpriteRenderer>().color;
+
         animator = gameObject.GetComponent<Animator>();
         circleCollider = gameObject.GetComponent<CircleCollider2D>();
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
         audioSource=gameObject.GetComponent<AudioSource>();
-        audioSource.volume *= AudioDefault.MasterVolume * AudioDefault.EffectVolume;
+        Initiation();
+        isPlay = true;
+    }
+
+    public void Initiation(AudioClip clip=null) {
+
+        gameObject.tag = "Enemy";
         animation_end = false;
+        gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        if (audioSource == null) { 
+        
+            audioSource = gameObject.GetComponent<AudioSource>();
+        }
+        if (animator == null) {
+
+            animator = gameObject.GetComponent<Animator>();
+        }
+        if (clip == null)
+        {
+
+            audioSource.clip = DefaultSound;
+        }
+        else { 
+        
+            audioSource.clip = clip;
+        }
+        isPlay = true;
+        audioSource.volume *= AudioDefault.MasterVolume * AudioDefault.EffectVolume;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+
+        if(isPlay)
+        {
+            audioSource.Play();
+            isPlay = false;
+        }
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Explosion")) {
 
@@ -57,7 +88,7 @@ public class Explosion : MonoBehaviour
 
         if (animation_end && !audioSource.isPlaying) { 
         
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
 

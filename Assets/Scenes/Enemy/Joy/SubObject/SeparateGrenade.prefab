@@ -145,6 +145,7 @@ MonoBehaviour:
   MaxX: 40
   MaxY: 40
   impact: {fileID: 4714968451688574834}
+  MinimumJegdeLoseTime: 0.1
 --- !u!114 &4714968451688574834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,6 +158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3ed2e5727f481f4f95589ccbff2a69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SeparateCount: 1
   ExplosionSize: -1
   ExplosionModel: {fileID: 4701358685397557323, guid: a0366bf0b9f297c4cbfeb62fb912beaa, type: 3}
+  SeparateCount: 1

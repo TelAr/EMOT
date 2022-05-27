@@ -81,13 +81,9 @@ public class SnipingTargetting : MonoBehaviour
         }
         else if(!is_fire){
             GameObject go;
-            go = Instantiate(ExplosionModel);
-            if (go.GetComponent<AudioSource>() != null) {
-                go.GetComponent<AudioSource>().clip = ExplosionSound;
-                go.GetComponent<AudioSource>().Play();
-            }
+            go = EffectPoolingController.EffectObjectController.GetComponent<EffectPoolingController>().GetExplosion(ExplosionSound);
             go.transform.position = transform.position;
-            go.transform.localScale *= 3;
+            go.transform.localScale *= 9;
             is_fire = true;
             timer = TargettingTime;
         }

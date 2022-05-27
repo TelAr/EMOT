@@ -142,6 +142,7 @@ MonoBehaviour:
   JudgeStartRadius: 0.13
   JudgeEndRadius: 0.36
   Judgetime: 0.75
+  DefaultSound: {fileID: 8300000, guid: 5dd829925a2462d4094ec71761381d46, type: 3}
 --- !u!82 &7441512661277162328
 AudioSource:
   m_ObjectHideFlags: 0

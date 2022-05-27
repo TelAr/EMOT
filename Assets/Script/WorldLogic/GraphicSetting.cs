@@ -21,8 +21,6 @@ public class GraphicSetting : MonoBehaviour
 
     static public void GraphicSettingUpdate() {
 
-
-        Debug.Log("isGraphicEffect:"+isGraphicEffect);
         FixedGameResolution();
         if (GlobalVolume.GlobalVolumeObject != null) {
             GlobalVolume.GlobalVolumeObject.SetActive(isGraphicEffect);
@@ -52,9 +50,6 @@ public class GraphicSetting : MonoBehaviour
             Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); // 새로운 Rect 적용
         }
 
-        Debug.Log("Now Solution: "+SetWidth + ":" + SetHeight);
-        Debug.Log("System Solution: "+Screen.width + ":" + Screen.height);
-        Debug.Log("IsFullScreen:" + Screen.fullScreen);
     }
 
 
