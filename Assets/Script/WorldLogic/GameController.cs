@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     static public List<GameObject> EnemyList = new(); 
     static private GameObject player;
     static private GameObject enemy;
-    static public float GRAVITY = -20;
+    static public float GRAVITY = -35;
     static public bool is_stop;
 
     void Awake()

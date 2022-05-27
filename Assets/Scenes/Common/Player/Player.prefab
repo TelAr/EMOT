@@ -155,13 +155,12 @@ MonoBehaviour:
   MaxY: 40
   DefaultPos: {x: 0, y: 0, z: 0}
   health: 1
-  Speed: 5
-  JumpPower: 11
+  Speed: 8
+  JumpPower: 15
   Life: 3
   OffsetPosition: {x: 0, y: 0, z: 0}
   MinimumJumpPowerRatio: 0.5
   isJump: 0
-  test: 0
 --- !u!114 &-4369695278841071617
 MonoBehaviour:
   m_ObjectHideFlags: 0

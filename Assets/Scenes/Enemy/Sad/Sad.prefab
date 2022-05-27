@@ -199,9 +199,9 @@ MonoBehaviour:
   KaBoom: 0
   StickyBombModel: {fileID: 7030550621233004471, guid: 41f44dac65ea68946b674a6927a4ef27, type: 3}
   FireCount: 4
-  FireDelay: 1.5
-  GlobarBoomTime: 5
-  FireVelocity: 30
+  FireDelay: 1
+  GlobarBoomTime: 10
+  FireVelocity: 25
 --- !u!114 &1820840841350390322
 MonoBehaviour:
   m_ObjectHideFlags: 0
