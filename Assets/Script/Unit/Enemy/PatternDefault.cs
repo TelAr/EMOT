@@ -19,7 +19,6 @@ public abstract class PatternDefault : MonoBehaviour
         if (is_main) {
             caster.pattern_running = true;
         }
-        
     }
 
 

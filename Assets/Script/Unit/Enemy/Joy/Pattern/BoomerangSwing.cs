@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boomerang : PatternDefault
+public class BoomerangSwing : PatternDefault
 {
     
     public GameObject Boomerang_model;
     public bool IsFixedDistance, IsFixedAVGVelocity;
     public float FixedDistance, FixedAVGVelocity;
     private GameObject boomerang_object;
-    private float timer;
+    public float timer;
     private float targetting_time = 1f;
     private float flight_one_way_time = 2f;
     private Vector3 target_pos, offset_pos;
@@ -44,12 +44,18 @@ public class Boomerang : PatternDefault
     {
         base.Run();
         caster.GetComponent<EnemyDefault>().statement = "Boomerang";
+        if (boomerang_object.activeSelf) {
+            caster.GetComponent<EnemyDefault>().statement = "Deny pattern";
+            Stop();
+            return;
+        }
+
+
     }
 
     public override void Stop()
     {
         base.Stop();
-        boomerang_object.SetActive(false);
     }
 
     // Update is called once per frame
@@ -58,7 +64,42 @@ public class Boomerang : PatternDefault
         if (is_run) {
 
             timer += Time.deltaTime;
-            boomerang_object.transform.rotation = Quaternion.Euler(0, 0, timer * 720);
+
+            if (timer > targetting_time) {
+
+                target_pos = GameController.GetPlayer().transform.position;
+
+                if (IsFixedDistance)
+                {
+
+                    target_pos = (target_pos - (gameObject.transform.position+offset_pos)).normalized * FixedDistance + (gameObject.transform.position + offset_pos);
+                }
+
+                if (IsFixedAVGVelocity)
+                {
+
+                    flight_one_way_time = (target_pos - boomerang_object.transform.position).magnitude / FixedAVGVelocity;
+                }
+
+
+
+
+                if (boomerang_object.GetComponent<Boomerang>() == null)
+                {
+
+                    boomerang_object.AddComponent<Boomerang>();
+                }
+                Debug.Log(target_pos);
+                Debug.Log(flight_one_way_time);
+                boomerang_object.GetComponent<Boomerang>().Initiating(caster.gameObject, target_pos, flight_one_way_time, offset_pos);
+                boomerang_object.SetActive(true);
+
+
+                Stop();
+            }
+                
+
+            /*
             if (timer < targetting_time)
             {
 
@@ -93,6 +134,7 @@ public class Boomerang : PatternDefault
 
                 Stop();
             }
+            */
         }
         
 

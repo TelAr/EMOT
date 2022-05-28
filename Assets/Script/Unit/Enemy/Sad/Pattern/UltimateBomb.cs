@@ -46,7 +46,6 @@ public class UltimateBomb : PatternDefault
 
     public override void Run()
     {
-
         base.Run();
         caster.GetComponent<EnemyDefault>().statement = "UltimateBomb";
     }
