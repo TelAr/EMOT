@@ -69,7 +69,6 @@ public class EnemyDefault : UnitDefault
         }
         public void Run() {
 
-            Debug.Log(pattern);
             pattern.is_main = true;
             pattern.Run();
             enemy.global_delay = post_delay;
