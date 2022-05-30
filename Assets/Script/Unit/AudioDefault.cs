@@ -42,7 +42,7 @@ public class AudioDefault : MonoBehaviour
             mAudioSource.Stop();
             AudioState = State.Null;
         }
-        if (GameController.is_stop)
+        if (Time.timeScale <= 0)
         {
 
             mAudioSource.Pause();

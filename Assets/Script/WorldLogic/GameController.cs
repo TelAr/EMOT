@@ -9,26 +9,26 @@ public class GameController : MonoBehaviour
     
     public GameObject PlayerModel;
     public List<GameObject> EnemyModel;
-    public Canvas OptionWindow;
+    public Canvas OptionWindow, MenuWindow;
 
-    private string text;
     static public int Level;
     static public List<GameObject> EnemyList = new(); 
     static private GameObject player;
     static private GameObject enemy;
     static public float GRAVITY = -35;
-    static public bool is_stop;
 
     void Awake()
     {
         Level = 0;
-        is_stop = false;
         foreach (GameObject enemy in EnemyModel) { 
         
             GameObject input = Instantiate(enemy);
             input.SetActive(false);
             EnemyList.Add(input);
         }
+
+        OptionWindow.gameObject.SetActive(false);
+        MenuWindow.gameObject.SetActive(false);
 
         player = Instantiate(PlayerModel);
         enemy = EnemyList[0];
@@ -74,26 +74,21 @@ public class GameController : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Escape)) {
 
-        if (Input.GetKeyDown(KeyCode.P)) {
-
-            is_stop ^= true;
-            if (is_stop)
+            if (!MenuWindow.gameObject.activeSelf)
             {
+                OpenMenu();
+            }
+            else {
 
-                gameObject.GetComponent<OptionSetting>().IsOpen();
+                ClearUI();
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape)) {
 
-            ExitGame();
-        }
-
-        OptionWindow.gameObject.SetActive(is_stop);
-        if (is_stop)
+        if ((OptionWindow.gameObject.activeSelf || MenuWindow.gameObject.activeSelf))
         {
-
             Time.timeScale = 0;
         }
         else { 
@@ -103,9 +98,23 @@ public class GameController : MonoBehaviour
 
     }
 
-    public void Again() {
+    public void ClearUI() {
 
-        is_stop = false;
+        OptionWindow.gameObject.SetActive(false);
+        MenuWindow.gameObject.SetActive(false);
+    }
+
+    public void OpenMenu() {
+
+        OptionWindow.gameObject.SetActive(false);
+        MenuWindow.gameObject.SetActive(true);
+    }
+
+    public void OpenOption() {
+
+        gameObject.GetComponent<OptionSetting>().IsOpen();
+        OptionWindow.gameObject.SetActive(true);
+        MenuWindow.gameObject.SetActive(false);
     }
 
     public void ExitGame()

@@ -3444,6 +3444,7 @@ GameObject:
   - component: {fileID: 997599141}
   - component: {fileID: 997599140}
   - component: {fileID: 997599142}
+  - component: {fileID: 997599143}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -3463,12 +3464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 619bb652cb322df409134777584802dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player_prefabs: {fileID: 4241799048675597654, guid: 8db5aa0729bda6c49918c921100336a1, type: 3}
+  PlayerModel: {fileID: 4241799048675597654, guid: 8db5aa0729bda6c49918c921100336a1, type: 3}
   EnemyModel:
   - {fileID: 5378690169977018165, guid: af5ab94087c15de449da28222d1e35eb, type: 3}
   - {fileID: 2857347809405532536, guid: d15cdb79e3a9e584286c51a74b7b7c1e, type: 3}
-  SkillText: {fileID: 731348086}
-  CharaText: {fileID: 64716475}
   OptionWindow: {fileID: 1887098945}
 --- !u!4 &997599139
 Transform:
@@ -3614,6 +3613,20 @@ MonoBehaviour:
   MasterMT: {fileID: 1517362582}
   EffectMT: {fileID: 890551838}
   BGMMT: {fileID: 236672603}
+--- !u!114 &997599143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997599137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9baa00f19d5261942b3e01ba66e414a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillText: {fileID: 731348086}
+  CharaText: {fileID: 64716475}
 --- !u!1 &1000611258
 GameObject:
   m_ObjectHideFlags: 0
