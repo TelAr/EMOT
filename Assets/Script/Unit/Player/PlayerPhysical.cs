@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMain : UnitDefault
+public class PlayerPhysical : UnitDefault
 {
     //public value
     public int health = 1;
