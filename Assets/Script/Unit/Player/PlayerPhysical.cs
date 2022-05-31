@@ -7,10 +7,8 @@ using UnityEngine.InputSystem;
 public class PlayerPhysical : UnitDefault
 {
     //public value
-    public int health = 1;
     public float Speed = 1;
     public float JumpPower = 6f;
-    public int Life = 3;
     public Vector3 OffsetPosition;
     public float MinimumJumpPowerRatio;
 
@@ -28,9 +26,7 @@ public class PlayerPhysical : UnitDefault
     private int jumpCounter;
     private Rigidbody2D rb2;
     private GameController gc;
-    private PlayerAudio playerAudio;
-    private float immunTimer = 0;
-    private SpriteRenderer spriteRenderer;
+    private PlayerHealth ph;
 
     //action
     public bool isJump;
@@ -39,17 +35,10 @@ public class PlayerPhysical : UnitDefault
     public override void Reset()
     {
         base.Reset();
-        health = 1;
         Speed = 5;
         JumpPower = 8;
-        Life = 3;
     }
 
-    public void LifeSettingStart(int life) {
-
-        Start();
-        Life = life;
-    }
 
     // Start is called before the first frame update
     public override void Start()
@@ -61,15 +50,13 @@ public class PlayerPhysical : UnitDefault
         m_Move = Vector2.zero;
         rb2.velocity = Vector2.zero;
         transform.position = OffsetPosition;
-        Life = 3;
         jumping = false;
     }
 
     public void Awake()
     {
         rb2 = gameObject.GetComponent<Rigidbody2D>();
-        playerAudio = gameObject.GetComponent<PlayerAudio>();
-        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        ph = gameObject.GetComponent<PlayerHealth>();
     }
 
 
@@ -110,11 +97,6 @@ public class PlayerPhysical : UnitDefault
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && immunTimer <= 0)
-        {
-            hurt();
-        }
-
 
         if (collision.gameObject.CompareTag("Block"))
         {
@@ -181,34 +163,12 @@ public class PlayerPhysical : UnitDefault
     {
 
         Debug.Log(collision);
-        if (collision.gameObject.CompareTag("Enemy")&& immunTimer<=0) {
-            hurt();
-        }
 
-        if (collision.gameObject.GetComponent<MissileDefault>() != null) {
-            if (!collision.gameObject.GetComponent<MissileDefault>().IsPlayerPanetrate) {
-                
-                collision.gameObject.SetActive(false);
-            }
-        }
-    }
-
-    private void hurt(float immuneTime=2f) {
-
-        immunTimer = immuneTime;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (immunTimer > 0) {
-            immunTimer -= Time.fixedDeltaTime;
-            spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
-        }
-        else
-        {
-            spriteRenderer.color = Color.white;
-        }
         accel = new Vector2(0, GameController.GRAVITY);
         rb2.velocity = new Vector3(m_Move.x * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
         //벽 판정시
@@ -231,7 +191,7 @@ public class PlayerPhysical : UnitDefault
                 {
                     if (!jumping) {
 
-                        playerAudio.JumpPlay();
+                        if (gameObject.GetComponent<PlayerAudio>() != null) gameObject.GetComponent<PlayerAudio>().JumpPlay();
                         rb2.velocity = new Vector2(rb2.velocity.x, JumpPower * (MinimumJumpPowerRatio - (1f - MinimumJumpPowerRatio) * Time.fixedDeltaTime / JUMP_TIME));
                     }
                     else
@@ -252,7 +212,7 @@ public class PlayerPhysical : UnitDefault
             {
                 if (jumpCounter > 0)
                 {
-                    playerAudio.JumpPlay();
+                    if (gameObject.GetComponent<PlayerAudio>() != null) gameObject.GetComponent<PlayerAudio>().JumpPlay();
                     rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
                     jumpCounter--;
                     isJump = false;
@@ -268,7 +228,8 @@ public class PlayerPhysical : UnitDefault
         if (isFall) {
 
             //추락판정
-            LifeSettingStart(Life - 1);
+            ph.Hurt(20);
+
             isFall = false;
         }
 

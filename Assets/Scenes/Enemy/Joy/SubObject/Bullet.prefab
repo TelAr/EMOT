@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3685752072754926451}
   - component: {fileID: 4700296036227395585}
   - component: {fileID: 4645143335011798198}
+  - component: {fileID: 3207556246589793853}
   m_Layer: 8
   m_Name: Bullet
   m_TagString: Enemy
@@ -144,3 +145,18 @@ MonoBehaviour:
   MaxX: 40
   MaxY: 40
   impact: {fileID: 0}
+  MinimumJegdeLoseTime: 0
+--- !u!114 &3207556246589793853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7225763394463607986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791d8f6179aff5e45b111e0cae1780c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 5
+  ImmuneTime: 2

@@ -8,7 +8,8 @@ public class Boomerang : MonoBehaviour
     public float oneWayTime;
     public GameObject casterObject;
     public Vector3 targetPos, initiatingPos;
-    
+
+
 
     public void Initiating(GameObject caster, Vector3 target, float oneWayDelay, Vector3? offset = null)
     {

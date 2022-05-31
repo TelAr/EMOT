@@ -100,6 +100,10 @@ public class TestMode : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.P)) {
+
+            GameController.GetPlayer().GetComponent<PlayerHealth>().FullHealth();
+        }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))
         {

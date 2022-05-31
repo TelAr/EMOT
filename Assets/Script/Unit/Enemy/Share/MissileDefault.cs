@@ -41,6 +41,27 @@ public class MissileDefault : MonoBehaviour
 
                 impact.Impact(collision.gameObject);
             }
+            if (collision.gameObject.GetComponent<HealthDefault>() != null)
+            {
+
+                if (gameObject.GetComponent<Damage>() != null) {
+
+                    collision.gameObject.GetComponent<HealthDefault>().Hurt(gameObject.GetComponent<Damage>());
+                }
+
+                if (!IsPlayerPanetrate)
+                {
+                    if (IsDestroy)
+                    {
+                        Destroy(gameObject);
+                    }
+                    gameObject.SetActive(false);
+
+                }
+                
+            }
+        
+
             if (IsCollsionDisappear)
             {
                 if (IsDestroy)

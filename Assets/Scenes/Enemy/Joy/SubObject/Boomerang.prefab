@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1853808436380900575}
   - component: {fileID: 8366584035332060496}
   - component: {fileID: 2111161624284012453}
+  - component: {fileID: -6623807382453265940}
   m_Layer: 8
   m_Name: Boomerang
   m_TagString: Enemy
@@ -114,3 +115,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775e647983bd5b2449cadb404217b014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
+  oneWayTime: 0
+  casterObject: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
+  initiatingPos: {x: 0, y: 0, z: 0}
+--- !u!114 &-6623807382453265940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6392292533408563140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791d8f6179aff5e45b111e0cae1780c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 5
+  ImmuneTime: 2

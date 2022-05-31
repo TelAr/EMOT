@@ -10,15 +10,18 @@ public class GameController : MonoBehaviour
     public GameObject PlayerModel;
     public List<GameObject> EnemyModel;
     public Canvas OptionWindow, MenuWindow;
+    public Slider HealthGraph;
 
     static public int Level;
-    static public List<GameObject> EnemyList = new(); 
+    static public List<GameObject> EnemyList = new();
+    static private GameObject gameConroller;
     static private GameObject player;
     static private GameObject enemy;
     static public float GRAVITY = -35;
 
     void Awake()
     {
+        gameConroller = gameObject;
         Level = 0;
         foreach (GameObject enemy in EnemyModel) { 
         
@@ -40,6 +43,10 @@ public class GameController : MonoBehaviour
         return player;
     }
 
+    static public GameObject GetGameController() {
+
+        return gameConroller;
+    }
     static public GameObject GetEnemy() { 
     
         return enemy;

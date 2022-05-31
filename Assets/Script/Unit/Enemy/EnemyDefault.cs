@@ -122,7 +122,6 @@ public class EnemyDefault : UnitDefault
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
 
             if (pattern.enabled) {
-                Debug.Log(pattern);
                 pattern.caster = this;
                 PatternController PC = new(pattern);
                 PatternList.Add(PC);

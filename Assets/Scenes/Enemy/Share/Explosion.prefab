@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3816958907722485245}
   - component: {fileID: -2675717400739025955}
   - component: {fileID: 578178396570474852}
+  - component: {fileID: 6116137788543127464}
   - component: {fileID: 7441512661277162328}
   m_Layer: 8
   m_Name: Explosion
@@ -143,6 +144,20 @@ MonoBehaviour:
   JudgeEndRadius: 0.36
   Judgetime: 0.75
   DefaultSound: {fileID: 8300000, guid: 5dd829925a2462d4094ec71761381d46, type: 3}
+--- !u!114 &6116137788543127464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4701358685397557323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 791d8f6179aff5e45b111e0cae1780c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 10
+  ImmuneTime: 2
 --- !u!82 &7441512661277162328
 AudioSource:
   m_ObjectHideFlags: 0
