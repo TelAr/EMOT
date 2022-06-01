@@ -89,8 +89,6 @@ public class BoomerangSwing : PatternDefault
 
                     boomerang_object.AddComponent<Boomerang>();
                 }
-                Debug.Log(target_pos);
-                Debug.Log(flight_one_way_time);
                 boomerang_object.GetComponent<Boomerang>().Initiating(caster.gameObject, target_pos, flight_one_way_time, offset_pos);
                 boomerang_object.SetActive(true);
 

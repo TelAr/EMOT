@@ -41,11 +41,11 @@ public class MissileDefault : MonoBehaviour
 
                 impact.Impact(collision.gameObject);
             }
-            if (collision.gameObject.GetComponent<PlayerHealth>() != null)
+            if (collision.gameObject.GetComponent<HealthDefault>() != null)
             {
 
 
-                if (!IsPlayerPanetrate)
+                if (!(IsPlayerPanetrate&&collision.gameObject.CompareTag("Player")))
                 {
                     if (IsDestroy)
                     {

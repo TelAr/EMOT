@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4241799048675597657}
   - component: {fileID: 4241799048675597661}
   - component: {fileID: 1280117680179468386}
+  - component: {fileID: 628138178131830787}
   - component: {fileID: -4369695278841071617}
   - component: {fileID: -7389247827842631633}
   - component: {fileID: 5391681703418939846}
@@ -172,7 +173,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 425ede9b7309935469fe0aed3f55952c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LifeMax: 100
+  HealthMax: 100
+  HealthSlider: {fileID: 0}
+  playerPhysical: {fileID: 0}
+--- !u!114 &628138178131830787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4241799048675597654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e8a44f7ff5c164a8c66d3bbd6f4012, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BulletModel: {fileID: 7225763394463607986, guid: a1a5997a66121864fa354b18a1a81ed9, type: 3}
+  BulletSpeed: 20
+  BulletMax: 7
+  BulletReloadDelay: 3
 --- !u!114 &-4369695278841071617
 MonoBehaviour:
   m_ObjectHideFlags: 0

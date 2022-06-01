@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerPhysical : UnitDefault
 {
@@ -19,7 +18,8 @@ public class PlayerPhysical : UnitDefault
     //statement OR effected
     private bool is_side_collision;
     private bool jumping;
-    private Vector2 accel, m_Move;
+    private float moving, direction;
+    private Vector2 accel;
     private Vector2 collision_point_avg;
     private Vector2 collision_point_variance;
     private float jumpTimer = 0f;
@@ -47,7 +47,7 @@ public class PlayerPhysical : UnitDefault
         jumpTimer = 0;
         jumpCounter = 0;
         accel = Vector2.zero;
-        m_Move = Vector2.zero;
+        moving = 0;
         rb2.velocity = Vector2.zero;
         transform.position = OffsetPosition;
         jumping = false;
@@ -57,26 +57,26 @@ public class PlayerPhysical : UnitDefault
     {
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         ph = gameObject.GetComponent<PlayerHealth>();
+        direction = 1;
     }
 
+    public void Moving(float x) {
 
-    public void OnMove(InputValue value)
-    {
-        m_Move = value.Get<Vector2>();
-        if (m_Move.x < 0) { 
-        
-            m_Move.x = -1;
+        if (x > 0.1f) {
+
+            direction = 1;
         }
-        if (m_Move.x > 0) { 
-        
-            m_Move.x = 1;
+        if (x < -0.1f) {
+
+            direction = -1;
         }
-    }
-    public void OnJump(InputValue value) {
-
-        isJump = value.Get<float>() > 0 ? true : false;
+        moving = x;
     }
 
+    public float GetDirection() { 
+    
+        return direction;
+    }
 
     private void CollsionBlock(Collision2D collision) {
 
@@ -170,13 +170,13 @@ public class PlayerPhysical : UnitDefault
     void FixedUpdate()
     {
         accel = new Vector2(0, GameController.GRAVITY);
-        rb2.velocity = new Vector3(m_Move.x * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
+        rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
         //벽 판정시
         if (is_side_collision)
         {
             rb2.velocity = new Vector2(collision_point_avg.x < transform.position.x ?
-                (m_Move.x>0?rb2.velocity.x:0):
-                (m_Move.x<0?rb2.velocity.x:0)
+                (moving > 0?rb2.velocity.x:0):
+                (moving < 0?rb2.velocity.x:0)
                 , rb2.velocity.y);
         }
 
@@ -224,6 +224,9 @@ public class PlayerPhysical : UnitDefault
             isJump = false;
             jumpCounter--;
         }
+
+        //차후 스트라이트, 스파인 작업에 따라 별도의 명령으로 바뀔 수 있음
+        gameObject.GetComponent<SpriteRenderer>().flipX = direction > 0;
 
         if (isFall) {
 
