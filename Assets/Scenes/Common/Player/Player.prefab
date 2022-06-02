@@ -161,7 +161,10 @@ MonoBehaviour:
   JumpPower: 15
   OffsetPosition: {x: 0, y: 0, z: 0}
   MinimumJumpPowerRatio: 0.5
+  DashTime: 0.07
+  DashDistance: 2
   isJump: 0
+  IsUniquAction: 0
 --- !u!114 &1280117680179468386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,7 +178,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthMax: 100
-  HealthSlider: {fileID: 0}
   playerPhysical: {fileID: 0}
   playerAction: {fileID: 0}
 --- !u!114 &628138178131830787
@@ -190,9 +192,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e8a44f7ff5c164a8c66d3bbd6f4012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StaminaMax: 100
+  StaminaPerSecond: 10
+  ParryingCost: 30
+  DashCost: 30
   BulletModel: {fileID: 7225763394463607986, guid: a1a5997a66121864fa354b18a1a81ed9, type: 3}
   BulletSpeed: 20
   BulletMax: 7
+  ChargingDelayPerBullet: 0.52
+  ChargingFireDelay: 0.07
   BulletReloadDelay: 3
   OffsetPosition: {x: 0, y: 0, z: 0}
   ParryingJudgeTime: 0.1

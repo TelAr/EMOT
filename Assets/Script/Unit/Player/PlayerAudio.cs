@@ -48,7 +48,7 @@ public class PlayerAudio : AudioDefault
 
     }
 
-    public void FirePlay()
+    public void FirePlay(float InputOffset=1f)
     {
 
         AudioController controller = GetAudioController();
@@ -58,7 +58,7 @@ public class PlayerAudio : AudioDefault
 
         mAudioSource.clip = FireAudio;
         mAudioSource.time = 0f;
-        mAudioSource.volume = 0.5f * MasterVolume * EffectVolume * FireVolumeOffset;
+        mAudioSource.volume = 0.5f * MasterVolume * EffectVolume * FireVolumeOffset * InputOffset;
 
         controller.StartTiming = mAudioSource.time;
         controller.PlayTime = 2f;

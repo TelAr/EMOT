@@ -10,6 +10,7 @@ public class PlayerPhysical : UnitDefault
     public float JumpPower = 6f;
     public Vector3 OffsetPosition;
     public float MinimumJumpPowerRatio;
+    public float DashTime, DashDistance;
 
     //const
     private const float JUMP_TIME = 0.1f;
@@ -18,6 +19,7 @@ public class PlayerPhysical : UnitDefault
     //statement OR effected
     private bool is_side_collision;
     private bool jumping;
+    private bool antiGravity;
     private float moving, direction;
     private Vector2 accel;
     private Vector2 collision_point_avg;
@@ -28,9 +30,12 @@ public class PlayerPhysical : UnitDefault
     private GameController gc;
     private PlayerHealth ph;
     private PlayerAction pa;
+    private float DashTimer;
+    private Vector3 DashSP, DashEP;
 
     //action
     public bool isJump;
+    public bool IsUniquAction;
 
 
     public override void Reset()
@@ -52,6 +57,8 @@ public class PlayerPhysical : UnitDefault
         rb2.velocity = Vector2.zero;
         transform.position = OffsetPosition;
         jumping = false;
+        antiGravity = false;
+        IsUniquAction = false;
     }
 
     protected override void Awake()
@@ -74,6 +81,17 @@ public class PlayerPhysical : UnitDefault
             direction = -1;
         }
         moving = x;
+    }
+
+    public void Dash()
+    {
+        antiGravity = true;
+        DashTimer = 0;
+        IsUniquAction = true;
+        DashSP = transform.position;
+        DashEP = transform.position + new Vector3(DashDistance * direction, 0, 0);
+        rb2.velocity = Vector2.zero;
+        moving = 0;
     }
 
     public float GetDirection() { 
@@ -172,61 +190,68 @@ public class PlayerPhysical : UnitDefault
     // Update is called once per frame
     void FixedUpdate()
     {
-        accel = new Vector2(0, GameController.GRAVITY);
-        rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
-        //벽 판정시
-        if (is_side_collision)
-        {
-            rb2.velocity = new Vector2(collision_point_avg.x < transform.position.x ?
-                (moving > 0?rb2.velocity.x:0):
-                (moving < 0?rb2.velocity.x:0)
-                , rb2.velocity.y);
-        }
 
-        //jump
-        if (isJump)
-        {
+        if (!IsUniquAction) {
 
-            if (jumpCounter == JUMPMAX)
+            accel = new Vector2(0, GameController.GRAVITY);
+            rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
+            //벽 판정시
+            if (is_side_collision)
+            {
+                rb2.velocity = new Vector2(collision_point_avg.x < transform.position.x ?
+                    (moving > 0 ? rb2.velocity.x : 0) :
+                    (moving < 0 ? rb2.velocity.x : 0)
+                    , rb2.velocity.y);
+            }
+
+            //jump
+            if (isJump)
             {
 
-                if (jumpTimer < JUMP_TIME)
+                if (jumpCounter == JUMPMAX)
                 {
-                    if (!jumping) {
 
-                        if (gameObject.GetComponent<PlayerAudio>() != null) gameObject.GetComponent<PlayerAudio>().JumpPlay();
-                        rb2.velocity = new Vector2(rb2.velocity.x, JumpPower * (MinimumJumpPowerRatio - (1f - MinimumJumpPowerRatio) * Time.fixedDeltaTime / JUMP_TIME));
+                    if (jumpTimer < JUMP_TIME)
+                    {
+                        if (!jumping)
+                        {
+
+                            if (gameObject.GetComponent<PlayerAudio>() != null) gameObject.GetComponent<PlayerAudio>().JumpPlay();
+                            rb2.velocity = new Vector2(rb2.velocity.x, JumpPower * (MinimumJumpPowerRatio - (1f - MinimumJumpPowerRatio) * Time.fixedDeltaTime / JUMP_TIME));
+                        }
+                        else
+                        {
+                            rb2.velocity += new Vector2(0, JumpPower * (1f - MinimumJumpPowerRatio)) * Time.fixedDeltaTime / JUMP_TIME;
+                        }
+                        jumping = true;
+                        jumpTimer += Time.fixedDeltaTime;
                     }
                     else
                     {
-                        rb2.velocity += new Vector2(0, JumpPower * (1f - MinimumJumpPowerRatio)) * Time.fixedDeltaTime / JUMP_TIME;
+                        jumping = false;
+                        isJump = false;
+                        jumpCounter--;
                     }
-                    jumping = true;
-                    jumpTimer += Time.fixedDeltaTime;
                 }
                 else
                 {
-                    jumping = false;
-                    isJump = false;
-                    jumpCounter--;
+                    if (jumpCounter > 0)
+                    {
+                        if (gameObject.GetComponent<PlayerAudio>() != null) gameObject.GetComponent<PlayerAudio>().JumpPlay();
+                        rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
+                        jumpCounter--;
+                        isJump = false;
+                    }
                 }
             }
-            else
+            else if (jumping)
             {
-                if (jumpCounter > 0)
-                {
-                    if (gameObject.GetComponent<PlayerAudio>() != null) gameObject.GetComponent<PlayerAudio>().JumpPlay();
-                    rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
-                    jumpCounter--;
-                    isJump = false;
-                }
+                jumping = false;
+                isJump = false;
+                jumpCounter--;
             }
         }
-        else if (jumping) {
-            jumping = false;
-            isJump = false;
-            jumpCounter--;
-        }
+        
 
         //차후 스트라이트, 스파인 작업에 따라 별도의 명령으로 바뀔 수 있음
         gameObject.GetComponent<SpriteRenderer>().flipX = direction > 0;
@@ -237,6 +262,18 @@ public class PlayerPhysical : UnitDefault
             ph.Hurt(20);
 
             isFall = false;
+        }
+
+
+        if (DashTimer < DashTime)
+        {
+
+            DashTimer += Time.fixedDeltaTime;
+            transform.position = (DashSP * (DashTime - DashTimer) + DashEP * DashTimer) / DashTime;
+        }
+        else {
+
+            IsUniquAction = false;
         }
 
     }

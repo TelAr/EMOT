@@ -8,11 +8,11 @@ public class PlayerHealth : HealthDefault
 
     static public GameObject Player=null;
 
-    public Slider HealthSlider = null;
     public PlayerPhysical playerPhysical;
     public PlayerAction playerAction;
     private SpriteRenderer spriteRenderer;
     private PlayerAudio PlayerAudio;
+    private Slider healthSlider = null;
 
     protected override void Awake()
     {
@@ -21,14 +21,14 @@ public class PlayerHealth : HealthDefault
         {
             Player = gameObject;
         }
-        if (HealthSlider == null)
+        if (healthSlider == null)
         {
-            HealthSlider = GameController.GetGameController().GetComponent<GameController>().HealthGraph;
+            healthSlider = GameController.GetGameController().GetComponent<GameController>().HealthGraph;
         }
         base.Awake();
         playerPhysical = gameObject.GetComponent<PlayerPhysical>();
         playerAction = gameObject.GetComponent<PlayerAction>();
-        PlayerAudio =gameObject.GetComponent<PlayerAudio>();
+        PlayerAudio = gameObject.GetComponent<PlayerAudio>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
@@ -46,13 +46,13 @@ public class PlayerHealth : HealthDefault
     public override void HealthSetting(int value)
     {
         base.HealthSetting(value);
-        HealthSlider.maxValue = value;
+        healthSlider.maxValue = value;
     }
 
     void Update()
     {
         
-        HealthSlider.value = health;
+        healthSlider.value = health;
 
         if (immunTimer > 0)
         {

@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     public GameObject PlayerModel;
     public List<GameObject> EnemyModel;
     public Canvas OptionWindow, MenuWindow;
-    public Slider HealthGraph;
+    public Slider HealthGraph, StaminaGraph;
     public List<Vector2> GlobalLimitArea;
 
     static public int Level;
