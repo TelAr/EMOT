@@ -66,6 +66,7 @@ public class PlayerAction : MonoBehaviour
 
         if (parryingJudgeTimer > 0) {
 
+            pa.ParryingSuccessPlay();
             return true;
         }
         else
@@ -81,7 +82,7 @@ public class PlayerAction : MonoBehaviour
         if (bulletAmount <= 0)
         {
 
-            //불발 음원 재생
+            pa.NoAmmoPlay();
             return;
         }
         if (pp.IsUniquAction) {

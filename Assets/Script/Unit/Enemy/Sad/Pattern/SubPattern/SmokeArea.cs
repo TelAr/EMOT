@@ -20,12 +20,10 @@ public class SmokeArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.GetComponent<PlayerPhysical>() != null)
         {
-
             if (Smoke == null)
             {
-
                 Smoke = Instantiate(SmokeModel, collision.gameObject.transform);
             }
             Smoke.SetActive(true);
