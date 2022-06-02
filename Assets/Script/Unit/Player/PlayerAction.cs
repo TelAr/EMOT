@@ -14,7 +14,41 @@ public class PlayerAction : MonoBehaviour
     private float reloadTimer = 0;
     public Vector3 OffsetPosition;
 
+
+    public float ParryingJudgeTime = 0.1f;
+    public float ParryingImmuneTime = 0.5f;
+    private float parryingJudgeTimer = 0f;
+
     private PlayerPhysical pp;
+    private PlayerHealth ph;
+    private PlayerAudio pa;
+    void Awake()
+    {
+        pp = GetComponent<PlayerPhysical>();
+        ph = GetComponent<PlayerHealth>();
+        pa = GetComponent<PlayerAudio>();
+        bulletAmount = BulletMax;
+        for (int t = 0; t < BulletMax; t++)
+        {
+
+            GameObject bullet = Instantiate(BulletModel);
+            bullet.SetActive(false);
+            bullets.Add(bullet);
+
+        }
+    }
+
+    public bool IsParrying() {
+
+        if (parryingJudgeTimer > 0) {
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     public void OnFire() {
 
@@ -43,8 +77,8 @@ public class PlayerAction : MonoBehaviour
         fireBullet.SetActive(true);
         fireBullet.transform.position = gameObject.transform.position + OffsetPosition;
         fireBullet.GetComponent<Rigidbody2D>().velocity=new Vector2(BulletSpeed*pp.GetDirection(),0);
-
         bulletAmount--;
+        pa.FirePlay();
     }
 
     public void OnJump(InputValue value)
@@ -73,22 +107,9 @@ public class PlayerAction : MonoBehaviour
 
     public void OnParrying() {
 
-        Debug.Log("OnParrying");
+        parryingJudgeTimer = ParryingImmuneTime;
     }
 
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        pp=GetComponent<PlayerPhysical>();
-        bulletAmount = BulletMax;
-        for (int t = 0; t < BulletMax; t++) {
-
-            GameObject bullet = Instantiate(BulletModel);
-            bullet.SetActive(false);
-            bullets.Add(bullet);
-        }
-    }
 
 
     // Update is called once per frame
@@ -100,14 +121,19 @@ public class PlayerAction : MonoBehaviour
 
             if (reloadTimer > BulletReloadDelay) {
 
-                //재장전 음원
+                pa.ReloadPlay();
                 bulletAmount = BulletMax;
                 reloadTimer = 0;
             }
-
         }
-        
 
+    }
 
+    private void FixedUpdate()
+    {
+        if (parryingJudgeTimer > 0)
+        {
+            parryingJudgeTimer -= Time.fixedDeltaTime;
+        }
     }
 }

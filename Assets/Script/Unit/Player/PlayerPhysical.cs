@@ -27,6 +27,7 @@ public class PlayerPhysical : UnitDefault
     private Rigidbody2D rb2;
     private GameController gc;
     private PlayerHealth ph;
+    private PlayerAction pa;
 
     //action
     public bool isJump;
@@ -58,6 +59,7 @@ public class PlayerPhysical : UnitDefault
         base.Awake();
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         ph = gameObject.GetComponent<PlayerHealth>();
+        pa = gameObject.GetComponent<PlayerAction>();
         direction = 1;
     }
 

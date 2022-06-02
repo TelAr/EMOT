@@ -10,7 +10,9 @@ public class PlayerHealth : HealthDefault
 
     public Slider HealthSlider = null;
     public PlayerPhysical playerPhysical;
+    public PlayerAction playerAction;
     private SpriteRenderer spriteRenderer;
+    private PlayerAudio PlayerAudio;
 
     protected override void Awake()
     {
@@ -25,8 +27,22 @@ public class PlayerHealth : HealthDefault
         }
         base.Awake();
         playerPhysical = gameObject.GetComponent<PlayerPhysical>();
+        playerAction = gameObject.GetComponent<PlayerAction>();
+        PlayerAudio =gameObject.GetComponent<PlayerAudio>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
+
+    public override void Hurt(int damage = 0, float immuneTime = 2)
+    {
+        if (playerAction.IsParrying()) {
+
+            immunTimer = playerAction.ParryingImmuneTime > immunTimer ? playerAction.ParryingImmuneTime : immunTimer;
+            return;
+        }
+
+        base.Hurt(damage, immuneTime);
+    }
+
     public override void HealthSetting(int value)
     {
         base.HealthSetting(value);
