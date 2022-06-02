@@ -4154,6 +4154,9 @@ MonoBehaviour:
   OptionWindow: {fileID: 1887098945}
   MenuWindow: {fileID: 1080504992}
   HealthGraph: {fileID: 491260321}
+  GlobalLimitArea:
+  - {x: -40, y: -40}
+  - {x: 40, y: 40}
 --- !u!4 &997599139
 Transform:
   m_ObjectHideFlags: 0
