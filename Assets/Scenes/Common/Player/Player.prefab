@@ -225,9 +225,9 @@ MonoBehaviour:
   FireAudio: {fileID: 8300000, guid: 5f52c374fa040af4ba9b51f849846913, type: 3}
   FireVolumeOffset: 0.5
   NoAmmo: {fileID: 8300000, guid: 84cf2e398c4a1f042b6b95d3aa6544bb, type: 3}
-  NoAmmoVolume: 1
+  NoAmmoVolumeOffset: 1
   ParryingSuccess: {fileID: 8300000, guid: bb155cc273366634ea0ff38688776aac, type: 3}
-  ParryingSuccessVolume: 1
+  ParryingSuccessVolumeOffset: 1
 --- !u!114 &-7389247827842631633
 MonoBehaviour:
   m_ObjectHideFlags: 0
