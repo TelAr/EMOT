@@ -32,6 +32,7 @@ public class PlayerPhysical : UnitDefault
     private PlayerAction pa;
     private float DashTimer;
     private Vector3 DashSP, DashEP;
+    private float verticalInput;
 
     //action
     public bool isJump;
@@ -83,15 +84,19 @@ public class PlayerPhysical : UnitDefault
         moving = x;
     }
 
+    public void VerticalInput(float y) {
+
+        verticalInput = y;
+    }
+
     public void Dash()
     {
         antiGravity = true;
         DashTimer = 0;
         IsUniquAction = true;
-        DashSP = transform.position;
-        DashEP = transform.position + new Vector3(DashDistance * direction, 0, 0);
+        DashEP = new Vector3(direction, verticalInput, 0).normalized * DashDistance / DashTime;
         rb2.velocity = Vector2.zero;
-        moving = 0;
+//        moving = 0;
     }
 
     public float GetDirection() { 
@@ -269,10 +274,10 @@ public class PlayerPhysical : UnitDefault
         {
 
             DashTimer += Time.fixedDeltaTime;
-            transform.position = (DashSP * (DashTime - DashTimer) + DashEP * DashTimer) / DashTime;
+            rb2.velocity = DashEP;
         }
         else {
-
+            
             IsUniquAction = false;
         }
 

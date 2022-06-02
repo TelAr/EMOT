@@ -63,6 +63,13 @@ public class StickyBomb : GrenadeDefault
                 is_sticky = false;
             }
         }
+
+        if (gameObject.GetComponent<FixedJoint2D>().connectedBody != null 
+            && !gameObject.GetComponent<FixedJoint2D>().connectedBody.gameObject.CompareTag("Block")) {
+
+            gameObject.GetComponent<FixedJoint2D>().connectedBody = null;
+            is_sticky = false;
+        }
         
     }
 

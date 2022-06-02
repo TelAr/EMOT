@@ -24,8 +24,10 @@ public class PlayerAction : MonoBehaviour
     private bool isCharging = false;
     private float chargingTimer = 0;
     private int CharingCounter;
-    public float BulletReloadDelay = 3f;
+    public float BulletReloadDelay = 2f;
     private float reloadTimer = 0;
+    public float AutoReloadDelay = 3f;
+    private float autoReloadTimer = 0;
     public Vector3 OffsetPosition;
 
 
@@ -57,6 +59,7 @@ public class PlayerAction : MonoBehaviour
         staminaSlider.maxValue = StaminaMax;
         staminaValue = StaminaMax;
         staminaTimer = 0;
+        autoReloadTimer = 0;
     }
 
     public bool IsParrying() {
@@ -73,6 +76,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnFire(InputValue value) {
 
+        Debug.Log(value.isPressed);
 
         if (bulletAmount <= 0)
         {
@@ -93,7 +97,8 @@ public class PlayerAction : MonoBehaviour
 
         }
         else {
-            chargingTimer = 0;
+            autoReloadTimer = 0;
+            chargingTimer = ChargingFireDelay;
             isCharging = false;
         }
     }
@@ -109,10 +114,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
-        if (pp.IsUniquAction) {
 
-            return;
-        }
         float moving = value.Get<Vector2>().x;
         if (moving < 0)
         {
@@ -125,7 +127,20 @@ public class PlayerAction : MonoBehaviour
             moving = 1;
         }
 
+        float vertical = value.Get<Vector2>().y;
+        if (vertical < 0)
+        {
+
+            vertical = -1;
+        }
+        if (vertical > 0)
+        {
+
+            vertical = 1;
+        }
+
         pp.Moving(moving);
+        pp.VerticalInput(vertical);
     }
 
     public void OnDash() {
@@ -195,14 +210,24 @@ public class PlayerAction : MonoBehaviour
             {
 
                 CharingCounter++;
-                chargingTimer = 0;
+                chargingTimer = 0f;
             }
         }
         else {
+            autoReloadTimer += Time.deltaTime;
+
+            if (autoReloadTimer > AutoReloadDelay
+                && CharingCounter == 0
+                && BulletMax > bulletAmount) {
+
+                pa.ReloadPlay();
+                bulletAmount = BulletMax;
+            }
+
 
             chargingTimer += Time.deltaTime;
 
-            if (chargingTimer> ChargingFireDelay && CharingCounter > 0) {
+            if (chargingTimer >= ChargingFireDelay && CharingCounter > 0) {
 
                 GameObject fireBullet = null;
                 foreach (GameObject bullet in bullets)

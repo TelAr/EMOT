@@ -36,8 +36,6 @@ public class HealthDefault : MonoBehaviour
 
             health = HealthMax;
         }
-
-        Debug.Log(health);
     }
 
     public void FullHealth()
