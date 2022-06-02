@@ -8,21 +8,22 @@ public class PlayerAudio : AudioDefault
 
     public void JumpPlay() {
 
-        mAudioSource.Stop();
+        AudioController controller = GetAudioController();
+
+        AudioSource mAudioSource = controller.Audio;
+
+
         mAudioSource.clip = JumpAudio;
         mAudioSource.time = 0.05f;
         mAudioSource.volume = 0.5f * MasterVolume * EffectVolume;
-        playTime = 0.8f;
-        timer = 0;
-        AudioState=State.Jump;
-    }
 
+        controller.StartTiming = mAudioSource.time;
+        controller.PlayTime = 0.8f;
 
-
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
+        mAudioSource.Play();
 
     }
+
+
+
 }

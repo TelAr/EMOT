@@ -50,7 +50,7 @@ public class PlayerAction : MonoBehaviour
     public void OnJump(InputValue value)
     {
 
-        pp.isJump = value.Get<float>() > 0 ? true : false;
+        pp.isJump = value.Get<float>() > 0;
     }
 
     public void OnMove(InputValue value)

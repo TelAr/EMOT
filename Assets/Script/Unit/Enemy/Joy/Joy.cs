@@ -5,7 +5,6 @@ using UnityEngine;
 public class Joy : EnemyDefault
 {
     public int health;
-    static public JoyAudio joyAudio;
     const int MAX_HEALTH = 100;
 
     private Rigidbody2D rb2d;
@@ -21,7 +20,6 @@ public class Joy : EnemyDefault
         base.Start();
         health = MAX_HEALTH;
         rb2d= gameObject.GetComponent<Rigidbody2D>();
-        joyAudio = gameObject.GetComponent<JoyAudio>();
     }
 
     // Update is called once per frame

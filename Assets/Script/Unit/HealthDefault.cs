@@ -68,7 +68,6 @@ public class HealthDefault : MonoBehaviour
 
     public void Hurt(int damage = 0, float immuneTime = 2f)
     {
-        Debug.Log(damage);
         if (immunTimer <= 0) {
             HealthChange(-damage);
             SetImmuneTime(immuneTime);

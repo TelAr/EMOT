@@ -116,8 +116,9 @@ public class EnemyDefault : UnitDefault
 
     }
 
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         PatternList= new List<PatternController>();
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
 

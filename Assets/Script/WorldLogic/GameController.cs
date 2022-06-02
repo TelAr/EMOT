@@ -11,10 +11,11 @@ public class GameController : MonoBehaviour
     public List<GameObject> EnemyModel;
     public Canvas OptionWindow, MenuWindow;
     public Slider HealthGraph;
+    public List<Vector2> GlobalLimitArea;
 
     static public int Level;
     static public List<GameObject> EnemyList = new();
-    static private GameObject gameConroller;
+    static private GameObject gameConroller = null;
     static private GameObject player;
     static private GameObject enemy;
     static public float GRAVITY = -35;

@@ -13,7 +13,6 @@ public class Boomerang : MonoBehaviour
 
     public void Initiating(GameObject caster, Vector3 target, float oneWayDelay, Vector3? offset = null)
     {
-        Debug.Log("?");
         if (offset == null) { 
         
             offset = Vector3.zero;

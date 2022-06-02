@@ -4,52 +4,73 @@ using UnityEngine;
 
 public class AudioDefault : MonoBehaviour
 {
-    public enum State { Jump, Swing , Null };
-    public State AudioState;
 
     public static float MasterVolume = 1, EffectVolume = 1, BGMVolume = 1;
-    protected AudioSource mAudioSource;
-    protected float playTime;
 
-    protected float timer;
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (gameObject.GetComponent<AudioSource>() == null) {
-
-            gameObject.AddComponent<AudioSource>();
-        }
-        mAudioSource = gameObject.GetComponent<AudioSource>();
+    protected class AudioController { 
+    
+        public AudioSource Audio;
+        public float StartTiming, PlayTime;
     }
+    protected List<AudioController> audioControllers = new List<AudioController>();
 
-    // Update is called once per frame
-    protected virtual void Update()
-    {
-        if (timer < playTime)
-        {
-            timer += Time.deltaTime;
-            if (!mAudioSource.isPlaying)
+    protected AudioController GetAudioController() {
+
+        AudioController returnValue = null;
+        foreach (AudioController source in audioControllers) {
+
+            if (!source.Audio.isPlaying)
             {
 
-                mAudioSource.Play();
+                returnValue = source;
+                break;
             }
         }
-        else
+        if (returnValue == null) {
+
+            returnValue = new AudioController();
+            returnValue.Audio = gameObject.AddComponent<AudioSource>();
+            audioControllers.Add(returnValue);
+        }
+
+
+        return returnValue;
+    }
+
+    protected bool IsAlready(AudioClip comp) { 
+    
+        bool result = false;
+
+        foreach (AudioController source in audioControllers)
         {
 
-            mAudioSource.Stop();
-            AudioState = State.Null;
+            if (!source.Audio == comp)
+            {
+                result = true;
+                break;
+            }
         }
-        if (Time.timeScale <= 0)
-        {
 
-            mAudioSource.Pause();
-        }
-        else {
+        return result;
+    }
 
-            mAudioSource.UnPause();
+    protected void Update() {
+
+        foreach (AudioController source in audioControllers) {
+
+            if (Time.timeScale <= 0)
+            {
+                source.Audio.Pause();
+            }
+            else { 
+            
+                source.Audio.UnPause();
+            }
+
+            if (source.Audio.time >= source.StartTiming + source.PlayTime)
+            {
+                source.Audio.Stop();
+            }
         }
     }
 }

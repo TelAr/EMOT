@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class UnitDefault : MonoBehaviour
 {
     public float MinX, MinY, MaxX, MaxY;
+    public bool IsUniqueLimit = false;
     public Vector3 DefaultPos;
 
     protected bool isFall;
@@ -28,17 +29,17 @@ public abstract class UnitDefault : MonoBehaviour
         DefaultPos = Vector3.zero;
     }
 
-    public void ReAwake() {
+    protected virtual void Awake()
+    {
+        if (!IsUniqueLimit && GameController.GetGameController() != null) {
 
-        if (!this.gameObject.activeSelf) {
-            this.gameObject.SetActive(true);
-            //시작 시 활동
-            Start();
+            MinX = GameController.GetGameController().GetComponent<GameController>().GlobalLimitArea[0].x;
+            MinY = GameController.GetGameController().GetComponent<GameController>().GlobalLimitArea[0].y;
+            MaxX = GameController.GetGameController().GetComponent<GameController>().GlobalLimitArea[1].x;
+            MaxY = GameController.GetGameController().GetComponent<GameController>().GlobalLimitArea[1].y;
         }
-        isFall = true;
-
-
     }
+
     public abstract void Start();
 
     public void Sleep() { 

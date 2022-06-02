@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 5905208331941147593}
   - component: {fileID: -5647268146409375533}
   - component: {fileID: 5864014174496025270}
+  - component: {fileID: 3687930265028011357}
   m_Layer: 7
   m_Name: Sad
   m_TagString: Enemy
@@ -109,6 +110,7 @@ MonoBehaviour:
   MinY: -40
   MaxX: 40
   MaxY: 40
+  IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
   statement: 
   pattern_running: 0
@@ -322,3 +324,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &3687930265028011357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857347809405532536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce95918eda9b79c42ba47a37b99c497e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SwingAudio: {fileID: 8300000, guid: 993acb28cc6b3b447bebc4700d28bf7c, type: 3}

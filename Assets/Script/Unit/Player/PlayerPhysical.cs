@@ -53,8 +53,9 @@ public class PlayerPhysical : UnitDefault
         jumping = false;
     }
 
-    public void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         ph = gameObject.GetComponent<PlayerHealth>();
         direction = 1;

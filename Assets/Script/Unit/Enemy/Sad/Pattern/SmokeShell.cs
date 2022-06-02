@@ -47,7 +47,7 @@ public class SmokeShell : PatternDefault
         if (is_run) {
             timer += Time.fixedDeltaTime;
             if (timer > PreDelay) {
-                Joy.joyAudio.SwingPlay();
+                if (GetComponent<SadAudio>() != null) GetComponent<SadAudio>().SwingPlay();
                 smokeshellInstance.transform.position = (Vector3)offset+transform.position;
                 smokeshellInstance.SetActive(true);
                 smokeshellInstance.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position-((Vector3)offset+transform.position), ThrowPower, GameController.GRAVITY);
