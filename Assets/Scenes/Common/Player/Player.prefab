@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 628138178131830787}
   - component: {fileID: -4369695278841071617}
   - component: {fileID: -7389247827842631633}
+  - component: {fileID: -8200165894482968951}
   - component: {fileID: 5391681703418939846}
   m_Layer: 3
   m_Name: Player
@@ -34,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 4241799048675597654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,17 +82,17 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 95269403d3dc3df47b9c6fc359590895, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8fb4fb155ff64834db981070df68d85a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!61 &4241799048675597656
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -105,18 +106,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 1}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.01}
     oldSize: {x: 2.84, y: 4.7}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &4241799048675597657
 Rigidbody2D:
@@ -163,8 +164,10 @@ MonoBehaviour:
   MinimumJumpPowerRatio: 0.5
   DashTime: 0.2
   DashDistance: 4
+  DownSpeedRatio: 0.5
   isJump: 0
   IsUniquAction: 0
+  IsAir: 0
 --- !u!114 &1280117680179468386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,7 +230,13 @@ MonoBehaviour:
   NoAmmo: {fileID: 8300000, guid: 84cf2e398c4a1f042b6b95d3aa6544bb, type: 3}
   NoAmmoVolumeOffset: 1
   ParryingSuccess: {fileID: 8300000, guid: bb155cc273366634ea0ff38688776aac, type: 3}
-  ParryingSuccessVolumeOffset: 1
+  ParryingSuccessVolumeOffset: 0.8
+  Sliding: {fileID: 8300000, guid: 9fc272dc5868133458a9a2a971246d35, type: 3}
+  SlidingVolumeOffset: 1
+  Dash: {fileID: 8300000, guid: d9a9909d8afffb845952a9ff6891e134, type: 3}
+  DashVolumeOffset: 1
+  Error: {fileID: 8300000, guid: 6b54b0a6f5726fd46a80928bba44b703, type: 3}
+  ErrorVolumeOffset: 1
 --- !u!114 &-7389247827842631633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,6 +267,22 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-8200165894482968951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4241799048675597654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30f69aee9be4ffa4681aa6ba17d8da8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Normal: {fileID: 21300000, guid: 8fb4fb155ff64834db981070df68d85a, type: 3}
+  Dash: {fileID: 21300000, guid: c3053eee3b0ac6343baea27c6c527aa5, type: 3}
+  Sliding: {fileID: 21300000, guid: 19ced66bca354dd4d86d1c0951ebaaea, type: 3}
+  Down: {fileID: 21300000, guid: e8aeeb86018389a44990a5f6b0801818, type: 3}
 --- !u!82 &5391681703418939846
 AudioSource:
   m_ObjectHideFlags: 0

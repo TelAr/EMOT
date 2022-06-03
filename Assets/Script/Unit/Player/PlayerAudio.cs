@@ -14,7 +14,12 @@ public class PlayerAudio : AudioDefault
     public float NoAmmoVolumeOffset;
     public AudioClip ParryingSuccess;
     public float ParryingSuccessVolumeOffset;
-
+    public AudioClip Sliding;
+    public float SlidingVolumeOffset;
+    public AudioClip Dash;
+    public float DashVolumeOffset;
+    public AudioClip Error;
+    public float ErrorVolumeOffset;
     public void JumpPlay() {
 
         AudioController controller = GetAudioController();
@@ -110,4 +115,63 @@ public class PlayerAudio : AudioDefault
 
     }
 
+    public void SlidingPlay()
+    {
+
+
+        AudioController controller = GetAudioController();
+
+        AudioSource mAudioSource = controller.Audio;
+
+
+        mAudioSource.clip = Sliding;
+        mAudioSource.time = 0f;
+        mAudioSource.volume = 0.5f * MasterVolume * EffectVolume * SlidingVolumeOffset;
+
+        controller.StartTiming = mAudioSource.time;
+        controller.PlayTime = 2f;
+
+        mAudioSource.Play();
+
+    }
+
+    public void DashPlay()
+    {
+
+
+        AudioController controller = GetAudioController();
+
+        AudioSource mAudioSource = controller.Audio;
+
+
+        mAudioSource.clip = Dash;
+        mAudioSource.time = 0f;
+        mAudioSource.volume = 0.5f * MasterVolume * EffectVolume * DashVolumeOffset;
+
+        controller.StartTiming = mAudioSource.time;
+        controller.PlayTime = 2f;
+
+        mAudioSource.Play();
+
+    }
+
+    public void ErrorPlay()
+    {
+
+
+        AudioController controller = GetAudioController();
+
+        AudioSource mAudioSource = controller.Audio;
+
+
+        mAudioSource.clip = Error;
+        mAudioSource.time = 0f;
+        mAudioSource.volume = 0.5f * MasterVolume * EffectVolume * ErrorVolumeOffset;
+
+        controller.StartTiming = mAudioSource.time;
+        controller.PlayTime = 2f;
+
+        mAudioSource.Play();
+
+    }
 }

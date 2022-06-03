@@ -148,6 +148,7 @@ public class PlayerAction : MonoBehaviour
 
         if (staminaValue < DashCost) {
 
+            pa.ErrorPlay();
             return;
         }
 
@@ -159,7 +160,7 @@ public class PlayerAction : MonoBehaviour
     public void OnParrying() {
 
         if (staminaValue < ParryingCost) {
-
+            pa.ErrorPlay();
             return;
         }
 

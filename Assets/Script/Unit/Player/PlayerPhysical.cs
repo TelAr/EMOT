@@ -11,6 +11,7 @@ public class PlayerPhysical : UnitDefault
     public Vector3 OffsetPosition;
     public float MinimumJumpPowerRatio;
     public float DashTime, DashDistance;
+    public float DownSpeedRatio;
 
     //const
     private const float JUMP_TIME = 0.1f;
@@ -27,17 +28,21 @@ public class PlayerPhysical : UnitDefault
     private float jumpTimer = 0f;
     private int jumpCounter;
     private Rigidbody2D rb2;
+    private BoxCollider2D collider2D;
     private GameController gc;
     private PlayerHealth ph;
     private PlayerAction pa;
+    private PlayerVisual pv;
+    private PlayerAudio playerAudio;
     private float DashTimer;
     private Vector3 DashSP, DashEP;
     private float verticalInput;
+    private bool downState;
 
     //action
     public bool isJump;
     public bool IsUniquAction;
-
+    public bool IsAir;
 
     public override void Reset()
     {
@@ -68,6 +73,9 @@ public class PlayerPhysical : UnitDefault
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         ph = gameObject.GetComponent<PlayerHealth>();
         pa = gameObject.GetComponent<PlayerAction>();
+        pv = gameObject.GetComponent<PlayerVisual>();
+        playerAudio = gameObject.GetComponent<PlayerAudio>();
+        collider2D = gameObject.GetComponent<BoxCollider2D>();
         direction = 1;
     }
 
@@ -94,9 +102,18 @@ public class PlayerPhysical : UnitDefault
         antiGravity = true;
         DashTimer = 0;
         IsUniquAction = true;
-        DashEP = new Vector3(direction, verticalInput, 0).normalized * DashDistance / DashTime;
+        DashEP = new Vector3(direction, verticalInput < 0 ? (IsAir ? verticalInput : 0) : verticalInput, 0).normalized * DashDistance / DashTime;
         rb2.velocity = Vector2.zero;
-//        moving = 0;
+        if (downState)
+        {
+            playerAudio.SlidingPlay();
+            pv.SlidingSprite();
+        }
+        else {
+            playerAudio.DashPlay();
+            pv.DashSprite();
+        }
+        
     }
 
     public float GetDirection() { 
@@ -167,6 +184,7 @@ public class PlayerPhysical : UnitDefault
                     jumpCounter = JUMPMAX;
                     jumpTimer = 0;
                     is_side_collision = false;
+                    IsAir = false;
                 }
                    
             }
@@ -182,6 +200,7 @@ public class PlayerPhysical : UnitDefault
 
                 jumpCounter--;
             }
+            IsAir = true;
         }
     }
 
@@ -255,6 +274,23 @@ public class PlayerPhysical : UnitDefault
                 isJump = false;
                 jumpCounter--;
             }
+
+            if (!IsAir && verticalInput < 0)
+            {
+                downState = true;
+                rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
+                collider2D.size = new Vector2(1, 1);
+                collider2D.offset = new Vector2(0, 0.5f);
+                pv.DownSprite();
+            }
+            else {
+
+                downState = false;
+                collider2D.size = new Vector2(1, 2);
+                collider2D.offset = new Vector2(0, 1f);
+                pv.NormalSprite();
+            }
+
         }
         
 
@@ -277,8 +313,12 @@ public class PlayerPhysical : UnitDefault
             rb2.velocity = DashEP;
         }
         else {
-            
-            IsUniquAction = false;
+
+            if (IsUniquAction) {
+
+                IsUniquAction = false;
+                pv.NormalSprite();
+            }
         }
 
     }
