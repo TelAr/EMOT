@@ -189,6 +189,8 @@ MonoBehaviour:
   IsFixedAVGVelocity: 1
   FixedDistance: 15
   FixedAVGVelocity: 5
+  CasterOffsetPos: {x: 0, y: 0, z: 0}
+  TargetOffsetPos: {x: 0, y: 1, z: 0}
   timer: 0
 --- !u!114 &3696767264274883472
 MonoBehaviour:

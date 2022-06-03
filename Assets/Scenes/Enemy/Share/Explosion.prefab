@@ -142,7 +142,7 @@ MonoBehaviour:
   test: 0
   JudgeStartRadius: 0.13
   JudgeEndRadius: 0.36
-  Judgetime: 0.75
+  Judgetime: 0.7
   DefaultSound: {fileID: 8300000, guid: 5dd829925a2462d4094ec71761381d46, type: 3}
 --- !u!114 &6116137788543127464
 MonoBehaviour:
@@ -158,6 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageValue: 10
   ImmuneTime: 2
+  isTeamKill: 0
+  IsEffected: 1
 --- !u!82 &7441512661277162328
 AudioSource:
   m_ObjectHideFlags: 0

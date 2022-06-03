@@ -32,6 +32,7 @@ public class Explosion : MonoBehaviour
     public void Initiation(AudioClip clip=null) {
 
         gameObject.tag = "Enemy";
+        gameObject.GetComponent<Damage>().IsEffected = true;
         animation_end = false;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
         if (audioSource == null) { 
@@ -76,6 +77,7 @@ public class Explosion : MonoBehaviour
             }
             else if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
             {
+                gameObject.GetComponent<Damage>().IsEffected = false;
                 gameObject.tag = "Untagged";
             }
             else {

@@ -144,6 +144,7 @@ MonoBehaviour:
   E: {fileID: 625020439880374821}
   DisapearedDelay: 1
   effectOriginalColor: {r: 0.6084906, g: 1, b: 0.9838428, a: 1}
+  Offset: {x: 0, y: 1, z: 0}
 --- !u!1 &2593935054044656771
 GameObject:
   m_ObjectHideFlags: 0

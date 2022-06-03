@@ -8,11 +8,12 @@ public class BoomerangSwing : PatternDefault
     public GameObject Boomerang_model;
     public bool IsFixedDistance, IsFixedAVGVelocity;
     public float FixedDistance, FixedAVGVelocity;
+    public Vector3 CasterOffsetPos, TargetOffsetPos;
     private GameObject boomerang_object;
     public float timer;
     private float targetting_time = 1f;
     private float flight_one_way_time = 2f;
-    private Vector3 target_pos, offset_pos;
+    private Vector3 target_pos;
     public override void Setting()
     {
         timer = 0;
@@ -67,18 +68,18 @@ public class BoomerangSwing : PatternDefault
 
             if (timer > targetting_time) {
 
-                target_pos = GameController.GetPlayer().transform.position;
+                target_pos = GameController.GetPlayer().transform.position + TargetOffsetPos;
 
                 if (IsFixedDistance)
                 {
 
-                    target_pos = (target_pos - (gameObject.transform.position+offset_pos)).normalized * FixedDistance + (gameObject.transform.position + offset_pos);
+                    target_pos = (target_pos - (gameObject.transform.position+CasterOffsetPos)).normalized * FixedDistance + (gameObject.transform.position + CasterOffsetPos);
                 }
 
                 if (IsFixedAVGVelocity)
                 {
 
-                    flight_one_way_time = (target_pos - boomerang_object.transform.position).magnitude / FixedAVGVelocity;
+                    flight_one_way_time = (target_pos - gameObject.transform.position).magnitude / FixedAVGVelocity;
                 }
 
 
@@ -86,53 +87,14 @@ public class BoomerangSwing : PatternDefault
 
                 if (boomerang_object.GetComponent<Boomerang>() == null)
                 {
-
                     boomerang_object.AddComponent<Boomerang>();
                 }
-                boomerang_object.GetComponent<Boomerang>().Initiating(caster.gameObject, target_pos, flight_one_way_time, offset_pos);
+                boomerang_object.GetComponent<Boomerang>().Initiating(caster.gameObject, target_pos, flight_one_way_time, CasterOffsetPos);
                 boomerang_object.SetActive(true);
 
 
                 Stop();
             }
-                
-
-            /*
-            if (timer < targetting_time)
-            {
-
-                target_pos = GameController.GetPlayer().transform.position;
-                boomerang_object.transform.position = offset_pos = gameObject.transform.position;
-                if (IsFixedDistance)
-                {
-
-                    target_pos = (target_pos - boomerang_object.transform.position).normalized * FixedDistance + boomerang_object.transform.position;
-                }
-                if (IsFixedAVGVelocity) {
-
-                    flight_one_way_time = (target_pos - boomerang_object.transform.position).magnitude / FixedAVGVelocity;
-                }
-                boomerang_object.SetActive(true);
-                cooldown = targetting_time + flight_one_way_time * 2 + 2f;
-            }
-            else if (timer < flight_one_way_time + targetting_time)
-            {
-
-                boomerang_object.transform.position = offset_pos * Mathf.Pow((timer - (targetting_time + flight_one_way_time)) / flight_one_way_time, 2) 
-                    + target_pos * (1 - Mathf.Pow((timer - (targetting_time + flight_one_way_time)) / flight_one_way_time, 2));
-
-            }
-            else if (timer < flight_one_way_time * 2 + targetting_time)
-            {
-
-                boomerang_object.transform.position = target_pos * (1 - Mathf.Pow((timer - (targetting_time + flight_one_way_time)) / flight_one_way_time, 2))
-                + transform.position * Mathf.Pow((timer - (targetting_time + flight_one_way_time)) / flight_one_way_time, 2);
-            }
-            else {
-
-                Stop();
-            }
-            */
         }
         
 

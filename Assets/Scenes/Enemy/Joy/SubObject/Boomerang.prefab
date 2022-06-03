@@ -134,3 +134,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageValue: 5
   ImmuneTime: 2
+  isTeamKill: 0
+  IsEffected: 1

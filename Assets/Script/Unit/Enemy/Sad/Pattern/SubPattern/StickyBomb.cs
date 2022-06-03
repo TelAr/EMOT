@@ -5,13 +5,19 @@ using UnityEngine;
 public class StickyBomb : GrenadeDefault
 {
     public StickyBombs BombController = null;
+    private float bombTimer;
     private bool is_sticky = false;
     private Rigidbody2D attached;
+
     private void Awake()
     {
         gameObject.GetComponent<FixedJoint2D>().enabled = false;
     }
 
+    public void SetTimer(float time) {
+
+        bombTimer = time;
+    }
 
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
@@ -35,13 +41,12 @@ public class StickyBomb : GrenadeDefault
     protected override void Update()
     {
         base.Update();
- 
-        if (BombController != null)
-        {
-            if (BombController.KaBoom <= 0) {
 
-                Boom();
-            }
+        bombTimer -= Time.deltaTime;
+
+        if (bombTimer < 0) { 
+        
+            Boom();
         }
     }
 

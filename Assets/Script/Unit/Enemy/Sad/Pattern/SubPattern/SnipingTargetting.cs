@@ -10,11 +10,13 @@ public class SnipingTargetting : MonoBehaviour
     public GameObject A, B, C, D, E;
     public float DisapearedDelay;
     public Color effectOriginalColor;
+    public Vector3 Offset;
 
     private float timer;
     private Vector3 effectOriginalScale;
     private bool is_fire;
     private const int FREQUENCY = 32;
+    private float CRotation;
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,6 +32,7 @@ public class SnipingTargetting : MonoBehaviour
         E.GetComponent<SpriteRenderer>().color = effectOriginalColor - new Color(0, 0, 0, 1);
         is_fire = false;
         A.transform.localScale = B.transform.localScale = C.transform.localScale = D.transform.localScale = E.transform.localScale = Vector3.zero;
+        CRotation = Random.Range(0, 360);
         Update();
     }
 
@@ -45,11 +48,12 @@ public class SnipingTargetting : MonoBehaviour
             else {
 
                 timer += Time.deltaTime;
+                CRotation += Time.deltaTime * 30f;
             }
         }
         if (timer < TargettingTime)
         {
-            if (!is_fire) transform.position = GameController.GetPlayer().transform.position;
+            if (!is_fire) transform.position = GameController.GetPlayer().transform.position + Offset;
 
             //A
             A.transform.localScale = Vector3.one * (1 - Mathf.Pow(1 - timer / TargettingTime, 2));
@@ -63,7 +67,7 @@ public class SnipingTargetting : MonoBehaviour
             //C
             C.transform.localScale = Vector3.one * (1 - Mathf.Pow(1 - timer / TargettingTime, 2));
             C.GetComponent<SpriteRenderer>().color = effectOriginalColor - new Color(0, 0, 0, 1-timer / TargettingTime);
-            C.transform.rotation = Quaternion.Euler(0,0,-180* Mathf.Pow(1 - timer / TargettingTime, 2));
+            C.transform.rotation = Quaternion.Euler(0,0, CRotation - (is_fire?0:180 * Mathf.Pow(1 - timer / TargettingTime, 2)));
             if (!is_fire)
             {
                 C.GetComponent<SpriteRenderer>().color -= new Color(0, 0, 0, 1) * ((int)Mathf.Floor(timer * FREQUENCY / TargettingTime) % 2);
@@ -75,6 +79,8 @@ public class SnipingTargetting : MonoBehaviour
         else if (timer < TargettingTime + FixedTime)
         {
             A.GetComponent<SpriteRenderer>().color = B.GetComponent<SpriteRenderer>().color = C.GetComponent<SpriteRenderer>().color = effectOriginalColor;
+
+            C.transform.rotation = Quaternion.Euler(0, 0, CRotation);
 
             E.transform.localScale = ((TargettingTime + FixedTime - timer) / FixedTime) * effectOriginalScale;
             E.GetComponent<SpriteRenderer>().color = new Color(effectOriginalColor.r, effectOriginalColor.g, effectOriginalColor.b, (timer - (TargettingTime)) / (FixedTime));

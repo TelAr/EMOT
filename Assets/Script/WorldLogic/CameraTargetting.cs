@@ -14,6 +14,7 @@ public class CameraTargetting : MonoBehaviour
     }
 
     // Update is called once per frame
+
     void Update()
     {
         transform.position = Offset+target.transform.position;

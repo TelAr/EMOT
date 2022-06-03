@@ -10,9 +10,11 @@ public class Damage : MonoBehaviour
 
     public bool isTeamKill;
 
+    public bool IsEffected = true;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isTeamKill && collision.CompareTag(gameObject.tag)) {
+        if ((!isTeamKill && collision.CompareTag(gameObject.tag)) || !IsEffected) {
 
             return;
         }
@@ -26,7 +28,7 @@ public class Damage : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isTeamKill && collision.collider.CompareTag(gameObject.tag))
+        if ((!isTeamKill && collision.collider.CompareTag(gameObject.tag)) || !IsEffected)
         {
 
             return;
