@@ -35,8 +35,15 @@ public class GameController : MonoBehaviour
         MenuWindow.gameObject.SetActive(false);
 
         player = Instantiate(PlayerModel);
-        enemy = EnemyList[0];
-        enemy.SetActive(true);
+        if (EnemyList.Count > 0) {
+
+            enemy = EnemyList[0];
+        }
+
+        if (enemy != null) {
+            enemy.SetActive(true);
+        }
+
     }
 
     static public GameObject GetPlayer() {

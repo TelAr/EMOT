@@ -79,8 +79,6 @@ public class PlayerAction : MonoBehaviour
 
     public void OnFire(InputValue value) {
 
-        Debug.Log(value.isPressed);
-
         if (bulletAmount <= 0)
         {
 

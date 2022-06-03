@@ -123,7 +123,7 @@ public class TestMode : MonoBehaviour
 
         //디버깅용 텍스트
         text = "";
-        if (GameController.GetEnemy().GetComponent<EnemyDefault>() != null)
+        if (GameController.GetEnemy() != null)
         {
             foreach (EnemyDefault.PatternController pc in GameController.GetEnemy().GetComponent<EnemyDefault>().PatternList)
             {

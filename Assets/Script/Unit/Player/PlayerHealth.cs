@@ -21,7 +21,7 @@ public class PlayerHealth : HealthDefault
         {
             Player = gameObject;
         }
-        if (healthSlider == null)
+        if (healthSlider == null && GameController.GetGameController().GetComponent<GameController>() != null)
         {
             healthSlider = GameController.GetGameController().GetComponent<GameController>().HealthGraph;
         }
