@@ -28,7 +28,7 @@ public class PlayerAction : MonoBehaviour
     private float reloadTimer = 0;
     public float AutoReloadDelay = 3f;
     private float autoReloadTimer = 0;
-    public Vector3 OffsetPosition;
+    public Vector3 FireOffsetPosition;
 
 
     public float ParryingJudgeTime = 0.1f;
@@ -38,11 +38,13 @@ public class PlayerAction : MonoBehaviour
     private PlayerPhysical pp;
     private PlayerHealth ph;
     private PlayerAudio pa;
+    private BoxCollider2D bc;
     void Awake()
     {
         pp = GetComponent<PlayerPhysical>();
         ph = GetComponent<PlayerHealth>();
         pa = GetComponent<PlayerAudio>();
+        bc = GetComponent<BoxCollider2D>();
         bulletAmount = BulletMax;
         for (int t = 0; t < BulletMax; t++)
         {
@@ -232,6 +234,7 @@ public class PlayerAction : MonoBehaviour
             if (chargingTimer >= ChargingFireDelay && CharingCounter > 0) {
 
                 GameObject fireBullet = null;
+                Vector3 realFireOffset = new Vector3(FireOffsetPosition.x * pp.GetDirection(), FireOffsetPosition.y * bc.size.y, FireOffsetPosition.z);
                 foreach (GameObject bullet in bullets)
                 {
 
@@ -249,7 +252,7 @@ public class PlayerAction : MonoBehaviour
                     bullets.Add(fireBullet);
                 }
                 fireBullet.SetActive(true);
-                fireBullet.transform.position = gameObject.transform.position + OffsetPosition;
+                fireBullet.transform.position = gameObject.transform.position + realFireOffset;
                 fireBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(BulletSpeed * pp.GetDirection(), 0);
                 chargingTimer = 0;
                 bulletAmount--;

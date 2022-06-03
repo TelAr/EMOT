@@ -44,6 +44,8 @@ public class PlayerPhysical : UnitDefault
     public bool IsUniquAction;
     public bool IsAir;
 
+
+
     public override void Reset()
     {
         base.Reset();
@@ -119,6 +121,11 @@ public class PlayerPhysical : UnitDefault
     public float GetDirection() { 
     
         return direction;
+    }
+
+    public bool GetIsDown() { 
+    
+        return downState;
     }
 
     private void CollsionBlock(Collision2D collision) {
