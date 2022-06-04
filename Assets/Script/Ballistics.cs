@@ -25,6 +25,8 @@ public class Ballistics : MonoBehaviour
 
         result *= velocity;
 
+        result = new Vector2(result.x == float.NaN ? 0 : result.x, result.y == float.NaN ? 0 : result.y);
+
         return result;
     }
 
