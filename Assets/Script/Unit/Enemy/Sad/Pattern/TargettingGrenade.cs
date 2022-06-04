@@ -113,12 +113,6 @@ public class TargettingGrenade : PatternDefault
                         {
 
                             grenade = Instantiate(GrenadeModel);
-                            if (grenade.GetComponent<MissileDefault>() != null)
-                            {
-
-                                Destroy(grenade.GetComponent<MissileDefault>());
-                            }
-                            grenade.AddComponent<MissileDefault>();
                             MissileDefault option = grenade.GetComponent<MissileDefault>();
                             option.Reset();
                             option.impact = grenade.GetComponent<ImpactDefault>();
@@ -168,9 +162,7 @@ public class TargettingGrenade : PatternDefault
             {
 
                 Vector3 targetVector = (targetPos - firePos);
-                Debug.Log(targetVector);
                 float FireAngle = Mathf.Rad2Deg * Mathf.Atan2(targetVector.y, targetVector.x);
-                Debug.Log(FireAngle);
                 FireAngle -= AngleDistance * (FireTimes - 1) * 0.5f;
 
                 while (firedGrenade.Count > 0)

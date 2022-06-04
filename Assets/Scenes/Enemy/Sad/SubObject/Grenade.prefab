@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1573953605498540852}
   - component: {fileID: 4129363417252971770}
   - component: {fileID: 1020871211505453789}
+  - component: {fileID: 517774857957404984}
   m_Layer: 8
   m_Name: Grenade
   m_TagString: Enemy
@@ -137,3 +138,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionSize: 6
+--- !u!114 &517774857957404984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942968931500299006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92fe10edb91ff247bf2c71ab17fa4b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsPlayerPanetrate: 0
+  IsCollsionDisappear: 1
+  IsDestroy: 0
+  MinX: -40
+  MinY: -40
+  MaxX: 40
+  MaxY: 40
+  impact: {fileID: 0}
+  MinimumJegdeLoseTime: 0.1

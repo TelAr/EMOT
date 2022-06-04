@@ -30,7 +30,7 @@ public class TargettingGrenadeSeperateCase : MonoBehaviour
             go1.SetActive(true);
             if (go1.GetComponent<TargettingGrenadeSeperateCase>() != null) {
 
-                Destroy(go1.GetComponent<TargettingGrenadeSeperateCase>());
+                go1.GetComponent<TargettingGrenadeSeperateCase>().IsActive = false;
             }
             go1.transform.position = transform.position;
             go1.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle)) * speed;
@@ -42,7 +42,7 @@ public class TargettingGrenadeSeperateCase : MonoBehaviour
             go2.SetActive(true);
             if (go2.GetComponent<TargettingGrenadeSeperateCase>() != null)
             {
-                Destroy(go2.GetComponent<TargettingGrenadeSeperateCase>());
+                go2.GetComponent<TargettingGrenadeSeperateCase>().IsActive = false;
             }
             go2.transform.position = transform.position;
             go2.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * angle), Mathf.Sin(Mathf.Deg2Rad * angle)) * speed;

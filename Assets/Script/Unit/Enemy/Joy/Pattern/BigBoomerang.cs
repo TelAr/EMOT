@@ -139,7 +139,7 @@ public class BigBoomerang : PatternDefault
     // Update is called once per frame
     void Update()
     {
-        if (is_run || IsOtherPattern)
+        if (is_run || (IsOtherPattern&& (boomerang != null && boomerang.activeSelf)))
         {
             timer += Time.deltaTime;
             boomerang.transform.Rotate(0, 0, Time.deltaTime * 720);
