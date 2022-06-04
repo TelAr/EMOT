@@ -325,7 +325,9 @@ public class PlayerPhysical : UnitDefault
 
                 IsUniquAction = false;
                 pv.NormalSprite();
+                rb2.velocity = Vector2.zero;
             }
+
         }
 
     }

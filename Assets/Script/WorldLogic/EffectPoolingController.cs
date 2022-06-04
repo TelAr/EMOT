@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class EffectPoolingController : MonoBehaviour
 {
-    static public GameObject EffectObjectController=null;
+    static public EffectPoolingController EffectObjectController =null;
 
 
     public GameObject ExplosionModel;
+    public GameObject LineRendererModel;
 
     private List<GameObject> ExplosionList = new List<GameObject>();
+    private List<GameObject> LineRendererList = new List<GameObject>();
     private void Awake()
     {
-        EffectObjectController = gameObject;
+        EffectObjectController = this;
     }
 
 
@@ -44,5 +46,37 @@ public class EffectPoolingController : MonoBehaviour
         explosion.SetActive(true);
 
         return explosion;
+    }
+
+
+    public GameObject GetLineRenderer(KeyValuePair<Vector3, Vector3> value)
+    {
+
+        GameObject lineRenderer = null;
+        foreach (GameObject obj in LineRendererList)
+        {
+
+            if (!obj.activeSelf)
+            {
+
+                lineRenderer = obj;
+                break;
+            }
+        }
+        if (lineRenderer == null)
+        {
+            lineRenderer = Instantiate(LineRendererModel, gameObject.transform);
+            LineRendererList.Add(lineRenderer);
+        }
+
+        if (lineRenderer.GetComponent<LineRenderer>() != null) {
+
+            lineRenderer.GetComponent<LineRenderer>().SetPosition(0, value.Key);
+            lineRenderer.GetComponent<LineRenderer>().SetPosition(1, value.Value);
+        }
+
+        lineRenderer.SetActive(true);
+
+        return lineRenderer;
     }
 }

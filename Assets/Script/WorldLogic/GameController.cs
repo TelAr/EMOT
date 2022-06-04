@@ -15,14 +15,14 @@ public class GameController : MonoBehaviour
 
     static public int Level;
     static public List<GameObject> EnemyList = new();
-    static private GameObject gameConroller = null;
+    static private GameController gameConroller = null;
     static private GameObject player;
     static private GameObject enemy;
     static public float GRAVITY = -35;
 
     void Awake()
     {
-        gameConroller = gameObject;
+        gameConroller = this;
         Level = 0;
         foreach (GameObject enemy in EnemyModel) { 
         
@@ -51,7 +51,7 @@ public class GameController : MonoBehaviour
         return player;
     }
 
-    static public GameObject GetGameController() {
+    static public GameController GetGameController() {
 
         return gameConroller;
     }

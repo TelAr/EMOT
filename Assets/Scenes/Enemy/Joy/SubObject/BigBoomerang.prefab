@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6598795930891794812}
   - component: {fileID: 1853808436380900575}
-  - component: {fileID: -9127530397317855034}
-  - component: {fileID: 2111161624284012453}
+  - component: {fileID: 6666728724798454560}
   - component: {fileID: -6623807382453265940}
   m_Layer: 8
-  m_Name: Boomerang
+  m_Name: BigBoomerang
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6392292533408563140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1.015, y: 0.9375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -87,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!68 &-9127530397317855034
+--- !u!68 &6666728724798454560
 EdgeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,36 +102,18 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.45143586, y: 1.7535648}
-  - {x: 0.91416013, y: 0.01668342}
-  - {x: -0.47442853, y: -1.79051}
-  - {x: -0.88541186, y: -1.7963841}
-  - {x: -0.9795491, y: -1.7081873}
+  - {x: -0.2078852, y: 0.94878876}
+  - {x: 0.46941537, y: 0.006094298}
+  - {x: -0.19911045, y: -0.9539665}
+  - {x: -0.44066718, y: -0.9598405}
+  - {x: -0.48185864, y: -0.9140003}
   - {x: 0.034581423, y: 0.006669432}
-  - {x: -0.9506752, y: 1.729486}
-  - {x: -0.84870267, y: 1.7763319}
-  - {x: -0.48442668, y: 1.7909801}
+  - {x: -0.47416306, y: 0.9352989}
+  - {x: -0.23028691, y: 0.9544363}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
---- !u!114 &2111161624284012453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6392292533408563140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 775e647983bd5b2449cadb404217b014, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 0
-  oneWayTime: 0
-  casterObject: {fileID: 0}
-  targetPos: {x: 0, y: 0, z: 0}
-  initiatingPos: {x: 0, y: 0, z: 0}
 --- !u!114 &-6623807382453265940
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5769750162642155811}
   - component: {fileID: 2358527341288638727}
   - component: {fileID: 3696767264274883472}
+  - component: {fileID: 756858188465566965}
   - component: {fileID: 7006779008719737904}
   - component: {fileID: -1658839632300799109}
   - component: {fileID: 6369177907536711507}
@@ -222,6 +223,36 @@ MonoBehaviour:
   BulletCount: 8
   BulletCountPerLevel_numerator: 1
   BulletCountPerLevel_denominator: 2
+--- !u!114 &756858188465566965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378690169977018165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 893dcd1f0b85c7b488263a9b41a39e22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 25
+  stack: 1
+  max_distance: 100
+  min_distance: 0
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  BigBoomerangModel: {fileID: 6392292533408563140, guid: 61fdf3e2fd1018d47a6aaa61d4938f19, type: 3}
+  SwingAmount: 5
+  PreDelay: 2
+  SwingSpeed: 50
+  SwingDelay: 0.5
+  LineWidth: 0.3
+  LimitArea:
+  - {x: -20, y: -12}
+  - {x: 20, y: 12}
+  IsOtherPattern: 1
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0
