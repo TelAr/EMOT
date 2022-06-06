@@ -7,18 +7,18 @@ public class VisualDefault : MonoBehaviour
     public Sprite Normal;
 
     protected SpriteRenderer sr;
-    protected BoxCollider2D collider2D;
+    protected BoxCollider2D colli2D;
 
     void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
-        if (GetComponent<BoxCollider2D>() != null) collider2D = GetComponent<BoxCollider2D>();
+        if (GetComponent<BoxCollider2D>() != null) colli2D = GetComponent<BoxCollider2D>();
         sr.sprite = Normal;
     }
 
     protected void SpriteResize()
     {
 
-        sr.size = new Vector2((sr.sprite.rect.size.x / sr.sprite.rect.size.y) * (collider2D.size.y / collider2D.size.x), collider2D.size.y);
+        sr.size = new Vector2((sr.sprite.rect.size.x / sr.sprite.rect.size.y) * (colli2D.size.y / colli2D.size.x), colli2D.size.y);
     }
 }

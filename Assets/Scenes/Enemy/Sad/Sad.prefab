@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1820840841350390322}
   - component: {fileID: 8863447811872937105}
   - component: {fileID: 5905208331941147593}
+  - component: {fileID: 4152383882664780207}
   - component: {fileID: -5647268146409375533}
   - component: {fileID: 5864014174496025270}
   - component: {fileID: 3687930265028011357}
@@ -198,7 +199,6 @@ MonoBehaviour:
   caster: {fileID: 0}
   is_run: 0
   is_main: 1
-  KaBoom: 0
   StickyBombModel: {fileID: 7030550621233004471, guid: 41f44dac65ea68946b674a6927a4ef27, type: 3}
   FireCount: 4
   FireDelay: 1
@@ -277,6 +277,37 @@ MonoBehaviour:
   maxX: 13
   YField: -4.5
   spellPos: {x: 0, y: 3, z: 0}
+--- !u!114 &4152383882664780207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857347809405532536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e30eb0beafc88644ab49df4028953274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 30
+  stack: 1
+  max_distance: 10
+  min_distance: 3
+  post_delay: 2
+  caster: {fileID: 0}
+  is_run: 0
+  is_main: 1
+  GrenadeList: []
+  GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
+  BackstepDistance: 2
+  BackstepTime: 0.5
+  FireTimes: 10
+  FireDelay: 0.05
+  AngleRange: 15
+  DistanceRange: 3
+  FlyingTime: 1.5
+  BoomTime: 1.5
+  TargettingOffset: {x: 0, y: 1, z: 0}
 --- !u!61 &-5647268146409375533
 BoxCollider2D:
   m_ObjectHideFlags: 0

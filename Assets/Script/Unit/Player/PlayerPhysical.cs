@@ -20,7 +20,6 @@ public class PlayerPhysical : UnitDefault
     //statement OR effected
     private bool is_side_collision;
     private bool jumping;
-    private bool antiGravity;
     private float moving, direction;
     private Vector2 accel;
     private Vector2 collision_point_avg;
@@ -28,7 +27,7 @@ public class PlayerPhysical : UnitDefault
     private float jumpTimer = 0f;
     private int jumpCounter;
     private Rigidbody2D rb2;
-    private BoxCollider2D collider2D;
+    private BoxCollider2D colli2D;
     private GameController gc;
     private PlayerHealth ph;
     private PlayerAction pa;
@@ -65,7 +64,6 @@ public class PlayerPhysical : UnitDefault
         rb2.velocity = Vector2.zero;
         transform.position = OffsetPosition;
         jumping = false;
-        antiGravity = false;
         IsUniquAction = false;
     }
 
@@ -77,7 +75,7 @@ public class PlayerPhysical : UnitDefault
         pa = gameObject.GetComponent<PlayerAction>();
         pv = gameObject.GetComponent<PlayerVisual>();
         playerAudio = gameObject.GetComponent<PlayerAudio>();
-        collider2D = gameObject.GetComponent<BoxCollider2D>();
+        colli2D = gameObject.GetComponent<BoxCollider2D>();
         direction = 1;
     }
 
@@ -101,7 +99,6 @@ public class PlayerPhysical : UnitDefault
 
     public void Dash()
     {
-        antiGravity = true;
         DashTimer = 0;
         IsUniquAction = true;
         DashEP = new Vector3(direction, verticalInput < 0 ? (IsAir ? verticalInput : 0) : verticalInput, 0).normalized * DashDistance / DashTime;
@@ -286,15 +283,15 @@ public class PlayerPhysical : UnitDefault
             {
                 downState = true;
                 rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
-                collider2D.size = new Vector2(1, 1);
-                collider2D.offset = new Vector2(0, 0.5f);
+                colli2D.size = new Vector2(1, 1);
+                colli2D.offset = new Vector2(0, 0.5f);
                 pv.DownSprite();
             }
             else {
 
                 downState = false;
-                collider2D.size = new Vector2(1, 2);
-                collider2D.offset = new Vector2(0, 1f);
+                colli2D.size = new Vector2(1, 2);
+                colli2D.offset = new Vector2(0, 1f);
                 pv.NormalSprite();
             }
 
