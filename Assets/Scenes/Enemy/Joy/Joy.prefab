@@ -254,6 +254,7 @@ MonoBehaviour:
   - {x: 20, y: 12}
   IsOtherPattern: 1
   TargettingOffsetPos: {x: 0, y: 1, z: 0}
+  MinimumLevelToTargetting: 2
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0

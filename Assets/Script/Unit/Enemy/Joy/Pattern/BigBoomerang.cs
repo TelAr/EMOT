@@ -13,7 +13,9 @@ public class BigBoomerang : PatternDefault
     public float LineWidth;
     public List<Vector2> LimitArea;
     public bool IsOtherPattern;
+    public int MinimumLevelToTargetting;
     public Vector3 TargettingOffsetPos;
+
 
     private GameController gc;
     private float timer;
@@ -357,7 +359,7 @@ public class BigBoomerang : PatternDefault
         }
         beforeDirection = afterDirection;
 
-        if (GameController.Level < 2)//¿Ã·£´ý
+        if (GameController.Level < MinimumLevelToTargetting)//¿Ã·£´ý
         {
             while (beforeDirection == afterDirection)
             {
