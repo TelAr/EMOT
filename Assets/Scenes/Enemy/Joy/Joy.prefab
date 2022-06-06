@@ -127,14 +127,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c94e45e664dfa35499b60e8f807c6af5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 20
-  stack: 1
-  max_distance: 8
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 20
+  Stack: 1
+  MaxDistance: 8
+  MinDistance: 0
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   JumpCount: 3
   JumpDelay: 0.5
   JumpSpeed: 25
@@ -151,14 +152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5422df7c89cea0f4caf1ca9698470123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 6
-  stack: 1
-  max_distance: 13
-  min_distance: 3
-  post_delay: 3
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 6
+  Stack: 1
+  MaxDistance: 13
+  MinDistance: 3
+  PatternPreDelay: 3
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
   BulletSpeed: 15
   BulletSpeedPerLevel: 0.5
@@ -177,14 +179,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20f82463de2a6674bb8d4cd05435e0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 5.5
-  stack: 3
-  max_distance: 10
-  min_distance: 3
-  post_delay: 1
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 5.5
+  Stack: 3
+  MaxDistance: 10
+  MinDistance: 3
+  PatternPreDelay: 1
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   Boomerang_model: {fileID: 6392292533408563140, guid: 9e30a6da16db76142bad0b40657a254c, type: 3}
   IsFixedDistance: 1
   IsFixedAVGVelocity: 1
@@ -205,14 +208,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5a74944a6beee49b5f3fe90ab40b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 9
-  stack: 2
-  max_distance: 20
-  min_distance: 2
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 9
+  Stack: 2
+  MaxDistance: 20
+  MinDistance: 2
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   BulletModel: {fileID: 7225763394463607986, guid: 3301dca9e9433c14eaf2ebb99e7323ba, type: 3}
   BulletSpeed: 25
   BulletHeight: 7
@@ -235,14 +239,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893dcd1f0b85c7b488263a9b41a39e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 25
-  stack: 1
-  max_distance: 100
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 25
+  Stack: 1
+  MaxDistance: 100
+  MinDistance: 0
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   BigBoomerangModel: {fileID: 6392292533408563140, guid: 61fdf3e2fd1018d47a6aaa61d4938f19, type: 3}
   SwingAmount: 5
   PreDelay: 2
@@ -253,8 +258,8 @@ MonoBehaviour:
   - {x: -20, y: -12}
   - {x: 20, y: 12}
   IsOtherPattern: 1
-  TargettingOffsetPos: {x: 0, y: 1, z: 0}
   MinimumLevelToTargetting: 2
+  TargettingOffsetPos: {x: 0, y: 1, z: 0}
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0

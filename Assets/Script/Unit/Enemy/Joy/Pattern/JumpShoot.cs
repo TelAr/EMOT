@@ -42,7 +42,7 @@ public class JumpShoot : PatternDefault
     {
         base.Run();
         player = GameController.GetPlayer();
-        caster.GetComponent<EnemyDefault>().statement = "JumpShoot";
+        Caster.GetComponent<EnemyDefault>().statement = "JumpShoot";
         begin_pos=gameObject.transform.position;
     }
 
@@ -57,7 +57,7 @@ public class JumpShoot : PatternDefault
     {
         float direction;
         Vector3 target_vector;
-        if (is_run) {
+        if (IsRun) {
             if (timer < JUMP_DELAY) {
                 timer += Time.deltaTime;
                 gameObject.transform.position = begin_pos + new Vector2(0, JumpHeight - Mathf.Pow((timer - JUMP_DELAY) / JUMP_DELAY, 2) * JumpHeight);

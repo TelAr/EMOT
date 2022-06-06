@@ -38,10 +38,10 @@ public class BigBoomerang : PatternDefault
 
     private void Reset()
     {
-        cooldown = 40f;
-        stack = 1;
-        max_distance = 100;
-        min_distance = 0;
+        Cooldown = 40f;
+        Stack = 1;
+        MaxDistance = 100;
+        MinDistance = 0;
 
     }
 
@@ -57,7 +57,7 @@ public class BigBoomerang : PatternDefault
         if (boomerang != null && boomerang.activeSelf) 
         {
             Debug.Log("Deny");
-            caster.GetComponent<EnemyDefault>().statement = "PatternDeny";
+            Caster.GetComponent<EnemyDefault>().statement = "PatternDeny";
             return;
         }
         base.Run();
@@ -69,7 +69,7 @@ public class BigBoomerang : PatternDefault
         }
         boomerang.SetActive(true);
         boomerang.transform.position = transform.position;
-        caster.GetComponent<EnemyDefault>().statement = "BigBoomerang";
+        Caster.GetComponent<EnemyDefault>().statement = "BigBoomerang";
         beforeDirection = 0;
         afterDirection = 0;
         startPos = transform.position;
@@ -95,13 +95,13 @@ public class BigBoomerang : PatternDefault
     // Update is called once per frame
     void Update()
     {
-        if (caster.GetFall()) {
+        if (Caster.GetFall()) {
 
             boomerang.SetActive(false);
             Stop();
         }
 
-        if (is_run || (IsOtherPattern&& (boomerang != null && boomerang.activeSelf)))
+        if (IsRun || (IsOtherPattern&& (boomerang != null && boomerang.activeSelf)))
         {
             timer += Time.deltaTime;
             boomerang.transform.Rotate(0, 0, Time.deltaTime * 720);

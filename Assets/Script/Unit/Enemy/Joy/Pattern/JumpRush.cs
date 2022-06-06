@@ -33,7 +33,7 @@ public class JumpRush : PatternDefault
     public override void Run() { 
     
         base.Run();
-        caster.GetComponent<EnemyDefault>().statement = "JumpShoot";
+        Caster.GetComponent<EnemyDefault>().statement = "JumpShoot";
     }
 
     // Start is called before the first frame update
@@ -56,7 +56,7 @@ public class JumpRush : PatternDefault
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (is_run) {
+        if (IsRun) {
 
             rb.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);
 

@@ -129,14 +129,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6656898b92277446ab72fe0e9d60774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 20
-  stack: 1
-  max_distance: 10000
-  min_distance: 0
-  post_delay: 4
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 20
+  Stack: 1
+  MaxDistance: 10000
+  MinDistance: 0
+  PatternPreDelay: 4
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   HowMuch: 5
   StartDelay: 1
   TargettingDelay: 1
@@ -160,14 +161,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b8a871270b45b04ebaae4422e9e329b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 6
-  stack: 1
-  max_distance: 5
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 12
+  Stack: 1
+  MaxDistance: 5
+  MinDistance: 0
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   GrenadeList: []
   GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
   FireTimes: 5
@@ -191,14 +193,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1b0255c2aab343be8a3d2d5cfa7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
-  stack: 1
-  max_distance: 15
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 10
+  Stack: 1
+  MaxDistance: 15
+  MinDistance: 0
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   StickyBombModel: {fileID: 7030550621233004471, guid: 41f44dac65ea68946b674a6927a4ef27, type: 3}
   FireCount: 4
   FireDelay: 1
@@ -216,14 +219,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb63f2cae1e9dd3418f92f7b0b7181f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 10
-  stack: 1
-  max_distance: 10
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 10
+  Stack: 1
+  MaxDistance: 10
+  MinDistance: 0
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   PreDelay: 1
   ThrowPower: 30
   SmokeshellModel: {fileID: 3784087293714087402, guid: 9fbf1ea26c11c4346a0bdf210ce2a6ae, type: 3}
@@ -239,14 +243,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd21c374e8add954fb941c0ef5d20d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 6
-  stack: 1
-  max_distance: 10
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 6
+  Stack: 1
+  MaxDistance: 10
+  MinDistance: 0
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   PreDelay: 1
   ThrowPower: 20
   GrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
@@ -262,14 +267,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b4ab7cab7786d4dab4375cb5aebf84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 60
-  stack: 1
-  max_distance: 100
-  min_distance: 0
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 60
+  Stack: 1
+  MaxDistance: 100
+  MinDistance: 0
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   SmokeShellModel: {fileID: 3784087293714087402, guid: 9fbf1ea26c11c4346a0bdf210ce2a6ae, type: 3}
   SeparateGrenadeModel: {fileID: 145128217338787741, guid: 8cdce4e66b9e8864d82f4b5c7fa3cfc4, type: 3}
   SmokeCounter: 4
@@ -289,14 +295,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e30eb0beafc88644ab49df4028953274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 30
-  stack: 1
-  max_distance: 10
-  min_distance: 3
-  post_delay: 2
-  caster: {fileID: 0}
-  is_run: 0
-  is_main: 1
+  Cooldown: 30
+  Stack: 1
+  MaxDistance: 10
+  MinDistance: 3
+  PatternPreDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
   GrenadeList: []
   GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
   BackstepDistance: 2

@@ -26,14 +26,14 @@ public class EnemyDefault : UnitDefault
         public PatternController(PatternDefault pattern)
         {
             this.pattern = pattern;
-            this.cooldown = pattern.cooldown;
+            this.cooldown = pattern.Cooldown;
             this.timer = 0;
-            this.stack = pattern.stack;
+            this.stack = pattern.Stack;
             this.stackCounter = 0;
-            this.enemy = pattern.caster;
-            this.max_distance = pattern.max_distance;
-            this.min_distance = pattern.min_distance;
-            this.post_delay = pattern.post_delay;
+            this.enemy = pattern.Caster;
+            this.max_distance = pattern.MaxDistance;
+            this.min_distance = pattern.MinDistance;
+            this.post_delay = pattern.PatternPreDelay;
             Is_Enabled = true;
         }
         public void PatternReset()
@@ -69,7 +69,7 @@ public class EnemyDefault : UnitDefault
         }
         public void Run() {
 
-            pattern.is_main = true;
+            pattern.IsMain = true;
             pattern.Run();
             enemy.global_delay = post_delay;
             stackCounter--;
@@ -80,11 +80,11 @@ public class EnemyDefault : UnitDefault
         }
         public void UpdatePatternInfo() {
 
-            this.cooldown = pattern.cooldown;
-            this.stack = pattern.stack;
-            this.max_distance = pattern.max_distance;
-            this.min_distance = pattern.min_distance;
-            this.post_delay = pattern.post_delay;
+            this.cooldown = pattern.Cooldown;
+            this.stack = pattern.Stack;
+            this.max_distance = pattern.MaxDistance;
+            this.min_distance = pattern.MinDistance;
+            this.post_delay = pattern.PatternPreDelay;
         }
         public string GetPatternName() {
 
@@ -123,7 +123,7 @@ public class EnemyDefault : UnitDefault
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
 
             if (pattern.enabled) {
-                pattern.caster = this;
+                pattern.Caster = this;
                 PatternController PC = new(pattern);
                 PatternList.Add(PC);
             }

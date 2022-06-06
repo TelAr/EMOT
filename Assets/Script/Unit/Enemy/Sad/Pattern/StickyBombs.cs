@@ -28,7 +28,7 @@ public class StickyBombs : PatternDefault
     // Update is called once per frame
     void Update()
     {
-        if (is_run) {
+        if (IsRun) {
 
             fireTimer += Time.deltaTime;
             if (fireTimer > FireDelay && counter < FireCount)

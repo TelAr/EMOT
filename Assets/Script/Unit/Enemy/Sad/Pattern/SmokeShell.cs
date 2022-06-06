@@ -28,7 +28,7 @@ public class SmokeShell : PatternDefault
     public override void Run() { 
     
         base.Run();
-        caster.GetComponent<EnemyDefault>().statement = "SmokeShell";
+        Caster.GetComponent<EnemyDefault>().statement = "SmokeShell";
     }
 
     // Start is called before the first frame update
@@ -44,7 +44,7 @@ public class SmokeShell : PatternDefault
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (is_run) {
+        if (IsRun) {
             timer += Time.fixedDeltaTime;
             if (timer > PreDelay) {
                 if (GetComponent<SadAudio>() != null) GetComponent<SadAudio>().SwingPlay();

@@ -15,7 +15,7 @@ public  class ComboPattern : PatternDefault
     public override void Setting()
     {
         foreach (var pattern in PatternList) {
-            pattern.is_main = false;
+            pattern.IsMain = false;
         }
         pointer = 0;
         is_going = false;
@@ -30,13 +30,13 @@ public  class ComboPattern : PatternDefault
             text+=pattern.ToString();
         }
         Debug.Log(text);   
-        caster.GetComponent<EnemyDefault>().statement = text;
+        Caster.GetComponent<EnemyDefault>().statement = text;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (is_run) {
+        if (IsRun) {
 
             if (pointer >= PatternList.Count)
             {
@@ -58,7 +58,7 @@ public  class ComboPattern : PatternDefault
             }
             else {
 
-                if (!PatternList[pointer].is_run)
+                if (!PatternList[pointer].IsRun)
                 {
                     pointer++;
                     

@@ -43,14 +43,14 @@ public class RapidFire : PatternDefault
     {
 
         base.Run();
-        caster.statement = "RapidFire";
+        Caster.statement = "RapidFire";
         startMoving = false;
     }
 
 
     private void FixedUpdate()
     {
-        if (status == 0 && is_run)
+        if (status == 0 && IsRun)
         {
             timer += Time.fixedDeltaTime;
 
@@ -76,9 +76,9 @@ public class RapidFire : PatternDefault
     private void Update()
     {
 
-        if (is_run)
+        if (IsRun)
         {
-            if (caster.GetFall())
+            if (Caster.GetFall())
             {
                 Debug.Log("falling");
                 Stop();

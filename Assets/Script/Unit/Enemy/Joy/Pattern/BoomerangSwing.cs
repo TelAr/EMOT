@@ -21,10 +21,10 @@ public class BoomerangSwing : PatternDefault
 
     private void Reset()
     {
-        cooldown = 7f;
-        stack = 1;
-        max_distance = 10;
-        min_distance = 0;
+        Cooldown = 7f;
+        Stack = 1;
+        MaxDistance = 10;
+        MinDistance = 0;
         timer = 0;
         IsFixedAVGVelocity = false;
         IsFixedDistance = false;
@@ -44,9 +44,9 @@ public class BoomerangSwing : PatternDefault
     public override void Run()
     {
         base.Run();
-        caster.GetComponent<EnemyDefault>().statement = "Boomerang";
+        Caster.GetComponent<EnemyDefault>().statement = "Boomerang";
         if (boomerang_object.activeSelf) {
-            caster.GetComponent<EnemyDefault>().statement = "Deny pattern";
+            Caster.GetComponent<EnemyDefault>().statement = "Deny pattern";
             Stop();
             return;
         }
@@ -62,14 +62,14 @@ public class BoomerangSwing : PatternDefault
     // Update is called once per frame
     void Update()
     {
-        if (caster.GetFall())
+        if (Caster.GetFall())
         {
 
             boomerang_object.SetActive(false);
             Stop();
         }
 
-        if (is_run) {
+        if (IsRun) {
 
             timer += Time.deltaTime;
 
@@ -96,7 +96,7 @@ public class BoomerangSwing : PatternDefault
                 {
                     boomerang_object.AddComponent<Boomerang>();
                 }
-                boomerang_object.GetComponent<Boomerang>().Initiating(caster.gameObject, target_pos, flight_one_way_time, CasterOffsetPos);
+                boomerang_object.GetComponent<Boomerang>().Initiating(Caster.gameObject, target_pos, flight_one_way_time, CasterOffsetPos);
                 boomerang_object.SetActive(true);
 
 

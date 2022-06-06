@@ -42,7 +42,7 @@ public class TargettingGrenade : PatternDefault
     {
         
         base.Run();
-        caster.statement = "TatgettingGrenade";
+        Caster.statement = "TatgettingGrenade";
         int rand = Random.Range(0, 100);
         is_seperate = (rand > 50);
     }
@@ -50,7 +50,7 @@ public class TargettingGrenade : PatternDefault
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        if (status == 0||is_run)
+        if (status == 0||IsRun)
         {
             rb.velocity = Vector3.zero;
             status = 1;
@@ -72,9 +72,9 @@ public class TargettingGrenade : PatternDefault
     private void Update()
     {
 
-        if (is_run)
+        if (IsRun)
         {
-            if (caster.GetFall())
+            if (Caster.GetFall())
             {
                 Debug.Log("falling");
                 Stop();

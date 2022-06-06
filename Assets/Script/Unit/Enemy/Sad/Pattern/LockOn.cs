@@ -34,10 +34,10 @@ public class LockOn : PatternDefault
     }
     private void Reset()
     {
-        cooldown = 25f;
-        stack = 1;
-        max_distance = 10000;
-        min_distance = 0;
+        Cooldown = 25f;
+        Stack = 1;
+        MaxDistance = 10000;
+        MinDistance = 0;
         counter = 0;
         timer = 0;
         HowMuch = 3;
@@ -45,7 +45,7 @@ public class LockOn : PatternDefault
         TargettingDelay = 2f;
         TargettingFixedDelay = 1f;
         NextShootDelay = 2f;
-        post_delay = 2f;
+        PatternPreDelay = 2f;
 
     }
     void Awake()
@@ -57,7 +57,7 @@ public class LockOn : PatternDefault
     public override void Run()
     {
         base.Run();
-        caster.GetComponent<EnemyDefault>().statement = "LockOn";
+        Caster.GetComponent<EnemyDefault>().statement = "LockOn";
 
         for (int i = snipingList.Count; i > HowMuch; i++) { 
         
@@ -84,7 +84,7 @@ public class LockOn : PatternDefault
     // Update is called once per frame
     void Update()
     {
-        if (is_run) {
+        if (IsRun) {
 
             timer += Time.deltaTime;
             if (status == 0)

@@ -30,7 +30,7 @@ public class SeparateGrenade : PatternDefault
     {
 
         base.Run();
-        caster.GetComponent<EnemyDefault>().statement = "SeparateGrenade";
+        Caster.GetComponent<EnemyDefault>().statement = "SeparateGrenade";
     }
 
     // Start is called before the first frame update
@@ -46,7 +46,7 @@ public class SeparateGrenade : PatternDefault
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (is_run)
+        if (IsRun)
         {
             timer += Time.fixedDeltaTime;
             if (timer > PreDelay)
