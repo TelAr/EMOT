@@ -5,6 +5,7 @@ using UnityEngine;
 public class BigBoomerang : PatternDefault
 {
     public GameObject BigBoomerangModel;
+    [Tooltip("설계 상 2발은 무조건 보장")]
     public int SwingAmount;
     public float PreDelay;
     public float SwingSpeed;
@@ -12,13 +13,16 @@ public class BigBoomerang : PatternDefault
     public float LineWidth;
     public List<Vector2> LimitArea;
     public bool IsOtherPattern;
+    public Vector3 TargettingOffsetPos;
 
+    private GameController gc;
     private float timer;
     private GameObject boomerang = null;
-    private Queue<KeyValuePair<Vector3, Vector3>> lineQueue = new Queue<KeyValuePair<Vector3, Vector3>>();
+    private Vector3 sp = Vector3.zero, dp = Vector3.zero;
     private GameObject nowLineRenderer = null, nextLineRendrer = null;
     private int beforeDirection, afterDirection;
     private int step;
+    private int counter = 0;
     private Vector3 startPos;
     private bool isFlying;
     private float nowFlyTime;
@@ -27,7 +31,7 @@ public class BigBoomerang : PatternDefault
     {
         timer = 0;
         step = 0;
-
+        counter = 0;
     }
 
     private void Reset()
@@ -40,10 +44,9 @@ public class BigBoomerang : PatternDefault
     }
 
 
-    // Start is called before the first frame update
     void Awake()
     {
-
+        gc=GameController.GetGameController();
 
     }
 
@@ -68,66 +71,14 @@ public class BigBoomerang : PatternDefault
         beforeDirection = 0;
         afterDirection = 0;
         startPos = transform.position;
-        //위치 미리 생성
-        for (int t = 0; t < SwingAmount; t++) {
 
+        SetLine();
 
-            Vector3 sp = Vector3.zero, dp = Vector3.zero;
+        KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
 
-            switch (afterDirection) { 
-            
-                case 0:
-                    sp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[1].y, 0);
-                    break;
-                case 1:
-                    sp = new Vector3(LimitArea[1].x, Random.Range(LimitArea[0].y, LimitArea[1].y), 0);
-                    break;
-                case 2:
-                    sp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[0].y, 0);
-                    break;
-                case 3:
-                    sp = new Vector3(LimitArea[0].x, Random.Range(LimitArea[0].y, LimitArea[1].y), 0);
-                    break;
-                default:
-                    break;
-            }
-            beforeDirection = afterDirection;
-
-            while (beforeDirection == afterDirection) {
-
-                afterDirection = Random.Range(0, 4);
-            }
-            switch (afterDirection)
-            {
-
-                case 0:
-                    dp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[1].y, 0);
-                    break;
-                case 1:
-                    dp = new Vector3(LimitArea[1].x, Random.Range(LimitArea[0].y, LimitArea[1].y), 0);
-                    break;
-                case 2:
-                    dp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[0].y, 0);
-                    break;
-                case 3:
-                    dp = new Vector3(LimitArea[0].x, Random.Range(LimitArea[0].y, LimitArea[1].y), 0);
-                    break;
-                default:
-                    break;
-            }
-
-            lineQueue.Enqueue(new KeyValuePair<Vector3, Vector3>(sp, dp));
-        }
-
-        KeyValuePair<Vector3, Vector3> sample=new KeyValuePair<Vector3, Vector3>();
-
-        if (lineQueue.TryPeek(out sample)) {
-
-            nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer(sample);
-            nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
-            nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
-            lineQueue.Dequeue();
-        }
+        nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer(sample);
+        nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
+        nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
 
     }
 
@@ -136,9 +87,18 @@ public class BigBoomerang : PatternDefault
         base.Stop();
     }
 
+
+
+
     // Update is called once per frame
     void Update()
     {
+        if (caster.GetFall()) {
+
+            boomerang.SetActive(false);
+            Stop();
+        }
+
         if (is_run || (IsOtherPattern&& (boomerang != null && boomerang.activeSelf)))
         {
             timer += Time.deltaTime;
@@ -165,7 +125,7 @@ public class BigBoomerang : PatternDefault
                 if (timer < PreDelay)
                 {
 
-                    boomerang.transform.position = startPos + new Vector3(0, LimitArea[1].y-startPos.y) * (1 - Mathf.Pow((timer / PreDelay) - 1, 2));
+                    boomerang.transform.position = startPos + new Vector3(0, LimitArea[1].y - startPos.y) * (1 - Mathf.Pow((timer / PreDelay) - 1, 2)) + new Vector3(0, 0, -0.1f);
                 }
                 else
                 {
@@ -173,23 +133,17 @@ public class BigBoomerang : PatternDefault
                     step = 1;
                     timer = 0;
                     nowLineRenderer = nextLineRendrer;
-                    KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>();
-                    if (lineQueue.TryPeek(out sample))
-                    {
 
-                        nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer(sample);
-                        nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
-                        nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
-                        lineQueue.Dequeue();
-                    }
-                    else
-                    {
+                    SetLine();
 
-                        nextLineRendrer = null;
-                    }
-                    float nowDistance = (nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) - nowLineRenderer.GetComponent<LineRenderer>().GetPosition(0)).magnitude;
-                    nowFlyTime = nowDistance / SwingSpeed;
+                    KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
 
+                    nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer(sample);
+                    nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
+                    nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
+
+                    SetNowFlyTime();
+                    counter++;
                     if (IsOtherPattern) {
 
                         Stop();
@@ -199,13 +153,12 @@ public class BigBoomerang : PatternDefault
             else if (step == 1)
             {
 
-
                 if (isFlying)
                 {
                     if (timer < nowFlyTime)
                     {
                         boomerang.transform.position = (nowLineRenderer.GetComponent<LineRenderer>().GetPosition(0) * (nowFlyTime - timer)
-                                    + nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) * timer) / nowFlyTime;
+                                    + nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) * timer) / nowFlyTime + new Vector3(0, 0, -0.1f);
 
                         if (timer < nowFlyTime * 0.5f)
                         {
@@ -223,7 +176,7 @@ public class BigBoomerang : PatternDefault
                     {
                         isFlying = false;
                         timer = 0;
-                        nowLineRenderer.SetActive(false);
+                        if (nowLineRenderer != null) nowLineRenderer.SetActive(false);
                     }
 
                 }
@@ -252,22 +205,22 @@ public class BigBoomerang : PatternDefault
                         isFlying = true;
                         timer = 0;
                         nowLineRenderer = nextLineRendrer;
-                        KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>();
-                        if (lineQueue.TryPeek(out sample))
+                        SetLine();
+                        KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
+                        if (counter<SwingAmount)
                         {
 
                             nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer(sample);
                             nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
                             nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
-                            lineQueue.Dequeue();
+                            SetNowFlyTime();
+                            counter++;
                         }
                         else
                         {
                             step = 2;
                             nextLineRendrer = null;
                         }
-                        float nowDistance = (nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) - nowLineRenderer.GetComponent<LineRenderer>().GetPosition(0)).magnitude;
-                        nowFlyTime = nowDistance / SwingSpeed;
                     }
 
 
@@ -283,7 +236,7 @@ public class BigBoomerang : PatternDefault
                     if (timer < nowFlyTime)
                     {
                         boomerang.transform.position = (nowLineRenderer.GetComponent<LineRenderer>().GetPosition(0) * (nowFlyTime - timer)
-                                    + nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) * timer) / nowFlyTime;
+                                    + nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) * timer) / nowFlyTime + new Vector3(0, 0, -0.1f);
 
                         if (timer < nowFlyTime * 0.5f)
                         {
@@ -334,8 +287,7 @@ public class BigBoomerang : PatternDefault
                         isFlying = true;
                         timer = 0;
                         nowLineRenderer = nextLineRendrer;
-                        float nowDistance = (nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) - nowLineRenderer.GetComponent<LineRenderer>().GetPosition(0)).magnitude;
-                        nowFlyTime = nowDistance / SwingSpeed;
+                        SetNowFlyTime();
                         step = 3;
                     }
                 }
@@ -345,14 +297,8 @@ public class BigBoomerang : PatternDefault
                 nowLineRenderer.GetComponent<LineRenderer>().SetPosition(1, transform.position + new Vector3(0, 0, 1));
                 if (timer < nowFlyTime)
                 {
-
-                    /*
-                     *             transform.position = initiatingPos * Mathf.Pow((timer - (oneWayTime)) / oneWayTime, 2)
-                     *               + targetPos * (1 - Mathf.Pow((timer - (oneWayTime)) / oneWayTime, 2));
-                     * 
-                    */
                     boomerang.transform.position = nowLineRenderer.GetComponent<LineRenderer>().GetPosition(0) * Mathf.Pow((nowFlyTime - timer) / nowFlyTime, 2)
-                                + nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) * (1 - Mathf.Pow((nowFlyTime - timer) / nowFlyTime, 2));
+                                + nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1) * (1 - Mathf.Pow((nowFlyTime - timer) / nowFlyTime, 2)) + new Vector3(0, 0, -0.1f);
 
                     if (timer < nowFlyTime * 0.5f)
                     {
@@ -380,4 +326,164 @@ public class BigBoomerang : PatternDefault
 
 
     }
+
+    private void SetNowFlyTime() {
+
+        float nowDistance = (nowLineRenderer.GetComponent<LineRenderer>().GetPosition(0) - nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1)).magnitude;
+        nowFlyTime = nowDistance / SwingSpeed;
+    }
+
+    private void SetLine()
+    {
+
+        Debug.Log("setline");
+        switch (afterDirection)
+        {
+
+            case 0:
+                sp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[1].y, 0);
+                break;
+            case 1:
+                sp = new Vector3(LimitArea[1].x, Random.Range(LimitArea[0].y, LimitArea[1].y), 0);
+                break;
+            case 2:
+                sp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[0].y, 0);
+                break;
+            case 3:
+                sp = new Vector3(LimitArea[0].x, Random.Range(LimitArea[0].y, LimitArea[1].y), 0);
+                break;
+            default:
+                break;
+        }
+        beforeDirection = afterDirection;
+
+        if (GameController.Level < 2)//올랜덤
+        {
+            while (beforeDirection == afterDirection)
+            {
+
+                afterDirection = Random.Range(0, 4);
+            }
+            switch (afterDirection)
+            {
+
+                case 0:
+                    dp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[1].y, 0);
+                    break;
+                case 1:
+                    dp = new Vector3(LimitArea[1].x, Random.Range(LimitArea[0].y, LimitArea[1].y), 0);
+                    break;
+                case 2:
+                    dp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[0].y, 0);
+                    break;
+                case 3:
+                    dp = new Vector3(LimitArea[0].x, Random.Range(LimitArea[0].y, LimitArea[1].y), 0);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else
+        { //플레이어 타게팅
+
+            Vector3 unit = GameController.GetPlayer().transform.position - sp;
+            float parameter;
+            if (unit.y == 0 || unit.x == 0)
+            {
+
+                dp = new Vector3(Random.Range(LimitArea[0].x, LimitArea[1].x), LimitArea[0].y, 0);
+                afterDirection = 2;
+            }
+            else
+            {
+
+                switch (beforeDirection)
+                {
+                    case 0:
+                        parameter = (LimitArea[0].y - sp.y) / unit.y;
+                        float xwide = parameter * unit.x + sp.x;
+                        if (xwide > LimitArea[1].x)
+                        {
+                            afterDirection = 1;
+                            dp = new Vector3(LimitArea[1].x, ((LimitArea[1].x - sp.x) / unit.x) * unit.y + sp.y, 0);
+                        }
+                        else if (xwide < LimitArea[0].x)
+                        {
+                            afterDirection = 3;
+                            dp = new Vector3(LimitArea[0].x, ((LimitArea[0].x - sp.x) / unit.x) * unit.y + sp.y, 0);
+                        }
+                        else
+                        {
+                            afterDirection = 2;
+                            dp = new Vector3(unit.x * parameter + sp.x, LimitArea[0].y);
+                        }
+                        break;
+                    case 1:
+                        parameter = (LimitArea[0].x - sp.x) / unit.x;
+                        float ywide = parameter * unit.y + sp.y;
+                        if (ywide > LimitArea[1].y)
+                        {
+                            afterDirection = 0;
+                            dp = new Vector3(((LimitArea[1].y - sp.y) / unit.y) * unit.x + sp.x, LimitArea[1].y, 0);
+                        }
+                        else if (ywide < LimitArea[0].x)
+                        {
+                            afterDirection = 2;
+                            dp = new Vector3(((LimitArea[0].y - sp.y) / unit.y) * unit.x + sp.x, LimitArea[0].y, 0);
+                        }
+                        else
+                        {
+                            afterDirection = 3;
+                            dp = new Vector3(LimitArea[0].x, unit.y * parameter + sp.y);
+                        }
+                        break;
+                    case 2:
+                        parameter = (LimitArea[1].y - sp.y) / unit.y;
+                        xwide = parameter * unit.x + sp.x;
+                        if (xwide > LimitArea[1].x)
+                        {
+                            afterDirection = 1;
+                            dp = new Vector3(LimitArea[1].x, ((LimitArea[1].x - sp.x) / unit.x) * unit.y + sp.y, 0);
+                        }
+                        else if (xwide < LimitArea[0].x)
+                        {
+                            afterDirection = 3;
+                            dp = new Vector3(LimitArea[0].x, ((LimitArea[0].x - sp.x) / unit.x) * unit.y + sp.y, 0);
+                        }
+                        else
+                        {
+                            afterDirection = 0;
+                            dp = new Vector3(unit.x * parameter + sp.x, LimitArea[1].y);
+                        }
+                        break;
+                    case 3:
+                        parameter = (LimitArea[1].x - sp.x) / unit.x;
+                        ywide = parameter * unit.y + sp.y;
+                        if (ywide > LimitArea[1].y)
+                        {
+                            afterDirection = 0;
+                            dp = new Vector3(((LimitArea[1].y - sp.y) / unit.y) * unit.x + sp.x, LimitArea[1].y, 0);
+                        }
+                        else if (ywide < LimitArea[0].x)
+                        {
+                            afterDirection = 2;
+                            dp = new Vector3(((LimitArea[0].y - sp.y) / unit.y) * unit.x + sp.x, LimitArea[0].y, 0);
+                        }
+                        else
+                        {
+                            afterDirection = 3;
+                            dp = new Vector3(LimitArea[1].x, unit.y * parameter + sp.y);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+        }
+
+
+    }
+
 }

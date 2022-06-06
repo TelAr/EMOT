@@ -62,6 +62,13 @@ public class BoomerangSwing : PatternDefault
     // Update is called once per frame
     void Update()
     {
+        if (caster.GetFall())
+        {
+
+            boomerang_object.SetActive(false);
+            Stop();
+        }
+
         if (is_run) {
 
             timer += Time.deltaTime;
