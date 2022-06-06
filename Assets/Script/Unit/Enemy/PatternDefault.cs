@@ -18,7 +18,7 @@ public abstract class PatternDefault : MonoBehaviour
         Setting();
         IsRun = true;
         if (IsMain) {
-            Caster.pattern_running = true;
+            Caster.PatternRunning = true;
         }
     }
 
@@ -28,8 +28,8 @@ public abstract class PatternDefault : MonoBehaviour
         IsRun = false;
 
         if (IsMain) {
-            Caster.pattern_running = false;
-            Caster.statement = "normal";
+            Caster.PatternRunning = false;
+            Caster.Statement = "normal";
         }
 
     }

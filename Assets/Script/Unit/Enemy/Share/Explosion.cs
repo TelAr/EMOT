@@ -57,6 +57,21 @@ public class Explosion : MonoBehaviour
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
     }
 
+    private void FixedUpdate()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Explosion"))
+        {
+
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < Judgetime)
+            {
+                circleCollider.radius = JudgeStartRadius * (Judgetime - animator.GetCurrentAnimatorStateInfo(0).normalizedTime) / Judgetime +
+                    JudgeEndRadius * animator.GetCurrentAnimatorStateInfo(0).normalizedTime / Judgetime;
+
+            }
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -69,21 +84,20 @@ public class Explosion : MonoBehaviour
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Explosion")) {
 
-            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < Judgetime)
+            if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= Judgetime)
             {
-                circleCollider.radius = JudgeStartRadius * (Judgetime - animator.GetCurrentAnimatorStateInfo(0).normalizedTime) / Judgetime + 
-                    JudgeEndRadius * animator.GetCurrentAnimatorStateInfo(0).normalizedTime / Judgetime;
 
-            }
-            else if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
-            {
-                gameObject.GetComponent<Damage>().IsEffected = false;
-                gameObject.tag = "Untagged";
-            }
-            else {
+                if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+                {
+                    gameObject.GetComponent<Damage>().IsEffected = false;
+                    gameObject.tag = "Untagged";
+                }
+                else
+                {
 
-                gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
-                animation_end = true;
+                    gameObject.GetComponent<SpriteRenderer>().color = Color.clear;
+                    animation_end = true;
+                }
             }
             
         }

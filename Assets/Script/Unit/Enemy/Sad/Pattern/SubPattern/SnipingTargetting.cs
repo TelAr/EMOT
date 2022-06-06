@@ -22,16 +22,19 @@ public class SnipingTargetting : MonoBehaviour
     {
         effectOriginalScale = E.transform.localScale;
     }
+
+    private void OnEnable()
+    {
+        A.transform.localScale = B.transform.localScale = C.transform.localScale = D.transform.localScale = E.transform.localScale = Vector3.zero;
+    }
     public void Initiate(float tt, float ft) {
 
         timer = 0;
         TargettingTime = tt;
         FixedTime = ft;
         
-        E.transform.localScale = effectOriginalScale;
         E.GetComponent<SpriteRenderer>().color = effectOriginalColor - new Color(0, 0, 0, 1);
         is_fire = false;
-        A.transform.localScale = B.transform.localScale = C.transform.localScale = D.transform.localScale = E.transform.localScale = Vector3.zero;
         CRotation = Random.Range(0, 360);
         Update();
     }

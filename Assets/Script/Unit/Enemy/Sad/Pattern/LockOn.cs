@@ -18,6 +18,7 @@ public class LockOn : PatternDefault
     private GameObject HUD = null;
     private Vector3 startPos;
     private const float jumpScale = 20f;
+    private RapidFireDependent rfd;
     public int status;
     public override void Setting()
     {
@@ -51,13 +52,13 @@ public class LockOn : PatternDefault
     void Awake()
     {
         snipingList= new List<GameObject>();
-
+        rfd = gameObject.GetComponent<RapidFireDependent>();
     }
 
     public override void Run()
     {
         base.Run();
-        Caster.GetComponent<EnemyDefault>().statement = "LockOn";
+        Caster.GetComponent<EnemyDefault>().Statement = "LockOn";
 
         for (int i = snipingList.Count; i > HowMuch; i++) { 
         
@@ -73,7 +74,7 @@ public class LockOn : PatternDefault
     public override void Stop()
     {
         base.Stop();
-
+        Caster.DefaultPhysicalForcedEnable = false;
     }
 
     public void SetTargetting(bool value) {
@@ -165,12 +166,21 @@ public class LockOn : PatternDefault
                     if (!HUD.GetComponent<HUD>().Is_end) HUD.GetComponent<HUD>().Is_end = true;
                 }
 
-                if (!HUD.activeSelf) isTargetting = false;
+                if (!HUD.activeSelf) {
+                    
 
+                    if (isTargetting) {
+                        transform.position = new Vector3(rfd.ZeroOffset.x, transform.position.y, 0);
+                        Caster.DefaultPhysicalForcedEnable = true;
+                        rfd.Run();
+                    }
+                    isTargetting = false;
 
-                if (!isTargetting) { 
-                
-                    Stop();
+                    if (!rfd.IsRun)
+                    {
+                        Stop();
+                    }
+
                 }
             }
             

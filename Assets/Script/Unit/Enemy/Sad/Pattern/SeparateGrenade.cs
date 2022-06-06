@@ -30,7 +30,7 @@ public class SeparateGrenade : PatternDefault
     {
 
         base.Run();
-        Caster.GetComponent<EnemyDefault>().statement = "SeparateGrenade";
+        Caster.GetComponent<EnemyDefault>().Statement = "SeparateGrenade";
     }
 
     // Start is called before the first frame update

@@ -28,7 +28,7 @@ public class SmokeShell : PatternDefault
     public override void Run() { 
     
         base.Run();
-        Caster.GetComponent<EnemyDefault>().statement = "SmokeShell";
+        Caster.GetComponent<EnemyDefault>().Statement = "SmokeShell";
     }
 
     // Start is called before the first frame update

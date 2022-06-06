@@ -33,7 +33,7 @@ public class JumpRush : PatternDefault
     public override void Run() { 
     
         base.Run();
-        Caster.GetComponent<EnemyDefault>().statement = "JumpShoot";
+        Caster.GetComponent<EnemyDefault>().Statement = "JumpShoot";
     }
 
     // Start is called before the first frame update

@@ -57,7 +57,7 @@ public class BigBoomerang : PatternDefault
         if (boomerang != null && boomerang.activeSelf) 
         {
             Debug.Log("Deny");
-            Caster.GetComponent<EnemyDefault>().statement = "PatternDeny";
+            Caster.GetComponent<EnemyDefault>().Statement = "PatternDeny";
             return;
         }
         base.Run();
@@ -69,7 +69,7 @@ public class BigBoomerang : PatternDefault
         }
         boomerang.SetActive(true);
         boomerang.transform.position = transform.position;
-        Caster.GetComponent<EnemyDefault>().statement = "BigBoomerang";
+        Caster.GetComponent<EnemyDefault>().Statement = "BigBoomerang";
         beforeDirection = 0;
         afterDirection = 0;
         startPos = transform.position;

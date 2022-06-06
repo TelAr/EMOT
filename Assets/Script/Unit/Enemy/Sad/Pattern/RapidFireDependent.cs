@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RapidFire : PatternDefault
+public class RapidFireDependent : PatternDefault
 {
 
     public List<GameObject> GrenadeList = new();
@@ -10,10 +10,10 @@ public class RapidFire : PatternDefault
     public float BackstepDistance, BackstepTime;
     public int FireTimes;
     public float FireDelay;
-    public float AngleRange;
-    public float DistanceRange;
+    public float XRange;
+    public float YRange;
     public float FlyingTime, BoomTime;
-    public Vector3 TargettingOffset;
+    public Vector3 ZeroOffset;
 
     private float timer, subTimer;
     private bool startMoving;
@@ -23,7 +23,12 @@ public class RapidFire : PatternDefault
     private Vector3 offset;
     private float direction;
     private Queue<GameObject> firedGrenade = new();
+    public bool isGround = false;
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        isGround = true;
+    }
 
     private void Awake()
     {
@@ -43,15 +48,16 @@ public class RapidFire : PatternDefault
     {
 
         base.Run();
-        Caster.Statement = "RapidFire";
         startMoving = false;
+        isGround = false;
     }
 
 
     private void FixedUpdate()
     {
-        if (status == 0 && IsRun)
+        if (IsRun && isGround)
         {
+            Caster.DefaultPhysicalForcedEnable = false;
             timer += Time.fixedDeltaTime;
 
             if (!startMoving)
@@ -84,6 +90,8 @@ public class RapidFire : PatternDefault
                 Stop();
                 return;
             }
+
+            if (!isGround) return;
 
             if (status == 0|| status == 1)
             {
@@ -119,11 +127,9 @@ public class RapidFire : PatternDefault
                         grenade.transform.position = transform.position;
                         grenade.GetComponent<RapidFireBullet>().FlyTimer = FlyingTime;
                         grenade.GetComponent<RapidFireBullet>().BoomTimer = BoomTime;
-                        Vector3 targettingVector = (GameController.GetPlayer().transform.position+ TargettingOffset) - transform.position;
-                        float rotation = Mathf.Rad2Deg*Mathf.Atan2(targettingVector.y, targettingVector.x);
-                        rotation += Random.Range(-AngleRange, AngleRange);
-                        Vector3 targgettingPos = transform.position + new Vector3((float)Mathf.Cos(Mathf.Deg2Rad * rotation), (float)Mathf.Sin(Mathf.Deg2Rad * rotation), 0) 
-                            * (targettingVector.magnitude + Random.Range(-DistanceRange, DistanceRange));
+
+                        Vector3 targgettingPos = ZeroOffset + new Vector3(direction * (-1) * Random.Range(0, XRange), Random.Range(-YRange, YRange));
+
                         grenade.GetComponent<RapidFireBullet>().EndPos = targgettingPos;
                         grenade.SetActive(true);
                         counter++;

@@ -5,9 +5,11 @@ using UnityEngine;
 //적 개체 생성 시 기본적으로 작동되는 메커니즘
 public class EnemyDefault : UnitDefault
 {
-    public string statement;
-    public bool pattern_running;
-    public float global_delay;
+    public string Statement;
+    public bool PatternRunning;
+    public bool DefaultPhysicalForcedEnable;
+    public float GlobalDelay;
+
 
     //패턴 관리용 개체
     public class PatternController { 
@@ -71,7 +73,7 @@ public class EnemyDefault : UnitDefault
 
             pattern.IsMain = true;
             pattern.Run();
-            enemy.global_delay = post_delay;
+            enemy.GlobalDelay = post_delay;
             stackCounter--;
         }
         public void ForcedRun() {
@@ -100,9 +102,9 @@ public class EnemyDefault : UnitDefault
     {
 
         base.Update();
-        if (!pattern_running) {
-            global_delay -= Time.deltaTime;
-            if (PatternQueue.Count > 0&&global_delay<0)
+        if (!PatternRunning) {
+            GlobalDelay -= Time.deltaTime;
+            if (PatternQueue.Count > 0&&GlobalDelay<0)
             {
 
                 PatternQueue.Dequeue().Run();
@@ -123,13 +125,19 @@ public class EnemyDefault : UnitDefault
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
 
             if (pattern.enabled) {
+
                 pattern.Caster = this;
+                if (!pattern.IsIndependentPattern) {//독립패턴이 아닌 경우 생략
+
+                    continue;
+                }
+                
                 PatternController PC = new(pattern);
                 PatternList.Add(PC);
             }
         }
-        statement = "normal";
-        global_delay = 0;
+        Statement = "normal";
+        GlobalDelay = 0;
         gameObject.transform.position = DefaultPos;
     }
 
@@ -139,6 +147,6 @@ public class EnemyDefault : UnitDefault
             
             pattern.PatternReset();
         }
-        pattern_running = false;
+        PatternRunning = false;
     }
 }

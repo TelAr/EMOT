@@ -44,9 +44,9 @@ public class BoomerangSwing : PatternDefault
     public override void Run()
     {
         base.Run();
-        Caster.GetComponent<EnemyDefault>().statement = "Boomerang";
+        Caster.GetComponent<EnemyDefault>().Statement = "Boomerang";
         if (boomerang_object.activeSelf) {
-            Caster.GetComponent<EnemyDefault>().statement = "Deny pattern";
+            Caster.GetComponent<EnemyDefault>().Statement = "Deny pattern";
             Stop();
             return;
         }

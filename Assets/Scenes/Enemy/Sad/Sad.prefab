@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8863447811872937105}
   - component: {fileID: 5905208331941147593}
   - component: {fileID: 4152383882664780207}
+  - component: {fileID: 3067123396297885501}
   - component: {fileID: -5647268146409375533}
   - component: {fileID: 5864014174496025270}
   - component: {fileID: 3687930265028011357}
@@ -113,10 +114,11 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
-  statement: 
-  pattern_running: 0
-  global_delay: 0
-  health: 0
+  Statement: 
+  PatternRunning: 0
+  DefaultPhysicalForcedEnable: 0
+  GlobalDelay: 0
+  health: 100
 --- !u!114 &6753988263501635909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,9 +314,42 @@ MonoBehaviour:
   FireDelay: 0.05
   AngleRange: 15
   DistanceRange: 3
-  FlyingTime: 1.5
+  FlyingTime: 0.5
   BoomTime: 1.5
   TargettingOffset: {x: 0, y: 1, z: 0}
+--- !u!114 &3067123396297885501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2857347809405532536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01fcff2a842ae94d869c9c827072213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0
+  Stack: 0
+  MaxDistance: 0
+  MinDistance: 0
+  PatternPreDelay: 0
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 0
+  GrenadeList: []
+  GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
+  BackstepDistance: 3
+  BackstepTime: 1
+  FireTimes: 25
+  FireDelay: 0.03
+  XRange: 15
+  YRange: 7
+  FlyingTime: 0.5
+  BoomTime: 1
+  ZeroOffset: {x: 0, y: 1, z: 0}
+  isGround: 0
 --- !u!61 &-5647268146409375533
 BoxCollider2D:
   m_ObjectHideFlags: 0

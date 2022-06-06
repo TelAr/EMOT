@@ -42,7 +42,7 @@ public class TargettingGrenade : PatternDefault
     {
         
         base.Run();
-        Caster.statement = "TatgettingGrenade";
+        Caster.Statement = "TatgettingGrenade";
         int rand = Random.Range(0, 100);
         is_seperate = (rand > 50);
     }

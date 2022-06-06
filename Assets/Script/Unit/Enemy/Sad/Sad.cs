@@ -36,7 +36,7 @@ public class Sad : EnemyDefault
 
     private void FixedUpdate()
     {
-        if (!pattern_running)
+        if (!PatternRunning || DefaultPhysicalForcedEnable)
         {
 
             rb2d.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);

@@ -15,12 +15,16 @@ public class HUD : MonoBehaviour
     private float timer;
     private Vector3 AS, BS, CS;
 
+    private void OnEnable()
+    {
+        A.GetComponent<SpriteRenderer>().color = B.GetComponent<SpriteRenderer>().color = C.GetComponent<SpriteRenderer>().color = Color.clear;
+    }
+
     private void Awake()
     {
         AS = A.transform.localScale;
         BS = B.transform.localScale;
         CS = C.transform.localScale;
-        A.GetComponent<SpriteRenderer>().color = B.GetComponent<SpriteRenderer>().color = C.GetComponent<SpriteRenderer>().color = Color.clear;
     }
 
     // Start is called before the first frame update

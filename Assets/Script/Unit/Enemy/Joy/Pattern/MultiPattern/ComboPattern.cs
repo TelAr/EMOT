@@ -30,7 +30,7 @@ public  class ComboPattern : PatternDefault
             text+=pattern.ToString();
         }
         Debug.Log(text);   
-        Caster.GetComponent<EnemyDefault>().statement = text;
+        Caster.GetComponent<EnemyDefault>().Statement = text;
     }
 
     // Update is called once per frame

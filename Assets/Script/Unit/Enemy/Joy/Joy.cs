@@ -40,7 +40,7 @@ public class Joy : EnemyDefault
 
     private void FixedUpdate()
     {
-        if (!pattern_running) {
+        if (!PatternRunning) {
 
             rb2d.velocity += new Vector2(0, GameController.GRAVITY*Time.fixedDeltaTime);
         }

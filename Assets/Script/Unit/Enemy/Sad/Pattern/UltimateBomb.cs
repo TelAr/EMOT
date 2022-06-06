@@ -47,7 +47,7 @@ public class UltimateBomb : PatternDefault
     public override void Run()
     {
         base.Run();
-        Caster.GetComponent<EnemyDefault>().statement = "UltimateBomb";
+        Caster.GetComponent<EnemyDefault>().Statement = "UltimateBomb";
     }
 
     // Update is called once per frame
