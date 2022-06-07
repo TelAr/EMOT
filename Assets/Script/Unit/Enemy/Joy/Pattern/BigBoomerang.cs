@@ -259,7 +259,7 @@ public class BigBoomerang : PatternDefault
                         timer = 0;
                         nowLineRenderer.SetActive(false);
                         nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer
-                        (new KeyValuePair<Vector3, Vector3>(nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1), Vector3.zero));
+                        (new KeyValuePair<Vector3, Vector3>(nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1), transform.position + new Vector3(0, 0, 1)));
                     }
 
                 }
