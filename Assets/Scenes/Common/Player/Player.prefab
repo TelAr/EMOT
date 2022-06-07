@@ -163,7 +163,7 @@ MonoBehaviour:
   OffsetPosition: {x: 0, y: 0, z: 0}
   MinimumJumpPowerRatio: 0.5
   DashTime: 0.2
-  DashDistance: 4
+  DashDistance: 4.3
   DownSpeedRatio: 0.5
   isJump: 0
   IsUniquAction: 0
@@ -196,16 +196,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StaminaMax: 100
-  StaminaPerSecond: 10
-  ParryingCost: 30
-  DashCost: 30
+  StaminaPerSecond: 25
+  ParryingCost: 50
+  DashCost: 40
   BulletModel: {fileID: 7225763394463607986, guid: a1a5997a66121864fa354b18a1a81ed9, type: 3}
   BulletSpeed: 20
   BulletMax: 7
   ChargingDelayPerBullet: 0.52
   ChargingFireDelay: 0.07
-  BulletReloadDelay: 2
-  AutoReloadDelay: 3
+  BulletReloadDelay: 1
+  AutoReloadDelay: 2
   FireOffsetPosition: {x: 0, y: 0.5, z: 0}
   ParryingJudgeTime: 0.1
   ParryingImmuneTime: 0.5
