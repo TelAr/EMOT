@@ -14,6 +14,7 @@ public class Explosion : MonoBehaviour
     public float JudgeStartRadius, JudgeEndRadius;
     public float Judgetime;
     public AudioClip DefaultSound;
+    public float ExplosionVolumeOffset = 1;
     private Animator animator = null;
     private CircleCollider2D circleCollider;
     private AudioSource audioSource=null;
@@ -53,7 +54,7 @@ public class Explosion : MonoBehaviour
             audioSource.clip = clip;
         }
         isPlay = true;
-        audioSource.volume *= AudioDefault.MasterVolume * AudioDefault.EffectVolume;
+        audioSource.volume = ExplosionVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
     }
 
