@@ -135,6 +135,7 @@ public class TargettingGrenade : PatternDefault
                         grenade.GetComponent<Rigidbody2D>().velocity = new Vector3(direction * -1, 5, 0) * 12f;
                         firedGrenade.Enqueue(grenade);
                         counter++;
+                        GetComponent<SadAudio>().GrenadeFirePlay(0.7f);
                         subTimer = 0;
                     }
                     else

@@ -410,3 +410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SwingAudio: {fileID: 8300000, guid: 993acb28cc6b3b447bebc4700d28bf7c, type: 3}
+  SwingAudioVolumeOffset: 1
+  GrenadeFireAudio: {fileID: 8300000, guid: d0fe94af29494bf43affacc861f1b87a, type: 3}
+  GrenadeFireAudioVolumeOffset: 1

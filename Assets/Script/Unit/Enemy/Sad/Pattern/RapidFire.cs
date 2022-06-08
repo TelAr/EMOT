@@ -126,6 +126,7 @@ public class RapidFire : PatternDefault
                             * (targettingVector.magnitude + Random.Range(-DistanceRange, DistanceRange));
                         grenade.GetComponent<RapidFireBullet>().EndPos = targgettingPos;
                         grenade.SetActive(true);
+                        GetComponent<SadAudio>().GrenadeFirePlay(0.5f);
                         counter++;
                     }
                     else

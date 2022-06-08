@@ -95,6 +95,7 @@ public class UltimateBomb : PatternDefault
                             smsh.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 1),  YField - transform.position.y), VELOCITY, GameController.GRAVITY, true);
                         }
                         timer = 0;
+                        GetComponent<SadAudio>().GrenadeFirePlay();
                         step++;
                     }
                     break;
@@ -129,6 +130,7 @@ public class UltimateBomb : PatternDefault
                             spgr.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 2), YField - transform.position.y), VELOCITY, GameController.GRAVITY, true);
                         }
                         timer = 0;
+                        GetComponent<SadAudio>().GrenadeFirePlay();
                         step++;
                     }
                     break;
@@ -164,6 +166,7 @@ public class UltimateBomb : PatternDefault
                             spgr.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 3), YField - transform.position.y), VELOCITY, GameController.GRAVITY, true);
                         }
                         timer = 0;
+                        GetComponent<SadAudio>().GrenadeFirePlay();
                         step++;
                     }
                     break;

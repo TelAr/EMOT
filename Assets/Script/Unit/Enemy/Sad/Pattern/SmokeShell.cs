@@ -52,6 +52,7 @@ public class SmokeShell : PatternDefault
                 smokeshellInstance.SetActive(true);
                 smokeshellInstance.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position-((Vector3)offset+transform.position), ThrowPower, GameController.GRAVITY);
                 smokeshellInstance.GetComponent<Rigidbody2D>().angularVelocity = 360f;
+                GetComponent<SadAudio>().GrenadeFirePlay();
                 Stop();
             }
         }

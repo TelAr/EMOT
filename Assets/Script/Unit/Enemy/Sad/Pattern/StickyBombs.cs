@@ -60,6 +60,7 @@ public class StickyBombs : PatternDefault
                 Debug.Log(bomb.GetComponent<Rigidbody2D>().velocity);
                 fireTimer = 0;
                 counter++;
+                GetComponent<SadAudio>().GrenadeFirePlay();
             }
             else if(counter >= FireCount) { 
             
