@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraTargetting : MonoBehaviour
 {
+    public static GameObject MainCamera;
+    public static bool IsCameraPositionFix = false;
 
     public Vector3 Offset;
     public GameObject target;
@@ -11,12 +13,15 @@ public class CameraTargetting : MonoBehaviour
     void Start()
     {
         target = GameController.GetPlayer();
+        MainCamera = gameObject;
     }
 
-    // Update is called once per frame
-
-    void Update()
+    private void Update()
     {
-        transform.position = Offset+target.transform.position;
+        if (!IsCameraPositionFix) {
+
+            transform.position = Offset + target.transform.position;
+        }
     }
+
 }
