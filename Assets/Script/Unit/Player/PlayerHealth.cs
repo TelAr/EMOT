@@ -43,9 +43,9 @@ public class PlayerHealth : HealthDefault
         base.Hurt(damage, immuneTime);
     }
 
-    public override void HealthSetting(int value)
+    public override void SetMaxHealth(int value)
     {
-        base.HealthSetting(value);
+        base.SetMaxHealth(value);
         healthSlider.maxValue = value;
     }
 

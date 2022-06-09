@@ -267,4 +267,14 @@ public class PlayerAction : MonoBehaviour
             parryingJudgeTimer -= Time.fixedDeltaTime;
         }
     }
+
+    public int GetStemina() {
+
+        return staminaValue;
+    }
+
+    public void SetStemina(int value) {
+
+        staminaValue = value;
+    }
 }

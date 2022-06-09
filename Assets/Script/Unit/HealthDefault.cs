@@ -16,12 +16,12 @@ public class HealthDefault : MonoBehaviour
 
     protected virtual void Awake()
     {
-        HealthSetting(HealthMax);
+        SetMaxHealth(HealthMax);
         FullHealth();
     }
 
 
-    public virtual void HealthSetting(int value)
+    public virtual void SetMaxHealth(int value)
     {
         HealthMax = value;
     }
@@ -48,6 +48,10 @@ public class HealthDefault : MonoBehaviour
     {
 
         return health;
+    }
+    public void SetHealth(int value) { 
+    
+        health = value;
     }
 
     public void SetImmuneTime(float value)
