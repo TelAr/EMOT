@@ -22,6 +22,10 @@ public class GameController : MonoBehaviour
 
     void Awake()
     {
+        if (gameConroller != null) { 
+        
+            Destroy(gameConroller);
+        }
         gameConroller = this;
         Level = 0;
         foreach (GameObject enemy in EnemyModel) { 
