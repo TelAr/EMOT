@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GrenadeDefault : MissileDefault
 {
+    public float RotatePerSecond = 0;
     protected Rigidbody2D rb2D;
     // Start is called before the first frame update
     void Start()
@@ -15,5 +16,6 @@ public class GrenadeDefault : MissileDefault
     protected virtual void FixedUpdate()
     {
         rb2D.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);
+        transform.Rotate(new Vector3(0, 0, RotatePerSecond * Time.fixedDeltaTime));
     }
 }

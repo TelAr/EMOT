@@ -5,13 +5,24 @@ using UnityEngine;
 public class StickyBomb : GrenadeDefault
 {
     public StickyBombs BombController = null;
+    public Sprite Normal;
+    public Vector2 NormalSpriteSize;    
+    public Sprite StickyForm;
+    public Vector2 StickyFormSpriteSize;
     private float bombTimer;
     private bool is_sticky = false;
     private Rigidbody2D attached;
+    private SpriteRenderer sr;
 
     private void Awake()
     {
         gameObject.GetComponent<FixedJoint2D>().enabled = false;
+        sr = GetComponent<SpriteRenderer>();
+    }
+    private void OnEnable()
+    {
+        sr.sprite = Normal;
+        sr.size= NormalSpriteSize;
     }
 
     public void SetTimer(float time) {
@@ -32,6 +43,8 @@ public class StickyBomb : GrenadeDefault
             attached = collision.gameObject.GetComponent<Rigidbody2D>();
             gameObject.GetComponent<FixedJoint2D>().connectedBody = attached;
             is_sticky = true;
+            sr.sprite = StickyForm;
+            sr.size = StickyFormSpriteSize;
         }
         
     }

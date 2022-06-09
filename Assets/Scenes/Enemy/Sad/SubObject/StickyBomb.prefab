@@ -79,10 +79,10 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0.47420734, b: 0.5377358, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -110,7 +110,12 @@ MonoBehaviour:
   MaxY: 40
   impact: {fileID: -3613679184794751965}
   MinimumJegdeLoseTime: 0
+  RotatePerSecond: 0
   BombController: {fileID: 0}
+  Normal: {fileID: 21300000, guid: 59ff966675f22f74e8039fd4216af796, type: 3}
+  NormalSpriteSize: {x: 1.33, y: 1.33}
+  StickyForm: {fileID: 21300000, guid: 4c1bb9b2d5409cd4da0adf51c0b8f3af, type: 3}
+  StickyFormSpriteSize: {x: 1.6, y: 1.6}
 --- !u!114 &-3613679184794751965
 MonoBehaviour:
   m_ObjectHideFlags: 0
