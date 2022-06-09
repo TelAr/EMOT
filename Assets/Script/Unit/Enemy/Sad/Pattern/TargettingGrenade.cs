@@ -13,6 +13,7 @@ public class TargettingGrenade : PatternDefault
     public float AngleDistance;
     public float GrenadeSpeed;
     public float SeperateAngle, SeperateHeightRatio;
+    public Sprite Normal, SeperateCase;
 
     private float timer, subTimer;
     private int counter;
@@ -124,11 +125,11 @@ public class TargettingGrenade : PatternDefault
                         if (is_seperate)
                         {
 
-                            grenade.GetComponent<SpriteRenderer>().color = Color.red;
+                            grenade.GetComponent<SpriteRenderer>().sprite = SeperateCase;
                         }
-                        else { 
-                        
-                            grenade.GetComponent<SpriteRenderer>().color = Color.green;
+                        else {
+
+                            grenade.GetComponent<SpriteRenderer>().sprite = Normal;
                         }
 
                         grenade.transform.position = gameObject.transform.position + offset;

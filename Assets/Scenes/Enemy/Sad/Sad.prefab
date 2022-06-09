@@ -183,6 +183,8 @@ MonoBehaviour:
   GrenadeSpeed: 15
   SeperateAngle: 30
   SeperateHeightRatio: 0.6
+  Normal: {fileID: 21300000, guid: 28c8af9ed43289b45bb92252c889291e, type: 3}
+  SeperateCase: {fileID: 21300000, guid: e2caff9a3ed72f14bba03607e71211ce, type: 3}
 --- !u!114 &8550990062671068985
 MonoBehaviour:
   m_ObjectHideFlags: 0
