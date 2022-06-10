@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -52,6 +53,7 @@ public class GameController : MonoBehaviour
 
             gameObject.GetComponent<TestMode>().Awake();
         }
+        DontDestroyOnLoad(gameObject);
     }
 
     static public GameObject GetPlayer() {
