@@ -15,7 +15,6 @@ public class TestMode : MonoBehaviour
 
     public void Awake()
     {
-        Debug.Log(GameController.EnemyList.Count);
         if (GameController.EnemyList.Count > 0)
         {
 
@@ -25,10 +24,15 @@ public class TestMode : MonoBehaviour
 
             return;
         }
+        foreach (GameObject go in GameController.EnemyList)
+        {
+            go.SetActive(false);
+        }
         if (enemy != null)
         {
             enemy.SetActive(true);
         }
+
     }
 
     // Update is called once per frame
@@ -100,7 +104,6 @@ public class TestMode : MonoBehaviour
         //캐릭터 변경
         if (Input.GetKeyDown(KeyCode.F1))
         {
-
             if (GameController.EnemyList.Count > 0 && enemy != GameController.EnemyList[0])
             {
 
@@ -111,10 +114,9 @@ public class TestMode : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-
-            if (GameController.EnemyList.Count > 1 && enemy != GameController.EnemyList[0])
+            if (GameController.EnemyList.Count > 1 && enemy != GameController.EnemyList[1])
             {
-
+                
                 enemy.SetActive(false);
                 enemy = (GameController.EnemyList[1]);
                 enemy.SetActive(true);

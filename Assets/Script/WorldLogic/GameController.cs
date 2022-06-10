@@ -32,7 +32,6 @@ public class GameController : MonoBehaviour
         foreach (GameObject enemy in EnemyModel) { 
         
             GameObject input = Instantiate(enemy);
-            input.SetActive(false);
             EnemyList.Add(input);
         }
 
@@ -53,6 +52,8 @@ public class GameController : MonoBehaviour
 
             gameObject.GetComponent<TestMode>().Awake();
         }
+
+
         DontDestroyOnLoad(gameObject);
     }
 

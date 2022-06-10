@@ -233,7 +233,6 @@ public class PlayerAction : MonoBehaviour
                 GameObject fireBullet = null;
                 Vector3 realFireOffset = new Vector3(FireOffsetPosition.x * pp.GetDirection(), FireOffsetPosition.y * bc.size.y, FireOffsetPosition.z);
 
-                Debug.Log(bullets.Count);
                 foreach (GameObject bullet in bullets)
                 {
                     if (bullet == null) {
