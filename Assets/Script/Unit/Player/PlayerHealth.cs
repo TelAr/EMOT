@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class PlayerHealth : HealthDefault
 {
 
@@ -21,6 +21,10 @@ public class PlayerHealth : HealthDefault
         {
             Player = gameObject;
         }
+        else {
+
+            Destroy(gameObject);
+        }
         if (healthSlider == null && GameController.GetGameController().GetComponent<GameController>() != null)
         {
             healthSlider = GameController.GetGameController().GetComponent<GameController>().HealthGraph;
@@ -30,7 +34,9 @@ public class PlayerHealth : HealthDefault
         playerAction = gameObject.GetComponent<PlayerAction>();
         PlayerAudio = gameObject.GetComponent<PlayerAudio>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        DontDestroyOnLoad(gameObject);
     }
+
 
     public override void Hurt(int damage = 0, float immuneTime = 2)
     {

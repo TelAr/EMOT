@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
     {
         if (gameConroller != null) { 
         
-            Destroy(gameConroller);
+            Destroy(gameObject);
         }
         gameConroller = this;
         Level = 0;
@@ -38,16 +38,20 @@ public class GameController : MonoBehaviour
         OptionWindow.gameObject.SetActive(false);
         MenuWindow.gameObject.SetActive(false);
 
-        player = Instantiate(PlayerModel);
-        if (EnemyList.Count > 0) {
+        if (PlayerHealth.Player == null)
+        {
+            player = Instantiate(PlayerModel);
+        }
+        else {
 
-            enemy = EnemyList[0];
+            player = PlayerHealth.Player;
         }
 
-        if (enemy != null) {
-            enemy.SetActive(true);
-        }
+        //for test
+        if (gameObject.GetComponent<TestMode>() != null) {
 
+            gameObject.GetComponent<TestMode>().Awake();
+        }
     }
 
     static public GameObject GetPlayer() {
@@ -59,39 +63,10 @@ public class GameController : MonoBehaviour
 
         return gameConroller;
     }
-    static public GameObject GetEnemy() { 
-    
-        return enemy;
-    }
 
-    static public void SetEnemy(GameObject Enemy) {
-
-        enemy = Enemy;
-    }
     // Update is called once per frame
     void Update()
     {
-
-        //캐릭터 변경
-        if (Input.GetKeyDown(KeyCode.F1)) {
-
-            if (EnemyList.Count > 0&&enemy!=EnemyList[0]) {
-
-                enemy.SetActive(false);
-                enemy=EnemyList[0];
-                enemy.SetActive(true);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            if (EnemyList.Count > 1 && enemy != EnemyList[1])
-            {
-
-                enemy.SetActive(false);
-                enemy = EnemyList[1];
-                enemy.SetActive(true);
-            }
-        }
 
         if (Input.GetKeyDown(KeyCode.Escape)) {
 
