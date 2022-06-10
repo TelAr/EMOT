@@ -153,7 +153,6 @@ public class PlayerAction : MonoBehaviour
         }
 
         staminaValue -= DashCost;
-
         pp.Dash();
     }
 

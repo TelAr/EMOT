@@ -112,7 +112,6 @@ public class PlayerPhysical : UnitDefault
             playerAudio.DashPlay();
             pv.DashSprite();
         }
-        
     }
 
     public float GetDirection() { 
@@ -326,6 +325,33 @@ public class PlayerPhysical : UnitDefault
             }
 
         }
+
+    }
+
+
+    class PhysicalData
+    {
+        public Vector3 pos;
+
+
+    }
+
+    public string GetJsonData()
+    {
+
+
+        PhysicalData data = new PhysicalData();
+
+        data.pos=gameObject.transform.position;
+        string json = JsonUtility.ToJson(data);
+        return json;
+    }
+
+    public void SetJsonData(string json)
+    {
+
+        PhysicalData data = JsonUtility.FromJson<PhysicalData>(json);
+        gameObject.transform.position = data.pos;
 
     }
 }

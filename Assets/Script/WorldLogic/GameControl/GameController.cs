@@ -18,14 +18,13 @@ public class GameController : MonoBehaviour
     static public List<GameObject> EnemyList = new();
     static private GameController gameConroller = null;
     static private GameObject player;
-    static private GameObject enemy;
     static public float GRAVITY = -35;
 
     void Awake()
     {
-        if (gameConroller != null) { 
-        
-            Destroy(gameObject);
+        if (gameConroller != null) {
+            DestroyImmediate(gameObject);
+            return;
         }
         gameConroller = this;
         Level = 0;

@@ -8,6 +8,7 @@ public class TestMode : MonoBehaviour
 {
 
     public TextMeshProUGUI SkillText, CharaText;
+    public bool IsTest = true;
 
     static private GameObject enemy = null;
 
@@ -15,6 +16,11 @@ public class TestMode : MonoBehaviour
 
     public void Awake()
     {
+        if (!IsTest) { 
+        
+            gameObject.SetActive(false);
+            return;
+        }
         if (GameController.EnemyList.Count > 0)
         {
 

@@ -47,6 +47,7 @@ public class PlayerHealth : HealthDefault
         }
 
         base.Hurt(damage, immuneTime);
+
     }
 
     public override void SetMaxHealth(int value)
@@ -69,5 +70,32 @@ public class PlayerHealth : HealthDefault
         {
             spriteRenderer.color = Color.white;
         }
+    }
+
+    class HealthData { 
+    
+        public int health;
+
+
+    }
+
+    public string GetJsonData() {
+
+
+        HealthData data = new HealthData();
+
+        data.health = health;
+
+        string json = JsonUtility.ToJson(data);
+        return json;
+    }
+
+    public void SetJsonData(string json)
+    {
+
+        HealthData data = JsonUtility.FromJson<HealthData>(json);
+
+        health = data.health;
+
     }
 }
