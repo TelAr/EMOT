@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SavePoint : FieldTriggerDefault
+public class SavePoint : FieldFunctionDefault
 {
-    public override void Trigger()
+    public override void Function()
     {
-        throw new System.NotImplementedException();
+        LoadNSave.Instance.Save();
     }
 
 }

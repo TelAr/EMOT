@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WarpNextScene : FieldTriggerDefault
+public class WarpNextScene : FieldFunctionDefault
 {
     public string SceneName;
     public Vector3 WarpScenePosition;
-    public override void Trigger() {
+    public override void Function() {
 
         if (SceneManager.GetSceneByName(SceneName) != null)
         {
