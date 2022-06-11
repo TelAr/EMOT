@@ -135,7 +135,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 10000
   MinDistance: 0
-  PatternPreDelay: 4
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -167,7 +167,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 5
   MinDistance: 0
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -201,7 +201,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 15
   MinDistance: 0
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -227,7 +227,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 10
   MinDistance: 0
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -251,7 +251,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 10
   MinDistance: 0
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -275,7 +275,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 100
   MinDistance: 0
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -303,7 +303,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 10
   MinDistance: 3
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -335,7 +335,7 @@ MonoBehaviour:
   Stack: 0
   MaxDistance: 0
   MinDistance: 0
-  PatternPreDelay: 0
+  PatternPostDelay: 0
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1

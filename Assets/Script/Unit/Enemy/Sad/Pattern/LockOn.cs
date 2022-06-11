@@ -46,7 +46,7 @@ public class LockOn : PatternDefault
         TargettingDelay = 2f;
         TargettingFixedDelay = 1f;
         NextShootDelay = 2f;
-        PatternPreDelay = 2f;
+        PatternPostDelay = 2f;
 
     }
     void Awake()

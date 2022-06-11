@@ -8,7 +8,7 @@ public abstract class PatternDefault : MonoBehaviour
     public float Cooldown = 0;
     public int Stack = 0;
     public float MaxDistance, MinDistance;
-    public float PatternPreDelay=0;
+    public float PatternPostDelay=0;
     public EnemyDefault Caster = null;
     public bool IsRun = false;
     public bool IsMain = true;

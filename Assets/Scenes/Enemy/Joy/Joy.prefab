@@ -111,9 +111,10 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
-  statement: 
-  pattern_running: 0
-  global_delay: 0
+  Statement: 
+  PatternRunning: 0
+  DefaultPhysicalForcedEnable: 0
+  GlobalDelay: 0
   health: 0
 --- !u!114 &2188110120337716798
 MonoBehaviour:
@@ -131,7 +132,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 8
   MinDistance: 0
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -156,7 +157,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 13
   MinDistance: 3
-  PatternPreDelay: 3
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -183,7 +184,7 @@ MonoBehaviour:
   Stack: 3
   MaxDistance: 10
   MinDistance: 3
-  PatternPreDelay: 1
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -212,7 +213,7 @@ MonoBehaviour:
   Stack: 2
   MaxDistance: 20
   MinDistance: 2
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
@@ -243,7 +244,7 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 100
   MinDistance: 0
-  PatternPreDelay: 2
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1

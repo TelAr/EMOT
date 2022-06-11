@@ -610,6 +610,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7655922818333350523, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: EnemyModel.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7655922818333350523, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: EnemyModel.Array.data[2]
+      value: 
+      objectReference: {fileID: 8085210604569707331, guid: f8ea0bc365003c14d84501d7dc73198b, type: 3}
     - target: {fileID: 7655922818364973227, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

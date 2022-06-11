@@ -35,7 +35,7 @@ public class EnemyDefault : UnitDefault
             this.enemy = pattern.Caster;
             this.max_distance = pattern.MaxDistance;
             this.min_distance = pattern.MinDistance;
-            this.post_delay = pattern.PatternPreDelay;
+            this.post_delay = pattern.PatternPostDelay;
             Is_Enabled = true;
         }
         public void PatternReset()
@@ -86,7 +86,7 @@ public class EnemyDefault : UnitDefault
             this.stack = pattern.Stack;
             this.max_distance = pattern.MaxDistance;
             this.min_distance = pattern.MinDistance;
-            this.post_delay = pattern.PatternPreDelay;
+            this.post_delay = pattern.PatternPostDelay;
         }
         public string GetPatternName() {
 

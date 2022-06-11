@@ -128,6 +128,16 @@ public class TestMode : MonoBehaviour
                 enemy.SetActive(true);
             }
         }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            if (GameController.EnemyList.Count > 2 && enemy != GameController.EnemyList[2])
+            {
+
+                enemy.SetActive(false);
+                enemy = (GameController.EnemyList[2]);
+                enemy.SetActive(true);
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.P)) {
 
