@@ -3,31 +3,53 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class LoadNSave : MonoBehaviour
+public class LoadNSave
 {
-    public LoadNSave loadNSave = null;
+    static private LoadNSave instance = null;
 
-    private string ItemPath = Application.dataPath + "/item.json";
-    private string PlayerPath = Application.dataPath + "/player.json";
-
-
-    private void Awake()
+    static public LoadNSave Instance
     {
-        if (loadNSave != null) { 
-        
-            DestroyImmediate(this);
-            return;
+
+        get {
+
+            if (instance == null) {
+
+                instance = new LoadNSave();
+            }
+            return instance;
         }
-        loadNSave = this;
     }
 
-    public void Save() { 
-    
-        string PlayerInfo=GameController.GetPlayer().GetComponent<PlayerHealth>().GetJsonData();
-        
-        PlayerInfo+= "\n"+GameController.GetPlayer().GetComponent<PlayerPhysical>().GetJsonData();
+    private string SavePath = Application.dataPath + "/Save.json";
 
-        File.WriteAllText(PlayerPath, PlayerInfo);
+    class DataSet {
 
+        public string HealthInfo;
+        public string PhysicalInfo;
+        public string ItemGainedInfo;
+        public string UniqueInfo;
+        public string PlayerStateInfo;
+    }
+
+
+    public void Save() {
+
+        DataSet dataSet = new DataSet();
+
+        dataSet.HealthInfo = GameController.GetPlayer().GetComponent<PlayerHealth>().GetJsonData();
+        dataSet.PhysicalInfo = GameController.GetPlayer().GetComponent<PlayerPhysical>().GetJsonData();
+        dataSet.ItemGainedInfo = ItemController.Instance.GetListToString();
+
+        File.WriteAllText(SavePath, JsonUtility.ToJson(dataSet));
+
+    }
+
+    public void Load() {
+
+        DataSet dataSet = JsonUtility.FromJson<DataSet>(File.ReadAllText(SavePath));
+
+        GameController.GetPlayer().GetComponent<PlayerHealth>().SetJsonData(dataSet.HealthInfo);
+        GameController.GetPlayer().GetComponent<PlayerPhysical>().SetJsonData(dataSet.HealthInfo);
+        ItemController.Instance.SetStringToList(dataSet.ItemGainedInfo);
     }
 }
