@@ -14,6 +14,7 @@ public class VisualDefault : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         if (GetComponent<BoxCollider2D>() != null) colli2D = GetComponent<BoxCollider2D>();
         sr.sprite = Normal;
+        SpriteResize();
     }
 
     protected void SpriteResize()
