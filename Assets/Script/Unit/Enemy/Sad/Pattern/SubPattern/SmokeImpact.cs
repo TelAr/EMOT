@@ -9,7 +9,7 @@ public class SmokeImpact : ImpactDefault
     public override void Impact(GameObject target = null)
     {
         SmokeArea = Instantiate(SmokeAreaModel);
-        SmokeArea.transform.position = transform.position;
+        SmokeArea.transform.position = transform.position + new Vector3(0, 0, -1f);
     }
 
 }
