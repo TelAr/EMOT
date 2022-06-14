@@ -39,7 +39,7 @@ public class Sad : EnemyDefault
         if (!PatternRunning || DefaultPhysicalForcedEnable)
         {
 
-            rb2d.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);
+            rb2d.velocity += new Vector2(0, GameController.GetGameController().GRAVITY * Time.fixedDeltaTime);
         }
     }
 }

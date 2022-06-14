@@ -13,12 +13,13 @@ public class GameController : MonoBehaviour
     public Canvas OptionWindow, MenuWindow;
     public Slider HealthGraph, StaminaGraph;
     public List<Vector2> GlobalLimitArea;
+    public float GRAVITY = -35;
 
     static public int Level;
     static public List<GameObject> EnemyList = new();
     static private GameController gameConroller = null;
     static private GameObject player;
-    static public float GRAVITY = -35;
+
 
     void Awake()
     {
@@ -108,7 +109,6 @@ public class GameController : MonoBehaviour
 
     public void OpenOption() {
 
-        gameObject.GetComponent<OptionSetting>().IsOpen();
         OptionWindow.gameObject.SetActive(true);
         MenuWindow.gameObject.SetActive(false);
     }

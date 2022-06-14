@@ -92,7 +92,7 @@ public class UltimateBomb : PatternDefault
                             }
                             smsh.SetActive(true);
                             smsh.transform.position = spellPos;
-                            smsh.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 1),  YField - transform.position.y), VELOCITY, GameController.GRAVITY, true);
+                            smsh.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 1),  YField - transform.position.y), VELOCITY, GameController.GetGameController().GRAVITY, true);
                         }
                         timer = 0;
                         GetComponent<SadAudio>().GrenadeFirePlay();
@@ -127,7 +127,7 @@ public class UltimateBomb : PatternDefault
                             spgr.GetComponent<GrenadeDefault>().ResetTimer();
                             spgr.GetComponent<GrenadeDefault>().IsDestroy = false;
                             spgr.GetComponent<SeparateGrenadeImpact>().SeparateCount = 1;
-                            spgr.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 2), YField - transform.position.y), VELOCITY, GameController.GRAVITY, true);
+                            spgr.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 2), YField - transform.position.y), VELOCITY, GameController.GetGameController().GRAVITY, true);
                         }
                         timer = 0;
                         GetComponent<SadAudio>().GrenadeFirePlay();
@@ -163,7 +163,7 @@ public class UltimateBomb : PatternDefault
                             spgr.GetComponent<GrenadeDefault>().ResetTimer();
                             spgr.GetComponent<GrenadeDefault>().IsDestroy = false;
                             spgr.GetComponent<SeparateGrenadeImpact>().SeparateCount = 2;
-                            spgr.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 3), YField - transform.position.y), VELOCITY, GameController.GRAVITY, true);
+                            spgr.GetComponent<Rigidbody2D>().velocity = Ballistics.Ballistic(new Vector2(minX + t * (maxX - minX) / (SmokeCounter - 3), YField - transform.position.y), VELOCITY, GameController.GetGameController().GRAVITY, true);
                         }
                         timer = 0;
                         GetComponent<SadAudio>().GrenadeFirePlay();

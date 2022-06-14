@@ -220,7 +220,7 @@ public class PlayerPhysical : UnitDefault
 
         if (!IsUniquAction) {
 
-            accel = new Vector2(0, GameController.GRAVITY);
+            accel = new Vector2(0, GameController.GetGameController().GRAVITY);
             rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
             //벽 판정시
             if (is_side_collision)

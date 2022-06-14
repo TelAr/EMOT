@@ -58,7 +58,7 @@ public class JumpRush : PatternDefault
     {
         if (IsRun) {
 
-            rb.velocity += new Vector2(0, GameController.GRAVITY * Time.fixedDeltaTime);
+            rb.velocity += new Vector2(0, GameController.GetGameController().GRAVITY * Time.fixedDeltaTime);
 
             if (jumpReady && jumpcounter > 0) {
 
@@ -69,7 +69,7 @@ public class JumpRush : PatternDefault
                 }
                 else {
 
-                    rb.velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position-gameObject.transform.position, JumpSpeed+JumpSpeedPerLevel*GameController.Level, GameController.GRAVITY);
+                    rb.velocity = Ballistics.Ballistic(GameController.GetPlayer().transform.position-gameObject.transform.position, JumpSpeed+JumpSpeedPerLevel*GameController.Level, GameController.GetGameController().GRAVITY);
                     jumpcounter--;
                     jumpReady = false;
                 }
