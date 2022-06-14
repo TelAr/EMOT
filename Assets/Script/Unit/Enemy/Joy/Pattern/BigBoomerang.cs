@@ -78,7 +78,7 @@ public class BigBoomerang : PatternDefault
 
         KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
 
-        nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer(sample);
+        nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer(sample);
         nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
         nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
 
@@ -140,7 +140,7 @@ public class BigBoomerang : PatternDefault
 
                     KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
 
-                    nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer(sample);
+                    nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer(sample);
                     nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
                     nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
 
@@ -212,7 +212,7 @@ public class BigBoomerang : PatternDefault
                         if (counter<SwingAmount)
                         {
 
-                            nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer(sample);
+                            nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer(sample);
                             nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
                             nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
                             SetNowFlyTime();
@@ -258,7 +258,7 @@ public class BigBoomerang : PatternDefault
                         isFlying = false;
                         timer = 0;
                         nowLineRenderer.SetActive(false);
-                        nextLineRendrer = EffectPoolingController.EffectObjectController.GetLineRenderer
+                        nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer
                         (new KeyValuePair<Vector3, Vector3>(nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1), transform.position + new Vector3(0, 0, 1)));
                     }
 

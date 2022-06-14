@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EffectPoolingController : MonoBehaviour
 {
-    static public EffectPoolingController EffectObjectController =null;
+    static private EffectPoolingController EffectObjectController = null;
 
 
     public GameObject ExplosionModel;
@@ -12,6 +12,12 @@ public class EffectPoolingController : MonoBehaviour
 
     private List<GameObject> ExplosionList = new List<GameObject>();
     private List<GameObject> LineRendererList = new List<GameObject>();
+
+    static public EffectPoolingController Instance() {
+
+        return EffectObjectController;
+    }
+
     private void Awake()
     {
         EffectObjectController = this;
