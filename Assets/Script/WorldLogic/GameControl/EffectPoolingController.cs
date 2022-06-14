@@ -90,4 +90,20 @@ public class EffectPoolingController : MonoBehaviour
 
         return lineRenderer;
     }
+
+
+
+
+    public void DestroyAllEffectObject() {
+
+        int count = transform.childCount;
+        for (int t = count-1; t >= 0; t--) { 
+        
+            Destroy(transform.GetChild(t).gameObject);
+        }
+
+        ExplosionList = new();
+        LineRendererList = new();
+
+    }
 }
