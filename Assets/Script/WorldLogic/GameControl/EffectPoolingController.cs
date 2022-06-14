@@ -20,6 +20,11 @@ public class EffectPoolingController : MonoBehaviour
 
     private void Awake()
     {
+        if (EffectObjectController != null) {
+
+            Destroy(this);
+            return;
+        }
         EffectObjectController = this;
     }
 
