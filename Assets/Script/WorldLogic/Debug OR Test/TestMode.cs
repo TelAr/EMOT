@@ -184,6 +184,7 @@ public class TestMode : MonoBehaviour
             }
             text += chara.name + "\n";
         }
+        text += Screen.width + ":"+Screen.height+", "+FPSShow.FPS;
         CharaText.text = text;
 
     }

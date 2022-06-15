@@ -22,7 +22,7 @@ public class LoadNSave
 
     private string SavePath = Application.dataPath + "/Save.json";
 
-    class DataSet {
+    struct DataSet {
 
         public string HealthInfo;
         public string PhysicalInfo;

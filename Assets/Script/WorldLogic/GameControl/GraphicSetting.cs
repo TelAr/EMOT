@@ -10,7 +10,7 @@ public class GraphicSetting : MonoBehaviour
     static public bool isGraphicEffect;
     static public int SetGraphicLevel;
 
-    // Start is called before the first frame update
+    /* LEGACY
     void Start()
     {
         SetWidth = 1920;
@@ -19,6 +19,7 @@ public class GraphicSetting : MonoBehaviour
         isGraphicEffect = true;
         GraphicSettingUpdate();
     }
+    */
 
     static public void GraphicSettingUpdate() {
 

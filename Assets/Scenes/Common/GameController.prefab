@@ -949,6 +949,7 @@ GameObject:
   - component: {fileID: 7655922818333350525}
   - component: {fileID: 7655922818333350527}
   - component: {fileID: 7655922818333350526}
+  - component: {fileID: 9217481799404234505}
   m_Layer: 0
   m_Name: GameController
   m_TagString: GameController
@@ -997,6 +998,7 @@ MonoBehaviour:
   GlobalLimitArea:
   - {x: -40, y: -40}
   - {x: 40, y: 40}
+  GRAVITY: -35
 --- !u!114 &7655922818333350524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1142,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SkillText: {fileID: 7655922818599633327}
   CharaText: {fileID: 7655922818998879074}
+  IsTest: 1
+--- !u!114 &9217481799404234505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7655922818333350520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 796c2a1432ce5554bb06aa9f46e753c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7655922818357041794
 GameObject:
   m_ObjectHideFlags: 0

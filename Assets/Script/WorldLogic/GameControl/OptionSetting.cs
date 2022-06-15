@@ -25,7 +25,7 @@ public class OptionSetting : MonoBehaviour
     private void Start()
     {
         ReadValue();
-        IsOpen();
+        FirstOpen();
         SaveOption();
     }
 
@@ -84,7 +84,7 @@ public class OptionSetting : MonoBehaviour
         else savedBMT = true;
     }
 
-    public void IsOpen() {
+    private void FirstOpen() {
 
         ResolutionDropDown.value = savedGraphicNum;
         FullScreen.isOn = savedFullScreenToggle;
@@ -98,7 +98,7 @@ public class OptionSetting : MonoBehaviour
         BGMMT.isOn = savedBMT;
     }
 
-    void Update()
+    void Update()//차후 코루틴 형태로 재적용할 필요 있음
     {
         
         int ResolutionIndex = ResolutionDropDown.value;
@@ -123,8 +123,6 @@ public class OptionSetting : MonoBehaviour
         if (FullScreen != null) {
             IsFullScreen = FullScreen.isOn;
         }
-
-
 
     }
 
