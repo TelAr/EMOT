@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioDefault : MonoBehaviour
+public abstract class AudioDefault : MonoBehaviour
 {
 
     public static float MasterVolume = 1, EffectVolume = 1, BGMVolume = 1;
