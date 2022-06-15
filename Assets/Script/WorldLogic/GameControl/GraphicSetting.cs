@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GraphicSetting : MonoBehaviour
 {
+
     static public int SetWidth, SetHeight;
     static public bool IsFullScreen;
     static public bool isGraphicEffect;

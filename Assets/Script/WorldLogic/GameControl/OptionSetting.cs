@@ -128,9 +128,6 @@ public class OptionSetting : MonoBehaviour
 
     }
 
-
-    
-
     public void SaveOption() {
         //resolution
         Update();
