@@ -12,6 +12,7 @@ public class GlobalVolume : MonoBehaviour
         if (GlobalVolumeObject != null) { 
         
             DestroyImmediate(GlobalVolumeObject.gameObject);
+            return;
         }
         GlobalVolumeObject = gameObject;   
     }

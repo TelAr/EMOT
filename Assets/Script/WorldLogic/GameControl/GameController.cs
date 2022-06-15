@@ -29,7 +29,8 @@ public class GameController : MonoBehaviour
         }
         gameConroller = this;
         Level = 0;
-        foreach (GameObject enemy in EnemyModel) { 
+
+        foreach (GameObject enemy in EnemyModel) { //차후 로직 변경 필요 가능성 매우 높음
         
             GameObject input = Instantiate(enemy);
             EnemyList.Add(input);
@@ -84,7 +85,7 @@ public class GameController : MonoBehaviour
         }
 
 
-        if ((OptionWindow.gameObject.activeSelf || MenuWindow.gameObject.activeSelf))
+        if (IsTimeStopUI())
         {
             Time.timeScale = 0;
         }
@@ -93,6 +94,11 @@ public class GameController : MonoBehaviour
             Time.timeScale = 1;
         }
 
+    }
+
+    private bool IsTimeStopUI() { 
+    
+        return OptionWindow.gameObject.activeSelf || MenuWindow.gameObject.activeSelf;
     }
 
     public void ClearUI() {
