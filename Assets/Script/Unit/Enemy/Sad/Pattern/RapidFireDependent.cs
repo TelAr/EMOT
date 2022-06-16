@@ -14,6 +14,7 @@ public class RapidFireDependent : PatternDefault
     public float YRange;
     public float FlyingTime, BoomTime;
     public Vector3 ZeroOffset;
+    public float SoundVolumeOffset = 0.5f;
 
     private float timer, subTimer;
     private bool startMoving;
@@ -127,7 +128,7 @@ public class RapidFireDependent : PatternDefault
                         grenade.transform.position = transform.position;
                         grenade.GetComponent<RapidFireBullet>().FlyTimer = FlyingTime;
                         grenade.GetComponent<RapidFireBullet>().BoomTimer = BoomTime;
-
+                        grenade.GetComponent<RapidFireBullet>().Volume = SoundVolumeOffset;
                         Vector3 targgettingPos = ZeroOffset + new Vector3(direction * (-1) * Random.Range(0, XRange), Random.Range(-YRange, YRange));
 
                         grenade.GetComponent<RapidFireBullet>().EndPos = targgettingPos;

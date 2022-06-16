@@ -29,7 +29,7 @@ public class EffectPoolingController : MonoBehaviour
     }
 
 
-    public GameObject GetExplosion(AudioClip audioClip = null)
+    public GameObject GetExplosion(float SoundVolume = 1f, AudioClip audioClip = null)
     {
 
         GameObject explosion = null;
@@ -51,7 +51,7 @@ public class EffectPoolingController : MonoBehaviour
 
 
         if (explosion.GetComponent<Explosion>() != null) {
-            explosion.GetComponent<Explosion>().Initiation(audioClip);
+            explosion.GetComponent<Explosion>().Initiation(SoundVolume, audioClip);
         }
         explosion.transform.localScale = Vector3.one;
         explosion.SetActive(true);

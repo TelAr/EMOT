@@ -34,7 +34,7 @@ public abstract class AudioDefault : MonoBehaviour
             };
             audioControllers.Add(returnValue);
         }
-
+        returnValue.Audio.playOnAwake = false;
 
         return returnValue;
     }

@@ -11,6 +11,7 @@ public class SnipingTargetting : MonoBehaviour
     public float DisapearedDelay;
     public Color effectOriginalColor;
     public Vector3 Offset;
+    public float SoundVolume = 1f;
 
     private float timer;
     private Vector3 effectOriginalScale;
@@ -90,7 +91,7 @@ public class SnipingTargetting : MonoBehaviour
         }
         else if(!is_fire){
             GameObject go;
-            go = EffectPoolingController.Instance().GetComponent<EffectPoolingController>().GetExplosion(ExplosionSound);
+            go = EffectPoolingController.Instance().GetComponent<EffectPoolingController>().GetExplosion(SoundVolume, ExplosionSound);
             go.transform.position = transform.position;
             go.transform.localScale *= 9;
             is_fire = true;

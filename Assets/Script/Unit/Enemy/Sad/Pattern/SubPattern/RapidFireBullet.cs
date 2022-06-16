@@ -8,7 +8,7 @@ public class RapidFireBullet : MonoBehaviour
     public float FlyTimer;
     public float BoomTimer;
     public Vector3 EndPos;
-
+    public float Volume = 0.5f;
 
     public float timer;
     private Vector3 startPos;
@@ -39,9 +39,10 @@ public class RapidFireBullet : MonoBehaviour
 
         }
         else {
-            if (GetComponent<ImpactDefault>() != null)
+            if (GetComponent<ExplosionImpactDefault>() != null)
             {
-                GetComponent<ImpactDefault>().Impact();
+                GetComponent<ExplosionImpactDefault>().SoundVolume = Volume;
+                GetComponent<ExplosionImpactDefault>().Impact();
             }
             gameObject.SetActive(false);
         }

@@ -14,6 +14,7 @@ public class RapidFire : PatternDefault
     public float DistanceRange;
     public float FlyingTime, BoomTime;
     public Vector3 TargettingOffset;
+    public float SoundVolumeOffset = 0.5f;
 
     private float timer, subTimer;
     private bool startMoving;
@@ -119,6 +120,7 @@ public class RapidFire : PatternDefault
                         grenade.transform.position = transform.position;
                         grenade.GetComponent<RapidFireBullet>().FlyTimer = FlyingTime;
                         grenade.GetComponent<RapidFireBullet>().BoomTimer = BoomTime;
+                        grenade.GetComponent<RapidFireBullet>().Volume = SoundVolumeOffset;
                         Vector3 targettingVector = (GameController.GetPlayer().transform.position+ TargettingOffset) - transform.position;
                         float rotation = Mathf.Rad2Deg*Mathf.Atan2(targettingVector.y, targettingVector.x);
                         rotation += Random.Range(-AngleRange, AngleRange);

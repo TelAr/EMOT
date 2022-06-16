@@ -320,6 +320,7 @@ MonoBehaviour:
   FlyingTime: 0.5
   BoomTime: 1.5
   TargettingOffset: {x: 0, y: 1, z: 0}
+  SoundVolumeOffset: 0.3
 --- !u!114 &3067123396297885501
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +353,7 @@ MonoBehaviour:
   FlyingTime: 0.5
   BoomTime: 1
   ZeroOffset: {x: 0, y: 1, z: 0}
+  SoundVolumeOffset: 0.3
   isGround: 0
 --- !u!61 &-5647268146409375533
 BoxCollider2D:

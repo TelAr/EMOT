@@ -30,7 +30,7 @@ public class Explosion : MonoBehaviour
         isPlay = true;
     }
 
-    public void Initiation(AudioClip clip=null) {
+    public void Initiation(float SoundVolume = 1f, AudioClip clip=null) {
 
         gameObject.tag = "Enemy";
         gameObject.GetComponent<Damage>().IsEffected = true;
@@ -54,7 +54,7 @@ public class Explosion : MonoBehaviour
             audioSource.clip = clip;
         }
         isPlay = true;
-        audioSource.volume = ExplosionVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume;
+        audioSource.volume = ExplosionVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume * SoundVolume;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
     }
 
