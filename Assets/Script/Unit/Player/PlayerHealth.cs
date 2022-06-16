@@ -35,6 +35,7 @@ public class PlayerHealth : HealthDefault
         PlayerAudio = gameObject.GetComponent<PlayerAudio>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         DontDestroyOnLoad(gameObject);
+        healthSlider.maxValue = HealthMax;
     }
 
 

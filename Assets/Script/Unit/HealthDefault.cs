@@ -27,7 +27,6 @@ public class HealthDefault : MonoBehaviour
 
     public void HealthChange(int value)
     {
-
         health += value;
 
         if (health > HealthMax)
