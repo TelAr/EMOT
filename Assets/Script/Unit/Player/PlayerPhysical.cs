@@ -114,14 +114,16 @@ public class PlayerPhysical : UnitDefault
         }
     }
 
-    public float GetDirection() { 
-    
-        return direction;
+    public float GetDirection {
+        get {
+            return direction;
+        } 
     }
 
-    public bool GetIsDown() { 
-    
-        return downState;
+    public bool GetIsDown {
+        get {
+            return downState;
+        }
     }
 
     private void CollsionBlock(Collision2D collision) {
@@ -329,7 +331,7 @@ public class PlayerPhysical : UnitDefault
     }
 
 
-    class PhysicalData
+    struct PhysicalData
     {
         public Vector3 pos;
 
@@ -338,11 +340,10 @@ public class PlayerPhysical : UnitDefault
 
     public string GetJsonData()
     {
-
-
-        PhysicalData data = new PhysicalData();
-
-        data.pos=gameObject.transform.position;
+        PhysicalData data = new()
+        {
+            pos = gameObject.transform.position
+        };
         string json = JsonUtility.ToJson(data);
         return json;
     }

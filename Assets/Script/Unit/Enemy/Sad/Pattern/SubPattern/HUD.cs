@@ -10,6 +10,7 @@ public class HUD : MonoBehaviour
     public GameObject A, B, C;
     public float TransitionDelay;
     public bool Is_end = false;
+    public float EffectSoundVolumeOffset = 1f;
 
     private GameObject target;
     private float timer;
@@ -48,7 +49,7 @@ public class HUD : MonoBehaviour
         timer = 0;
         Is_end = false;
         if (gameObject.GetComponent<AudioSource>() != null) {
-            gameObject.GetComponent<AudioSource>().volume *= AudioDefault.MasterVolume * AudioDefault.EffectVolume;
+            gameObject.GetComponent<AudioSource>().volume = EffectSoundVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume;
         }
         Update();
     }

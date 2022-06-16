@@ -230,7 +230,7 @@ public class PlayerAction : MonoBehaviour
             if (chargingTimer >= ChargingFireDelay && CharingCounter > 0) {
 
                 GameObject fireBullet = null;
-                Vector3 realFireOffset = new Vector3(FireOffsetPosition.x * pp.GetDirection(), FireOffsetPosition.y * bc.size.y, FireOffsetPosition.z);
+                Vector3 realFireOffset = new Vector3(FireOffsetPosition.x * pp.GetDirection, FireOffsetPosition.y * bc.size.y, FireOffsetPosition.z);
 
                 foreach (GameObject bullet in bullets)
                 {
@@ -255,7 +255,7 @@ public class PlayerAction : MonoBehaviour
                 }
                 fireBullet.SetActive(true);
                 fireBullet.transform.position = gameObject.transform.position + realFireOffset;
-                fireBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(BulletSpeed * pp.GetDirection(), 0);
+                fireBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(BulletSpeed * pp.GetDirection, 0);
                 chargingTimer = 0;
                 bulletAmount--;
                 CharingCounter--;
