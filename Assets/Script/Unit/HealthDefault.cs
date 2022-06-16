@@ -16,7 +16,6 @@ public class HealthDefault : MonoBehaviour
 
     protected virtual void Awake()
     {
-        SetMaxHealth(HealthMax);
         FullHealth();
     }
 

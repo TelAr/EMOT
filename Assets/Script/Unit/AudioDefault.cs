@@ -28,8 +28,10 @@ public abstract class AudioDefault : MonoBehaviour
         }
         if (returnValue == null) {
 
-            returnValue = new AudioController();
-            returnValue.Audio = gameObject.AddComponent<AudioSource>();
+            returnValue = new AudioController
+            {
+                Audio = gameObject.AddComponent<AudioSource>()
+            };
             audioControllers.Add(returnValue);
         }
 
