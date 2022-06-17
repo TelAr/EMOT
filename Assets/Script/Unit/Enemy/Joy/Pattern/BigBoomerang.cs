@@ -388,7 +388,7 @@ public class BigBoomerang : PatternDefault
         else
         { //플레이어 타게팅
 
-            Vector3 unit = GameController.GetPlayer().transform.position - sp;
+            Vector3 unit = GameController.GetPlayer.transform.position - sp;
             float parameter;
             if (unit.y == 0 || unit.x == 0)
             {

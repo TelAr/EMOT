@@ -138,10 +138,20 @@ public class TestMode : MonoBehaviour
                 enemy.SetActive(true);
             }
         }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            if (GameController.EnemyList.Count > 3 && enemy != GameController.EnemyList[3])
+            {
+
+                enemy.SetActive(false);
+                enemy = (GameController.EnemyList[3]);
+                enemy.SetActive(true);
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.P)) {
 
-            GameController.GetPlayer().GetComponent<PlayerHealth>().FullHealth();
+            GameController.GetPlayer.GetComponent<PlayerHealth>().FullHealth();
         }
 
         if (Input.GetKeyDown(KeyCode.KeypadPlus))

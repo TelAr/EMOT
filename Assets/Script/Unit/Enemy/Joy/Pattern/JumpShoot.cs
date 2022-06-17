@@ -41,7 +41,7 @@ public class JumpShoot : PatternDefault
     public override void Run()
     {
         base.Run();
-        player = GameController.GetPlayer();
+        player = GameController.GetPlayer;
         Caster.GetComponent<EnemyDefault>().Statement = "JumpShoot";
         begin_pos=gameObject.transform.position;
     }

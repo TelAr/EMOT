@@ -46,7 +46,7 @@ public class EnemyDefault : UnitDefault
         }
         public void Tick() {
 
-            float distance = (enemy.gameObject.transform.position - GameController.GetPlayer().transform.position).magnitude;
+            float distance = (enemy.gameObject.transform.position - GameController.GetPlayer.transform.position).magnitude;
             UpdatePatternInfo();
             if (!Is_Enabled) {
 

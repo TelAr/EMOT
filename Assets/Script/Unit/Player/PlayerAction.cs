@@ -79,6 +79,11 @@ public class PlayerAction : MonoBehaviour
 
     public void OnFire(InputValue value) {
 
+        if (pp.IsBind)
+        {
+            return;
+        }
+
         if (bulletAmount <= 0)
         {
 
@@ -106,15 +111,24 @@ public class PlayerAction : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
+        if (pp.IsBind)
+        {
+            return;
+        }
+
         if (pp.IsUniquAction) {
 
             return;
         }
-        pp.isJump = value.Get<float>() > 0;
+        pp.IsJump = value.Get<float>() > 0;
     }
 
     public void OnMove(InputValue value)
     {
+        if (pp.IsBind)
+        {
+            return;
+        }
 
         float moving = value.Get<Vector2>().x;
         if (moving < 0)
@@ -146,6 +160,11 @@ public class PlayerAction : MonoBehaviour
 
     public void OnDash() {
 
+        if (pp.IsBind)
+        {
+            return;
+        }
+
         if (staminaValue < DashCost) {
 
             pa.ErrorPlay();
@@ -157,6 +176,11 @@ public class PlayerAction : MonoBehaviour
     }
 
     public void OnParrying() {
+
+        if (pp.IsBind)
+        {
+            return;
+        }
 
         if (staminaValue < ParryingCost) {
             pa.ErrorPlay();
@@ -273,13 +297,17 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    public int GetStemina() {
+    public int Stemina{
+        get {
+            return staminaValue;
+        }
+        set { 
+        
+            Stemina = value;
+            if (Stemina > StaminaMax) {
 
-        return staminaValue;
-    }
-
-    public void SetStemina(int value) {
-
-        staminaValue = value;
+                Stemina = StaminaMax;
+            }
+        }
     }
 }

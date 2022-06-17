@@ -12,7 +12,7 @@ public class CameraTargetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = GameController.GetPlayer();
+        target = GameController.GetPlayer;
         MainCamera = gameObject;
     }
 

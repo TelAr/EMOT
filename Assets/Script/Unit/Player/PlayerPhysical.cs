@@ -37,12 +37,41 @@ public class PlayerPhysical : UnitDefault
     private Vector3 DashSP, DashEP;
     private float verticalInput;
     private bool downState;
+    private float bindTimer = 0f;
 
-    //action
-    public bool isJump;
-    public bool IsUniquAction;
-    public bool IsAir;
+    //action state
+    private bool isJump;
+    public bool IsJump {
 
+        get { return isJump; }
+        set { isJump = value; }
+    }
+    private bool isUniquAction;
+    public bool IsUniquAction {
+
+        get { return isUniquAction; }
+    }
+    private bool isAir;
+    public bool IsAir {
+
+        get { return isAir; }
+    }
+
+    public bool IsBind {
+
+        get { 
+        
+            return bindTimer > 0f;
+        }
+    }
+
+    public Vector3 TargettingPos
+    {
+        get {
+
+            return gameObject.transform.position + new Vector3(0, transform.localScale.y * colli2D.size.y * 0.5f);
+        }
+    }
 
 
     public override void Reset()
@@ -64,7 +93,7 @@ public class PlayerPhysical : UnitDefault
         rb2.velocity = Vector2.zero;
         transform.position = OffsetPosition;
         jumping = false;
-        IsUniquAction = false;
+        isUniquAction = false;
     }
 
     protected override void Awake()
@@ -77,6 +106,16 @@ public class PlayerPhysical : UnitDefault
         playerAudio = gameObject.GetComponent<PlayerAudio>();
         colli2D = gameObject.GetComponent<BoxCollider2D>();
         direction = 1;
+    }
+
+    public void Bind(float bindTime) {
+        moving = 0;
+        bindTimer = bindTime;
+    }
+
+    public void BindFree() {
+
+        bindTimer = 0;
     }
 
     public void Moving(float x) {
@@ -100,8 +139,8 @@ public class PlayerPhysical : UnitDefault
     public void Dash()
     {
         DashTimer = 0;
-        IsUniquAction = true;
-        DashEP = new Vector3(direction, verticalInput < 0 ? (IsAir ? verticalInput : 0) : verticalInput, 0).normalized * DashDistance / DashTime;
+        isUniquAction = true;
+        DashEP = new Vector3(direction, verticalInput < 0 ? (isAir ? verticalInput : 0) : verticalInput, 0).normalized * DashDistance / DashTime;
         rb2.velocity = Vector2.zero;
         if (downState)
         {
@@ -189,7 +228,7 @@ public class PlayerPhysical : UnitDefault
                     jumpCounter = JUMPMAX;
                     jumpTimer = 0;
                     is_side_collision = false;
-                    IsAir = false;
+                    isAir = false;
                 }
                    
             }
@@ -205,7 +244,7 @@ public class PlayerPhysical : UnitDefault
 
                 jumpCounter--;
             }
-            IsAir = true;
+            isAir = true;
         }
     }
 
@@ -219,8 +258,14 @@ public class PlayerPhysical : UnitDefault
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (bindTimer > 0) {
 
-        if (!IsUniquAction) {
+            rb2.velocity = Vector2.zero;
+            bindTimer -= Time.fixedDeltaTime;
+            return;
+        }
+
+        if (!isUniquAction) {
 
             accel = new Vector2(0, GameController.GetGameController().GRAVITY);
             rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
@@ -280,7 +325,7 @@ public class PlayerPhysical : UnitDefault
                 jumpCounter--;
             }
 
-            if (!IsAir && verticalInput < 0)
+            if (!isAir && verticalInput < 0)
             {
                 downState = true;
                 rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
@@ -319,9 +364,9 @@ public class PlayerPhysical : UnitDefault
         }
         else {
 
-            if (IsUniquAction) {
+            if (isUniquAction) {
 
-                IsUniquAction = false;
+                isUniquAction = false;
                 pv.NormalSprite();
                 rb2.velocity = Vector2.zero;
             }

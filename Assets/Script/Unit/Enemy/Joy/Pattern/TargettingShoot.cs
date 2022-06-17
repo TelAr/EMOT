@@ -155,7 +155,7 @@ public class TargettingShoot : PatternDefault
                         if (b.Phase == 1) {
 
                             b.bullet.GetComponent<Rigidbody2D>().velocity = 
-                                (GameController.GetPlayer().transform.position - b.floatingPos).normalized * BulletSpeed;
+                                (GameController.GetPlayer.transform.position - b.floatingPos).normalized * BulletSpeed;
 
                             b.setLevel(2);
                         }

@@ -58,7 +58,7 @@ public class RapidFire : PatternDefault
             if (!startMoving)
             {
 
-                direction = gameObject.transform.position.x < GameController.GetPlayer().transform.position.x ? -1 : 1;
+                direction = gameObject.transform.position.x < GameController.GetPlayer.transform.position.x ? -1 : 1;
                 startMoving = true;
             }
             rb.velocity = (new Vector2((float)direction, 0) * BackstepDistance / BackstepTime) * 2 * (BackstepTime - timer) / BackstepTime;
@@ -121,7 +121,7 @@ public class RapidFire : PatternDefault
                         grenade.GetComponent<RapidFireBullet>().FlyTimer = FlyingTime;
                         grenade.GetComponent<RapidFireBullet>().BoomTimer = BoomTime;
                         grenade.GetComponent<RapidFireBullet>().Volume = SoundVolumeOffset;
-                        Vector3 targettingVector = (GameController.GetPlayer().transform.position+ TargettingOffset) - transform.position;
+                        Vector3 targettingVector = (GameController.GetPlayer.transform.position+ TargettingOffset) - transform.position;
                         float rotation = Mathf.Rad2Deg*Mathf.Atan2(targettingVector.y, targettingVector.x);
                         rotation += Random.Range(-AngleRange, AngleRange);
                         Vector3 targgettingPos = transform.position + new Vector3((float)Mathf.Cos(Mathf.Deg2Rad * rotation), (float)Mathf.Sin(Mathf.Deg2Rad * rotation), 0) 

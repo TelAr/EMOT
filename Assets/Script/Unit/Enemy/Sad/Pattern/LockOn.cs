@@ -140,7 +140,7 @@ public class LockOn : PatternDefault
                                 targetting = Instantiate(SnipingModel);
                                 snipingList.Add(targetting);
                             }
-                            targetting.transform.position = GameController.GetPlayer().transform.position;
+                            targetting.transform.position = GameController.GetPlayer.transform.position;
                             targetting.GetComponent<SnipingTargetting>().Initiate(TargettingDelay, TargettingFixedDelay);
                             targetting.GetComponent<SnipingTargetting>().effectOriginalColor = HUDColor;
                             targetting.SetActive(true);

@@ -50,13 +50,13 @@ public class ShadowCatch : PatternDefault
                 if (!playerShadow.activeSelf)
                 {
 
-                    playerShadow.GetComponent<SpriteRenderer>().sprite = GameController.GetPlayer().GetComponent<SpriteRenderer>().sprite;
-                    playerShadow.GetComponent<SpriteRenderer>().size = GameController.GetPlayer().GetComponent<SpriteRenderer>().size;
-                    playerShadow.GetComponent<SpriteRenderer>().flipX = GameController.GetPlayer().GetComponent<SpriteRenderer>().flipX;
+                    playerShadow.GetComponent<SpriteRenderer>().sprite = GameController.GetPlayer.GetComponent<SpriteRenderer>().sprite;
+                    playerShadow.GetComponent<SpriteRenderer>().size = GameController.GetPlayer.GetComponent<SpriteRenderer>().size;
+                    playerShadow.GetComponent<SpriteRenderer>().flipX = GameController.GetPlayer.GetComponent<SpriteRenderer>().flipX;
                     playerShadow.GetComponent<SpriteRenderer>().color = Color.gray;
-                    playerShadow.transform.position = GameController.GetPlayer().transform.position;
-                    explosionOffset = (GameController.GetPlayer().transform.localScale.x / GameController.GetPlayer().transform.localScale.normalized.x)
-                        * GameController.GetPlayer().GetComponent<Collider2D>().offset * 0.5f;
+                    playerShadow.transform.position = GameController.GetPlayer.transform.position;
+                    explosionOffset = (GameController.GetPlayer.transform.localScale.x / GameController.GetPlayer.transform.localScale.normalized.x)
+                        * GameController.GetPlayer.GetComponent<Collider2D>().offset * 0.5f;
                     playerShadow.SetActive(true);
                 }
 

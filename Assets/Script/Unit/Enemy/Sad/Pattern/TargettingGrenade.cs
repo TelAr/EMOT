@@ -84,7 +84,7 @@ public class TargettingGrenade : PatternDefault
             if (status == -1)
             {
 
-                direction = gameObject.transform.position.x < GameController.GetPlayer().transform.position.x ? -1 : 1;
+                direction = gameObject.transform.position.x < GameController.GetPlayer.transform.position.x ? -1 : 1;
                 rb.velocity = Ballistics.Ballistic(new Vector2(EvasionDistance * direction, 0), EvasionVelocity, GameController.GetGameController().GRAVITY);
                 status = 0;
             }
@@ -151,7 +151,7 @@ public class TargettingGrenade : PatternDefault
             {
 
                 timer += Time.deltaTime;
-                targetPos = GameController.GetPlayer().transform.position;
+                targetPos = GameController.GetPlayer.transform.position;
                 //타게팅 유닛 추가
                 if (timer > TargettingDelay)
                 {

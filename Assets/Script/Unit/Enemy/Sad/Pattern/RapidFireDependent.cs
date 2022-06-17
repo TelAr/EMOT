@@ -64,7 +64,7 @@ public class RapidFireDependent : PatternDefault
             if (!startMoving)
             {
 
-                direction = gameObject.transform.position.x < GameController.GetPlayer().transform.position.x ? -1 : 1;
+                direction = gameObject.transform.position.x < GameController.GetPlayer.transform.position.x ? -1 : 1;
                 startMoving = true;
             }
             rb.velocity = (new Vector2((float)direction, 0) * BackstepDistance / BackstepTime) * 2 * (BackstepTime - timer) / BackstepTime;

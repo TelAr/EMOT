@@ -58,9 +58,12 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    static public GameObject GetPlayer() {
+    static public GameObject GetPlayer {
 
-        return player;
+        get {
+            return player;
+        }
+        
     }
 
     static public GameController GetGameController() {

@@ -39,7 +39,7 @@ public class HUD : MonoBehaviour
         if (target == null)
         {
 
-            target = GameController.GetPlayer();
+            target = GameController.GetPlayer;
         }
         else {
 

@@ -36,8 +36,8 @@ public class LoadNSave
 
         DataSet dataSet = new DataSet();
 
-        dataSet.HealthInfo = GameController.GetPlayer().GetComponent<PlayerHealth>().GetJsonData();
-        dataSet.PhysicalInfo = GameController.GetPlayer().GetComponent<PlayerPhysical>().GetJsonData();
+        dataSet.HealthInfo = GameController.GetPlayer.GetComponent<PlayerHealth>().GetJsonData();
+        dataSet.PhysicalInfo = GameController.GetPlayer.GetComponent<PlayerPhysical>().GetJsonData();
         dataSet.ItemGainedInfo = ItemController.Instance.GetListToString();
 
         File.WriteAllText(SavePath, JsonUtility.ToJson(dataSet));
@@ -48,8 +48,8 @@ public class LoadNSave
 
         DataSet dataSet = JsonUtility.FromJson<DataSet>(File.ReadAllText(SavePath));
 
-        GameController.GetPlayer().GetComponent<PlayerHealth>().SetJsonData(dataSet.HealthInfo);
-        GameController.GetPlayer().GetComponent<PlayerPhysical>().SetJsonData(dataSet.HealthInfo);
+        GameController.GetPlayer.GetComponent<PlayerHealth>().SetJsonData(dataSet.HealthInfo);
+        GameController.GetPlayer.GetComponent<PlayerPhysical>().SetJsonData(dataSet.HealthInfo);
         ItemController.Instance.SetStringToList(dataSet.ItemGainedInfo);
     }
 }

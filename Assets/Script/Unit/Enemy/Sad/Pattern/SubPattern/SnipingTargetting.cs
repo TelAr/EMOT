@@ -57,7 +57,7 @@ public class SnipingTargetting : MonoBehaviour
         }
         if (timer < TargettingTime)
         {
-            if (!is_fire) transform.position = GameController.GetPlayer().transform.position + Offset;
+            if (!is_fire) transform.position = GameController.GetPlayer.transform.position + Offset;
 
             //A
             A.transform.localScale = Vector3.one * (1 - Mathf.Pow(1 - timer / TargettingTime, 2));

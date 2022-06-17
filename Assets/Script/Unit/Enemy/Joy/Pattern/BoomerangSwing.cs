@@ -75,7 +75,7 @@ public class BoomerangSwing : PatternDefault
 
             if (timer > targetting_time) {
 
-                target_pos = GameController.GetPlayer().transform.position + TargetOffsetPos;
+                target_pos = GameController.GetPlayer.transform.position + TargetOffsetPos;
 
                 if (IsFixedDistance)
                 {
