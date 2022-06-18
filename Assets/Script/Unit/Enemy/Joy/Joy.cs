@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Joy : EnemyDefault
 {
-    public int health;
-    const int MAX_HEALTH = 100;
 
     private Rigidbody2D rb2d;
 
@@ -18,7 +16,6 @@ public class Joy : EnemyDefault
     public override void Start()
     {
         base.Start();
-        health = MAX_HEALTH;
         rb2d= gameObject.GetComponent<Rigidbody2D>();
     }
 
@@ -26,10 +23,6 @@ public class Joy : EnemyDefault
     public override void Update()
     {
         base.Update();
-        if (health <= 0) { 
-        
-            //보스 패턴 종료
-        }
         if (isFall) { 
         
         //특수 패턴
