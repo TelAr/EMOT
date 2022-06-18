@@ -47,6 +47,11 @@ public class PlayerHealth : HealthDefault
             return;
         }
 
+        if (immunTimer <= 0) {
+
+            PlayerAudio.HurtPlay();
+        }
+
         base.Hurt(damage, immuneTime);
 
     }

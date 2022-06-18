@@ -20,6 +20,8 @@ public class PlayerAudio : AudioDefault
     public float DashVolumeOffset;
     public AudioClip Error;
     public float ErrorVolumeOffset;
+    public AudioClip Hurt;
+    public float HurtVolumeOffset;
     public void JumpPlay() {
 
         AudioController controller = GetAudioController();
@@ -153,6 +155,24 @@ public class PlayerAudio : AudioDefault
 
         mAudioSource.Play();
 
+    }
+
+    public void HurtPlay() {
+
+
+        AudioController controller = GetAudioController();
+
+        AudioSource mAudioSource = controller.Audio;
+
+
+        mAudioSource.clip = Hurt;
+        mAudioSource.time = 0f;
+        mAudioSource.volume = 0.5f * MasterVolume * EffectVolume * DashVolumeOffset;
+
+        controller.StartTiming = mAudioSource.time;
+        controller.PlayTime = 2f;
+
+        mAudioSource.Play();
     }
 
     public void ErrorPlay()

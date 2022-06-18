@@ -165,9 +165,6 @@ MonoBehaviour:
   DashTime: 0.2
   DashDistance: 4.3
   DownSpeedRatio: 0.5
-  isJump: 0
-  IsUniquAction: 0
-  IsAir: 0
 --- !u!114 &1280117680179468386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +234,8 @@ MonoBehaviour:
   DashVolumeOffset: 1
   Error: {fileID: 8300000, guid: 6b54b0a6f5726fd46a80928bba44b703, type: 3}
   ErrorVolumeOffset: 1
+  Hurt: {fileID: 8300000, guid: 11198dbc1a7b830438eb4157744689ae, type: 3}
+  HurtVolumeOffset: 1
 --- !u!114 &-7389247827842631633
 MonoBehaviour:
   m_ObjectHideFlags: 0
