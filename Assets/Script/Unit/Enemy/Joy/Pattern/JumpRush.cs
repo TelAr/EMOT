@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class JumpRush : PatternDefault
 {
-
+    [Header("* JumpRush Pattern Value")]
     public int JumpCount;
     public float JumpDelay;
     public float JumpSpeed;

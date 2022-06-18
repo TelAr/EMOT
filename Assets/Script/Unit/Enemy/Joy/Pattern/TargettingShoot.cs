@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class TargettingShoot : PatternDefault
 {
+    [Header("* TargettingShoot Pattern Value")]
     public GameObject BulletModel;
     public float BulletSpeed;
     public float BulletHeight;
     public float FloatingTime, TargetingTime;
     public float RandomPositionRange;
     public float RandomDelayRange;
+    [Header("Realtime BulletCount: BulletCount+level*(numerator/denominator)")]
     public int BulletCount;
     public int BulletCountPerLevel_numerator;
     public int BulletCountPerLevel_denominator;

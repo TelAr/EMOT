@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BoomerangSwing : PatternDefault
 {
-    
+    [Header("* BoomerangSwing Pattern Value")]
     public GameObject Boomerang_model;
     public bool IsFixedDistance, IsFixedAVGVelocity;
     public float FixedDistance, FixedAVGVelocity;
-    public Vector3 CasterOffsetPos, TargetOffsetPos;
+    private Vector3 CasterOffsetPos, TargetOffsetPos;
     private GameObject boomerang_object;
-    public float timer;
+    private float timer;
     private float targetting_time = 1f;
     private float flight_one_way_time = 2f;
     private Vector3 target_pos;

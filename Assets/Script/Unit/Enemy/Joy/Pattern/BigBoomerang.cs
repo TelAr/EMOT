@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class BigBoomerang : PatternDefault
 {
+    [Header("* BigBoomerang Pattern Value")]
     public GameObject BigBoomerangModel;
-    [Tooltip("설계 상 2발은 무조건 보장")]
+    [Tooltip("Must be twice is Guaranteed, so realtime SwingAmound=SwingAmount+2")]
     public int SwingAmount;
     public float PreDelay;
     public float SwingSpeed;
     public float SwingDelay;
     public float LineWidth;
     public List<Vector2> LimitArea;
+    [Tooltip("If this flag is True, Other pattern can be apeared")]
     public bool IsOtherPattern;
+    [Tooltip("If level>=This Value, Boomerang is targetting player")]
     public int MinimumLevelToTargetting;
-    public Vector3 TargettingOffsetPos;
 
 
     private GameController gc;
@@ -388,7 +390,7 @@ public class BigBoomerang : PatternDefault
         else
         { //플레이어 타게팅
 
-            Vector3 unit = GameController.GetPlayer.transform.position - sp;
+            Vector3 unit = GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos - sp;
             float parameter;
             if (unit.y == 0 || unit.x == 0)
             {

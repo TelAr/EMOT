@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class JumpShoot : PatternDefault
 {
+    [Header("* JumpShoot Pattern Value")]
     public GameObject BulletModel;
     public float BulletSpeed;
     public float BulletSpeedPerLevel;
     public float JumpHeight;
     public float ShootDelay;
     public float ShootDelayPerLevel;
+
     private List<GameObject> BulletList;
     private float timer, shoot_timer;
     private GameObject player;
