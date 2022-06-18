@@ -4,8 +4,14 @@ using UnityEngine;
 
 public abstract class UnitDefault : MonoBehaviour
 {
-    public float MinX, MinY, MaxX, MaxY;
+    [Header("* Limited Area")]
+    public float MinX;
+    public float MinY;
+    public float MaxX;
+    public float MaxY;
+    [Tooltip("If this flag is true, You can use own limied area. Else, Limited area set GameController Limited area automaticaly")]
     public bool IsUniqueLimit = false;
+    [Tooltip("Position where object return postiotion when cross the Limited area")]
     public Vector3 DefaultPos;
 
     protected bool isFall;

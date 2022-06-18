@@ -8,8 +8,8 @@ public class EnemyDefault : UnitDefault
     public string Statement;
     public bool PatternRunning;
     public bool DefaultPhysicalForcedEnable;
+    [Tooltip("Grobal Delay when Pattern is over")]
     public float GlobalDelay;
-
 
     //패턴 관리용 개체
     public class PatternController { 

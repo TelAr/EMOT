@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class PlayerPhysical : UnitDefault
 {
-    //public value
+    [Header("* Conrolled Value")]
     public float Speed = 1;
     public float JumpPower = 6f;
+    [Tooltip("Posiotion where Scene is start")]
     public Vector3 OffsetPosition;
+    [Tooltip("Minimum guaranteed ratio when button is pressed")]
     public float MinimumJumpPowerRatio;
-    public float DashTime, DashDistance;
     public float DownSpeedRatio;
+    [Header("* Dash")]
+    public float DashTime;
+    public float DashDistance;
 
     //const
     private const float JUMP_TIME = 0.1f;

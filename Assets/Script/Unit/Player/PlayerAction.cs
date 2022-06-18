@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerAction : MonoBehaviour
 {
+    [Header("* Stamina")]
     public int StaminaMax;
     public float StaminaPerSecond;
     private int staminaValue;
@@ -14,7 +15,7 @@ public class PlayerAction : MonoBehaviour
 
     public int ParryingCost, DashCost;
 
-
+    [Header("* Gun")]
     public GameObject BulletModel;
     private List<GameObject> bullets = new List<GameObject>();
     public float BulletSpeed = 20f;
@@ -30,7 +31,7 @@ public class PlayerAction : MonoBehaviour
     private float autoReloadTimer = 0;
     public Vector3 FireOffsetPosition;
 
-
+    [Header("* Parrying")]
     public float ParryingJudgeTime = 0.1f;
     public float ParryingImmuneTime = 0.5f;
     private float parryingJudgeTimer = 0f;

@@ -8,7 +8,9 @@ public class PlayerHealth : HealthDefault
 
     static public GameObject Player=null;
 
+    [HideInInspector]
     public PlayerPhysical playerPhysical;
+    [HideInInspector]
     public PlayerAction playerAction;
     private SpriteRenderer spriteRenderer;
     private PlayerAudio PlayerAudio;

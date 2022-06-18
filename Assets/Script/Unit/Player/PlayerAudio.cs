@@ -4,22 +4,31 @@ using UnityEngine;
 
 public class PlayerAudio : AudioDefault
 {
+    [Header("* Jump")]
     public AudioClip JumpAudio;
     public float JumpVolumeOffset;
+    [Header("* Reload")]
     public AudioClip ReloadAudio;
     public float ReloadVolumeOffset;
+    [Header("* Fire")]
     public AudioClip FireAudio;
     public float FireVolumeOffset;
+    [Header("* NoAmmo")]
     public AudioClip NoAmmo;
     public float NoAmmoVolumeOffset;
+    [Header("* ParryingSuccess")]
     public AudioClip ParryingSuccess;
     public float ParryingSuccessVolumeOffset;
+    [Header("* Sliding")]
     public AudioClip Sliding;
     public float SlidingVolumeOffset;
+    [Header("* Dash")]
     public AudioClip Dash;
     public float DashVolumeOffset;
+    [Header("* Error")]
     public AudioClip Error;
     public float ErrorVolumeOffset;
+    [Header("* Hurt")]
     public AudioClip Hurt;
     public float HurtVolumeOffset;
     public void JumpPlay() {
