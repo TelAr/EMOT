@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SeparateGrenade : PatternDefault
 {
+    [Header("* SeparateGrenade Pattern Value")]
     public float PreDelay;
     public float ThrowPower;
     public GameObject GrenadeModel;

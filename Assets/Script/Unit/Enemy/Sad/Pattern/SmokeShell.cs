@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SmokeShell : PatternDefault
 {
+    [Header("* SmokeShell Pattern Value")]
     public float PreDelay;
     public float ThrowPower;
     public GameObject SmokeshellModel;

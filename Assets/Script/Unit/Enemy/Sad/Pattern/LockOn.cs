@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class LockOn : PatternDefault
 {
+    [Header("* LockOn Pattern Value")]
     public int HowMuch;
     public float StartDelay;
-    public float TargettingDelay, TargettingFixedDelay, NextShootDelay;
+    [Tooltip("Delay which is targetting player")]
+    public float TargettingDelay;
+    [Tooltip("Delay which already targgetting, and wait for explosion")]
+    public float TargettingFixedDelay;
+    [Tooltip("Delay which already explosion and wait next shoot")]
+    public float NextShootDelay;
     public GameObject SnipingModel;
     public GameObject HUDModel;
-    public bool isTargetting;
     public Color HUDColor;
 
     private int counter;
-    public float timer;
+    private float timer;
     private List<GameObject> snipingList;
     private GameObject HUD = null;
     private Vector3 startPos;
     private const float jumpScale = 20f;
     private RapidFireDependent rfd;
-    public int status;
+    private bool isTargetting;
+    private int status;
     public override void Setting()
     {
         counter = 0;

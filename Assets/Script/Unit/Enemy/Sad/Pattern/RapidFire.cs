@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class RapidFire : PatternDefault
 {
-
-    public List<GameObject> GrenadeList = new();
+    [Header("* RapidFire Pattern Value")]
     public GameObject GrenadeModel;
     public float BackstepDistance, BackstepTime;
     public int FireTimes;
@@ -16,6 +15,7 @@ public class RapidFire : PatternDefault
     public Vector3 TargettingOffset;
     public float SoundVolumeOffset = 0.5f;
 
+    private List<GameObject> GrenadeList = new();
     private float timer, subTimer;
     private bool startMoving;
     private int counter;

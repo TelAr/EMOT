@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class RapidFireDependent : PatternDefault
 {
-
-    public List<GameObject> GrenadeList = new();
+    [Header("* RapidFireDependent Pattern Value\n- This pattern is for LockOn Pattern")]
     public GameObject GrenadeModel;
     public float BackstepDistance, BackstepTime;
     public int FireTimes;
@@ -16,6 +15,7 @@ public class RapidFireDependent : PatternDefault
     public Vector3 ZeroOffset;
     public float SoundVolumeOffset = 0.5f;
 
+    private List<GameObject> GrenadeList = new();
     private float timer, subTimer;
     private bool startMoving;
     private int counter;

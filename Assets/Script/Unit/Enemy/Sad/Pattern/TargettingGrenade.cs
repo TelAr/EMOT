@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TargettingGrenade : PatternDefault
 {
-
-    public List<GameObject> GrenadeList = new();
+    [Header("* TargettingGrenade Pattern Value")]
     public GameObject GrenadeModel;
     public int FireTimes;
     public float FireDelay, TargettingDelay;
+    [Tooltip("Value that Caster's Evasion value")]
     public float EvasionVelocity, EvasionDistance;
     public float AngleDistance;
     public float GrenadeSpeed;
@@ -22,6 +22,7 @@ public class TargettingGrenade : PatternDefault
     private Vector3 offset, firePos, targetPos;
     private float direction;
     private bool is_seperate;
+    private List<GameObject> GrenadeList = new();
     private Queue<GameObject> firedGrenade=new();
 
 

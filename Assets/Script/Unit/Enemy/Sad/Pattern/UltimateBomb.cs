@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class UltimateBomb : PatternDefault
 {
-    public GameObject SmokeShellModel, SeparateGrenadeModel;
+    [Header("* UltimateBomb Pattern Value")]
+    public GameObject SmokeShellModel;
+    public GameObject SeparateGrenadeModel;
 
     public int SmokeCounter;
+    [Tooltip("Area Which Bombs are Explosion")]
     public float minX, maxX, YField;
     public Vector3 spellPos;
     private List<GameObject> SmokeShellList = new List<GameObject>(), SeparateGrenadeModelList = new List<GameObject>();
-    private Vector3 offset, beforePos;
+    private Vector3 beforePos;
     private float timer;
     private const float FIRST_DELAY=1, SPEEL_DELAY=2, VELOCITY=15;
     private int step;
