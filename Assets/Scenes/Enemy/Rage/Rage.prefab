@@ -192,10 +192,11 @@ MonoBehaviour:
   Radius: 7
   PreDelay: 2
   Delay: 0.5
-  RushTime: 1
+  RushTime: 0.5
   DamagePerAttack: 25
   AllowJedgeDelay: 0.1
   EndDelay: 1
+  ResetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &1932521067922031340
 MonoBehaviour:
   m_ObjectHideFlags: 0

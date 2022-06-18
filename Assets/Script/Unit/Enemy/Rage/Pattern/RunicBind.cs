@@ -14,6 +14,9 @@ public class RunicBind : PatternDefault
     public int DamagePerAttack = 25;
     public float AllowJedgeDelay = 0.1f;
     public float EndDelay = 1f;
+    public Vector3 ResetPos;
+    [Tooltip("Degree Per Second")]
+    public float RotateSpeed = 30;
 
     private List<GameObject> RunicWordsList = new();
     private PlayerPhysical player = null;
@@ -26,6 +29,7 @@ public class RunicBind : PatternDefault
     private bool specialParrying = false;
     private float parryingTimer = 0f;
     private Color effectColorValue;
+    private float rotateState = 0;
 
     public override void Setting()
     {
@@ -33,6 +37,7 @@ public class RunicBind : PatternDefault
         timer = 0f;
         steps = 0;
         counter = 0;
+        rotateState = Random.Range(0, 360);
         if (player == null)
         {
 
@@ -104,6 +109,15 @@ public class RunicBind : PatternDefault
             timer += Time.deltaTime;
             parryingTimer -= Time.deltaTime;
 
+            rotateState += Time.deltaTime * RotateSpeed;
+
+            for (int t = 0; t < RunicWordsList.Count; t++)
+            {
+                GameObject word = RunicWordsList[t];
+                word.transform.position = Target + new Vector3(Mathf.Cos(Mathf.PI * 2 * t / RunicWordsList.Count + Mathf.Deg2Rad * rotateState),
+                    Mathf.Sin(Mathf.PI * 2 * t / RunicWordsList.Count + Mathf.Deg2Rad * rotateState)) * Radius;
+            }
+
             switch (steps) 
             { 
                 case 0:
@@ -117,7 +131,8 @@ public class RunicBind : PatternDefault
                             GameObject word = RunicWordsList[t];
                             word.GetComponent<SpriteRenderer>().color = effectColorValue - (1-ratio)*new Color(0, 0, 0, effectColorValue.a);
                             word.transform.GetChild(0).GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, ratio);
-                            word.transform.position = Target + new Vector3(Mathf.Cos(ratio * Mathf.PI * 2 * t / RunicWordsList.Count), Mathf.Sin(ratio * Mathf.PI * 2 * t / RunicWordsList.Count)) * Radius;
+                            word.transform.position = Target + new Vector3(Mathf.Cos((1 - Mathf.Pow(1 - ratio, 2)) * Mathf.PI * 2 * t / RunicWordsList.Count + Mathf.Deg2Rad * rotateState),
+                                Mathf.Sin((1 - Mathf.Pow(1 - ratio, 2)) * Mathf.PI * 2 * t / RunicWordsList.Count + Mathf.Deg2Rad * rotateState)) * Radius;
                         }
                     }
                     else 
@@ -177,6 +192,7 @@ public class RunicBind : PatternDefault
                         specialParrying = false;
                         if (counter >= RunicWordsList.Count) {
 
+                            transform.position = ResetPos;
                             steps = 2;
                         }
                     }
