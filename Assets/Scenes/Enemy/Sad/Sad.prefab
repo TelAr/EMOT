@@ -119,7 +119,6 @@ MonoBehaviour:
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
   GlobalDelay: 0
-  health: 100
 --- !u!114 &6753988263501635909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,10 +147,7 @@ MonoBehaviour:
   NextShootDelay: 1
   SnipingModel: {fileID: 2242813233362792678, guid: 6b2620fb803a7064ca0f91a2a1c14c1c, type: 3}
   HUDModel: {fileID: 6399882224597314530, guid: c206c26e142d58046a7e831a7d1f07d9, type: 3}
-  isTargetting: 0
   HUDColor: {r: 0.5137255, g: 1, b: 0.92534846, a: 1}
-  timer: 0
-  status: 0
 --- !u!114 &2064445377246090339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +169,6 @@ MonoBehaviour:
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
-  GrenadeList: []
   GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
   FireTimes: 5
   FireDelay: 0.15
@@ -211,7 +206,7 @@ MonoBehaviour:
   FireCount: 4
   FireDelay: 1
   GlobarBoomTime: 10
-  FireVelocity: 25
+  ThrowPower: 30
 --- !u!114 &1820840841350390322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +304,6 @@ MonoBehaviour:
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
-  GrenadeList: []
   GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
   BackstepDistance: 2
   BackstepTime: 0.5
@@ -342,7 +336,6 @@ MonoBehaviour:
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 0
-  GrenadeList: []
   GrenadeModel: {fileID: 942968931500299006, guid: f0ec3aa1c5f4d534a9aabb0b3b1a3922, type: 3}
   BackstepDistance: 3
   BackstepTime: 1

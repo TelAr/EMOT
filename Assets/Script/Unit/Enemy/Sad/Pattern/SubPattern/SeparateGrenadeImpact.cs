@@ -7,7 +7,6 @@ public class SeparateGrenadeImpact : ExplosionImpactDefault
     public int SeparateCount;
     public override void Impact(GameObject target = null)
     {
-        Debug.Log(gameObject.GetComponent<Rigidbody2D>().velocity);
         if (SeparateCount > 0) {
 
             for (int t = 0; t < 2; t++)

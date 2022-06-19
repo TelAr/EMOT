@@ -8,7 +8,7 @@ public class StickyBombs : PatternDefault
     public GameObject StickyBombModel;
     public int FireCount;
     public float FireDelay, GlobarBoomTime;
-    public float BombFireVelocity;
+    public float ThrowPower;
 
     private List<GameObject> StickyBombList = new List<GameObject>();
     private float fireTimer;
@@ -58,8 +58,8 @@ public class StickyBombs : PatternDefault
                 bomb.GetComponent<FixedJoint2D>().connectedBody = null;
                 bomb.transform.position = offset + gameObject.transform.position + new Vector3(0, 0, -1);
                 bomb.GetComponent<Rigidbody2D>().velocity 
-                    = Ballistics.Ballistic(GameController.GetPlayer.transform.position - (offset + transform.position), 
-                                            BombFireVelocity, GameController.GetGameController().GRAVITY);
+                    = Ballistics.Ballistic(GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos - (offset + transform.position), 
+                                            ThrowPower, GameController.GetGameController().GRAVITY);
                 fireTimer = 0;
                 counter++;
                 GetComponent<SadAudio>().GrenadeFirePlay();
