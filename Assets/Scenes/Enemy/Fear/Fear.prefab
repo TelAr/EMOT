@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6367832414310889048}
   - component: {fileID: 1558149770178814214}
   - component: {fileID: 4048321170301812747}
+  - component: {fileID: 165389021791279488}
   - component: {fileID: 1975499460036246535}
   m_Layer: 7
   m_Name: Fear
@@ -152,7 +153,7 @@ MonoBehaviour:
   MinY: -40
   MaxX: 40
   MaxY: 40
-  IsUniqueLimit: 0
+  IsUniqueLimit: 1
   DefaultPos: {x: 0, y: 0, z: 0}
   Statement: 
   PatternRunning: 0
@@ -179,6 +180,32 @@ MonoBehaviour:
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
+  PreDelay: 2
+  TargettingTime: 1
+--- !u!114 &165389021791279488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085210604569707331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d905a54a05c76794facb6df26264b654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 10
+  Stack: 1
+  MaxDistance: 1000
+  MinDistance: 0
+  PatternPostDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  Count: 3
+  FirstDelay: 1
+  NextDelay: 0.3
   PreDelay: 2
   TargettingTime: 1
 --- !u!114 &1975499460036246535

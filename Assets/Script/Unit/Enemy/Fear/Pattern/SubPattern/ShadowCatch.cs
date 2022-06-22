@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShadowCatch : PatternDefault
 {
-
+    [Header("* ShadowCatch Pattern Value")]
     public float PreDelay;
     public float TargettingTime;
 
@@ -61,6 +61,7 @@ public class ShadowCatch : PatternDefault
                 }
 
                 playerShadow.GetComponent<SpriteRenderer>().color = Color.gray - new Color(0.5f, 0.5f, 0.5f, 0) * (timer - TargettingTime) / PreDelay;
+                playerShadow.AddComponent<LayerOrder>().value = 1;
             }
             else {
 
