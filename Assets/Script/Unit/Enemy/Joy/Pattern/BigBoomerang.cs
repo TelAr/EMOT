@@ -18,6 +18,7 @@ public class BigBoomerang : PatternDefault
     [Tooltip("If level>=This Value, Boomerang is targetting player")]
     public int MinimumLevelToTargetting;
 
+    public Color SPColor, EPColor;
 
     private GameController gc;
     private float timer;
@@ -76,13 +77,7 @@ public class BigBoomerang : PatternDefault
         afterDirection = 0;
         startPos = transform.position;
 
-        SetLine();
-
-        KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
-
-        nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer(sample);
-        nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
-        nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
+        initiateLine();
 
     }
 
@@ -138,13 +133,7 @@ public class BigBoomerang : PatternDefault
                     timer = 0;
                     nowLineRenderer = nextLineRendrer;
 
-                    SetLine();
-
-                    KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
-
-                    nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer(sample);
-                    nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
-                    nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
+                    initiateLine();
 
                     SetNowFlyTime();
                     counter++;
@@ -209,14 +198,10 @@ public class BigBoomerang : PatternDefault
                         isFlying = true;
                         timer = 0;
                         nowLineRenderer = nextLineRendrer;
-                        SetLine();
-                        KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
+
                         if (counter<SwingAmount)
                         {
-
-                            nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer(sample);
-                            nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
-                            nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
+                            initiateLine();
                             SetNowFlyTime();
                             counter++;
                         }
@@ -340,7 +325,6 @@ public class BigBoomerang : PatternDefault
     private void SetLine()
     {
 
-        Debug.Log("setline");
         switch (afterDirection)
         {
 
@@ -488,6 +472,16 @@ public class BigBoomerang : PatternDefault
         }
 
 
+    }
+
+    private void initiateLine() {
+        SetLine();
+        KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
+        nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer(sample);
+        nextLineRendrer.GetComponent<LineRenderer>().startColor = SPColor;
+        nextLineRendrer.GetComponent<LineRenderer>().endColor = EPColor;
+        nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
+        nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
     }
 
 }

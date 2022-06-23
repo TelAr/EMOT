@@ -116,7 +116,6 @@ MonoBehaviour:
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
   GlobalDelay: 0
-  health: 0
 --- !u!114 &2188110120337716798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,9 +194,6 @@ MonoBehaviour:
   IsFixedAVGVelocity: 1
   FixedDistance: 15
   FixedAVGVelocity: 5
-  CasterOffsetPos: {x: 0, y: 0, z: 0}
-  TargetOffsetPos: {x: 0, y: 1, z: 0}
-  timer: 0
 --- !u!114 &3696767264274883472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +257,8 @@ MonoBehaviour:
   - {x: 20, y: 12}
   IsOtherPattern: 1
   MinimumLevelToTargetting: 2
-  TargettingOffsetPos: {x: 0, y: 1, z: 0}
+  SPColor: {r: 0.9372549, g: 0.81960785, b: 0.654902, a: 1}
+  EPColor: {r: 0.9843137, g: 0.7921569, b: 0.30588236, a: 1}
 --- !u!61 &7006779008719737904
 BoxCollider2D:
   m_ObjectHideFlags: 0
