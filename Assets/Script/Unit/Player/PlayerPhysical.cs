@@ -87,7 +87,7 @@ public class PlayerPhysical : UnitDefault
 
 
     // Start is called before the first frame update
-    public override void Start()
+    public void Start()
     {
         is_side_collision = false;
         jumpTimer = 0;

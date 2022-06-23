@@ -46,7 +46,7 @@ public abstract class UnitDefault : MonoBehaviour
         }
     }
 
-    public abstract void Start();
+//    public abstract void Start();
 
     public void Sleep() { 
     
@@ -56,7 +56,7 @@ public abstract class UnitDefault : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    virtual public void Update() {
+    virtual protected void Update() {
 
         if (transform.position.x < MinX || transform.position.x > MaxX || transform.position.y < MinY || transform.position.y > MaxY)
         {

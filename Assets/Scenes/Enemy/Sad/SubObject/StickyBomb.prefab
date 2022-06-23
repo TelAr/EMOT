@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4411019105570971682}
   - component: {fileID: 746326316656650962}
   - component: {fileID: -793062074006562347}
+  - component: {fileID: 6756774037208869171}
   m_Layer: 8
   m_Name: StickyBomb
   m_TagString: Enemy
@@ -129,6 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionSize: 6
+  SoundVolume: 1
 --- !u!58 &4411019105570971682
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -184,3 +186,16 @@ FixedJoint2D:
   m_ConnectedAnchor: {x: 0, y: 0}
   m_DampingRatio: 1
   m_Frequency: 0
+--- !u!114 &6756774037208869171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7030550621233004471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897fec31e9990994db0cee5f33083ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: -50

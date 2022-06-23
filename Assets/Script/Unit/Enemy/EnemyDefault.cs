@@ -98,7 +98,7 @@ public class EnemyDefault : UnitDefault
     public List<PatternController> PatternList;
     public Queue<PatternController> PatternQueue = new Queue<PatternController>();
 
-    public virtual new void Update()
+    protected override void Update()
     {
 
         base.Update();
@@ -141,7 +141,7 @@ public class EnemyDefault : UnitDefault
         gameObject.transform.position = DefaultPos;
     }
 
-    public override void Start()
+    protected virtual void Start()
     {
         foreach (PatternController pattern in PatternList) {
             

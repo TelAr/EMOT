@@ -13,14 +13,14 @@ public class Joy : EnemyDefault
     }
 
     // Start is called before the first frame update
-    public override void Start()
+    protected override void Start()
     {
         base.Start();
         rb2d= gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
         if (isFall) { 
