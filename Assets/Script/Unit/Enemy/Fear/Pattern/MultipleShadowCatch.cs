@@ -11,6 +11,7 @@ public class MultipleShadowCatch : PatternDefault
     [Header("* Each ShadowCatch Pattern Value")]
     public float PreDelay;
     public float TargettingTime;
+    public GameObject PlayerShadowModel;
 
     private float timer = 0;
     private int counter = 0;
@@ -44,6 +45,7 @@ public class MultipleShadowCatch : PatternDefault
             shadow.IsMain = false;
             shadow.PreDelay = PreDelay;
             shadow.TargettingTime = TargettingTime;
+            shadow.PlayerShadowModel = PlayerShadowModel;
             shadows.Add(shadow);
         }
 

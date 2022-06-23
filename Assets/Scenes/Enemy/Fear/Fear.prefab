@@ -183,6 +183,7 @@ MonoBehaviour:
   IsIndependentPattern: 1
   PreDelay: 2
   TargettingTime: 1
+  PlayerShadowModel: {fileID: 5855811931968096343, guid: 8f8e03e60116b5a48adcd82dc3612ad7, type: 3}
 --- !u!114 &165389021791279488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +210,7 @@ MonoBehaviour:
   NextDelay: 0.3
   PreDelay: 2
   TargettingTime: 1
+  PlayerShadowModel: {fileID: 5855811931968096343, guid: 8f8e03e60116b5a48adcd82dc3612ad7, type: 3}
 --- !u!114 &-1309302787006888206
 MonoBehaviour:
   m_ObjectHideFlags: 0
