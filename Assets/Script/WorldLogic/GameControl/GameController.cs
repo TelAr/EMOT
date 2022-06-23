@@ -66,9 +66,11 @@ public class GameController : MonoBehaviour
         
     }
 
-    static public GameController GetGameController() {
+    static public GameController GetGameController {
 
-        return gameConroller;
+        get {
+            return gameConroller;
+        }
     }
 
     // Update is called once per frame

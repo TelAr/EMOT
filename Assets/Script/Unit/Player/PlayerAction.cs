@@ -55,9 +55,9 @@ public class PlayerAction : MonoBehaviour
             bullets.Add(bullet);
 
         }
-        if (GameController.GetGameController().StaminaGraph != null) {
+        if (GameController.GetGameController.StaminaGraph != null) {
 
-            staminaSlider = GameController.GetGameController().StaminaGraph;
+            staminaSlider = GameController.GetGameController.StaminaGraph;
         }
         staminaSlider.maxValue = StaminaMax;
         staminaValue = StaminaMax;

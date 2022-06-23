@@ -100,9 +100,8 @@ public class PlayerPhysical : UnitDefault
         isUniquAction = false;
     }
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         rb2 = gameObject.GetComponent<Rigidbody2D>();
         ph = gameObject.GetComponent<PlayerHealth>();
         pa = gameObject.GetComponent<PlayerAction>();
@@ -271,7 +270,7 @@ public class PlayerPhysical : UnitDefault
 
         if (!isUniquAction) {
 
-            accel = new Vector2(0, GameController.GetGameController().GRAVITY);
+            accel = new Vector2(0, GameController.GetGameController.GRAVITY);
             rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
             //벽 판정시
             if (is_side_collision)

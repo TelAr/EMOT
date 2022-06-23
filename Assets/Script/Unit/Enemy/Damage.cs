@@ -7,9 +7,9 @@ public class Damage : MonoBehaviour
 
     public int DamageValue = 0;
     public float ImmuneTime = 2;
-
+    [Tooltip("This object can damage same team")]
     public bool isTeamKill;
-
+    [Tooltip("Damage working flag")]
     public bool IsEffected = true;
 
     private void OnTriggerEnter2D(Collider2D collision)

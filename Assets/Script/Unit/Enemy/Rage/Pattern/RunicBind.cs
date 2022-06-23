@@ -97,7 +97,7 @@ public class RunicBind : PatternDefault
     {
         if (IsRun && steps == 2)
         {
-            GetComponent<Rigidbody2D>().velocity += new Vector2(0, GameController.GetGameController().GRAVITY * Time.fixedDeltaTime);
+            GetComponent<Rigidbody2D>().velocity += new Vector2(0, GameController.GetGameController.GRAVITY * Time.fixedDeltaTime);
         }
     }
 

@@ -50,7 +50,7 @@ public class BigBoomerang : PatternDefault
 
     void Awake()
     {
-        gc=GameController.GetGameController();
+        gc=GameController.GetGameController;
 
     }
 

@@ -35,7 +35,7 @@ public class Rage : EnemyDefault
     {
         if (!PatternRunning) {
 
-            rb2d.velocity += new Vector2(0, GameController.GetGameController().GRAVITY*Time.fixedDeltaTime);
+            rb2d.velocity += new Vector2(0, GameController.GetGameController.GRAVITY*Time.fixedDeltaTime);
         }
     }
 }

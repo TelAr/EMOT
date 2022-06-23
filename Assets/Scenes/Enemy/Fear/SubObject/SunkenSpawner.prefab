@@ -69,7 +69,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!114 &-560982109045892294
 MonoBehaviour:
@@ -83,10 +83,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a8093332c501746b9e47803d0d71ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinX: 0
-  MinY: 0
-  MaxX: 0
-  MaxY: 0
+  MinX: -40
+  MinY: -40
+  MaxX: 40
+  MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
-  Speed: 10
+  Speed: 100
+  SunkenModel: {fileID: 1520541049669291103, guid: 126c8999a4abe8344aaeeab5e95c1cf3, type: 3}
+  Caster: {fileID: 0}

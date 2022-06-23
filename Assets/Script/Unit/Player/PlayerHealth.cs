@@ -27,9 +27,9 @@ public class PlayerHealth : HealthDefault
 
             Destroy(gameObject);
         }
-        if (healthSlider == null && GameController.GetGameController().GetComponent<GameController>() != null)
+        if (healthSlider == null && GameController.GetGameController.GetComponent<GameController>() != null)
         {
-            healthSlider = GameController.GetGameController().GetComponent<GameController>().HealthGraph;
+            healthSlider = GameController.GetGameController.GetComponent<GameController>().HealthGraph;
         }
         base.Awake();
         playerPhysical = gameObject.GetComponent<PlayerPhysical>();

@@ -57,7 +57,7 @@ public class SeparateGrenade : PatternDefault
                 GrenadeInstance.SetActive(true);
                 GrenadeInstance.GetComponent<Rigidbody2D>().velocity 
                     = Ballistics.Ballistic(GameController.GetPlayer.transform.position - ((Vector3)offset + transform.position), 
-                                            ThrowPower, GameController.GetGameController().GRAVITY);
+                                            ThrowPower, GameController.GetGameController.GRAVITY);
                 GrenadeInstance.GetComponent<Rigidbody2D>().angularVelocity = 360f;
                 GetComponent<SadAudio>().GrenadeFirePlay();
                 Stop();

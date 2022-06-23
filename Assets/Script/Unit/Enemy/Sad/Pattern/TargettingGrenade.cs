@@ -66,7 +66,7 @@ public class TargettingGrenade : PatternDefault
         if (status == 0)
         {
 
-            rb.velocity += new Vector2(0, GameController.GetGameController().GRAVITY)*Time.fixedDeltaTime;
+            rb.velocity += new Vector2(0, GameController.GetGameController.GRAVITY)*Time.fixedDeltaTime;
         }
     }
 
@@ -86,7 +86,8 @@ public class TargettingGrenade : PatternDefault
             {
 
                 direction = gameObject.transform.position.x < GameController.GetPlayer.transform.position.x ? -1 : 1;
-                rb.velocity = Ballistics.Ballistic(new Vector2(EvasionDistance * direction, 0), EvasionVelocity, GameController.GetGameController().GRAVITY);
+                rb.velocity = Ballistics.Ballistic(new Vector2(EvasionDistance * direction, 0), 
+                    EvasionVelocity, GameController.GetGameController.GRAVITY);
                 status = 0;
             }
             else if (status == 1)

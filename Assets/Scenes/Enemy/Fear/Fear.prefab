@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1558149770178814214}
   - component: {fileID: 4048321170301812747}
   - component: {fileID: 165389021791279488}
+  - component: {fileID: -1309302787006888206}
   - component: {fileID: 1975499460036246535}
   m_Layer: 7
   m_Name: Fear
@@ -153,7 +154,7 @@ MonoBehaviour:
   MinY: -40
   MaxX: 40
   MaxY: 40
-  IsUniqueLimit: 1
+  IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
   Statement: 
   PatternRunning: 0
@@ -208,6 +209,29 @@ MonoBehaviour:
   NextDelay: 0.3
   PreDelay: 2
   TargettingTime: 1
+--- !u!114 &-1309302787006888206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085210604569707331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b57a31a32e8bd014e888d2bcae11ac70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 10
+  Stack: 1
+  MaxDistance: 30
+  MinDistance: 0
+  PatternPostDelay: 0
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  SpawnerModel: {fileID: 5977235011082994025, guid: b4f3b690fd0c9d24a977b4caafcbf2e0, type: 3}
+  SpawnOffset: {x: 0, y: 5, z: 0}
 --- !u!114 &1975499460036246535
 MonoBehaviour:
   m_ObjectHideFlags: 0

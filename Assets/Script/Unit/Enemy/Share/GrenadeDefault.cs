@@ -15,7 +15,7 @@ public class GrenadeDefault : MissileDefault
     // Update is called once per frame
     protected virtual void FixedUpdate()
     {
-        rb2D.velocity += new Vector2(0, GameController.GetGameController().GRAVITY * Time.fixedDeltaTime);
+        rb2D.velocity += new Vector2(0, GameController.GetGameController.GRAVITY * Time.fixedDeltaTime);
         transform.Rotate(new Vector3(0, 0, RotatePerSecond * Time.fixedDeltaTime));
     }
 }

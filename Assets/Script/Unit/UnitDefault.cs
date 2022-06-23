@@ -35,14 +35,15 @@ public abstract class UnitDefault : MonoBehaviour
         DefaultPos = Vector3.zero;
     }
 
-    protected virtual void Awake()
-    {
-        if (!IsUniqueLimit && GameController.GetGameController() != null) {
+    protected virtual void OnEnable() {
 
-            MinX = GameController.GetGameController().GetComponent<GameController>().GlobalLimitArea[0].x;
-            MinY = GameController.GetGameController().GetComponent<GameController>().GlobalLimitArea[0].y;
-            MaxX = GameController.GetGameController().GetComponent<GameController>().GlobalLimitArea[1].x;
-            MaxY = GameController.GetGameController().GetComponent<GameController>().GlobalLimitArea[1].y;
+        if (!IsUniqueLimit && GameController.GetGameController != null)
+        {
+
+            MinX = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[0].x;
+            MinY = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[0].y;
+            MaxX = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[1].x;
+            MaxY = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[1].y;
         }
     }
 

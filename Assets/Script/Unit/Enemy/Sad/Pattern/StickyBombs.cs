@@ -59,7 +59,7 @@ public class StickyBombs : PatternDefault
                 bomb.transform.position = offset + gameObject.transform.position + new Vector3(0, 0, -1);
                 bomb.GetComponent<Rigidbody2D>().velocity 
                     = Ballistics.Ballistic(GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos - (offset + transform.position), 
-                                            ThrowPower, GameController.GetGameController().GRAVITY);
+                                            ThrowPower, GameController.GetGameController.GRAVITY);
                 fireTimer = 0;
                 counter++;
                 GetComponent<SadAudio>().GrenadeFirePlay();
