@@ -5,20 +5,35 @@ using UnityEngine;
 public class LineCutter : PatternDefault
 {
     public int LineNumber;
-    public float DarkTime;
+    public float LineWidth = 0.5f, LineDisapearWidth = 2f;
+    public float FadeInTime, DarkTime, FadeOutTime;
+    public float JudgeTime = 0.1f;
     public Vector3 MiddlePoint;
     public float Radius;
     public int Damage = 20;
+    public Color ReadyColor, ExplosionColor;
 
     private int lineCounter = 0;
-    private float timer = 0;
+    private float timer = 0, subtimer = 0;
     private int step = 0;
     private List<GameObject> lines = new List<GameObject>();
     public override void Setting()
     {
         lineCounter = 0;
         timer = 0;
+        subtimer = 0;
         step = 0;
+    }
+
+
+    public override void Stop()
+    {
+        base.Stop();
+        foreach (var line in lines) { 
+        
+            returnLine(line);
+        }
+        lines.Clear();
     }
 
     private GameObject callLine(Vector3 sp, Vector3 ep) { 
@@ -48,16 +63,115 @@ public class LineCutter : PatternDefault
             line.GetComponent<Damage>().enabled = true;
         }
         line.GetComponent<Damage>().DamageValue = Damage;
+        line.GetComponent<Damage>().IsEffected = false;
+
+
+        line.GetComponent<LineRenderer>().startColor = ReadyColor - new Color(0, 0, 0, 1);
+        line.GetComponent<LineRenderer>().endColor = ReadyColor - new Color(0, 0, 0, 1);
+
+        line.GetComponent<LineRenderer>().startWidth = LineWidth;
+        line.GetComponent<LineRenderer>().endWidth = LineWidth;
+
+        line.tag = "Enemy";
+        line.layer = 8;
 
         return line;
     }
 
 
+    private void returnLine(GameObject line)
+    {
+        line.GetComponent<EdgeCollider2D>().isTrigger = false;
+        line.GetComponent<EdgeCollider2D>().points = new Vector2[] { };
+        line.GetComponent<EdgeCollider2D>().enabled = false;
+        line.GetComponent<Damage>().IsEffected = false;
+
+        line.tag = "Untagged";
+        line.layer = 0;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (IsRun) { 
-        
+        if (IsRun) {
+
+            timer += Time.deltaTime;
+            if (step == 0) {
+
+                subtimer -= Time.deltaTime;
+                if (subtimer <= 0) {
+
+                    float rotate = Random.Range(0f, 360f);
+                    float another = rotate + Random.Range(90f, 270f);
+
+                    Vector3 sp = MiddlePoint + new Vector3(Mathf.Cos(rotate * Mathf.Deg2Rad), Mathf.Sin(rotate * Mathf.Deg2Rad)) * Radius;
+                    Vector3 ep = MiddlePoint + new Vector3(Mathf.Cos(another * Mathf.Deg2Rad), Mathf.Sin(another * Mathf.Deg2Rad)) * Radius;
+
+                    lines.Add(callLine(sp, ep));
+                    subtimer = FadeInTime/LineNumber;
+                }
+                foreach (var line in lines) { 
+                
+                    line.GetComponent<LineRenderer>().startColor += new Color(0,0,0,1)*Time.deltaTime/(FadeInTime / LineNumber);
+                    line.GetComponent<LineRenderer>().endColor += new Color(0, 0, 0, 1) * Time.deltaTime / (FadeInTime / LineNumber);
+                }
+
+                //
+
+                //암흑에 의한 페이드 인 연출
+
+                //
+                if (timer > FadeInTime) {
+
+                    step = 1;
+                    timer = 0;
+                }
+            }
+            if (step == 1) {
+
+                //
+
+                //암흑 연출
+
+                //
+                if (timer > DarkTime) {
+
+                    step = 2;
+                    timer = 0;
+                    foreach (var line in lines) {
+                        line.GetComponent<LineRenderer>().startColor = ExplosionColor;
+                        line.GetComponent<LineRenderer>().endColor = ExplosionColor;
+                        line.GetComponent<Damage>().IsEffected = true;
+                    }
+                    subtimer = JudgeTime;
+                }
+            }
+            if (step == 2) {
+
+                if (subtimer > 0)
+                {
+                    subtimer -= Time.deltaTime;
+                    if (subtimer <= 0)
+                    {
+                        foreach (var line in lines)
+                        {
+                            line.GetComponent<Damage>().IsEffected = false;
+                        }
+                    }
+                }
+
+                foreach (var line in lines)
+                {
+                    //라인 사라지는 두께 수정
+                    line.GetComponent<LineRenderer>().startColor -= new Color(0, 0, 0, 1) * Time.deltaTime / (FadeInTime / LineNumber);
+                    line.GetComponent<LineRenderer>().endColor -= new Color(0, 0, 0, 1) * Time.deltaTime / (FadeInTime / LineNumber);
+                }
+
+                if (timer > FadeOutTime) { 
+                
+                    Stop();
+                }
+            }
 
         }
     }
