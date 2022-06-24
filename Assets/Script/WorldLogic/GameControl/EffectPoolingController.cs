@@ -13,9 +13,10 @@ public class EffectPoolingController : MonoBehaviour
     private List<GameObject> ExplosionList = new List<GameObject>();
     private List<GameObject> LineRendererList = new List<GameObject>();
 
-    static public EffectPoolingController Instance() {
-
-        return EffectObjectController;
+    static public EffectPoolingController Instance {
+        get {
+            return EffectObjectController;
+        }
     }
 
     private void Awake()
@@ -60,7 +61,7 @@ public class EffectPoolingController : MonoBehaviour
     }
 
 
-    public GameObject GetLineRenderer(KeyValuePair<Vector3, Vector3> value)
+    public GameObject GetLineRenderer(KeyValuePair<Vector3, Vector3>? value=null)
     {
 
         GameObject lineRenderer = null;
@@ -82,9 +83,19 @@ public class EffectPoolingController : MonoBehaviour
 
         if (lineRenderer.GetComponent<LineRenderer>() != null) {
 
-            lineRenderer.GetComponent<LineRenderer>().SetPosition(0, value.Key);
-            lineRenderer.GetComponent<LineRenderer>().SetPosition(1, value.Value);
+            if (value.HasValue)
+            {
+                lineRenderer.GetComponent<LineRenderer>().SetPosition(0, value.Value.Key);
+                lineRenderer.GetComponent<LineRenderer>().SetPosition(1, value.Value.Value);
+            }
+            else {
+
+                lineRenderer.GetComponent<LineRenderer>().SetPosition(0, Vector3.zero);
+                lineRenderer.GetComponent<LineRenderer>().SetPosition(1, Vector3.zero);
+            }
+
         }
+
 
         lineRenderer.SetActive(true);
 

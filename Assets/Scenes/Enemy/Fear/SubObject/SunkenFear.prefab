@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5958879728416808223}
   - component: {fileID: 2866085219768774196}
   - component: {fileID: 4552574443036031754}
+  - component: {fileID: 1381748597002789161}
   m_Layer: 0
   m_Name: void_0
   m_TagString: Untagged
@@ -105,6 +106,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1381748597002789161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 722351523714946568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897fec31e9990994db0cee5f33083ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 5
 --- !u!1 &1520541049669291103
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +197,7 @@ GameObject:
   - component: {fileID: 7129268342751242599}
   - component: {fileID: 7133506079063771037}
   - component: {fileID: 8020716228713309581}
+  - component: {fileID: 642317102039545049}
   m_Layer: 8
   m_Name: Tentacle
   m_TagString: Enemy
@@ -299,3 +314,16 @@ MonoBehaviour:
   ImmuneTime: 2
   isTeamKill: 0
   IsEffected: 1
+--- !u!114 &642317102039545049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3007648247444823646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 897fec31e9990994db0cee5f33083ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: -10

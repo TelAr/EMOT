@@ -10,7 +10,7 @@ public class ExplosionImpactDefault : ImpactDefault
     private float explosionSizeOffset = 8;
     public override void Impact(GameObject target = null)
     {
-        GameObject ExplosioInstance = EffectPoolingController.Instance().GetComponent<EffectPoolingController>().GetExplosion(SoundVolume);
+        GameObject ExplosioInstance = EffectPoolingController.Instance.GetComponent<EffectPoolingController>().GetExplosion(SoundVolume);
         ExplosioInstance.transform.position = transform.position-new Vector3(0,0,1);
         if (ExplosionSize < 0)
         {

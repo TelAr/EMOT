@@ -245,7 +245,7 @@ public class BigBoomerang : PatternDefault
                         isFlying = false;
                         timer = 0;
                         nowLineRenderer.SetActive(false);
-                        nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer
+                        nextLineRendrer = EffectPoolingController.Instance.GetLineRenderer
                         (new KeyValuePair<Vector3, Vector3>(nowLineRenderer.GetComponent<LineRenderer>().GetPosition(1), transform.position + new Vector3(0, 0, 1)));
                     }
 
@@ -477,7 +477,7 @@ public class BigBoomerang : PatternDefault
     private void initiateLine() {
         SetLine();
         KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
-        nextLineRendrer = EffectPoolingController.Instance().GetLineRenderer(sample);
+        nextLineRendrer = EffectPoolingController.Instance.GetLineRenderer(sample);
         nextLineRendrer.GetComponent<LineRenderer>().startColor = SPColor;
         nextLineRendrer.GetComponent<LineRenderer>().endColor = EPColor;
         nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;

@@ -8,14 +8,10 @@ public class SunkenFear : PatternDefault
     public GameObject SpawnerModel;
     public Vector3 SpawnOffset;
 
-    private float timer = 0;
-    private int step = 0;
     private GameObject spawner=null;
 
     public override void Setting()
     {
-        timer = 0;
-        step = 0;
 
         if (spawner == null) { 
         
@@ -32,9 +28,4 @@ public class SunkenFear : PatternDefault
         Stop();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

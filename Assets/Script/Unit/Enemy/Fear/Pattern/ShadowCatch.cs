@@ -65,7 +65,7 @@ public class ShadowCatch : PatternDefault
             }
             else {
 
-                esperExplosion=EffectPoolingController.Instance().GetExplosion();
+                esperExplosion=EffectPoolingController.Instance.GetExplosion();
                 esperExplosion.transform.position = playerShadow.transform.position+ explosionOffset;
                 esperExplosion.transform.localScale *= 4f;
                 playerShadow.SetActive(false);

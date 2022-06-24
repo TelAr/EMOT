@@ -30,7 +30,7 @@ public class PlayerVisual : VisualDefault
 
         sr.sprite = Down;
         SpriteResize();
-        sr.size *= 1.2f;
+        sr.size *= 1.5f;
     }
 
 }
