@@ -13,13 +13,11 @@ public class LineCutter : PatternDefault
     public int Damage = 20;
     public Color ReadyColor, ExplosionColor;
 
-    private int lineCounter = 0;
     private float timer = 0, subtimer = 0;
     private int step = 0;
     private List<GameObject> lines = new List<GameObject>();
     public override void Setting()
     {
-        lineCounter = 0;
         timer = 0;
         subtimer = 0;
         step = 0;

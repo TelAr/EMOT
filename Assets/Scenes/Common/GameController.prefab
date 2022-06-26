@@ -46,6 +46,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ExplosionModel: {fileID: 4701358685397557323, guid: a0366bf0b9f297c4cbfeb62fb912beaa, type: 3}
   LineRendererModel: {fileID: 2333534614209611203, guid: b2610c89b0e6117428c514f40474c581, type: 3}
+--- !u!1 &6062841125836711273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 660488523084075851}
+  - component: {fileID: 9162132818746252925}
+  m_Layer: 0
+  m_Name: LightConroller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &660488523084075851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6062841125836711273}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.7538536, y: 2.5283818, z: 4.159469}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7655922818333350522}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9162132818746252925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6062841125836711273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e9b4275a0e421459f62d5b098b2779, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7655922818104918981
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +1016,7 @@ Transform:
   - {fileID: 7655922818298299288}
   - {fileID: 7655922819335349007}
   - {fileID: 3399343727158299580}
+  - {fileID: 660488523084075851}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1155,6 +1200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796c2a1432ce5554bb06aa9f46e753c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowDelay: 1
 --- !u!1 &7655922818357041794
 GameObject:
   m_ObjectHideFlags: 0
