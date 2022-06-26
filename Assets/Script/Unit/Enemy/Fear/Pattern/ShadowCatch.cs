@@ -26,7 +26,6 @@ public class ShadowCatch : PatternDefault
     public override void Run()
     {
         base.Run();
-        Debug.Log("RUN");
     }
 
     // Update is called once per frame

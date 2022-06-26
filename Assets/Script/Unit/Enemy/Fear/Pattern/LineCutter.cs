@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class LineCutter : PatternDefault
 {
     public int LineNumber;
     public float LineWidth = 0.5f, LineDisapearWidth = 2f;
-    public float FadeInTime, DarkTime, FadeOutTime;
+    public float PatternTime, DarkTime, FadeOutTime;
+    public float FadeInTime;
+    public float SightRadius;
     public float JudgeTime = 0.1f;
     public Vector3 MiddlePoint;
     public float Radius;
@@ -107,20 +110,29 @@ public class LineCutter : PatternDefault
                     Vector3 ep = MiddlePoint + new Vector3(Mathf.Cos(another * Mathf.Deg2Rad), Mathf.Sin(another * Mathf.Deg2Rad)) * Radius;
 
                     lines.Add(callLine(sp, ep));
-                    subtimer = FadeInTime/LineNumber;
+                    subtimer = PatternTime/LineNumber;
                 }
                 foreach (var line in lines) { 
                 
-                    line.GetComponent<LineRenderer>().startColor += new Color(0,0,0,1)*Time.deltaTime/(FadeInTime / LineNumber);
-                    line.GetComponent<LineRenderer>().endColor += new Color(0, 0, 0, 1) * Time.deltaTime / (FadeInTime / LineNumber);
+                    line.GetComponent<LineRenderer>().startColor += new Color(0,0,0,1)*Time.deltaTime/(PatternTime / LineNumber);
+                    line.GetComponent<LineRenderer>().endColor += new Color(0, 0, 0, 1) * Time.deltaTime / (PatternTime / LineNumber);
                 }
 
-                //
+                if (timer <= FadeInTime)
+                {
 
-                //암흑에 의한 페이드 인 연출
+                    LightController.Instance.Global.GetComponent<Light2D>().intensity = 1 - (timer / FadeInTime);
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().intensity = (timer / FadeInTime);
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().pointLightOuterRadius = SightRadius * (timer / FadeInTime);
+                }
+                else {
 
-                //
-                if (timer > FadeInTime) {
+                    LightController.Instance.Global.GetComponent<Light2D>().intensity = 0;
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().intensity = 1;
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().pointLightOuterRadius = SightRadius;
+                }
+
+                if (timer > PatternTime) {
 
                     step = 1;
                     timer = 0;
@@ -128,16 +140,24 @@ public class LineCutter : PatternDefault
             }
             if (step == 1) {
 
-                //
+                if (timer < DarkTime * 0.5f)
+                {
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().pointLightOuterRadius = SightRadius * (1-(timer / (DarkTime * 0.5f)));
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().intensity = (1 - (timer / (DarkTime * 0.5f)));
+                }
+                else {
 
-                //암흑 연출
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().pointLightOuterRadius = 0;
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().intensity = 0;
+                }
 
-                //
-                if (timer > DarkTime) {
+                if (timer > DarkTime)
+                {
 
                     step = 2;
                     timer = 0;
-                    foreach (var line in lines) {
+                    foreach (var line in lines)
+                    {
                         line.GetComponent<LineRenderer>().startColor = ExplosionColor;
                         line.GetComponent<LineRenderer>().endColor = ExplosionColor;
                         line.GetComponent<Damage>().IsEffected = true;
@@ -167,6 +187,17 @@ public class LineCutter : PatternDefault
                     line.GetComponent<LineRenderer>().startColor = ExplosionColor - new Color(0, 0, 0, 1) * level;
                     line.GetComponent<LineRenderer>().endColor = ExplosionColor - new Color(0, 0, 0, 1) * level;
                 }
+
+                if (timer < FadeOutTime * 0.5f)
+                {
+
+                    LightController.Instance.Global.GetComponent<Light2D>().intensity = timer / (FadeOutTime * 0.5f);
+                }
+                else {
+
+                    LightController.Instance.Global.GetComponent<Light2D>().intensity = 1;
+                }
+
 
                 if (timer > FadeOutTime) { 
                 

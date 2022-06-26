@@ -256,18 +256,20 @@ MonoBehaviour:
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
-  LineNumber: 10
-  LineWidth: 0.5
+  LineNumber: 15
+  LineWidth: 0.3
   LineDisapearWidth: 2
-  FadeInTime: 5
+  PatternTime: 3
   DarkTime: 0.5
   FadeOutTime: 1
+  FadeInTime: 1
+  SightRadius: 4
   JudgeTime: 0.2
   MiddlePoint: {x: 0, y: 0, z: 0}
   Radius: 30
   Damage: 20
-  ReadyColor: {r: 0.3481162, g: 0, b: 0.5471698, a: 1}
-  ExplosionColor: {r: 0.4528302, g: 0, b: 0.16706042, a: 1}
+  ReadyColor: {r: 0.44182128, g: 0, b: 0.695, a: 1}
+  ExplosionColor: {r: 0.66400003, g: 0, b: 0.24827844, a: 1}
 --- !u!114 &1975499460036246535
 MonoBehaviour:
   m_ObjectHideFlags: 0
