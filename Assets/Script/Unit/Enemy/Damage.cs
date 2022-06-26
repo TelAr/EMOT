@@ -12,33 +12,41 @@ public class Damage : MonoBehaviour
     [Tooltip("Damage working flag")]
     public bool IsEffected = true;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if ((!isTeamKill && collision.CompareTag(gameObject.tag)) || !IsEffected) {
+
+    private void HurtFunction(Collider2D collision) {
+
+        if ((!isTeamKill && collision.CompareTag(gameObject.tag)) || !IsEffected)
+        {
 
             return;
         }
 
-        if (collision.GetComponent<HealthDefault>()) {
+        if (collision.GetComponent<HealthDefault>())
+        {
 
             collision.GetComponent<HealthDefault>().Hurt(this);
         }
+    }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        HurtFunction(collision);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if ((!isTeamKill && collision.collider.CompareTag(gameObject.tag)) || !IsEffected)
-        {
+        HurtFunction(collision.collider);
+    }
 
-            return;
-        }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        HurtFunction(collision);
+    }
 
-        if (collision.collider.GetComponent<HealthDefault>())
-        {
-
-            collision.collider.GetComponent<HealthDefault>().Hurt(this);
-        }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        HurtFunction(collision.collider);
     }
 
 }

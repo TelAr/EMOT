@@ -88,6 +88,7 @@ public class LineCutter : PatternDefault
 
         line.tag = "Untagged";
         line.layer = 0;
+        line.SetActive(false);
     }
 
     // Update is called once per frame
@@ -162,9 +163,11 @@ public class LineCutter : PatternDefault
 
                 foreach (var line in lines)
                 {
-                    //라인 사라지는 두께 수정
-                    line.GetComponent<LineRenderer>().startColor -= new Color(0, 0, 0, 1) * Time.deltaTime / (FadeInTime / LineNumber);
-                    line.GetComponent<LineRenderer>().endColor -= new Color(0, 0, 0, 1) * Time.deltaTime / (FadeInTime / LineNumber);
+                    float level = (timer / FadeOutTime);
+                    line.GetComponent<LineRenderer>().startWidth = LineWidth * (1 - level) + LineDisapearWidth * level;
+                    line.GetComponent<LineRenderer>().endWidth = LineWidth * (1 - level) + LineDisapearWidth * level;
+                    line.GetComponent<LineRenderer>().startColor = ExplosionColor - new Color(0, 0, 0, 1) * level;
+                    line.GetComponent<LineRenderer>().endColor = ExplosionColor - new Color(0, 0, 0, 1) * level;
                 }
 
                 if (timer > FadeOutTime) { 
