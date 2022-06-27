@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SunkenFearObject : MonoBehaviour
 {
-
+    public SunkenFear Caster;
     public GameObject Hole, Tentacle;
     public float Predelay, JudgeTime, postDelay;
 
@@ -30,6 +30,8 @@ public class SunkenFearObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
 
         animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 

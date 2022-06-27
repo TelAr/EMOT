@@ -9,9 +9,9 @@ public class SunkenSpawner : UnitDefault
     public GameObject SunkenModel;
     public SunkenFear Caster;
 
-    private GameObject SunkenPrefab = null;
+    private GameObject SunkenObject = null;
     private Rigidbody2D rb = null;
-
+    private Vector2 SpawnPoint;
 
 
     protected override void OnEnable()
@@ -23,28 +23,28 @@ public class SunkenSpawner : UnitDefault
         }
         rb.velocity = new Vector3(0,-Speed);
 
-        if (SunkenPrefab == null) {
+        if (SunkenObject == null) {
 
-            SunkenPrefab=Instantiate(SunkenModel);
-            SunkenPrefab.SetActive(false);
+            SunkenObject=Instantiate(SunkenModel);
+            SunkenObject.GetComponent<SunkenFearObject>().Caster = Caster;
+            SunkenObject.SetActive(false);
         }
         isFall = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector2 SpawnPoint = Vector2.zero;
+        SpawnPoint = Vector2.zero;
 
         foreach (var obj in collision.contacts) {
 
             SpawnPoint += obj.point;
         }
-        SpawnPoint/=collision.contacts.Length;
+        SpawnPoint /= collision.contacts.Length;
 
-        SunkenPrefab.transform.position = SpawnPoint;
-        SunkenPrefab.SetActive(true);
+        Caster.EyebeamCall(SpawnPoint);
 
-        gameObject.SetActive(false);
+
     }
 
     protected override void Update() { 
@@ -53,8 +53,17 @@ public class SunkenSpawner : UnitDefault
         if (isFall) {
 
             isFall = false;
-            //추락 시 예외처리
+            Caster.Stop();
             gameObject.SetActive(false);
+        }
+
+        if (Caster.GetStep == 3) {
+
+            SunkenObject.transform.position = SpawnPoint;
+            SunkenObject.SetActive(true);
+
+            gameObject.SetActive(false);
+            return;
         }
     }
 

@@ -168,7 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Hole: {fileID: 722351523714946568}
   Tentacle: {fileID: 3007648247444823646}
-  Predelay: 1
+  Predelay: 0.25
   JudgeTime: 2
   postDelay: 1
   animationTime: 0

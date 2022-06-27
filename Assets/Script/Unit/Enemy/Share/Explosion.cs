@@ -30,19 +30,26 @@ public class Explosion : MonoBehaviour
         isPlay = true;
     }
 
-    public void Initiation(float SoundVolume = 1f, AudioClip clip=null) {
-
+    private void OnEnable()
+    {
         gameObject.tag = "Enemy";
         gameObject.GetComponent<Damage>().IsEffected = true;
         animation_end = false;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        if (audioSource == null) { 
-        
-            audioSource = gameObject.GetComponent<AudioSource>();
-        }
-        if (animator == null) {
+        if (animator == null)
+        {
 
             animator = gameObject.GetComponent<Animator>();
+        }
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
+    }
+
+    public void Initiation(float SoundVolume = 1f, AudioClip clip=null) {
+
+        if (audioSource == null)
+        {
+
+            audioSource = gameObject.GetComponent<AudioSource>();
         }
         if (clip == null)
         {
@@ -55,7 +62,6 @@ public class Explosion : MonoBehaviour
         }
         isPlay = true;
         audioSource.volume = ExplosionVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume * SoundVolume;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
     }
 
     private void FixedUpdate()

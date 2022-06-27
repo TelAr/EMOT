@@ -8,9 +8,11 @@ public class EffectPoolingController : MonoBehaviour
 
 
     public GameObject ExplosionModel;
+    public GameObject PsychicExplosionModel;
     public GameObject LineRendererModel;
 
     private List<GameObject> ExplosionList = new List<GameObject>();
+    private List<GameObject> PsychicExplosionList = new List<GameObject>();
     private List<GameObject> LineRendererList = new List<GameObject>();
 
     static public EffectPoolingController Instance {
@@ -30,6 +32,36 @@ public class EffectPoolingController : MonoBehaviour
     }
 
 
+    public GameObject GetPsychicExplosion(float SoundVolume = 1f, AudioClip audioClip = null)
+    {
+
+        GameObject explosion = null;
+        foreach (GameObject obj in PsychicExplosionList)
+        {
+
+            if (!obj.activeSelf)
+            {
+
+                explosion = obj;
+                break;
+            }
+        }
+        if (explosion == null)
+        {
+            explosion = Instantiate(PsychicExplosionModel, gameObject.transform);
+            PsychicExplosionList.Add(explosion);
+        }
+
+
+        if (explosion.GetComponent<Explosion>() != null) {
+            explosion.GetComponent<Explosion>().Initiation(SoundVolume, audioClip);
+        }
+        explosion.transform.localScale = Vector3.one;
+        explosion.SetActive(true);
+
+        return explosion;
+    }
+
     public GameObject GetExplosion(float SoundVolume = 1f, AudioClip audioClip = null)
     {
 
@@ -46,12 +78,13 @@ public class EffectPoolingController : MonoBehaviour
         }
         if (explosion == null)
         {
-            explosion = Instantiate(ExplosionModel,gameObject.transform);
+            explosion = Instantiate(ExplosionModel, gameObject.transform);
             ExplosionList.Add(explosion);
         }
 
 
-        if (explosion.GetComponent<Explosion>() != null) {
+        if (explosion.GetComponent<Explosion>() != null)
+        {
             explosion.GetComponent<Explosion>().Initiation(SoundVolume, audioClip);
         }
         explosion.transform.localScale = Vector3.one;
