@@ -99,6 +99,7 @@ public class GameController : MonoBehaviour
             Time.timeScale = 1;
         }
 
+
     }
 
     private bool IsTimeStopUI() { 

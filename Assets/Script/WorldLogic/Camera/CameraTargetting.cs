@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CameraTargetting : MonoBehaviour
 {
-    public static GameObject MainCamera;
-    public static bool IsCameraPositionFix = false;
+    public static CameraTargetting MainCamera;
+    public bool IsCameraPositionFix = false;
 
     public Vector3 Offset;
     public GameObject target;
@@ -13,14 +13,16 @@ public class CameraTargetting : MonoBehaviour
     void Start()
     {
         target = GameController.GetPlayer;
-        MainCamera = gameObject;
+        MainCamera = this;
     }
 
     private void Update()
     {
         if (!IsCameraPositionFix) {
 
-            transform.position = Offset + target.transform.position;
+            transform.position = Offset + (target.GetComponent<PlayerPhysical>() ?
+                target.GetComponent<PlayerPhysical>().TargettingPos 
+                : target.transform.position);
         }
     }
 

@@ -12,12 +12,12 @@ public class CameraFixed : MonoBehaviour
 
             if (IsFixed)
             {
-                CameraTargetting.IsCameraPositionFix = true;
+                CameraTargetting.MainCamera.IsCameraPositionFix = true;
                 CameraTargetting.MainCamera.transform.position = gameObject.transform.position + new Vector3(0, 0, ZDistance);
             }
             else {
 
-                CameraTargetting.IsCameraPositionFix = false;
+                CameraTargetting.MainCamera.IsCameraPositionFix = false;
             }
         }
     }
