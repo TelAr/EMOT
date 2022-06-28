@@ -70,6 +70,7 @@ public class PlayerAction : MonoBehaviour
         if (parryingJudgeTimer > 0) {
 
             pa.ParryingSuccessPlay();
+            parryingJudgeTimer = 0;
             return true;
         }
         else
