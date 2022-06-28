@@ -13,7 +13,6 @@ public class SunkenFear : PatternDefault
     [Header("* Eyebeam Value")]
     public Color EyeBeamColor;
     public Material EyeBeamMaterial;
-    public Vector3 EyeBeamOffset;
     public float BeamPreDelay, BeamTime, BeamOutTime;
     public float BeamWidth;
     public float BeamHalfLength;
@@ -108,7 +107,7 @@ public class SunkenFear : PatternDefault
             timer += Time.deltaTime;
 
             if (step != -1) {
-                eyeBeam.GetComponent<LineRenderer>().SetPosition(0, transform.position + EyeBeamOffset);
+                eyeBeam.GetComponent<LineRenderer>().SetPosition(0, transform.position + ((Fear)Caster).BeamEyePosOffset);
             }
 
             switch (step)
@@ -123,7 +122,7 @@ public class SunkenFear : PatternDefault
                     if (timer < BeamPreDelay)
                     {
                         eyeBeam.GetComponent<LineRenderer>().SetPosition(1,
-                            (transform.position + EyeBeamOffset) * (1 - timer / BeamPreDelay) 
+                            (transform.position + ((Fear)Caster).BeamEyePosOffset) * (1 - timer / BeamPreDelay) 
                             + (timer / BeamPreDelay) * (eyeBeamTarget + direction * new Vector3(BeamHalfLength, 0, 0)));
                     }
                     else{

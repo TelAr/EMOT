@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fear : EnemyDefault
 {
     private Rigidbody2D rb2d;
-
+    public Vector3 BeamEyePosOffset;
     public override void Reset()
     {
         base.Reset();

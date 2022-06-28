@@ -161,6 +161,7 @@ MonoBehaviour:
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
   GlobalDelay: 0
+  BeamEyePosOffset: {x: 0.12, y: 0.9, z: 0}
 --- !u!114 &4048321170301812747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +186,7 @@ MonoBehaviour:
   PreDelay: 2
   TargettingTime: 1
   PlayerShadowModel: {fileID: 5855811931968096343, guid: 8f8e03e60116b5a48adcd82dc3612ad7, type: 3}
+  SparkleModel: {fileID: 7623054723929602389, guid: 3df9fe6918889e04da369fcecd7c808c, type: 3}
 --- !u!114 &165389021791279488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +214,7 @@ MonoBehaviour:
   PreDelay: 2
   TargettingTime: 1
   PlayerShadowModel: {fileID: 5855811931968096343, guid: 8f8e03e60116b5a48adcd82dc3612ad7, type: 3}
+  SparkleModel: {fileID: 7623054723929602389, guid: 3df9fe6918889e04da369fcecd7c808c, type: 3}
 --- !u!114 &-1309302787006888206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +241,6 @@ MonoBehaviour:
   LimitedWaittingTime: 10
   EyeBeamColor: {r: 0.78545874, g: 0.41799998, b: 1, a: 1}
   EyeBeamMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
-  EyeBeamOffset: {x: -0.12, y: 0.9, z: 0}
   BeamPreDelay: 0.1
   BeamTime: 0.3
   BeamOutTime: 0.1
@@ -266,13 +268,14 @@ MonoBehaviour:
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
+  PatternTime: 6
+  FadeInTime: 1
+  DarkTime: 1
+  FadeOutTime: 1
   LineNumber: 15
+  TargettingLineNumberPerLevel: 2
   LineWidth: 0.3
   LineDisapearWidth: 2
-  PatternTime: 3
-  DarkTime: 0.5
-  FadeOutTime: 1
-  FadeInTime: 1
   SightRadius: 4
   JudgeTime: 0.2
   MiddlePoint: {x: 0, y: 0, z: 0}

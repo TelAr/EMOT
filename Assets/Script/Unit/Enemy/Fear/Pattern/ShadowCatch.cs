@@ -20,12 +20,19 @@ public class ShadowCatch : PatternDefault
             playerShadow = Instantiate(PlayerShadowModel);
             playerShadow.SetActive(false);
         }
+
         timer = 0;
     }
 
     public override void Run()
     {
         base.Run();
+        
+    }
+
+    public override void Stop()
+    {
+        base.Stop();
     }
 
     // Update is called once per frame
