@@ -4,24 +4,26 @@ using UnityEngine;
 
 public class SunkenFear : PatternDefault
 {
-
+    [Header("* MultipleShadowCatch Pattern Value")]
     public GameObject SpawnerModel;
+    [Tooltip("Based on the player's position where spawner is spawned")]
     public Vector3 SpawnOffset;
+    [Tooltip("If time is over, pattern is stop forced")]
+    public float LimitedWaittingTime;
+    [Header("* Eyebeam Value")]
     public Color EyeBeamColor;
     public Material EyeBeamMaterial;
     public Vector3 EyeBeamOffset;
     public float BeamPreDelay, BeamTime, BeamOutTime;
     public float BeamWidth;
-    public float LimitedWaittingTime;
     public float BeamHalfLength;
     public GameObject StrokeModel;
+
 
     private GameObject spawner = null;
     private Material defaultMaterial = null;
     private GameObject eyeBeam = null;
-    [SerializeField]
     private float timer;
-    [SerializeField]
     private int step = -1;
     private Vector3 eyeBeamTarget;
     private float direction;

@@ -235,6 +235,7 @@ MonoBehaviour:
   IsIndependentPattern: 1
   SpawnerModel: {fileID: 5977235011082994025, guid: b4f3b690fd0c9d24a977b4caafcbf2e0, type: 3}
   SpawnOffset: {x: 0, y: 5, z: 0}
+  LimitedWaittingTime: 10
   EyeBeamColor: {r: 0.78545874, g: 0.41799998, b: 1, a: 1}
   EyeBeamMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
   EyeBeamOffset: {x: -0.12, y: 0.9, z: 0}
@@ -242,11 +243,8 @@ MonoBehaviour:
   BeamTime: 0.3
   BeamOutTime: 0.1
   BeamWidth: 0.1
-  LimitedWaittingTime: 10
   BeamHalfLength: 2
   StrokeModel: {fileID: 6037767406144438499, guid: 1a478bd30bf6624468056e8922b4c050, type: 3}
-  timer: 0
-  step: -1
 --- !u!114 &2202508487501896863
 MonoBehaviour:
   m_ObjectHideFlags: 0

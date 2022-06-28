@@ -5,14 +5,27 @@ using UnityEngine.Rendering.Universal;
 
 public class LineCutter : PatternDefault
 {
+    [Header("* LineCutter Pattern Value")]
     public int LineNumber;
     public float LineWidth = 0.5f, LineDisapearWidth = 2f;
-    public float PatternTime, DarkTime, FadeOutTime;
+    [Tooltip("Time which Line is apeared")]
+    public float PatternTime;
+    [Tooltip("Time which field is getting dark")]
     public float FadeInTime;
+    [Tooltip("Time which field is absolutely dark\n In half time, player light is smaller and disapear")]
+    public float DarkTime;
+    [Tooltip("Time which field is getting light")]
+    public float FadeOutTime;
+    [Tooltip("Player light's ridius when FadeInTime")]
     public float SightRadius;
     public float JudgeTime = 0.1f;
+    [Tooltip("Linespawn's offset position\n" +
+        "LineCutter's startPoint and endPoint is on the circle which circle's middlePoint is MiddlePoint, and circle's radius is Radius")]
     public Vector3 MiddlePoint;
+    [Tooltip("Linespawn's offset radius\n" +
+    "LineCutter's startPoint and endPoint is on the circle which circle's middlePoint is MiddlePoint, and circle's radius is Radius")]
     public float Radius;
+
     public int Damage = 20;
     public Color ReadyColor, ExplosionColor;
 
