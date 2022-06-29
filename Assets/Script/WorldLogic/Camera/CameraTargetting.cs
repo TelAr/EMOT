@@ -9,6 +9,9 @@ public class CameraTargetting : MonoBehaviour
 
     public Vector3 Offset;
     public GameObject target;
+    public float SmoothTime = 0.5f;
+
+    private Vector3 vel = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,13 +19,15 @@ public class CameraTargetting : MonoBehaviour
         MainCamera = this;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!IsCameraPositionFix) {
 
-            transform.position = Offset + (target.GetComponent<PlayerPhysical>() ?
+            transform.position = Vector3.SmoothDamp(transform.position, Offset + (target.GetComponent<PlayerPhysical>() ?
                 target.GetComponent<PlayerPhysical>().TargettingPos 
-                : target.transform.position);
+                : target.transform.position), ref vel, SmoothTime);
+
+
         }
     }
 
