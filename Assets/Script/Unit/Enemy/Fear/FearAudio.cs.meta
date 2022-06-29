@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f92de845875aab143925f3b03b705ee4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Beam_groundAudio: {fileID: 8300000, guid: c1918d0c20a29fb4881c5d291905b042, type: 3}
+  - EyebeamAudio: {fileID: 8300000, guid: 669f8848d0ca52743a82c3191dc463e8, type: 3}
+  - ExplosionAudio: {fileID: 8300000, guid: 887ef185710975148819486b72b27b76, type: 3}
+  - Void_openAudio: {fileID: 8300000, guid: acc0a5af2f8b13c42b72a90ecf710edf, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

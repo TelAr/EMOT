@@ -8,11 +8,13 @@ public class ShadowCatch : PatternDefault
     public float PreDelay;
     public float TargettingTime;
     public GameObject PlayerShadowModel;
+    public float ExplosionAudioPreDelay = 1.9f;
 
     private float timer = 0;
     private GameObject playerShadow = null;
     private GameObject esperExplosion = null;
     private Vector3 explosionOffset = Vector3.zero;
+    private bool isAudioPlay = false;
     public override void Setting()
     {
         if (playerShadow == null) {
@@ -22,6 +24,7 @@ public class ShadowCatch : PatternDefault
         }
 
         timer = 0;
+        isAudioPlay = false;
     }
 
     public override void Run()
@@ -42,6 +45,14 @@ public class ShadowCatch : PatternDefault
         if (IsRun) {
 
             timer += Time.deltaTime;
+
+            if (!isAudioPlay && timer >= PreDelay + TargettingTime - ExplosionAudioPreDelay)
+            {
+
+                Caster.GetComponent<FearAudio>().ExplosionPlay();
+                isAudioPlay = true;
+            }
+
             if (timer < PreDelay)
             {
 
@@ -68,6 +79,7 @@ public class ShadowCatch : PatternDefault
                 }
 
                 playerShadow.GetComponent<SpriteRenderer>().color = Color.gray - new Color(0.5f, 0.5f, 0.5f, 0) * (timer - TargettingTime) / PreDelay;
+
             }
             else {
 

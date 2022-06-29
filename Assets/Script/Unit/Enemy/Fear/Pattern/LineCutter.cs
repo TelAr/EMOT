@@ -6,6 +6,8 @@ using UnityEngine.Rendering.Universal;
 public class LineCutter : PatternDefault
 {
     [Header("* LineCutter Pattern Value")]
+    public int LineNumber;
+    public float LineWidth = 0.5f, LineDisapearWidth = 2f;
     [Tooltip("Time which Line is apeared")]
     public float PatternTime;
     [Tooltip("Time which field is getting dark")]
@@ -14,9 +16,6 @@ public class LineCutter : PatternDefault
     public float DarkTime;
     [Tooltip("Time which field is getting light")]
     public float FadeOutTime;
-    [Tooltip("Real Line Number = LineNumber + TargettingLineNumber * Level")]
-    public int LineNumber, TargettingLineNumberPerLevel;
-    public float LineWidth = 0.5f, LineDisapearWidth = 2f;
     [Tooltip("Player light's ridius when FadeInTime")]
     public float SightRadius;
     public float JudgeTime = 0.1f;
@@ -30,15 +29,21 @@ public class LineCutter : PatternDefault
     public int Damage = 20;
     public Color ReadyColor, ExplosionColor;
 
-    private float timer = 0, subtimer = 0, anotherSubtimer = 0;
+    public float SoundEffectPreDelay = 1.9f;
+
+    private float timer = 0, subtimer = 0, audiotimer=0;
     private int step = 0;
     private List<GameObject> lines = new List<GameObject>();
+    private bool isSoundEffectPlay = false;
+
+
     public override void Setting()
     {
         timer = 0;
         subtimer = 0;
-        anotherSubtimer = 0;
+        audiotimer = 0;
         step = 0;
+        isSoundEffectPlay = false;
     }
 
 
@@ -113,8 +118,16 @@ public class LineCutter : PatternDefault
         if (IsRun) {
 
             timer += Time.deltaTime;
+            audiotimer += Time.deltaTime;
+
+            if (audiotimer > PatternTime + DarkTime - SoundEffectPreDelay && !isSoundEffectPlay) {
+
+                Caster.GetComponent<FearAudio>().EyebeamPlay();
+                isSoundEffectPlay = true;
+            }
+
             if (step == 0) {
-                anotherSubtimer -= Time.deltaTime;
+
                 subtimer -= Time.deltaTime;
                 if (subtimer <= 0) {
 
@@ -126,16 +139,6 @@ public class LineCutter : PatternDefault
 
                     lines.Add(callLine(sp, ep));
                     subtimer = PatternTime/LineNumber;
-                }
-                if (TargettingLineNumberPerLevel * GameController.Level != 0 && anotherSubtimer <= 0) {
-                    Debug.Log("targetting");
-                    float rotate = Random.Range(0f, 360f);
-
-                    Vector3 sp = MiddlePoint + new Vector3(Mathf.Cos(rotate * Mathf.Deg2Rad), Mathf.Sin(rotate * Mathf.Deg2Rad)) * Radius;
-                    Vector3 ep = sp + (GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos - sp).normalized * Radius * 2;
-
-                    lines.Add(callLine(sp, ep));
-                    anotherSubtimer = PatternTime / (TargettingLineNumberPerLevel * GameController.Level);
                 }
                 foreach (var line in lines) { 
                 
