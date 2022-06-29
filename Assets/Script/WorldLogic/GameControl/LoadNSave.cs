@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+//Class that controll Load and Save
 public class LoadNSave
 {
     static private LoadNSave instance = null;

@@ -45,7 +45,6 @@ public class LightController : MonoBehaviour
 
         return returnObject;
     }
-    // Start is called before the first frame update
     void Awake()
     {
         if (lightController != null) { 
@@ -59,7 +58,6 @@ public class LightController : MonoBehaviour
         PlayerTarget.GetComponent<Light2D>().intensity = 0;
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         PlayerTarget.transform.position = GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos;

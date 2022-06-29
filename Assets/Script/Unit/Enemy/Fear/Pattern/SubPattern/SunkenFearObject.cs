@@ -27,15 +27,9 @@ public class SunkenFearObject : MonoBehaviour
         animator.SetBool("IsLoop", true);
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-
-
         animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-
-
 
         switch (step) {
 
@@ -90,9 +84,6 @@ public class SunkenFearObject : MonoBehaviour
                 }
                 break;
         }
-        
-        
-
 
     }
 }

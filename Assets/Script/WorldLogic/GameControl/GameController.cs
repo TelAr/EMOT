@@ -5,6 +5,12 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+/*
+ * Pattern type: singleton
+ * Main Controller of game
+ * initiation player, enemy, and others
+ * Also, set Level or Gravity
+ */
 public class GameController : MonoBehaviour
 {
     
