@@ -57,7 +57,7 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //        gameObject.transform.position = target.transform.position;
+        gameObject.transform.position = CameraTargetting.MainCamera.transform.position;
 
         A.GetComponent<SpriteRenderer>().color = B.GetComponent<SpriteRenderer>().color = C.GetComponent<SpriteRenderer>().color = mainColor;
         if (timer < TransitionDelay)

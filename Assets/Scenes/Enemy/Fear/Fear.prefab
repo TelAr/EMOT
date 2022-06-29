@@ -162,6 +162,7 @@ MonoBehaviour:
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
   GlobalDelay: 0
+  BeamEyePosOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &4048321170301812747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +187,7 @@ MonoBehaviour:
   PreDelay: 2
   TargettingTime: 1
   PlayerShadowModel: {fileID: 5855811931968096343, guid: 8f8e03e60116b5a48adcd82dc3612ad7, type: 3}
+  ExplosionAudioPreDelay: 1.9
 --- !u!114 &165389021791279488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -239,9 +241,8 @@ MonoBehaviour:
   LimitedWaittingTime: 10
   EyeBeamColor: {r: 0.78545874, g: 0.41799998, b: 1, a: 1}
   EyeBeamMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
-  EyeBeamOffset: {x: -0.12, y: 0.9, z: 0}
   BeamPreDelay: 0.1
-  BeamTime: 0.5
+  BeamTime: 0.3
   BeamOutTime: 0.1
   BeamWidth: 0.1
   BeamHalfLength: 2
@@ -281,6 +282,7 @@ MonoBehaviour:
   Damage: 20
   ReadyColor: {r: 0.44182128, g: 0, b: 0.695, a: 1}
   ExplosionColor: {r: 0.66400003, g: 0, b: 0.24827844, a: 1}
+  SoundEffectPreDelay: 1.9
 --- !u!114 &1975499460036246535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f92de845875aab143925f3b03b705ee4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Beam_groundAudio: {fileID: 8300000, guid: c1918d0c20a29fb4881c5d291905b042, type: 3}
+  Beam_groundAudio: {fileID: 8300000, guid: 8a03bda57891c084785a191d20d37d15, type: 3}
   Beam_groundAudioVolumeOffset: 1
   EyebeamAudio: {fileID: 8300000, guid: 669f8848d0ca52743a82c3191dc463e8, type: 3}
   EyebeamAudioVolumeOffset: 1

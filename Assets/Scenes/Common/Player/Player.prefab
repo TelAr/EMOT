@@ -162,9 +162,9 @@ MonoBehaviour:
   JumpPower: 15
   OffsetPosition: {x: 0, y: 0, z: 0}
   MinimumJumpPowerRatio: 0.5
+  DownSpeedRatio: 0.5
   DashTime: 0.2
   DashDistance: 4.3
-  DownSpeedRatio: 0.5
 --- !u!114 &1280117680179468386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
   JumpVolumeOffset: 1
   ReloadAudio: {fileID: 8300000, guid: dbce6bc1db19cab46bff3f817508ab5f, type: 3}
   ReloadVolumeOffset: 1
-  FireAudio: {fileID: 8300000, guid: 5f52c374fa040af4ba9b51f849846913, type: 3}
+  FireAudio: {fileID: 8300000, guid: 3bdcfc877f4de2041ae5e4c5d221934f, type: 3}
   FireVolumeOffset: 0.5
   NoAmmo: {fileID: 8300000, guid: 84cf2e398c4a1f042b6b95d3aa6544bb, type: 3}
   NoAmmoVolumeOffset: 1
