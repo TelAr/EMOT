@@ -80,6 +80,7 @@ public class SunkenFear : PatternDefault
         eyeBeam.GetComponent<LineRenderer>().startWidth = eyeBeam.GetComponent<LineRenderer>().endWidth = BeamWidth;
         eyeBeam.GetComponent<LineRenderer>().startColor = eyeBeam.GetComponent<LineRenderer>().endColor = EyeBeamColor;
         step = 0;
+        Caster.GetComponent<FearAudio>().Beam_groundPlay();
         eyeBeamTarget = target;
         if (transform.position.x > target.x)
         {
@@ -173,6 +174,7 @@ public class SunkenFear : PatternDefault
                     }
                     break;
                 case 3:
+                    Caster.GetComponent<FearAudio>().Void_openPlay();
                     EyebeamReturn();
                     Stop();
                     break;

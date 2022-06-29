@@ -46,6 +46,7 @@ public class MultipleShadowCatch : PatternDefault
             shadow.PreDelay = PreDelay;
             shadow.TargettingTime = TargettingTime;
             shadow.PlayerShadowModel = PlayerShadowModel;
+            shadow.Caster = Caster;
             shadows.Add(shadow);
         }
 

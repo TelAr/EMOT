@@ -29,7 +29,7 @@ public class FearAudio : AudioDefault
         mAudioSource.Play();
 
         controller.StartTiming = mAudioSource.time;
-        controller.PlayTime = 0.8f;
+        controller.PlayTime = FULLTIME;
     }
 
     public void EyebeamPlay()
@@ -44,7 +44,7 @@ public class FearAudio : AudioDefault
         mAudioSource.Play();
 
         controller.StartTiming = mAudioSource.time;
-        controller.PlayTime = 0.8f;
+        controller.PlayTime = FULLTIME;
     }
 
     public void ExplosionPlay()
@@ -59,7 +59,7 @@ public class FearAudio : AudioDefault
         mAudioSource.Play();
 
         controller.StartTiming = mAudioSource.time;
-        controller.PlayTime = 0.8f;
+        controller.PlayTime = FULLTIME;
     }
 
     public void Void_openPlay()
@@ -74,6 +74,6 @@ public class FearAudio : AudioDefault
         mAudioSource.Play();
 
         controller.StartTiming = mAudioSource.time;
-        controller.PlayTime = 0.8f;
+        controller.PlayTime = FULLTIME;
     }
 }

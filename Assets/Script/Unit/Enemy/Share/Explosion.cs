@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-//    float timer=0;
-//    Color color;
-
 
     public float RemainTime;
     public float FadeOutTime;
@@ -15,6 +12,7 @@ public class Explosion : MonoBehaviour
     public float Judgetime;
     public AudioClip DefaultSound;
     public float ExplosionVolumeOffset = 1;
+
     private Animator animator = null;
     private CircleCollider2D circleCollider;
     private AudioSource audioSource=null;
@@ -25,7 +23,9 @@ public class Explosion : MonoBehaviour
 
         animator = gameObject.GetComponent<Animator>();
         circleCollider = gameObject.GetComponent<CircleCollider2D>();
-        audioSource=gameObject.GetComponent<AudioSource>();
+        if (gameObject.GetComponent<AudioSource>()) {
+            audioSource = gameObject.GetComponent<AudioSource>();
+        }
         Initiation();
         isPlay = true;
     }
@@ -46,22 +46,22 @@ public class Explosion : MonoBehaviour
 
     public void Initiation(float SoundVolume = 1f, AudioClip clip=null) {
 
-        if (audioSource == null)
+        if (audioSource != null)
         {
+            if (clip == null)
+            {
 
-            audioSource = gameObject.GetComponent<AudioSource>();
-        }
-        if (clip == null)
-        {
+                audioSource.clip = DefaultSound;
+            }
+            else
+            {
 
-            audioSource.clip = DefaultSound;
+                audioSource.clip = clip;
+            }
+            isPlay = true;
+            audioSource.volume = ExplosionVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume * SoundVolume;
         }
-        else { 
-        
-            audioSource.clip = clip;
-        }
-        isPlay = true;
-        audioSource.volume = ExplosionVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume * SoundVolume;
+
     }
 
     private void FixedUpdate()
@@ -83,7 +83,7 @@ public class Explosion : MonoBehaviour
     void Update()
     {
 
-        if(isPlay)
+        if(isPlay&& audioSource!=null)
         {
             audioSource.Play();
             isPlay = false;
@@ -109,7 +109,7 @@ public class Explosion : MonoBehaviour
             
         }
 
-        if (animation_end && !audioSource.isPlaying) { 
+        if (animation_end && (audioSource!=null &&!audioSource.isPlaying)) { 
         
             gameObject.SetActive(false);
         }

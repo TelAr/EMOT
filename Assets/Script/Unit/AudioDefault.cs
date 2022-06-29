@@ -14,6 +14,8 @@ public abstract class AudioDefault : MonoBehaviour
     }
     protected List<AudioController> audioControllers = new List<AudioController>();
 
+    protected const float FULLTIME = 114514f;
+
     protected AudioController GetAudioController() {
 
         AudioController returnValue = null;

@@ -29,14 +29,21 @@ public class LineCutter : PatternDefault
     public int Damage = 20;
     public Color ReadyColor, ExplosionColor;
 
-    private float timer = 0, subtimer = 0;
+    public float SoundEffectPreDelay = 1.9f;
+
+    private float timer = 0, subtimer = 0, audiotimer=0;
     private int step = 0;
     private List<GameObject> lines = new List<GameObject>();
+    private bool isSoundEffectPlay = false;
+
+
     public override void Setting()
     {
         timer = 0;
         subtimer = 0;
+        audiotimer = 0;
         step = 0;
+        isSoundEffectPlay = false;
     }
 
 
@@ -111,6 +118,14 @@ public class LineCutter : PatternDefault
         if (IsRun) {
 
             timer += Time.deltaTime;
+            audiotimer += Time.deltaTime;
+
+            if (audiotimer > PatternTime + DarkTime - SoundEffectPreDelay && !isSoundEffectPlay) {
+
+                Caster.GetComponent<FearAudio>().EyebeamPlay();
+                isSoundEffectPlay = true;
+            }
+
             if (step == 0) {
 
                 subtimer -= Time.deltaTime;
