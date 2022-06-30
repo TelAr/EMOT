@@ -108,6 +108,11 @@ public class GameController : MonoBehaviour
 
     }
 
+    public void TimeSetting(float time) {
+
+        Time.timeScale = time;
+    }
+
     private bool IsTimeStopUI() { 
     
         return OptionWindow.gameObject.activeSelf || MenuWindow.gameObject.activeSelf;

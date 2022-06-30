@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionModel: {fileID: 4701358685397557323, guid: a0366bf0b9f297c4cbfeb62fb912beaa, type: 3}
+  PsychicExplosionModel: {fileID: 0}
   LineRendererModel: {fileID: 2333534614209611203, guid: b2610c89b0e6117428c514f40474c581, type: 3}
 --- !u!1 &4330849974032444889
 GameObject:
@@ -312,9 +313,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e9b4275a0e421459f62d5b098b2779, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Grobal: {fileID: 0}
-  PlayerTarget: {fileID: 0}
-  SpotLightModel: {fileID: 0}
+  Global: {fileID: 925430949304956043}
+  PlayerTarget: {fileID: 4330849974032444889}
+  SpotLightModel: {fileID: 8798201152583976413, guid: 4c6073baa6c618940965de8d64b9907e, type: 3}
   state: 0
 --- !u!1 &7655922818104918981
 GameObject:
