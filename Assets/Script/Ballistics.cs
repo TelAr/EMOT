@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //for ballistics calculation
-public class Ballistics
+public struct Ballistics
 {
     static public Vector2 Ballistic(Vector2 target, float velocity, float gravity, bool is_upper)
     {
