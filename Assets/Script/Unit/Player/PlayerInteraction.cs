@@ -49,7 +49,10 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (InteractionableUnits.Contains(collision.gameObject))
         {
+            if (nowInteraction = collision.gameObject) {
 
+                nowInteraction = null;
+            }
             InteractionableUnits.Remove(collision.gameObject);
         }
     }
