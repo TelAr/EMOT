@@ -16,6 +16,8 @@ public class PlayerPhysical : UnitDefault
     [Header("* Dash")]
     public float DashTime;
     public float DashDistance;
+    [Header("* For GroundJudge")]
+    public PlayerGroundJedge Jedge;
 
     //const
     private const float JUMP_TIME = 0.1f;
@@ -187,7 +189,7 @@ public class PlayerPhysical : UnitDefault
             CollsionBlock(collision);
 
 
-            if (collision_point_avg.y < TargettingPos.y)
+            if (collision_point_avg.y < TargettingPos.y&& Jedge.IsGround)
             {
                 jumpCounter = JUMPMAX;
                 jumpTimer = 0;
@@ -202,7 +204,7 @@ public class PlayerPhysical : UnitDefault
         {
             CollsionBlock(collision);
 
-            if (collision_point_avg.y < TargettingPos.y)
+            if (collision_point_avg.y < TargettingPos.y && Jedge.IsGround)
             {
 
                 jumpCounter = JUMPMAX;
