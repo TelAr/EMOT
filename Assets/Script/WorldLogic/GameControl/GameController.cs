@@ -26,6 +26,9 @@ public class GameController : MonoBehaviour
     static private GameController gameConroller = null;
     static private GameObject player;
 
+    [SerializeField]
+    private int TimeStopCounter;
+    private float TimeScale = 1f;
 
     void Awake()
     {
@@ -60,7 +63,7 @@ public class GameController : MonoBehaviour
             gameObject.GetComponent<TestMode>().Awake();
         }
 
-
+        TimeStopCounter = 0;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -95,27 +98,36 @@ public class GameController : MonoBehaviour
             }
         }
 
-
-        if (IsTimeStopUI())
-        {
-            Time.timeScale = 0;
-        }
-        else { 
-        
-            Time.timeScale = 1;
-        }
-
-
     }
 
-    public void TimeSetting(float time) {
+    private void TimeSetting(float time) {
 
         Time.timeScale = time;
     }
 
-    private bool IsTimeStopUI() { 
-    
-        return OptionWindow.gameObject.activeSelf || MenuWindow.gameObject.activeSelf;
+    public void TimeStopStack(bool IsStop) {
+
+        if (IsStop)
+        {
+            TimeStopCounter++;
+            TimeSetting(0);
+            if (player != null)
+            {
+                player.GetComponent<PlayerAction>().IsLimited = true;
+            }
+        }
+        else { 
+        
+            TimeStopCounter--;
+            if (TimeStopCounter <= 0) { 
+            
+                TimeSetting(TimeScale);
+                if (player != null) {
+                    player.GetComponent<PlayerAction>().IsLimited = false;
+                }
+            }
+        }
+
     }
 
     public void ClearUI() {

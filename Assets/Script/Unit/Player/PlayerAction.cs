@@ -36,12 +36,16 @@ public class PlayerAction : MonoBehaviour
     public float ParryingImmuneTime = 0.5f;
     private float parryingJudgeTimer = 0f;
 
+    [Header("* Action limit")]
+    public bool IsLimited = false;
+
     private PlayerPhysical pp;
     private PlayerHealth ph;
     private PlayerAudio pa;
     private BoxCollider2D bc;
     void Awake()
     {
+        IsLimited = false;
         pp = GetComponent<PlayerPhysical>();
         ph = GetComponent<PlayerHealth>();
         pa = GetComponent<PlayerAudio>();
@@ -81,21 +85,16 @@ public class PlayerAction : MonoBehaviour
 
     public void OnFire(InputValue value) {
 
-        if (pp.IsBind)
+        if (pp.IsBind || pp.IsUniquAction || IsLimited) 
         {
             return;
         }
-
         if (bulletAmount <= 0)
         {
-
             pa.NoAmmoPlay();
             return;
         }
-        if (pp.IsUniquAction) {
 
-            return;
-        }
 
         if (value.isPressed)
         {
@@ -113,22 +112,20 @@ public class PlayerAction : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if (pp.IsBind)
+        if (pp.IsBind || pp.IsUniquAction || IsLimited) 
         {
             return;
         }
 
-        if (pp.IsUniquAction) {
-
-            return;
-        }
         pp.IsJump = value.Get<float>() > 0;
     }
 
     public void OnMove(InputValue value)
     {
-        if (pp.IsBind)
+        if (pp.IsBind || IsLimited)
         {
+            pp.Moving(0);
+            pp.VerticalInput(0);
             return;
         }
 
@@ -162,7 +159,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnDash() {
 
-        if (pp.IsBind)
+        if (pp.IsBind || IsLimited)
         {
             return;
         }
@@ -179,7 +176,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnParrying() {
 
-        if (pp.IsBind)
+        if (pp.IsBind || IsLimited )
         {
             return;
         }

@@ -3,28 +3,33 @@ using System.Collections.Generic;
 using System;
 using System.Text;
 using UnityEngine;
+using System.IO;
 
 public class CutsceneDefault : MonoBehaviour
 {
-    public TextAsset script;
-    public List<Sprite> sprites = new List<Sprite>();
-    public GameObject LeftSprite, RightSprite;
+    [Tooltip("Must to use CSV Format, UTF-8 encoding")]
+    public TextAsset script = null;
+    public List<Texture> sprites = new List<Texture>();
+    public Texture Transparency;
+
 
     public bool IsUniqueCutscene = true;
 
-    [SerializeReference]
     private bool isRead = false;
     private bool wasRead = false;
     private int step = 0;
     private Dictionary<int, Dialog> dialogs = new Dictionary<int, Dialog>();
     private int startPoint = 0;
+    private bool passNextFrame = true;
+
+    private string SavePath="";
 
 
-    private class Dialog {
+    public class Dialog {
 
         public int id;
         public string Speaker = null, Contents = null;
-        public Sprite Left = null, Right = null;
+        public Texture Left = null, Right = null;
         public int next = -1;
     }
     public bool IsCanRead
@@ -35,32 +40,54 @@ public class CutsceneDefault : MonoBehaviour
         }
     }
 
-    protected void InitiateCutscene() {
-        step = 0;
+    public void InitiateCutscene() {
+        step = startPoint;
+        passNextFrame = true;
         isRead = true;
         wasRead = true;
+        CutsceneCanvas.instance.gameObject.SetActive(true);
+        CutsceneCanvas.instance.Left.texture = CutsceneCanvas.instance.Right.texture = Transparency;
+        updateCutscene();
     }
 
-    protected void EndCutscene() {
+    public void EndCutscene() {
 
         isRead = false;
+        CutsceneCanvas.instance.gameObject.SetActive(false);
     }
 
 
-    //form
-
-    /*
-     * //: remark
-     * #: command
-     * @: speaker
-     * -: next dialog
-     */
     private void Awake()
     {
-        string fullstring = Encoding.UTF8.GetString(script.bytes);
+
+        string fullstring;
+
+        SavePath = Application.dataPath + "/DebugingScript.csv";
+        if (script != null) {
+            fullstring = script.text;
+        }
+        else {
+            try
+            {
+                fullstring = File.ReadAllText(SavePath);
+            }
+            catch {
+
+                fullstring = "";
+            }
+        }
         string[] words = fullstring.Split('\n');
         Dialog now = null;
         bool passFirst = false;
+
+        if (fullstring == "")
+        {
+            now = new Dialog();
+            now.id = startPoint;
+            now.Contents = "ERROR: \"DebugingScript.csv\" File is not exist";
+            dialogs.Add(now.id, now);
+            return;
+        }
 
         foreach (string word in words)
         {
@@ -160,9 +187,14 @@ public class CutsceneDefault : MonoBehaviour
                 int indexValue;
                 if (int.TryParse(parsing[1], out indexValue)) {
 
-                    if (indexValue < sprites.Count) { 
-                    
+                    if (indexValue < sprites.Count && indexValue >= 0)
+                    {
+
                         now.Left = sprites[indexValue];
+                    }
+                    else {
+
+                        now.Left = null;
                     }
                 }
             }
@@ -176,10 +208,15 @@ public class CutsceneDefault : MonoBehaviour
                 if (int.TryParse(parsing[2], out indexValue))
                 {
 
-                    if (indexValue < sprites.Count)
+                    if (indexValue < sprites.Count && indexValue >= 0)
                     {
 
                         now.Right = sprites[indexValue];
+                    }
+                    else
+                    {
+
+                        now.Right = null;
                     }
                 }
             }
@@ -206,7 +243,6 @@ public class CutsceneDefault : MonoBehaviour
         }
 
         //Debug
-
         int pointer = startPoint;
         while (dialogs.ContainsKey(pointer)) {
 
@@ -216,13 +252,51 @@ public class CutsceneDefault : MonoBehaviour
         }
     }
 
+    private void updateCutscene() {
+        Dialog now;
+        if (dialogs.ContainsKey(step))
+        {
+            now = dialogs[step];
+        }
+        else {
+
+            EndCutscene();
+            return;
+        }
+
+        CutsceneCanvas.instance.Speaker.text = now.Speaker;
+        CutsceneCanvas.instance.contents.text = now.Contents;
+        if (now.Left != null)
+        {
+            CutsceneCanvas.instance.Left.texture = now.Left;
+        }
+
+        if (now.Right != null)
+        {
+            CutsceneCanvas.instance.Right.texture = now.Right;
+        }
+
+
+        step = now.next;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (isRead) { 
-        
+        if (isRead) {
+            if (passNextFrame)
+            {
 
+                passNextFrame = false;
+            }
+            else {
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+
+                    updateCutscene();
+                }
+            }
         }
     }
 

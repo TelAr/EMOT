@@ -3,7 +3,9 @@ guid: 20ff97a3f58f1e34185659566c65b0bd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - script: {instanceID: 0}
+  - Transparency: {fileID: 2800000, guid: 3c0110052fc2a3344974529a2467f399, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

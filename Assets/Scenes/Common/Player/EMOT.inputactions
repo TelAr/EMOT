@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interaction",
+                    "type": "PassThrough",
+                    "id": "cd97dbc3-699d-4b48-81b6-b467cfb7862b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -195,17 +204,6 @@
                 },
                 {
                     "name": "",
-                    "id": "3f6164d5-aaf5-4cf1-a1f8-b5ee24a805b1",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ee99c942-b843-44d1-afa7-60a85a39048e",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
@@ -245,6 +243,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb56ad8e-1649-4ff9-afd4-db4f6a2d9a03",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interaction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
