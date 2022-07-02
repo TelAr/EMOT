@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private int TimeStopCounter;
     private float TimeScale = 1f;
+    private int eventCounter = 0;
 
     void Awake()
     {
@@ -64,6 +65,7 @@ public class GameController : MonoBehaviour
         }
 
         TimeStopCounter = 0;
+        eventCounter = 0;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -79,6 +81,14 @@ public class GameController : MonoBehaviour
 
         get {
             return gameConroller;
+        }
+    }
+
+    public bool IsEvent
+    {
+        get { 
+        
+            return eventCounter > 0;
         }
     }
 
@@ -105,6 +115,28 @@ public class GameController : MonoBehaviour
         Time.timeScale = time;
     }
 
+    public void EventSituation(bool IsBegin) {
+
+        if (IsBegin)
+        {
+            TimeStopCounter++;
+            eventCounter++;
+            TimeSetting(0);
+
+        }
+        else
+        {
+            eventCounter--;
+            TimeStopCounter--;
+            if (TimeStopCounter <= 0)
+            {
+
+                TimeSetting(TimeScale);
+            }
+        }
+    }
+
+    //to using option
     public void TimeStopStack(bool IsStop) {
 
         if (IsStop)

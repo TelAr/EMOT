@@ -9,8 +9,14 @@ public class PlayerInteraction : MonoBehaviour
 
     public void OnInteraction(InputValue value) {
 
+        if (GameController.GetPlayer.GetComponent<PlayerAction>().IsLimited) {
+            Debug.Log("stop");
+            return;
+        }
+
         if (value.isPressed)
         {
+            Debug.Log("press");
             if (nowInteraction == null) {
                 
                 foreach (var unit in InteractionableUnits)
@@ -36,6 +42,8 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
     }
+
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

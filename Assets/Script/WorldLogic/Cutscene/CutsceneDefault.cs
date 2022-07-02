@@ -36,17 +36,21 @@ public class CutsceneDefault : MonoBehaviour
     {
         get {
 
-            return !((IsUniqueCutscene && wasRead) || isRead);
+            return !((IsUniqueCutscene && wasRead));
         }
     }
 
-    public void InitiateCutscene() {
-        step = startPoint;
-        passNextFrame = true;
-        isRead = true;
-        wasRead = true;
-        CutsceneCanvas.instance.gameObject.SetActive(true);
-        CutsceneCanvas.instance.Left.texture = CutsceneCanvas.instance.Right.texture = Transparency;
+    public void GetNextCutscene() {
+
+        if (!isRead) {
+
+            step = startPoint;
+            passNextFrame = true;
+            isRead = true;
+            wasRead = true;
+            CutsceneCanvas.instance.gameObject.SetActive(true);
+            CutsceneCanvas.instance.Left.texture = CutsceneCanvas.instance.Right.texture = Transparency;
+        }
         updateCutscene();
     }
 
@@ -291,11 +295,6 @@ public class CutsceneDefault : MonoBehaviour
             }
             else {
 
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-
-                    updateCutscene();
-                }
             }
         }
     }

@@ -10,7 +10,7 @@ public class CutsceneInteractionable : InteractionableUnit
 
         if (cd.IsCanRead) {
 
-            cd.InitiateCutscene();
+            cd.GetNextCutscene();
         }
     }
 }

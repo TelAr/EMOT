@@ -52,6 +52,10 @@ public class PlayerPhysical : UnitDefault
     public bool IsUniquAction {
 
         get { return isUniquAction; }
+        set { 
+        
+            isUniquAction = value;
+        }
     }
     private bool isAir;
     public bool IsAir {
