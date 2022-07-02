@@ -63,9 +63,9 @@ public class TargettingShoot : PatternDefault
                 SetActive(false);
             }
         }
-        public void setLevel(int Level) { 
+        public void SetPhase(int PhaseValue) { 
         
-            Phase = Level;
+            Phase = PhaseValue;
             
         }
     }
@@ -145,7 +145,7 @@ public class TargettingShoot : PatternDefault
                         b.bullet.transform.position = b.startPos = transform.position + offset;
                         b.floatingPos = b.startPos + new Vector3(Random.Range(-RandomPositionRange, RandomPositionRange), 
                             BulletHeight + Random.Range(-RandomPositionRange, RandomPositionRange), 0);
-                        b.setLevel(1);
+                        b.SetPhase(1);
                     }
                     if (b.timer < b.startTime + FloatingTime)
                     {
@@ -159,7 +159,7 @@ public class TargettingShoot : PatternDefault
                             b.bullet.GetComponent<Rigidbody2D>().velocity = 
                                 (GameController.GetPlayer.transform.position - b.floatingPos).normalized * BulletSpeed;
 
-                            b.setLevel(2);
+                            b.SetPhase(2);
                         }
                     }
 
