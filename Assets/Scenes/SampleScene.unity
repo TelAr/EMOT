@@ -864,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7655922818333350523, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
       propertyPath: EnemyModel.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7655922818333350523, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
       propertyPath: EnemyModel.Array.data[2]
@@ -874,6 +874,10 @@ PrefabInstance:
       propertyPath: EnemyModel.Array.data[3]
       value: 
       objectReference: {fileID: 3482659986945967676, guid: 6c3492bcab39e0d4ca9071728ded2111, type: 3}
+    - target: {fileID: 7655922818333350523, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: EnemyModel.Array.data[4]
+      value: 
+      objectReference: {fileID: 1487187792511923785, guid: dcf62a2e3ef0969448a18837aad41518, type: 3}
     - target: {fileID: 7655922818364973227, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
