@@ -79,6 +79,16 @@ public class EnemyDefault : UnitDefault
             }
         }
 
+        public bool IsRunable() {
+
+            float distance = (enemy.transform.position - GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos).magnitude;
+            if (distance > max_distance ||
+                distance < min_distance) { 
+            
+                return false;
+            }
+            return true;
+        }
 
         public void Run() {
 
@@ -122,7 +132,16 @@ public class EnemyDefault : UnitDefault
             //call Run() method which is pattern in queue
             if (PatternQueue.Count > 0&&GlobalDelay<0)
             {
-                PatternQueue.Dequeue().Run();
+                PatternController controller = PatternQueue.Dequeue();
+                if (controller.IsRunable())
+                {
+                    controller.Run();
+                }
+                else {
+
+                    PatternQueue.Enqueue(controller);
+                }
+                
             }
         }
 
