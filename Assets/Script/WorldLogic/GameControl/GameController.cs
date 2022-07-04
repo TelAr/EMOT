@@ -119,7 +119,6 @@ public class GameController : MonoBehaviour
 
         if (IsBegin)
         {
-            TimeStopCounter++;
             eventCounter++;
             TimeSetting(0);
 
@@ -127,8 +126,7 @@ public class GameController : MonoBehaviour
         else
         {
             eventCounter--;
-            TimeStopCounter--;
-            if (TimeStopCounter <= 0)
+            if (TimeStopCounter <= 0&& eventCounter<=0)
             {
 
                 TimeSetting(TimeScale);
@@ -151,9 +149,11 @@ public class GameController : MonoBehaviour
         else { 
         
             TimeStopCounter--;
-            if (TimeStopCounter <= 0) { 
-            
-                TimeSetting(TimeScale);
+            if (TimeStopCounter <= 0) {
+
+                if (TimeStopCounter <= 0 && eventCounter <= 0) {
+                    TimeSetting(TimeScale);
+                }
                 if (player != null) {
                     player.GetComponent<PlayerAction>().IsLimited = false;
                 }
