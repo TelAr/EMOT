@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5340561876547436955}
   - component: {fileID: -4024485561096134384}
   - component: {fileID: 8010227180141399785}
+  - component: {fileID: 5239864012333907858}
   m_Layer: 7
   m_Name: Passion
   m_TagString: Enemy
@@ -232,3 +233,28 @@ MonoBehaviour:
   DamageJudgeTime: 0.1
   timer: 0
   step: 0
+--- !u!114 &5239864012333907858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487187792511923785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba642fa27e890e46ac62133842affb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0
+  Stack: 1
+  MaxDistance: 0
+  MinDistance: 0
+  PatternPostDelay: 0
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  PatternPositionList: []
+  GiantAuraSpawnerModel: {fileID: 5977235011082994025, guid: 0fa8dcccc63f19a41b8c3bc0d6411a21, type: 3}
+  PreDelay: 0
+  SpanwnOffsetPosition: {x: 0, y: 0, z: 0}
