@@ -199,7 +199,7 @@ MonoBehaviour:
   PreDelay: 1
   AuraDelay: 0.5
   AuraBeginVel: 2
-  AuraAccelVel: 20
+  AuraAccelVel: 30
   AuraAccelDelay: 1
   MinimumLevelToTargetting: 2
 --- !u!114 &8010227180141399785
@@ -230,3 +230,5 @@ MonoBehaviour:
   Predelay: 0.5
   ExlopsionDelay: 2
   DamageJudgeTime: 0.1
+  timer: 0
+  step: 0

@@ -42,7 +42,8 @@ public class SunkenFear : PatternDefault
         if (spawner == null) { 
         
             spawner = Instantiate(SpawnerModel);
-            spawner.GetComponent<SunkenSpawner>().Caster = this;
+            spawner.GetComponent<Spawner>().Caster = this;
+            spawner.GetComponent<Spawner>().SetSpawnPositionFunction = EyebeamCall;
             spawner.SetActive(false);
         }
 
@@ -167,6 +168,7 @@ public class SunkenFear : PatternDefault
                     else
                     {
                         //call tentacle;
+                        spawner.GetComponent<Spawner>().SetSpawnActive = true;
                         stroke.SetActive(false);
                         step = 3;
                         timer = 0;

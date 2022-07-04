@@ -782,6 +782,38 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1079656507389745424, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079656507389745425, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079656507389745425, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079656507596526645, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079656507596528586, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079656507596528586, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079656507596528586, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079656507596528586, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 1079656507714108945, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SunkenFearObject : MonoBehaviour
+public class SunkenFearObject : SpawnedObject
 {
-    public SunkenFear Caster;
     public GameObject Hole, Tentacle;
     public float Predelay, JudgeTime, postDelay;
 
