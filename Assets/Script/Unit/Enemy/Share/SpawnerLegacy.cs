@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class Spawner : UnitDefault
+[Obsolete]
+public class SpawnerLegacy : UnitDefault
 {
-
     public float Speed=50;
     public GameObject SpawnedObjectModel;
     public PatternDefault Caster;
     public bool IsCollisionTriggerObject;
 
-    private RaycastHit2D hit;
     private bool spawnActive = false;
-    private bool isHit = false;
     private GameObject spawnedObject = null;
     private Rigidbody2D rb = null;
     private Vector2 SpawnPoint;
@@ -30,6 +29,7 @@ public class Spawner : UnitDefault
 
     public bool SetSpawnActive
     {
+       
         set { 
         
             spawnActive = value;
@@ -39,40 +39,58 @@ public class Spawner : UnitDefault
     protected override void OnEnable()
     {
         base.OnEnable();
+
+        if (rb == null) {
+
+            rb = GetComponent<Rigidbody2D>();
+        }
+        rb.velocity = new Vector3(0,-Speed);
+        
+
         if (spawnedObject == null) {
 
             spawnedObject=Instantiate(SpawnedObjectModel);
             spawnedObject.GetComponent<SpawnedObject>().Caster = Caster;
             spawnedObject.SetActive(false);
         }
-        isHit = false;
+
         spawnActive = false;
+        isFall = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        SpawnPoint = Vector2.zero;
+
+        foreach (var obj in collision.contacts) {
+
+            SpawnPoint += obj.point;
+        }
+        SpawnPoint /= collision.contacts.Length;
+
+        if (IsCollisionTriggerObject) {
+
+            spawnActive = true;
+        }
+
+        if (sp != null) {
+            sp(SpawnPoint);
+        }
 
     }
 
 
-
     protected override void Update() { 
     
-        
-        if (!isHit) {
+        base.Update();
+        if (isFall) {
 
-            transform.position = new Vector2(GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos.x, transform.position.y);
-            hit = Physics2D.Raycast(transform.position, new Vector2(0, -1),100,LayerMask.GetMask("Environment"));
-            
-            if (hit.collider != null)
-            {
-                if (IsCollisionTriggerObject)
-                {
-                    spawnActive = true;
-                }
-                isHit = true;
-                SpawnPoint = hit.point;
-                sp(SpawnPoint);
-            }
+            isFall = false;
+            Caster.Stop();
+            gameObject.SetActive(false);
         }
-        else if (spawnActive)
-        {
+
+        if (spawnActive) {
 
             spawnedObject.transform.position = SpawnPoint;
             spawnedObject.SetActive(true);
@@ -80,7 +98,6 @@ public class Spawner : UnitDefault
             gameObject.SetActive(false);
             return;
         }
-
     }
 
 }
