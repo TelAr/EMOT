@@ -5,6 +5,12 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
+/*
+ * Pattern type: singleton
+ * Main Controller of game
+ * initiation player, enemy, and others
+ * Also, set Level or Gravity
+ */
 public class GameController : MonoBehaviour
 {
     
@@ -20,6 +26,10 @@ public class GameController : MonoBehaviour
     static private GameController gameConroller = null;
     static private GameObject player;
 
+    [SerializeField]
+    private int TimeStopCounter;
+    private float TimeScale = 1f;
+    private int eventCounter = 0;
 
     void Awake()
     {
@@ -54,7 +64,8 @@ public class GameController : MonoBehaviour
             gameObject.GetComponent<TestMode>().Awake();
         }
 
-
+        TimeStopCounter = 0;
+        eventCounter = 0;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -70,6 +81,14 @@ public class GameController : MonoBehaviour
 
         get {
             return gameConroller;
+        }
+    }
+
+    public bool IsEvent
+    {
+        get { 
+        
+            return eventCounter > 0;
         }
     }
 
@@ -89,21 +108,58 @@ public class GameController : MonoBehaviour
             }
         }
 
+    }
 
-        if (IsTimeStopUI())
+    private void TimeSetting(float time) {
+
+        Time.timeScale = time;
+    }
+
+    public void EventSituation(bool IsBegin) {
+
+        if (IsBegin)
         {
-            Time.timeScale = 0;
+            eventCounter++;
+            TimeSetting(0);
+
+        }
+        else
+        {
+            eventCounter--;
+            if (TimeStopCounter <= 0&& eventCounter<=0)
+            {
+
+                TimeSetting(TimeScale);
+            }
+        }
+    }
+
+    //to using option
+    public void TimeStopStack(bool IsStop) {
+
+        if (IsStop)
+        {
+            TimeStopCounter++;
+            TimeSetting(0);
+            if (player != null)
+            {
+                player.GetComponent<PlayerAction>().IsLimited = true;
+            }
         }
         else { 
         
-            Time.timeScale = 1;
+            TimeStopCounter--;
+            if (TimeStopCounter <= 0) {
+
+                if (TimeStopCounter <= 0 && eventCounter <= 0) {
+                    TimeSetting(TimeScale);
+                }
+                if (player != null) {
+                    player.GetComponent<PlayerAction>().IsLimited = false;
+                }
+            }
         }
 
-    }
-
-    private bool IsTimeStopUI() { 
-    
-        return OptionWindow.gameObject.activeSelf || MenuWindow.gameObject.activeSelf;
     }
 
     public void ClearUI() {

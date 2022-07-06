@@ -16,18 +16,18 @@ public class PlayerPhysical : UnitDefault
     [Header("* Dash")]
     public float DashTime;
     public float DashDistance;
+    [Header("* For GroundJudge")]
+    public PlayerGroundJedge Jedge;
 
     //const
     private const float JUMP_TIME = 0.1f;
     private const int JUMPMAX = 2;
 
     //statement OR effected
-    private bool is_side_collision;
     private bool jumping;
     private float moving, direction;
     private Vector2 accel;
     private Vector2 collision_point_avg;
-    private Vector2 collision_point_variance;
     private float jumpTimer = 0f;
     private int jumpCounter;
     private Rigidbody2D rb2;
@@ -54,6 +54,10 @@ public class PlayerPhysical : UnitDefault
     public bool IsUniquAction {
 
         get { return isUniquAction; }
+        set { 
+        
+            isUniquAction = value;
+        }
     }
     private bool isAir;
     public bool IsAir {
@@ -85,11 +89,9 @@ public class PlayerPhysical : UnitDefault
         JumpPower = 8;
     }
 
-
-    // Start is called before the first frame update
     public void Start()
     {
-        is_side_collision = false;
+        isAir = true;
         jumpTimer = 0;
         jumpCounter = 0;
         accel = Vector2.zero;
@@ -171,18 +173,12 @@ public class PlayerPhysical : UnitDefault
     private void CollsionBlock(Collision2D collision) {
 
         collision_point_avg = Vector2.zero;
-        collision_point_variance = Vector2.zero;
         foreach (ContactPoint2D point in collision.contacts)
         {
 
             collision_point_avg += point.point;
         }
         collision_point_avg /= collision.contacts.Length;
-        foreach (ContactPoint2D point in collision.contacts)
-        {
-            collision_point_variance += new Vector2(Mathf.Pow(point.point.x - collision_point_avg.x, 2), Mathf.Pow(point.point.y - collision_point_avg.y, 2));
-        }
-        collision_point_variance /= collision.contacts.Length;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -193,21 +189,10 @@ public class PlayerPhysical : UnitDefault
             CollsionBlock(collision);
 
 
-            if (collision_point_variance.x < collision_point_variance.y&&
-                collision_point_variance.magnitude>0.00000001f)//수평 충돌
+            if (collision_point_avg.y < TargettingPos.y&& Jedge.IsGround)
             {
-                transform.position = new Vector3(collision_point_avg.x < transform.position.x ? collision_point_avg.x + transform.localScale.x * 0.5f :
-                    collision_point_avg.x - transform.localScale.x * 0.5f, transform.position.y);
-                is_side_collision = true;
-
-            }
-            else //수직 충돌
-            {
-                if (collision_point_avg.y < transform.position.y)
-                {
-                    jumpCounter = JUMPMAX;
-                    jumpTimer = 0;
-                }
+                jumpCounter = JUMPMAX;
+                jumpTimer = 0;
             }
         }
 
@@ -219,22 +204,14 @@ public class PlayerPhysical : UnitDefault
         {
             CollsionBlock(collision);
 
-            if (collision_point_variance.x < collision_point_variance.y)//수평 충돌
+            if (collision_point_avg.y < TargettingPos.y && Jedge.IsGround)
             {
-                is_side_collision = true;
 
+                jumpCounter = JUMPMAX;
+                jumpTimer = 0;
+                isAir = false;
             }
-            else //수직 충돌
-            {
-                if (collision_point_avg.y < transform.position.y) {
 
-                    jumpCounter = JUMPMAX;
-                    jumpTimer = 0;
-                    is_side_collision = false;
-                    isAir = false;
-                }
-                   
-            }
         }
     }
 
@@ -242,7 +219,6 @@ public class PlayerPhysical : UnitDefault
     {
         if (collision.gameObject.CompareTag("Block"))
         {
-            is_side_collision = false;
             if (!isJump && jumpCounter == JUMPMAX) {
 
                 jumpCounter--;
@@ -254,7 +230,6 @@ public class PlayerPhysical : UnitDefault
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        Debug.Log(collision);
 
     }
 
@@ -270,16 +245,10 @@ public class PlayerPhysical : UnitDefault
 
         if (!isUniquAction) {
 
+
             accel = new Vector2(0, GameController.GetGameController.GRAVITY);
+
             rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
-            //벽 판정시
-            if (is_side_collision)
-            {
-                rb2.velocity = new Vector2(collision_point_avg.x < transform.position.x ?
-                    (moving > 0 ? rb2.velocity.x : 0) :
-                    (moving < 0 ? rb2.velocity.x : 0)
-                    , rb2.velocity.y);
-            }
 
             //jump
             if (isJump)

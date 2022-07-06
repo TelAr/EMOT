@@ -36,12 +36,16 @@ public class PlayerAction : MonoBehaviour
     public float ParryingImmuneTime = 0.5f;
     private float parryingJudgeTimer = 0f;
 
+    [Header("* Action limit")]
+    public bool IsLimited = false;
+
     private PlayerPhysical pp;
     private PlayerHealth ph;
     private PlayerAudio pa;
     private BoxCollider2D bc;
     void Awake()
     {
+        IsLimited = false;
         pp = GetComponent<PlayerPhysical>();
         ph = GetComponent<PlayerHealth>();
         pa = GetComponent<PlayerAudio>();
@@ -65,11 +69,21 @@ public class PlayerAction : MonoBehaviour
         autoReloadTimer = 0;
     }
 
+    private bool isStop {
+
+        get {
+
+            return pp.IsBind || pp.IsUniquAction || GameController.GetGameController.IsEvent || IsLimited;
+        }
+
+    }
+
     public bool IsParrying() {
 
         if (parryingJudgeTimer > 0) {
 
             pa.ParryingSuccessPlay();
+            parryingJudgeTimer = 0;
             return true;
         }
         else
@@ -80,21 +94,16 @@ public class PlayerAction : MonoBehaviour
 
     public void OnFire(InputValue value) {
 
-        if (pp.IsBind)
+        if (isStop) 
         {
             return;
         }
-
         if (bulletAmount <= 0)
         {
-
             pa.NoAmmoPlay();
             return;
         }
-        if (pp.IsUniquAction) {
 
-            return;
-        }
 
         if (value.isPressed)
         {
@@ -112,24 +121,24 @@ public class PlayerAction : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if (pp.IsBind)
+        if (isStop) 
         {
             return;
         }
 
-        if (pp.IsUniquAction) {
-
-            return;
-        }
         pp.IsJump = value.Get<float>() > 0;
     }
 
     public void OnMove(InputValue value)
     {
-        if (pp.IsBind)
+        /*
+        if (isStop)
         {
+            pp.Moving(0);
+            pp.VerticalInput(0);
             return;
         }
+        */
 
         float moving = value.Get<Vector2>().x;
         if (moving < 0)
@@ -161,7 +170,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnDash() {
 
-        if (pp.IsBind)
+        if (isStop)
         {
             return;
         }
@@ -178,7 +187,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnParrying() {
 
-        if (pp.IsBind)
+        if (isStop )
         {
             return;
         }

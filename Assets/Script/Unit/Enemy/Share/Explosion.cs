@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-//    float timer=0;
-//    Color color;
-
 
     public float RemainTime;
     public float FadeOutTime;
@@ -15,6 +12,7 @@ public class Explosion : MonoBehaviour
     public float Judgetime;
     public AudioClip DefaultSound;
     public float ExplosionVolumeOffset = 1;
+
     private Animator animator = null;
     private CircleCollider2D circleCollider;
     private AudioSource audioSource=null;
@@ -25,37 +23,45 @@ public class Explosion : MonoBehaviour
 
         animator = gameObject.GetComponent<Animator>();
         circleCollider = gameObject.GetComponent<CircleCollider2D>();
-        audioSource=gameObject.GetComponent<AudioSource>();
+        if (gameObject.GetComponent<AudioSource>()) {
+            audioSource = gameObject.GetComponent<AudioSource>();
+        }
         Initiation();
         isPlay = true;
     }
 
-    public void Initiation(float SoundVolume = 1f, AudioClip clip=null) {
-
+    private void OnEnable()
+    {
         gameObject.tag = "Enemy";
         gameObject.GetComponent<Damage>().IsEffected = true;
         animation_end = false;
         gameObject.GetComponent<SpriteRenderer>().color = Color.white;
-        if (audioSource == null) { 
-        
-            audioSource = gameObject.GetComponent<AudioSource>();
-        }
-        if (animator == null) {
+        if (animator == null)
+        {
 
             animator = gameObject.GetComponent<Animator>();
         }
-        if (clip == null)
-        {
-
-            audioSource.clip = DefaultSound;
-        }
-        else { 
-        
-            audioSource.clip = clip;
-        }
-        isPlay = true;
-        audioSource.volume = ExplosionVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume * SoundVolume;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, Random.Range(0, 360)));
+    }
+
+    public void Initiation(float SoundVolume = 1f, AudioClip clip=null) {
+
+        if (audioSource != null)
+        {
+            if (clip == null)
+            {
+
+                audioSource.clip = DefaultSound;
+            }
+            else
+            {
+
+                audioSource.clip = clip;
+            }
+            isPlay = true;
+            audioSource.volume = ExplosionVolumeOffset * AudioDefault.MasterVolume * AudioDefault.EffectVolume * SoundVolume;
+        }
+
     }
 
     private void FixedUpdate()
@@ -77,7 +83,7 @@ public class Explosion : MonoBehaviour
     void Update()
     {
 
-        if(isPlay)
+        if(isPlay&& audioSource!=null)
         {
             audioSource.Play();
             isPlay = false;
@@ -103,7 +109,7 @@ public class Explosion : MonoBehaviour
             
         }
 
-        if (animation_end && !audioSource.isPlaying) { 
+        if (animation_end && (audioSource!=null &&!audioSource.isPlaying)) { 
         
             gameObject.SetActive(false);
         }

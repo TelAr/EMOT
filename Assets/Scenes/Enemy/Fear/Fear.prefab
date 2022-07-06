@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: -1309302787006888206}
   - component: {fileID: 2202508487501896863}
   - component: {fileID: 1975499460036246535}
+  - component: {fileID: 1626075456479159254}
   m_Layer: 7
   m_Name: Fear
   m_TagString: Enemy
@@ -161,6 +162,7 @@ MonoBehaviour:
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
   GlobalDelay: 0
+  BeamEyePosOffset: {x: 0.15, y: 0.9, z: 0}
 --- !u!114 &4048321170301812747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +187,7 @@ MonoBehaviour:
   PreDelay: 2
   TargettingTime: 1
   PlayerShadowModel: {fileID: 5855811931968096343, guid: 8f8e03e60116b5a48adcd82dc3612ad7, type: 3}
+  ExplosionAudioPreDelay: 1.9
 --- !u!114 &165389021791279488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,13 +231,22 @@ MonoBehaviour:
   Stack: 1
   MaxDistance: 30
   MinDistance: 0
-  PatternPostDelay: 0
+  PatternPostDelay: 3
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
   SpawnerModel: {fileID: 5977235011082994025, guid: b4f3b690fd0c9d24a977b4caafcbf2e0, type: 3}
   SpawnOffset: {x: 0, y: 5, z: 0}
+  LimitedWaittingTime: 10
+  EyeBeamColor: {r: 0.78545874, g: 0.41799998, b: 1, a: 1}
+  EyeBeamMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
+  BeamPreDelay: 0.1
+  BeamTime: 0.3
+  BeamOutTime: 0.1
+  BeamWidth: 0.1
+  BeamHalfLength: 2
+  StrokeModel: {fileID: 6037767406144438499, guid: 1a478bd30bf6624468056e8922b4c050, type: 3}
 --- !u!114 &2202508487501896863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,18 +268,21 @@ MonoBehaviour:
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
-  LineNumber: 10
-  LineWidth: 0.5
+  LineNumber: 15
+  LineWidth: 0.3
   LineDisapearWidth: 2
-  FadeInTime: 5
+  PatternTime: 3
+  FadeInTime: 1
   DarkTime: 0.5
   FadeOutTime: 1
+  SightRadius: 4
   JudgeTime: 0.2
   MiddlePoint: {x: 0, y: 0, z: 0}
   Radius: 30
   Damage: 20
-  ReadyColor: {r: 0.3481162, g: 0, b: 0.5471698, a: 1}
-  ExplosionColor: {r: 0.4528302, g: 0, b: 0.16706042, a: 1}
+  ReadyColor: {r: 0.44182128, g: 0, b: 0.695, a: 1}
+  ExplosionColor: {r: 0.66400003, g: 0, b: 0.24827844, a: 1}
+  SoundEffectPreDelay: 1.9
 --- !u!114 &1975499460036246535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,3 +296,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Normal: {fileID: 21300000, guid: 9152d1a1905b01b41bc0771553000a3d, type: 3}
+--- !u!114 &1626075456479159254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085210604569707331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f92de845875aab143925f3b03b705ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Beam_groundAudio: {fileID: 8300000, guid: 8a03bda57891c084785a191d20d37d15, type: 3}
+  Beam_groundAudioVolumeOffset: 1
+  EyebeamAudio: {fileID: 8300000, guid: 669f8848d0ca52743a82c3191dc463e8, type: 3}
+  EyebeamAudioVolumeOffset: 1
+  ExplosionAudio: {fileID: 8300000, guid: 887ef185710975148819486b72b27b76, type: 3}
+  ExplosionAudioVolumeOffset: 1
+  Void_openAudio: {fileID: 8300000, guid: acc0a5af2f8b13c42b72a90ecf710edf, type: 3}
+  Void_openAudioVolumeOffset: 1

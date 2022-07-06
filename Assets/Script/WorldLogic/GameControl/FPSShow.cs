@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Just caculation FPS info 
 public class FPSShow : MonoBehaviour
 {
     public float ShowDelay = 1f;

@@ -2,7 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//적 개체 생성 시 기본적으로 작동되는 메커니즘
+/*
+* Pattern Type: Obsever(ibservable)
+* This class has interface that call PatternDefault class.
+ * When PatternDefault is attached by Gameobject which this class is already attached,
+ * PatternDefault is added by patternList on EnemyDefault, and Run method which is in PatternDefault is called by EnemyDefault.
+*/
 public class EnemyDefault : UnitDefault
 {
     public string Statement;
@@ -11,7 +16,7 @@ public class EnemyDefault : UnitDefault
     [Tooltip("Grobal Delay when Pattern is over")]
     public float GlobalDelay;
 
-    //패턴 관리용 개체
+    //Class to controller pattern
     public class PatternController { 
     
         PatternDefault pattern;
@@ -25,6 +30,7 @@ public class EnemyDefault : UnitDefault
         public bool Is_Enabled;
         readonly EnemyDefault enemy;
 
+        //init
         public PatternController(PatternDefault pattern)
         {
             this.pattern = pattern;
@@ -38,16 +44,20 @@ public class EnemyDefault : UnitDefault
             this.post_delay = pattern.PatternPostDelay;
             Is_Enabled = true;
         }
+
         public void PatternReset()
         {
             this.timer = 0;
             this.stackCounter = 0;
             pattern.Setting();
         }
+
         public void Tick() {
 
             float distance = (enemy.gameObject.transform.position - GameController.GetPlayer.transform.position).magnitude;
+
             UpdatePatternInfo();
+            
             if (!Is_Enabled) {
 
                 return;
@@ -56,7 +66,6 @@ public class EnemyDefault : UnitDefault
             if (timer < cooldown)
             {
                 this.timer += Time.deltaTime;
-
             }
             else
             {
@@ -69,6 +78,18 @@ public class EnemyDefault : UnitDefault
 
             }
         }
+
+        public bool IsRunable() {
+
+            float distance = (enemy.transform.position - GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos).magnitude;
+            if (distance > max_distance ||
+                distance < min_distance) { 
+            
+                return false;
+            }
+            return true;
+        }
+
         public void Run() {
 
             pattern.IsMain = true;
@@ -76,10 +97,14 @@ public class EnemyDefault : UnitDefault
             enemy.GlobalDelay = post_delay;
             stackCounter--;
         }
+
+
         public void ForcedRun() {
 
             pattern.Run();
         }
+
+
         public void UpdatePatternInfo() {
 
             this.cooldown = pattern.Cooldown;
@@ -94,7 +119,7 @@ public class EnemyDefault : UnitDefault
         }
     }
 
-    //패턴 보관용 컨테이너
+    //Container for pattern
     public List<PatternController> PatternList;
     public Queue<PatternController> PatternQueue = new Queue<PatternController>();
 
@@ -104,12 +129,22 @@ public class EnemyDefault : UnitDefault
         base.Update();
         if (!PatternRunning) {
             GlobalDelay -= Time.deltaTime;
+            //call Run() method which is pattern in queue
             if (PatternQueue.Count > 0&&GlobalDelay<0)
             {
+                PatternController controller = PatternQueue.Dequeue();
+                if (controller.IsRunable())
+                {
+                    controller.Run();
+                }
+                else {
 
-                PatternQueue.Dequeue().Run();
+                    PatternQueue.Enqueue(controller);
+                }
+                
             }
         }
+
         foreach (PatternController patternController in PatternList)
         {
 
@@ -126,7 +161,7 @@ public class EnemyDefault : UnitDefault
             if (pattern.enabled) {
 
                 pattern.Caster = this;
-                if (!pattern.IsIndependentPattern) {//독립패턴이 아닌 경우 생략
+                if (!pattern.IsIndependentPattern) {
 
                     continue;
                 }
@@ -139,6 +174,7 @@ public class EnemyDefault : UnitDefault
         GlobalDelay = 0;
         gameObject.transform.position = DefaultPos;
     }
+
 
     protected virtual void Start()
     {

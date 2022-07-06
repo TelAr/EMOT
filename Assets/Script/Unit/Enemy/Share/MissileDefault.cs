@@ -12,6 +12,16 @@ public class MissileDefault : MonoBehaviour
     public float MinimumJegdeLoseTime;
 
     private float timer;
+
+
+    protected void OnDisable()
+    {
+        if (gameObject.GetComponent<Rigidbody2D>() != null) {
+
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        }
+    }
+
     public void Reset()
     {
         MinX = -40;

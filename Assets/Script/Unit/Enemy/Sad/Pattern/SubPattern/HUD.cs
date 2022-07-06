@@ -16,9 +16,17 @@ public class HUD : MonoBehaviour
     private float timer;
     private Vector3 AS, BS, CS;
 
+    public float WiggleDelay = 1f;
+    public float WiggleSize = 1.5f;
+    private Vector3 MiddlePos, wigglePos;
+    private Vector3 val = Vector3.zero;
+    private float wiggleTimer = 0;
+
+
     private void OnEnable()
     {
         A.GetComponent<SpriteRenderer>().color = B.GetComponent<SpriteRenderer>().color = C.GetComponent<SpriteRenderer>().color = Color.clear;
+        wigglePos = Vector3.zero;
     }
 
     private void Awake()
@@ -26,6 +34,7 @@ public class HUD : MonoBehaviour
         AS = A.transform.localScale;
         BS = B.transform.localScale;
         CS = C.transform.localScale;
+
     }
 
     // Start is called before the first frame update
@@ -57,7 +66,22 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //        gameObject.transform.position = target.transform.position;
+
+        //wiggle
+        wiggleTimer -= Time.deltaTime;
+        if (wiggleTimer <= 0) {
+
+            float rand = Random.Range(0, Mathf.PI * 2);
+            wigglePos = new Vector3(Mathf.Cos(rand), Mathf.Sin(rand), 0) * Random.Range(0, WiggleSize);
+            wiggleTimer = WiggleDelay;
+        }
+
+        MiddlePos = Vector3.SmoothDamp(MiddlePos, wigglePos, ref val, WiggleDelay, 1f);
+
+
+        gameObject.transform.position = CameraTargetting.MainCamera.transform.position+ MiddlePos;
+
+        
 
         A.GetComponent<SpriteRenderer>().color = B.GetComponent<SpriteRenderer>().color = C.GetComponent<SpriteRenderer>().color = mainColor;
         if (timer < TransitionDelay)

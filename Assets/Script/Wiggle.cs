@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+ 
+//class for wiggle effect on position
 public class Wiggle : MonoBehaviour
 {
     public float speed = 1;

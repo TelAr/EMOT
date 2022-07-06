@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ballistics : MonoBehaviour
+//for ballistics calculation
+public struct Ballistics
 {
     static public Vector2 Ballistic(Vector2 target, float velocity, float gravity, bool is_upper)
     {
 
-        Vector2 result = Vector2.zero;
+        Vector2 result;
         float x = target.x;
         float y = target.y;
         float expect_time;
@@ -30,8 +31,9 @@ public class Ballistics : MonoBehaviour
         return result;
     }
 
+    //low level: upper, high level: low(direct)
     static public Vector2 Ballistic(Vector2 target, float velocity, float gravity) {
 
-        return Ballistic(target, velocity, gravity, GameController.Level < 2 ? true : false);
+        return Ballistic(target, velocity, gravity, GameController.Level < 2);
     }
 }

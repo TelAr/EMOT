@@ -1,28 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class LineCutter : PatternDefault
 {
+    [Header("* LineCutter Pattern Value")]
     public int LineNumber;
     public float LineWidth = 0.5f, LineDisapearWidth = 2f;
-    public float FadeInTime, DarkTime, FadeOutTime;
+    [Tooltip("Time which Line is apeared")]
+    public float PatternTime;
+    [Tooltip("Time which field is getting dark")]
+    public float FadeInTime;
+    [Tooltip("Time which field is absolutely dark\n In half time, player light is smaller and disapear")]
+    public float DarkTime;
+    [Tooltip("Time which field is getting light")]
+    public float FadeOutTime;
+    [Tooltip("Player light's ridius when FadeInTime")]
+    public float SightRadius;
     public float JudgeTime = 0.1f;
+    [Tooltip("Linespawn's offset position\n" +
+        "LineCutter's startPoint and endPoint is on the circle which circle's middlePoint is MiddlePoint, and circle's radius is Radius")]
     public Vector3 MiddlePoint;
+    [Tooltip("Linespawn's offset radius\n" +
+    "LineCutter's startPoint and endPoint is on the circle which circle's middlePoint is MiddlePoint, and circle's radius is Radius")]
     public float Radius;
+
     public int Damage = 20;
     public Color ReadyColor, ExplosionColor;
 
-    private int lineCounter = 0;
-    private float timer = 0, subtimer = 0;
+    public float SoundEffectPreDelay = 1.9f;
+
+    private float timer = 0, subtimer = 0, audiotimer=0;
     private int step = 0;
     private List<GameObject> lines = new List<GameObject>();
+    private bool isSoundEffectPlay = false;
+
+
     public override void Setting()
     {
-        lineCounter = 0;
         timer = 0;
         subtimer = 0;
+        audiotimer = 0;
         step = 0;
+        isSoundEffectPlay = false;
     }
 
 
@@ -97,6 +118,14 @@ public class LineCutter : PatternDefault
         if (IsRun) {
 
             timer += Time.deltaTime;
+            audiotimer += Time.deltaTime;
+
+            if (audiotimer > PatternTime + DarkTime - SoundEffectPreDelay && !isSoundEffectPlay) {
+
+                Caster.GetComponent<FearAudio>().EyebeamPlay();
+                isSoundEffectPlay = true;
+            }
+
             if (step == 0) {
 
                 subtimer -= Time.deltaTime;
@@ -109,20 +138,29 @@ public class LineCutter : PatternDefault
                     Vector3 ep = MiddlePoint + new Vector3(Mathf.Cos(another * Mathf.Deg2Rad), Mathf.Sin(another * Mathf.Deg2Rad)) * Radius;
 
                     lines.Add(callLine(sp, ep));
-                    subtimer = FadeInTime/LineNumber;
+                    subtimer = PatternTime/LineNumber;
                 }
                 foreach (var line in lines) { 
                 
-                    line.GetComponent<LineRenderer>().startColor += new Color(0,0,0,1)*Time.deltaTime/(FadeInTime / LineNumber);
-                    line.GetComponent<LineRenderer>().endColor += new Color(0, 0, 0, 1) * Time.deltaTime / (FadeInTime / LineNumber);
+                    line.GetComponent<LineRenderer>().startColor += new Color(0,0,0,1)*Time.deltaTime/(PatternTime / LineNumber);
+                    line.GetComponent<LineRenderer>().endColor += new Color(0, 0, 0, 1) * Time.deltaTime / (PatternTime / LineNumber);
                 }
 
-                //
+                if (timer <= FadeInTime)
+                {
 
-                //암흑에 의한 페이드 인 연출
+                    LightController.Instance.Global.GetComponent<Light2D>().intensity = 1 - (timer / FadeInTime);
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().intensity = (timer / FadeInTime);
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().pointLightOuterRadius = SightRadius * (timer / FadeInTime);
+                }
+                else {
 
-                //
-                if (timer > FadeInTime) {
+                    LightController.Instance.Global.GetComponent<Light2D>().intensity = 0;
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().intensity = 1;
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().pointLightOuterRadius = SightRadius;
+                }
+
+                if (timer > PatternTime) {
 
                     step = 1;
                     timer = 0;
@@ -130,16 +168,24 @@ public class LineCutter : PatternDefault
             }
             if (step == 1) {
 
-                //
+                if (timer < DarkTime * 0.5f)
+                {
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().pointLightOuterRadius = SightRadius * (1-(timer / (DarkTime * 0.5f)));
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().intensity = (1 - (timer / (DarkTime * 0.5f)));
+                }
+                else {
 
-                //암흑 연출
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().pointLightOuterRadius = 0;
+                    LightController.Instance.PlayerTarget.GetComponent<Light2D>().intensity = 0;
+                }
 
-                //
-                if (timer > DarkTime) {
+                if (timer > DarkTime)
+                {
 
                     step = 2;
                     timer = 0;
-                    foreach (var line in lines) {
+                    foreach (var line in lines)
+                    {
                         line.GetComponent<LineRenderer>().startColor = ExplosionColor;
                         line.GetComponent<LineRenderer>().endColor = ExplosionColor;
                         line.GetComponent<Damage>().IsEffected = true;
@@ -169,6 +215,17 @@ public class LineCutter : PatternDefault
                     line.GetComponent<LineRenderer>().startColor = ExplosionColor - new Color(0, 0, 0, 1) * level;
                     line.GetComponent<LineRenderer>().endColor = ExplosionColor - new Color(0, 0, 0, 1) * level;
                 }
+
+                if (timer < FadeOutTime * 0.5f)
+                {
+
+                    LightController.Instance.Global.GetComponent<Light2D>().intensity = timer / (FadeOutTime * 0.5f);
+                }
+                else {
+
+                    LightController.Instance.Global.GetComponent<Light2D>().intensity = 1;
+                }
+
 
                 if (timer > FadeOutTime) { 
                 

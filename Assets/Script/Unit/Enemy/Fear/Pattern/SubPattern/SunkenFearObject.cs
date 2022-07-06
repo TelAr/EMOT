@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SunkenFearObject : MonoBehaviour
+public class SunkenFearObject : SpawnedObject
 {
-
     public GameObject Hole, Tentacle;
     public float Predelay, JudgeTime, postDelay;
 
@@ -27,13 +26,9 @@ public class SunkenFearObject : MonoBehaviour
         animator.SetBool("IsLoop", true);
     }
 
-    // Update is called once per frame
     void Update()
     {
-
         animationTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-
-
 
         switch (step) {
 
@@ -82,15 +77,13 @@ public class SunkenFearObject : MonoBehaviour
                 break;
             case 4:
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("SunkenCloseAnimation") 
-                    && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f) { 
-                
+                    && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f) {
+
+                    Caster.Stop();
                     gameObject.SetActive(false);
                 }
                 break;
         }
-        
-        
-
 
     }
 }

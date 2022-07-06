@@ -54,9 +54,10 @@ public class ItemController
             {
                 ItemGain(Convert.ToInt32(word));
             }
-            else { 
-            
+            else {
+
                 //EXCEPTION
+                Debug.Log("ERROR: SAVE DATA HAS PROBLEM");
             }
         }
 
