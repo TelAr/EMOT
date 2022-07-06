@@ -49,7 +49,8 @@ public class ShadowCatch : PatternDefault
             if (!isAudioPlay && timer >= PreDelay + TargettingTime - ExplosionAudioPreDelay)
             {
 
-                Caster.GetComponent<FearAudio>().ExplosionPlay();
+                //Caster.GetComponent<FearAudio>().ExplosionPlay(); // 구버전 사운드 시스템
+                Caster.GetComponent<Sound_manager>().Play("explosion"); // 신버전 사운드 시스템
                 isAudioPlay = true;
             }
 

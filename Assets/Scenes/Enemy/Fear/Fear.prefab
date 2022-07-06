@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 2202508487501896863}
   - component: {fileID: 1975499460036246535}
   - component: {fileID: 1626075456479159254}
+  - component: {fileID: -2403609656240304995}
   m_Layer: 7
   m_Name: Fear
   m_TagString: Enemy
@@ -316,3 +317,17 @@ MonoBehaviour:
   ExplosionAudioVolumeOffset: 1
   Void_openAudio: {fileID: 8300000, guid: acc0a5af2f8b13c42b72a90ecf710edf, type: 3}
   Void_openAudioVolumeOffset: 1
+--- !u!114 &-2403609656240304995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085210604569707331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d5c939ac7133a4c95c3220dd1ae7a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound_path: {fileID: 102900000, guid: 1ec87177ebab89d42884ddcb5c92e11d, type: 3}
+  sounds: []

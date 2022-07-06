@@ -10,7 +10,7 @@ public class Sound_Class : AudioDefault
     private float Time;
     
     
-    public Sound_Class(string name, AudioClip clip, float Volume = 0.5f, float time = 0.05f, float VolumeOffset = 1f)
+    public void Init(string name, AudioClip clip, float Volume = 0.5f, float time = 0.05f, float VolumeOffset = 1f)
     {
         this.Name = name;
         this.Clip = clip;

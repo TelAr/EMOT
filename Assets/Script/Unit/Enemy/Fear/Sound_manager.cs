@@ -35,7 +35,9 @@ public class Sound_manager : MonoBehaviour
                 {
                     string temp_path = folder.Replace("Assets/Resources/", "").Split(".")[0].Replace("\\", "/");
                     string[] split_path = temp_path.Split("/");
-                    Sound_Class clip = new Sound_Class(split_path[split_path.Length-1], Resources.Load<AudioClip>(temp_path));
+                    //Sound_Class clip = new Sound_Class(split_path[split_path.Length - 1], Resources.Load<AudioClip>(temp_path)); ;
+                    Sound_Class clip = gameObject.AddComponent<Sound_Class>();
+                    clip.Init(split_path[split_path.Length - 1], Resources.Load<AudioClip>(temp_path));
                     list.Add(clip);
                 }
             }
