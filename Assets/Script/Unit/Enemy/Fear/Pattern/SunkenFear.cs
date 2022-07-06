@@ -108,7 +108,7 @@ public class SunkenFear : PatternDefault
         if (IsRun) {
             timer += Time.deltaTime;
 
-            if (step != -1) {
+            if (step != -1 && eyeBeam != null)  {
                 eyeBeam.GetComponent<LineRenderer>().SetPosition(0, transform.position + ((Fear)Caster).BeamEyePosOffset);
             }
 
@@ -170,14 +170,17 @@ public class SunkenFear : PatternDefault
                         //call tentacle;
                         spawner.GetComponent<Spawner>().SetSpawnActive = true;
                         stroke.SetActive(false);
+                        Caster.GetComponent<FearAudio>().Void_openPlay();
+                        EyebeamReturn();
                         step = 3;
                         timer = 0;
                     }
                     break;
                 case 3:
-                    Caster.GetComponent<FearAudio>().Void_openPlay();
-                    EyebeamReturn();
-                    Stop();
+                    if (LimitedWaittingTime < timer)
+                    {
+                        Stop();
+                    }
                     break;
                 default:
                     break;

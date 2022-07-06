@@ -41,9 +41,9 @@ public class Spawner : UnitDefault
         if (spawnedObject == null) {
 
             spawnedObject=Instantiate(SpawnedObjectModel);
-            spawnedObject.GetComponent<SpawnedObject>().Caster = Caster;
             spawnedObject.SetActive(false);
         }
+        spawnedObject.GetComponent<SpawnedObject>().Caster = Caster;
         isHit = false;
         spawnActive = false;
 
