@@ -619,7 +619,7 @@ MonoBehaviour:
   IsCameraPositionFix: 0
   Offset: {x: 0, y: 3, z: -100}
   target: {fileID: 0}
-  SmoothTime: 0.3
+  SmoothTime: 0.2
 --- !u!1001 &569045126
 PrefabInstance:
   m_ObjectHideFlags: 0

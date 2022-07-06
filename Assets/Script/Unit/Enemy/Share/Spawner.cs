@@ -14,7 +14,6 @@ public class Spawner : UnitDefault
     private bool spawnActive = false;
     private bool isHit = false;
     private GameObject spawnedObject = null;
-    private Rigidbody2D rb = null;
     private Vector2 SpawnPoint;
 
     //function that need to call which need infomation of spawned position
