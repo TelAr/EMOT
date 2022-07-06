@@ -66,8 +66,8 @@ public class SaberAura : PatternDefault
                                     new Vector3((direction.x > 0 ? 1 : -1), 0, 0) : direction);
                                 now.transform.localScale = new Vector3((direction.x > 0 ? -1 : 1) * Mathf.Abs(now.transform.localScale.x),
                                     now.transform.localScale.y, now.transform.localScale.z);
-                                now.transform.rotation = 
-                                    Quaternion.Euler(new Vector3(0, 0, Mathf.Acos(Mathf.Abs(direction.normalized.x)) * Mathf.Rad2Deg * (direction.x > 0 ? 1 : -1)));
+                                
+                                
                             }
                             timer = 0;
                             counter++;
