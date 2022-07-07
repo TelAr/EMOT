@@ -43,10 +43,15 @@ public class PlayerHealth : HealthDefault
 
     public override void Hurt(int damage = 0, float immuneTime = 2)
     {
-        if (playerAction.IsParrying()) {
+        if (playerAction.IsParrying())
+        {
 
             immunTimer = playerAction.ParryingImmuneTime > immunTimer ? playerAction.ParryingImmuneTime : immunTimer;
             return;
+        }
+        else {
+
+            playerAction.SetParryingUnableTime = playerAction.ParryingHurtUnableDelay;
         }
 
         if (immunTimer <= 0) {
