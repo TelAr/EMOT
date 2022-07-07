@@ -179,6 +179,11 @@ public class TestMode : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Home)) {
+
+            GameController.GetPlayer.GetComponent<PlayerHealth>().FullHealth();
+        }
+
 
         //디버깅용 텍스트
         text = "";
