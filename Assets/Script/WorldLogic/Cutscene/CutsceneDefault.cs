@@ -94,7 +94,7 @@ public class CutsceneDefault : MonoBehaviour
         {
             now = new Dialog();
             now.id = startPoint;
-            now.Contents = "ERROR: \"DebugingScript.csv\" File is not exist";
+            now.Contents = "ERROR: \""+ SavePath + "\" File is not exist";
             dialogs.Add(now.id, now);
             return;
         }
