@@ -9,7 +9,7 @@ public class CutsceneDefault : MonoBehaviour
 {
     [Tooltip("Must to use CSV Format, UTF-8 encoding")]
     public TextAsset script = null;
-    public List<Texture> sprites = new List<Texture>();
+    public List<Texture> sprites = new();
     public Texture Transparency;
 
     public bool IsUniqueCutscene = true;
@@ -17,13 +17,13 @@ public class CutsceneDefault : MonoBehaviour
     private bool isRead = false;
     private bool wasRead = false;
     private int step = 0;
-    private Dictionary<int, Dialog> dialogs = new Dictionary<int, Dialog>();
+    private Dictionary<int, Dialog> dialogs = new();
     private int startPoint = 0;
     private bool passNextFrame = true;
     private bool autoCutscene = false;
     private float autoTimer = 0;
     private string SavePath="";
-    private List<string> logList = new List<string>();
+    private List<string> logList = new();
 
     public class Dialog {
 
@@ -56,7 +56,7 @@ public class CutsceneDefault : MonoBehaviour
             CutsceneCanvas.instance.gameObject.SetActive(true);
             CutsceneCanvas.instance.Left.texture = CutsceneCanvas.instance.Right.texture = Transparency;
         }
-        updateCutscene();
+        UpdateCutscene();
     }
 
     public void EndCutscene() {
@@ -70,187 +70,9 @@ public class CutsceneDefault : MonoBehaviour
     private void Awake()
     {
 
-        string fullstring;
+        string fullstring = FileRead();
 
-        SavePath = Application.dataPath + "/DebugingScript.csv";
-        if (script != null) {
-            fullstring = script.text;
-        }
-        else {
-            try
-            {
-                fullstring = File.ReadAllText(SavePath);
-            }
-            catch {
-
-                fullstring = "";
-            }
-        }
-        string[] words = fullstring.Split('\n');
-        Dialog now = null;
-        bool passFirst = false;
-
-        if (fullstring == "")
-        {
-            now = new Dialog();
-            now.id = startPoint;
-            now.Contents = "ERROR: \""+ SavePath + "\" File is not exist";
-            dialogs.Add(now.id, now);
-            return;
-        }
-
-        foreach (string word in words)
-        {
-            if (!passFirst) {
-
-                passFirst = true;
-                continue;
-            }
-
-            if (word == "") {
-
-                continue;
-            }
-
-            List<string> parsing = new List<string> ();
-            string[] split = word.Split(',');
-            bool isDQM = false;
-            for (int t = 0; t < split.Length; t++) {
-                if (split[t].Length > 0 && split[t][0] == '\"') {
-
-                    parsing.Add(split[t].Substring(1));
-                    isDQM = true;
-                    continue;
-                }
-
-                if (isDQM)
-                {
-
-                    
-                    if (split[t].Length > 0 && split[t][split[t].Length - 1] == '\"')
-                    {
-                        isDQM = false;
-                        split[t] = split[t].Substring(0, split[t].Length - 1);
-                    }
-                    parsing[parsing.Count - 1] += "," + split[t];
-
-                }
-                else {
-
-                    parsing.Add(split[t]);
-                }
-                
-            }
-
-            //if parsing size is different
-            if (parsing.Count != 6) {
-
-                now = new Dialog();
-                now.id = startPoint;
-                now.Contents = "ERROR: The number of elements in a particular row is determined to be different\n";
-                dialogs.Add(now.id, now);
-                break;
-            }
-
-            //ID info
-            int tempId;
-            //no id=content add
-            if (parsing[0] == "")
-            {
-
-                now.Contents += "\n" + parsing[4];
-                continue;
-            }
-            //remark case
-            else if (parsing[0][0] == '#')
-            {
-                continue;
-            }
-            //next dialog
-            else if (int.TryParse(parsing[0], out tempId))
-            {
-                if (now != null)
-                {
-                    dialogs.Add(now.id, now);
-                }
-                else {
-
-                    startPoint = tempId;
-                }
-                now = new Dialog();
-                now.id = tempId;
-            }
-            //if false, error code
-            else {
-
-                now = new Dialog();
-                now.id = startPoint;
-                now.Contents = "ERROR: ID VALUE IS NOT INTEGER OR \'#\': ID VALUE IS " + parsing[0] + "\n";
-                dialogs.Add(now.id, now);
-                break;
-            }
-
-            //LEFT SPRITE INFO
-            if (parsing[1] != "") {
-
-                //if index error, no sprite
-                int indexValue;
-                if (int.TryParse(parsing[1], out indexValue)) {
-
-                    if (indexValue < sprites.Count && indexValue >= 0)
-                    {
-
-                        now.Left = sprites[indexValue];
-                    }
-                    else {
-
-                        now.Left = null;
-                    }
-                }
-            }
-
-            //RIGHT SPRITE INFO
-            if (parsing[2] != "")
-            {
-
-                //if index error, no sprite
-                int indexValue;
-                if (int.TryParse(parsing[2], out indexValue))
-                {
-
-                    if (indexValue < sprites.Count && indexValue >= 0)
-                    {
-
-                        now.Right = sprites[indexValue];
-                    }
-                    else
-                    {
-
-                        now.Right = null;
-                    }
-                }
-            }
-
-            //SPEAKER info
-            now.Speaker = parsing[3];
-
-            //Contents info
-            now.Contents = parsing[4];
-
-            //Jump info
-            int tempNext;
-            now.next = now.id + 1;
-            if (int.TryParse(parsing[5], out tempNext)) {
-
-                now.next = tempNext;
-            }
-            
-        }
-
-        if (now != null)
-        {
-            dialogs[now.id] = now;
-        }
+        SetDialogList(fullstring);
 
         //Debug
         int pointer = startPoint;
@@ -262,7 +84,204 @@ public class CutsceneDefault : MonoBehaviour
         }
     }
 
-    private void updateCutscene() {
+    private string FileRead() {
+
+        string fullstring;
+        SavePath = Application.dataPath + "/DebugingScript.csv";
+        if (script != null)
+        {
+            fullstring = script.text;
+        }
+        else
+        {
+            try
+            {
+                fullstring = File.ReadAllText(SavePath);
+            }
+            catch
+            {
+
+                fullstring = "";
+            }
+        }
+
+        return fullstring;
+    }
+
+    private void SetDialogList(string fullstring) {
+
+        string[] words = fullstring.Split('\n');
+        Dialog now = null;
+        bool passFirst = false;
+
+        if (fullstring == "")
+        {
+            ErrorDialog("ERROR: \"" + SavePath + "\" File is not exist");
+            return;
+        }
+
+        foreach (string word in words)
+        {
+            if (!passFirst)
+            {
+                passFirst = true;
+                continue;
+            }
+            else if (word == "")
+            {
+                continue;
+            }
+
+            List<string> parsing = ParsingWord(word);
+
+            //if parsing size is different
+            if (parsing.Count != 6)
+            {
+                ErrorDialog("ERROR: The number of elements in a particular row is determined to be different\n");
+                break;
+            }
+
+
+            int flag = IndexReader(parsing, ref now);
+            //if false, error code
+            if (flag == -1)
+            {
+                ErrorDialog("ERROR: ID VALUE IS NOT INTEGER OR \'#\': ID VALUE IS " + parsing[0] + "\n");
+                break;
+            }
+            else if (flag == 0 || flag == 1) {
+
+                continue;
+            }
+
+            //sprite read
+            SpriteReader(parsing, ref now);
+
+            //SPEAKER info
+            now.Speaker = parsing[3];
+
+            //Contents info
+            now.Contents = parsing[4];
+
+            //Jump info
+            now.next = now.id + 1;
+            if (int.TryParse(parsing[5], out int tempNext))
+            {
+                now.next = tempNext;
+            }
+        }
+
+        if (now != null)
+        {
+            dialogs[now.id] = now;
+        }
+    }
+
+    private List<string> ParsingWord(string word) {
+
+        List<string> parsing = new();
+        string[] split = word.Split(',');
+        bool isDQM = false;
+        for (int t = 0; t < split.Length; t++)
+        {
+            if (split[t].Length > 0 && split[t][0] == '\"')
+            {
+
+                parsing.Add(split[t][1..]);
+                isDQM = true;
+                continue;
+            }
+
+            if (isDQM)
+            {
+                if (split[t].Length > 0 && split[t][^1] == '\"')
+                {
+                    isDQM = false;
+                    split[t] = split[t][0..^1];
+                }
+                parsing[^1] += "," + split[t];
+            }
+            else
+            {
+                parsing.Add(split[t]);
+            }
+        }
+        return parsing;
+    }
+
+    private int IndexReader(List<string> dataList, ref Dialog now) {
+
+        //no id=content add
+        if (dataList[0] == "")
+        {
+            now.Contents += "\n" + dataList[4];
+            return 0;
+        }
+        //remark case
+        else if (dataList[0][0] == '#')
+        {
+            return 1;
+        }
+        //next dialog
+        else if (int.TryParse(dataList[0], out int tempId))
+        {
+            if (now != null)
+            {
+                dialogs.Add(now.id, now);
+            }
+            else
+            {
+                startPoint = tempId;
+            }
+            now = new();
+            now.id = tempId;
+            return 2;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    private void SpriteReader(List<string> dataList, ref Dialog now)
+    {
+
+        //t==0:left, t==1:right
+        for (int t = 0; t < 2; t++)
+        {
+            if (dataList[t + 1] != "")
+            {
+                //if index error, no sprite
+                if (int.TryParse(dataList[t], out int indexValue))
+                {
+
+                    Texture nowTexture = (t == 0 ? now.Left : now.Right);
+
+                    if (indexValue < sprites.Count && indexValue >= 0)
+                    {
+
+                        nowTexture = sprites[indexValue];
+                    }
+                    else
+                    {
+
+                        nowTexture = null;
+                    }
+                }
+            }
+        }
+    }
+
+
+    private void ErrorDialog(string message) {
+
+        Dialog now = new();
+        now.id = startPoint;
+        now.Contents = message;
+        dialogs.Add(now.id, now);
+    }
+
+    private void UpdateCutscene() {
         Dialog now;
         if (dialogs.ContainsKey(step))
         {
