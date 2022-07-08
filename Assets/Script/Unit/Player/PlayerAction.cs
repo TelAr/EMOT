@@ -118,12 +118,11 @@ public class PlayerAction : MonoBehaviour
         {
             return;
         }
-        if (bulletAmount <= 0)
+        else if (bulletAmount <= 0)
         {
             pa.NoAmmoPlay();
             return;
         }
-
 
         if (value.isPressed)
         {

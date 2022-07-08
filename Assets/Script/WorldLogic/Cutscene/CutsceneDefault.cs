@@ -12,7 +12,6 @@ public class CutsceneDefault : MonoBehaviour
     public List<Texture> sprites = new List<Texture>();
     public Texture Transparency;
 
-
     public bool IsUniqueCutscene = true;
 
     private bool isRead = false;
@@ -21,9 +20,10 @@ public class CutsceneDefault : MonoBehaviour
     private Dictionary<int, Dialog> dialogs = new Dictionary<int, Dialog>();
     private int startPoint = 0;
     private bool passNextFrame = true;
-
+    private bool autoCutscene = false;
+    private float autoTimer = 0;
     private string SavePath="";
-
+    private List<string> logList = new List<string>();
 
     public class Dialog {
 
@@ -42,8 +42,13 @@ public class CutsceneDefault : MonoBehaviour
 
     public void GetNextCutscene() {
 
-        if (!isRead) {
+        if (CutsceneCanvas.instance.LogPanel.activeSelf) {
 
+            return;
+        }
+
+        if (!isRead) {
+            logList.Clear();
             step = startPoint;
             passNextFrame = true;
             isRead = true;
@@ -58,6 +63,7 @@ public class CutsceneDefault : MonoBehaviour
 
         isRead = false;
         CutsceneCanvas.instance.gameObject.SetActive(false);
+        enabled = false;
     }
 
 
@@ -280,6 +286,8 @@ public class CutsceneDefault : MonoBehaviour
             CutsceneCanvas.instance.Right.texture = now.Right;
         }
 
+        string log = now.Speaker + ": " + now.Contents;
+        logList.Add(log);
 
         step = now.next;
     }
@@ -294,6 +302,47 @@ public class CutsceneDefault : MonoBehaviour
                 passNextFrame = false;
             }
             else {
+
+                if (Input.GetKeyDown(KeyCode.Q)) {
+
+                    EndCutscene();
+                }
+                if (Input.GetKeyDown(KeyCode.A)) {
+
+                    autoTimer = 0;
+                    autoCutscene ^= true;
+                }
+                if (Input.GetKeyDown(KeyCode.L)) {
+
+                    CutsceneCanvas.instance.LogTMP.text = "";
+                    foreach (var logs in logList) {
+
+                        CutsceneCanvas.instance.LogTMP.text+=logs+"\n";
+                    }
+                    CutsceneCanvas.instance.LogPanel.SetActive(CutsceneCanvas.instance.LogPanel.activeSelf ^ true);
+                }
+
+                if (CutsceneCanvas.instance.LogPanel.activeSelf) {
+
+                    if (Input.GetKey(KeyCode.UpArrow) && CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition < 1f) 
+                    {
+                        CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition+=1f*Time.unscaledDeltaTime;
+                    }
+                    if (Input.GetKey(KeyCode.DownArrow) && CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition > 0f) {
+
+                        CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition -= 1f * Time.unscaledDeltaTime;
+                    }
+                }
+
+                if (autoCutscene) {
+
+                    autoTimer+=Time.unscaledDeltaTime;
+                    if (autoTimer > CutsceneCanvas.instance.AutoTime) {
+
+                        autoTimer=0;
+                        GetNextCutscene();
+                    }
+                }
 
             }
         }

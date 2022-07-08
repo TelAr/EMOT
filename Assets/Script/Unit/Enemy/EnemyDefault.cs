@@ -2,12 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-* Pattern Type: Obsever(ibservable)
-* This class has interface that call PatternDefault class.
- * When PatternDefault is attached by Gameobject which this class is already attached,
- * PatternDefault is added by patternList on EnemyDefault, and Run method which is in PatternDefault is called by EnemyDefault.
-*/
+
 public class EnemyDefault : UnitDefault
 {
     public string Statement;
@@ -15,6 +10,10 @@ public class EnemyDefault : UnitDefault
     public bool DefaultPhysicalForcedEnable;
     [Tooltip("Grobal Delay when Pattern is over")]
     public float GlobalDelay;
+    [Tooltip("Front value: HP condition, Second value: Order'\n'" +
+        "Format must be split whitespace, like \"0 1 4 10 7\"... \n" +
+        "Pattern number statr from 0")]
+    public List<KeyValuePair<int, string>> PatternOrderList = new List<KeyValuePair<int, string>>();
 
     //Class to controller pattern
     public class PatternController { 
