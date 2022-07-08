@@ -80,7 +80,9 @@ public class CutsceneDefault : MonoBehaviour
 
             Debug.Log("ID: "+dialogs[pointer].id);
             Debug.Log(dialogs[pointer].Speaker+": "+dialogs[pointer].Contents);
-            pointer=dialogs[pointer].next;
+            Debug.Log(dialogs[pointer].id + " sprite: " + dialogs[pointer].Left + ", " + dialogs[pointer].Right);
+            pointer =dialogs[pointer].next;
+
         }
     }
 
@@ -218,7 +220,7 @@ public class CutsceneDefault : MonoBehaviour
             return 0;
         }
         //remark case
-        else if (dataList[0][0] == '#')
+        else if (dataList[0][0] == '#'|| dataList[0][0] == 'Q')
         {
             return 1;
         }
@@ -252,20 +254,18 @@ public class CutsceneDefault : MonoBehaviour
             if (dataList[t + 1] != "")
             {
                 //if index error, no sprite
-                if (int.TryParse(dataList[t], out int indexValue))
+                if (int.TryParse(dataList[t + 1], out int indexValue))
                 {
-
-                    Texture nowTexture = (t == 0 ? now.Left : now.Right);
 
                     if (indexValue < sprites.Count && indexValue >= 0)
                     {
-
-                        nowTexture = sprites[indexValue];
+                        if (t == 0) now.Left = sprites[indexValue];
+                        else now.Right = sprites[indexValue];                    
                     }
                     else
                     {
-
-                        nowTexture = null;
+                        if (t == 0) now.Left = null;
+                        else now.Right = null;
                     }
                 }
             }
