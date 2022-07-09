@@ -12,6 +12,7 @@ public class CutsceneCanvas : MonoBehaviour
     public GameObject LogPanel;
     public ScrollRect LogScrollRect;
     public TextMeshProUGUI LogTMP;
+    public List<TextMeshProUGUI> Answers;
     public float AutoTime = 3f;
     private void Awake()
     {

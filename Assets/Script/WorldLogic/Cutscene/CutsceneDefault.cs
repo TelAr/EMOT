@@ -19,19 +19,142 @@ public class CutsceneDefault : MonoBehaviour
     private int step = 0;
     private Dictionary<int, Dialog> dialogs = new();
     private int startPoint = 0;
-    private bool passNextFrame = true;
+    private bool passFirstFrame = true;
     private bool autoCutscene = false;
     private float autoTimer = 0;
     private string SavePath="";
     private List<string> logList = new();
+    private QuestionController questionController = null;
 
     public class Dialog {
 
         public int id;
         public string Speaker = null, Contents = null;
         public Texture Left = null, Right = null;
+        public string function = null;
         public int next = -1;
     }
+
+    private class QuestionController {
+
+        public Dictionary<string, List<KeyValuePair<string, int?>>> answers = new();
+        public int Pointer = -1;
+        public List<string> AnswerList = new();
+        public List<int?> answerJumper = new();
+        public bool IsQustionState = false;
+
+        public bool TryAnswerJumpGet(out int? jumpPoint) { 
+        
+            jumpPoint = -1;
+            if (Pointer < 0||Pointer>=answerJumper.Count)
+            {
+
+                return false;
+            }
+            else {
+
+                jumpPoint = answerJumper[Pointer];
+                return true;
+            }
+        }
+
+        public void Clear() {
+
+            Pointer = -1;
+            AnswerList = new();
+            answerJumper = new();
+            IsQustionState = false;
+        }
+
+        public void PointerMove(int value) { 
+        
+            Pointer += value;
+            if (Pointer < 0) { 
+            
+                Pointer = 0;
+            }
+            if (Pointer >= AnswerList.Count) {
+
+                Pointer = AnswerList.Count - 1;
+            }
+            UpdateAnswers();
+        }
+
+        public void UpdateAnswers() {
+
+            if (AnswerList.Count > 0) {
+
+                IsQustionState = true;
+            }
+
+            for (int t = 0; t < CutsceneCanvas.instance.Answers.Count; t++) {
+
+                if (t < AnswerList.Count)
+                {
+
+                    CutsceneCanvas.instance.Answers[t].text = (t == Pointer ? "¡ß" : '¡Þ') + AnswerList[t];
+                }
+                else {
+
+                    CutsceneCanvas.instance.Answers[t].text = "";
+                }
+            }
+        }
+
+        public void QuestionReader(List<string> dataList)
+        {
+
+            if (!answers.ContainsKey(dataList[0]))
+            {
+
+                answers.Add(dataList[0], new List<KeyValuePair<string, int?>>());
+            }
+
+            if (int.TryParse(dataList[5], out int partitialIndex))
+            {
+
+                answers[dataList[0]].Add(new KeyValuePair<string, int?>(dataList[4], partitialIndex));
+            }
+            else
+            {
+
+                answers[dataList[0]].Add(new KeyValuePair<string, int?>(dataList[4], null));
+            }
+        }
+
+        public void AnswerSetting(string keyValue)
+        {
+            bool isError = false;
+            keyValue = 'Q' + keyValue;
+            if (answers.ContainsKey(keyValue))
+            {
+                Clear();
+
+                for (int t = 0; t < 4 && t < answers[keyValue].Count; t++)
+                {
+                    AnswerList.Add(answers[keyValue][t].Key);
+                    answerJumper.Add(answers[keyValue][t].Value);
+                }
+
+            }
+            //error
+            else
+            {
+                isError = true;
+                foreach (var answers in CutsceneCanvas.instance.Answers)
+                {
+
+                    answers.text = "ERROR: Can't Find "+ keyValue+" Index Answers";
+                }
+            }
+            UpdateAnswers();
+            if (isError) {
+
+                IsQustionState = false;
+            }
+        }
+    }
+
     public bool IsCanRead
     {
         get {
@@ -50,7 +173,7 @@ public class CutsceneDefault : MonoBehaviour
         if (!isRead) {
             logList.Clear();
             step = startPoint;
-            passNextFrame = true;
+            passFirstFrame = true;
             isRead = true;
             wasRead = true;
             CutsceneCanvas.instance.gameObject.SetActive(true);
@@ -70,6 +193,8 @@ public class CutsceneDefault : MonoBehaviour
     private void Awake()
     {
 
+        questionController=new QuestionController();
+
         string fullstring = FileRead();
 
         SetDialogList(fullstring);
@@ -80,9 +205,15 @@ public class CutsceneDefault : MonoBehaviour
 
             Debug.Log("ID: "+dialogs[pointer].id);
             Debug.Log(dialogs[pointer].Speaker+": "+dialogs[pointer].Contents);
-            Debug.Log(dialogs[pointer].id + " sprite: " + dialogs[pointer].Left + ", " + dialogs[pointer].Right);
             pointer =dialogs[pointer].next;
+        }
 
+        foreach (var qd in questionController.answers) { 
+        
+            foreach(var log in qd.Value){
+
+                Debug.Log(qd.Key + ": " + log.Key + ", "+log.Value);
+            }
         }
     }
 
@@ -151,7 +282,7 @@ public class CutsceneDefault : MonoBehaviour
                 ErrorDialog("ERROR: ID VALUE IS NOT INTEGER OR \'#\': ID VALUE IS " + parsing[0] + "\n");
                 break;
             }
-            else if (flag == 0 || flag == 1) {
+            else if (flag == 0) {
 
                 continue;
             }
@@ -170,6 +301,11 @@ public class CutsceneDefault : MonoBehaviour
             if (int.TryParse(parsing[5], out int tempNext))
             {
                 now.next = tempNext;
+            }
+            //not number=other function MAYBE
+            else { 
+            
+                now.function = parsing[5];
             }
         }
 
@@ -211,6 +347,9 @@ public class CutsceneDefault : MonoBehaviour
         return parsing;
     }
 
+    //return 0: done at inner process 
+    //return 1: next process need
+    //return -1: error
     private int IndexReader(List<string> dataList, ref Dialog now) {
 
         //no id=content add
@@ -218,11 +357,6 @@ public class CutsceneDefault : MonoBehaviour
         {
             now.Contents += "\n" + dataList[4];
             return 0;
-        }
-        //remark case
-        else if (dataList[0][0] == '#'|| dataList[0][0] == 'Q')
-        {
-            return 1;
         }
         //next dialog
         else if (int.TryParse(dataList[0], out int tempId))
@@ -237,11 +371,22 @@ public class CutsceneDefault : MonoBehaviour
             }
             now = new();
             now.id = tempId;
-            return 2;
+            return 1;
         }
-        else
+        //remark case
+        else 
         {
-            return -1;
+            switch (dataList[0][0]) {
+
+                case 'Q'://question case
+                    questionController.QuestionReader(dataList);
+                    return 0;
+                case '#'://remark
+                    return 0;
+                default://error case
+                    return -1;
+            }
+
         }
     }
 
@@ -283,6 +428,23 @@ public class CutsceneDefault : MonoBehaviour
 
     private void UpdateCutscene() {
         Dialog now;
+
+        if (questionController.IsQustionState) {
+
+            if (questionController.TryAnswerJumpGet(out int? jp)){
+
+                if (jp != null) {
+
+                    step = jp.Value;
+                }
+                questionController.Clear();
+            }
+            else
+            {
+                return;
+            }
+        }
+
         if (dialogs.ContainsKey(step))
         {
             now = dialogs[step];
@@ -308,61 +470,127 @@ public class CutsceneDefault : MonoBehaviour
         string log = now.Speaker + ": " + now.Contents;
         logList.Add(log);
 
+        foreach (var answers in CutsceneCanvas.instance.Answers) {
+
+            answers.text = "";
+        }
+
+        CallFunction(now.function);
+
         step = now.next;
+    }
+
+    void CallFunction(string commands) {
+
+        string[] command = commands.Split('/', ' ', '\t', '\n', '\r');
+
+
+        foreach (string cmd in command) {
+            //QuestionCase
+            if (FunctionCompare(cmd, "Q")) 
+            {
+                questionController.AnswerSetting(ParameterParsing(cmd));
+            }
+        }
+    }
+
+    bool FunctionCompare(string cmd, string functionName) {
+
+        return cmd.Contains(')') && cmd.Contains('(') &&
+                cmd.Substring(0, cmd.IndexOf('(')) == functionName &&
+                cmd.IndexOf(')') > cmd.IndexOf('(') &&
+                cmd.IndexOf(')') == cmd.Length - 1;
+    }
+
+    string ParameterParsing(string input) {
+
+        return input.Substring(input.IndexOf('(') + 1, input.IndexOf(')') - input.IndexOf('(') - 1);
+    }
+
+    private bool IsUpdateable
+    {
+        get {
+
+            return isRead && !GameController.GetGameController.IsSystemPause;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isRead) {
-            if (passNextFrame)
+        if (IsUpdateable) {
+            
+            if (passFirstFrame)
             {
-
-                passNextFrame = false;
+                passFirstFrame = false;
+                return;
             }
-            else {
 
-                if (Input.GetKeyDown(KeyCode.Q)) {
+            if (!questionController.IsQustionState)
+            {
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    while (!questionController.IsQustionState)
+                    {
 
-                    EndCutscene();
+                        UpdateCutscene();
+                    }
                 }
-                if (Input.GetKeyDown(KeyCode.A)) {
+                if (Input.GetKeyDown(KeyCode.A))
+                {
 
                     autoTimer = 0;
                     autoCutscene ^= true;
                 }
-                if (Input.GetKeyDown(KeyCode.L)) {
 
-                    CutsceneCanvas.instance.LogTMP.text = "";
-                    foreach (var logs in logList) {
+                if (autoCutscene)
+                {
 
-                        CutsceneCanvas.instance.LogTMP.text+=logs+"\n";
-                    }
-                    CutsceneCanvas.instance.LogPanel.SetActive(CutsceneCanvas.instance.LogPanel.activeSelf ^ true);
-                }
-
-                if (CutsceneCanvas.instance.LogPanel.activeSelf) {
-
-                    if (Input.GetKey(KeyCode.UpArrow) && CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition < 1f) 
+                    autoTimer += Time.unscaledDeltaTime;
+                    if (autoTimer > CutsceneCanvas.instance.AutoTime)
                     {
-                        CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition+=1f*Time.unscaledDeltaTime;
-                    }
-                    if (Input.GetKey(KeyCode.DownArrow) && CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition > 0f) {
 
-                        CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition -= 1f * Time.unscaledDeltaTime;
-                    }
-                }
-
-                if (autoCutscene) {
-
-                    autoTimer+=Time.unscaledDeltaTime;
-                    if (autoTimer > CutsceneCanvas.instance.AutoTime) {
-
-                        autoTimer=0;
+                        autoTimer = 0;
                         GetNextCutscene();
                     }
                 }
+            }
+            else {
 
+                if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+
+                    questionController.PointerMove(-1);
+                }
+                if (Input.GetKeyDown(KeyCode.RightArrow)) {
+
+                    questionController.PointerMove(1);
+                }
+            }
+            
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+
+                CutsceneCanvas.instance.LogTMP.text = "";
+                foreach (var logs in logList)
+                {
+
+                    CutsceneCanvas.instance.LogTMP.text += logs + "\n";
+                }
+                CutsceneCanvas.instance.LogPanel.SetActive(CutsceneCanvas.instance.LogPanel.activeSelf ^ true);
+            }
+
+            if (CutsceneCanvas.instance.LogPanel.activeSelf)
+            {
+
+                if (Input.GetKey(KeyCode.UpArrow) && CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition < 1f)
+                {
+                    CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition += 1f * Time.unscaledDeltaTime;
+                }
+                if (Input.GetKey(KeyCode.DownArrow) && CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition > 0f)
+                {
+
+                    CutsceneCanvas.instance.LogScrollRect.verticalNormalizedPosition -= 1f * Time.unscaledDeltaTime;
+                }
             }
         }
     }
