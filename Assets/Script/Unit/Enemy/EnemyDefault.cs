@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,13 +10,14 @@ public class EnemyDefault : UnitDefault
     public string Statement;
     public bool PatternRunning;
     public bool DefaultPhysicalForcedEnable;
-    [Tooltip("Grobal Delay when Pattern is over")]
-    public float GlobalDelay;
-    [Tooltip("Front value: HP condition, Second value: Order'\n'" +
-        "Pattern number start from 0\n")]
+
+    [InfoBox("Pattern number start from 0\n"+
+        "Pattern Order value must be under PatternListSize and non negative value.\n" +
+        "If not, index 0 pattern is called.", EInfoBoxType.Normal)]
     public List<PatternFormulationContainer> PatternOrderList = new();
 
     private HealthDefault health = null;
+    private float globalDelay;
     private int listPointer = 0;
     private int patternPointer = 0;
 
@@ -70,7 +72,7 @@ public class EnemyDefault : UnitDefault
 
             pattern.IsMain = true;
             pattern.Run();
-            enemy.GlobalDelay = post_delay;
+            enemy.globalDelay = post_delay;
         }
 
 
@@ -98,8 +100,8 @@ public class EnemyDefault : UnitDefault
 
         base.Update();
         if (!PatternRunning) {
-            GlobalDelay -= Time.deltaTime;
-            if (GlobalDelay > 0) {
+            globalDelay -= Time.deltaTime;
+            if (globalDelay > 0) {
 
                 return;
             }
@@ -121,7 +123,7 @@ public class EnemyDefault : UnitDefault
                 listPointer = PatternOrderList.Count - 1;
             }
 
-            if (PatternQueue.Count > 0 && GlobalDelay < 0)
+            if (PatternQueue.Count > 0 && globalDelay < 0)
             {
                 PatternController controller = PatternQueue.Dequeue();
                 if (controller.IsRunable)
@@ -167,7 +169,7 @@ public class EnemyDefault : UnitDefault
             }
         }
         Statement = "normal";
-        GlobalDelay = 5;
+        globalDelay = 5;
         gameObject.transform.position = DefaultPos;
 
         health = gameObject.AddComponent<HealthDefault>();
