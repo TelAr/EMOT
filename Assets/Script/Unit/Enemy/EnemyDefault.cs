@@ -10,10 +10,8 @@ public class EnemyDefault : UnitDefault
     public bool DefaultPhysicalForcedEnable;
     [Tooltip("Grobal Delay when Pattern is over")]
     public float GlobalDelay;
-    [Tooltip("Front value: HP condition, Second value: Order'\n'" +
-        "Format must be split whitespace, like \"0 1 4 10 7\"... \n" +
-        "Pattern number statr from 0")]
-    public List<KeyValuePair<int, string>> PatternOrderList = new List<KeyValuePair<int, string>>();
+    [Tooltip("Front value: HP condition, Second value: Order'\n'")]
+    public List<KeyValuePair<int, List<int>>> PatternOrderList = new();
 
     //Class to controller pattern
     public class PatternController { 
