@@ -158,10 +158,14 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
+  SetMaxHealth: 0
   Statement: 
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
   GlobalDelay: 0
+  PatternOrderList:
+  - MinimalHP: 0
+    PatternOrder: 00000000010000000200000003000000
   BeamEyePosOffset: {x: 0.15, y: 0.9, z: 0}
 --- !u!114 &4048321170301812747
 MonoBehaviour:

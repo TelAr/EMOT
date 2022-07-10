@@ -5,27 +5,34 @@ using UnityEngine;
 
 public class EnemyDefault : UnitDefault
 {
+    public int SetMaxHealth = 100;
     public string Statement;
     public bool PatternRunning;
     public bool DefaultPhysicalForcedEnable;
     [Tooltip("Grobal Delay when Pattern is over")]
     public float GlobalDelay;
     [Tooltip("Front value: HP condition, Second value: Order'\n'" +
-        "Format must be split whitespace, like \"0 1 4 10 7\"... \n" +
-        "Pattern number statr from 0")]
-    public List<KeyValuePair<int, string>> PatternOrderList = new List<KeyValuePair<int, string>>();
+        "Pattern number start from 0\n")]
+    public List<PatternFormulationContainer> PatternOrderList = new();
+
+    private HealthDefault health = null;
+    private int listPointer = 0;
+    private int patternPointer = 0;
+
+    [System.Serializable]
+    public struct PatternFormulationContainer {
+
+        public int MinimalHP;
+        public List<int> PatternOrder;
+    }
 
     //Class to controller pattern
     public class PatternController { 
     
         PatternDefault pattern;
-        float cooldown = 10f;
-        float timer = 0;
         float max_distance = 0;
         float min_distance = 0;
         float post_delay = 0;
-        int stack = 1;
-        int stackCounter = 0;
         public bool Is_Enabled;
         readonly EnemyDefault enemy;
 
@@ -33,10 +40,6 @@ public class EnemyDefault : UnitDefault
         public PatternController(PatternDefault pattern)
         {
             this.pattern = pattern;
-            this.cooldown = pattern.Cooldown;
-            this.timer = 0;
-            this.stack = pattern.Stack;
-            this.stackCounter = 0;
             this.enemy = pattern.Caster;
             this.max_distance = pattern.MaxDistance;
             this.min_distance = pattern.MinDistance;
@@ -46,47 +49,21 @@ public class EnemyDefault : UnitDefault
 
         public void PatternReset()
         {
-            this.timer = 0;
-            this.stackCounter = 0;
             pattern.Setting();
         }
 
-        public void Tick() {
-
-            float distance = (enemy.gameObject.transform.position - GameController.GetPlayer.transform.position).magnitude;
-
-            UpdatePatternInfo();
-            
-            if (!Is_Enabled) {
-
-                return;
-            }
-
-            if (timer < cooldown)
+        public bool IsRunable {
+            get
             {
-                this.timer += Time.deltaTime;
-            }
-            else
-            {
-                if (stackCounter < stack)
+                float distance = (enemy.transform.position - GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos).magnitude;
+                if (distance > max_distance ||
+                    distance < min_distance)
                 {
-                    enemy.PatternQueue.Enqueue(this);
-                    stackCounter++;
-                    this.timer = 0;
+
+                    return false;
                 }
-
+                return true;
             }
-        }
-
-        public bool IsRunable() {
-
-            float distance = (enemy.transform.position - GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos).magnitude;
-            if (distance > max_distance ||
-                distance < min_distance) { 
-            
-                return false;
-            }
-            return true;
         }
 
         public void Run() {
@@ -94,33 +71,27 @@ public class EnemyDefault : UnitDefault
             pattern.IsMain = true;
             pattern.Run();
             enemy.GlobalDelay = post_delay;
-            stackCounter--;
         }
 
 
         public void ForcedRun() {
-
             pattern.Run();
         }
 
-
         public void UpdatePatternInfo() {
 
-            this.cooldown = pattern.Cooldown;
-            this.stack = pattern.Stack;
             this.max_distance = pattern.MaxDistance;
             this.min_distance = pattern.MinDistance;
             this.post_delay = pattern.PatternPostDelay;
         }
         public string GetPatternName() {
-
             return pattern.ToString();
         }
     }
 
     //Container for pattern
-    public List<PatternController> PatternList;
-    public Queue<PatternController> PatternQueue = new Queue<PatternController>();
+    public List<PatternController> PatternControllerList;
+    public Queue<PatternController> PatternQueue = new ();
 
     protected override void Update()
     {
@@ -128,33 +99,56 @@ public class EnemyDefault : UnitDefault
         base.Update();
         if (!PatternRunning) {
             GlobalDelay -= Time.deltaTime;
-            //call Run() method which is pattern in queue
-            if (PatternQueue.Count > 0&&GlobalDelay<0)
+            if (GlobalDelay > 0) {
+
+                return;
+            }
+
+            if (PatternOrderList.Count == 0) {
+
+                Debug.LogError("ERROR: NO PATTERN ORDER");
+                return;
+            }
+
+            while (listPointer < PatternOrderList.Count && 
+                PatternOrderList[listPointer].MinimalHP < health.GetHealth) { 
+            
+                listPointer++;
+                patternPointer = 0;
+            }
+            if (listPointer >= PatternOrderList.Count) {
+
+                listPointer = PatternOrderList.Count - 1;
+            }
+
+            if (PatternQueue.Count > 0 && GlobalDelay < 0)
             {
                 PatternController controller = PatternQueue.Dequeue();
-                if (controller.IsRunable())
+                if (controller.IsRunable)
                 {
                     controller.Run();
                 }
-                else {
+                else
+                {
 
                     PatternQueue.Enqueue(controller);
                 }
-                
             }
+            else {
+                PatternControllerList[PatternOrderList[listPointer].PatternOrder[patternPointer]].Run();
+                patternPointer++;
+                if (patternPointer >= PatternOrderList[listPointer].PatternOrder.Count) { 
+                
+                    patternPointer = 0;
+                }
+            }
+            
         }
-
-        foreach (PatternController patternController in PatternList)
-        {
-
-            patternController.Tick();
-        }
-
     }
 
     private void Awake()
     {
-        PatternList= new List<PatternController>();
+        PatternControllerList= new List<PatternController>();
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
 
             if (pattern.enabled) {
@@ -166,18 +160,28 @@ public class EnemyDefault : UnitDefault
                 }
                 
                 PatternController PC = new(pattern);
-                PatternList.Add(PC);
+                PatternControllerList.Add(PC);
             }
         }
         Statement = "normal";
-        GlobalDelay = 0;
+        GlobalDelay = 5;
         gameObject.transform.position = DefaultPos;
+
+        health = gameObject.AddComponent<HealthDefault>();
+        health.HealthMax = SetMaxHealth;
+        health.FullHealth();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        listPointer = 0;
+        patternPointer = 0;
+    }
 
     protected virtual void Start()
     {
-        foreach (PatternController pattern in PatternList) {
+        foreach (PatternController pattern in PatternControllerList) {
             
             pattern.PatternReset();
         }

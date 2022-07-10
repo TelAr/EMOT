@@ -48,62 +48,62 @@ public class TestMode : MonoBehaviour
         //스킬 토글
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 0)
+            if (enemy.GetComponent<EnemyDefault>().PatternControllerList.Count > 0)
             {
-                enemy.GetComponent<EnemyDefault>().PatternList[0].Is_Enabled ^= true;
+                enemy.GetComponent<EnemyDefault>().PatternControllerList[0].Is_Enabled ^= true;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
 
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 1)
+            if (enemy.GetComponent<EnemyDefault>().PatternControllerList.Count > 1)
             {
-                enemy.GetComponent<EnemyDefault>().PatternList[1].Is_Enabled ^= true;
+                enemy.GetComponent<EnemyDefault>().PatternControllerList[1].Is_Enabled ^= true;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 2)
+            if (enemy.GetComponent<EnemyDefault>().PatternControllerList.Count > 2)
             {
-                enemy.GetComponent<EnemyDefault>().PatternList[2].Is_Enabled ^= true;
+                enemy.GetComponent<EnemyDefault>().PatternControllerList[2].Is_Enabled ^= true;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
 
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 3)
+            if (enemy.GetComponent<EnemyDefault>().PatternControllerList.Count > 3)
             {
-                enemy.GetComponent<EnemyDefault>().PatternList[3].Is_Enabled ^= true;
+                enemy.GetComponent<EnemyDefault>().PatternControllerList[3].Is_Enabled ^= true;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 4)
+            if (enemy.GetComponent<EnemyDefault>().PatternControllerList.Count > 4)
             {
-                enemy.GetComponent<EnemyDefault>().PatternList[4].Is_Enabled ^= true;
+                enemy.GetComponent<EnemyDefault>().PatternControllerList[4].Is_Enabled ^= true;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
 
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 5)
+            if (enemy.GetComponent<EnemyDefault>().PatternControllerList.Count > 5)
             {
-                enemy.GetComponent<EnemyDefault>().PatternList[5].Is_Enabled ^= true;
+                enemy.GetComponent<EnemyDefault>().PatternControllerList[5].Is_Enabled ^= true;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 6)
+            if (enemy.GetComponent<EnemyDefault>().PatternControllerList.Count > 6)
             {
-                enemy.GetComponent<EnemyDefault>().PatternList[6].Is_Enabled ^= true;
+                enemy.GetComponent<EnemyDefault>().PatternControllerList[6].Is_Enabled ^= true;
             }
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
 
-            if (enemy.GetComponent<EnemyDefault>().PatternList.Count > 7)
+            if (enemy.GetComponent<EnemyDefault>().PatternControllerList.Count > 7)
             {
-                enemy.GetComponent<EnemyDefault>().PatternList[7].Is_Enabled ^= true;
+                enemy.GetComponent<EnemyDefault>().PatternControllerList[7].Is_Enabled ^= true;
             }
         }
 
@@ -189,7 +189,7 @@ public class TestMode : MonoBehaviour
         text = "";
         if (enemy != null)
         {
-            foreach (EnemyDefault.PatternController pc in enemy.GetComponent<EnemyDefault>().PatternList)
+            foreach (EnemyDefault.PatternController pc in enemy.GetComponent<EnemyDefault>().PatternControllerList)
             {
 
                 text += pc.GetPatternName() + ":" + (pc.Is_Enabled ? "O" : "X") + "\n";
