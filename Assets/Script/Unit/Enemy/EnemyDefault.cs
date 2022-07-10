@@ -135,7 +135,10 @@ public class EnemyDefault : UnitDefault
                 }
             }
             else {
-                PatternControllerList[PatternOrderList[listPointer].PatternOrder[patternPointer]].Run();
+                //under 0, OR over list size, set 0
+                PatternControllerList[
+                    PatternOrderList[listPointer].PatternOrder[patternPointer]< PatternControllerList.Count?
+                    (PatternOrderList[listPointer].PatternOrder[patternPointer]<0?0: PatternOrderList[listPointer].PatternOrder[patternPointer]) : 0].Run();
                 patternPointer++;
                 if (patternPointer >= PatternOrderList[listPointer].PatternOrder.Count) { 
                 

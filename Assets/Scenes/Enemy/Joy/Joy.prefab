@@ -118,10 +118,8 @@ MonoBehaviour:
   DefaultPhysicalForcedEnable: 0
   GlobalDelay: 0
   PatternOrderList:
-  - MinimalHP: 50
-    PatternOrder: 0100000003000000020000000400000000000000
   - MinimalHP: 0
-    PatternOrder: 010000000300000002000000
+    PatternOrder: 00000000010000000200000003000000
 --- !u!114 &2188110120337716798
 MonoBehaviour:
   m_ObjectHideFlags: 0
