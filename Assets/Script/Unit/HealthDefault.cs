@@ -8,6 +8,17 @@ public class HealthDefault : MonoBehaviour
 
     protected int health;
     protected float immunTimer = 0;
+
+    public int GetHealth
+    {
+        get { return health; }
+    }
+    public int SetHealth
+    {
+
+        set { health = value < HealthMax ? value : HealthMax; }
+    }
+
     public void Reset()
     {
         HealthMax = 100;
@@ -40,16 +51,6 @@ public class HealthDefault : MonoBehaviour
     {
 
         health = HealthMax;
-    }
-
-    public int GetHealth()
-    {
-
-        return health;
-    }
-    public void SetHealth(int value) { 
-    
-        health = value;
     }
 
     public void SetImmuneTime(float value)
