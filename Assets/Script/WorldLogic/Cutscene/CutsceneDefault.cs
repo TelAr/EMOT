@@ -530,7 +530,7 @@ public class CutsceneDefault : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Q))
                 {
-                    while (!questionController.IsQustionState)
+                    while (!questionController.IsQustionState && IsUpdateable)
                     {
 
                         UpdateCutscene();
