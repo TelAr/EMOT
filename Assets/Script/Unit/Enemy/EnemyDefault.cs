@@ -27,8 +27,8 @@ public class EnemyDefault : UnitDefault
     }
 
     //Class to controller pattern
-    public class PatternController { 
-    
+    public class PatternController {
+
         PatternDefault pattern;
         float max_distance = 0;
         float min_distance = 0;
@@ -110,9 +110,9 @@ public class EnemyDefault : UnitDefault
                 return;
             }
 
-            while (listPointer < PatternOrderList.Count && 
-                PatternOrderList[listPointer].MinimalHP < health.GetHealth) { 
-            
+            while (listPointer < PatternOrderList.Count &&
+                PatternOrderList[listPointer].MinimalHP < health.GetHealth) {
+
                 listPointer++;
                 patternPointer = 0;
             }
@@ -140,12 +140,12 @@ public class EnemyDefault : UnitDefault
                     PatternOrderList[listPointer].PatternOrder[patternPointer]< PatternControllerList.Count?
                     (PatternOrderList[listPointer].PatternOrder[patternPointer]<0?0: PatternOrderList[listPointer].PatternOrder[patternPointer]) : 0].Run();
                 patternPointer++;
-                if (patternPointer >= PatternOrderList[listPointer].PatternOrder.Count) { 
-                
+                if (patternPointer >= PatternOrderList[listPointer].PatternOrder.Count) {
+
                     patternPointer = 0;
                 }
             }
-            
+
         }
     }
 
@@ -161,7 +161,7 @@ public class EnemyDefault : UnitDefault
 
                     continue;
                 }
-                
+
                 PatternController PC = new(pattern);
                 PatternControllerList.Add(PC);
             }
@@ -185,7 +185,7 @@ public class EnemyDefault : UnitDefault
     protected virtual void Start()
     {
         foreach (PatternController pattern in PatternControllerList) {
-            
+
             pattern.PatternReset();
         }
         PatternRunning = false;
