@@ -17,7 +17,7 @@ public class PlayerPhysical : UnitDefault
     public float DashTime;
     public float DashDistance;
     [Header("* For GroundJudge")]
-    public PlayerGroundJedge Jedge;
+    public PlayerGroundJudge Jedge;
 
     //const
     private const float JUMP_TIME = 0.1f;
