@@ -35,6 +35,14 @@ public class Spawner : UnitDefault
         }
     }
 
+    public GameObject GetSpawnedObject {
+
+        get { 
+        
+            return spawnedObject;
+        }
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -43,7 +51,9 @@ public class Spawner : UnitDefault
             spawnedObject=Instantiate(SpawnedObjectModel);
             spawnedObject.SetActive(false);
         }
-        spawnedObject.GetComponent<SpawnedObject>().Caster = Caster;
+        if (spawnedObject.GetComponent<SpawnedObject>() != null) {
+            spawnedObject.GetComponent<SpawnedObject>().Caster = Caster;
+        }
         isHit = false;
         spawnActive = false;
 
@@ -55,8 +65,6 @@ public class Spawner : UnitDefault
     
         
         if (!isHit) {
-
-            transform.position = new Vector2(GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos.x, transform.position.y);
             hit = Physics2D.Raycast(transform.position, new Vector2(0, -1),100,LayerMask.GetMask("Environment"));
             
             if (hit.collider != null)

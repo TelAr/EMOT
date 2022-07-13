@@ -59,7 +59,8 @@ public class EnemyDefault : UnitDefault
             {
                 float distance = (enemy.transform.position - GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos).magnitude;
                 if (distance > max_distance ||
-                    distance < min_distance)
+                    distance < min_distance ||
+                    ! Is_Enabled)
                 {
 
                     return false;
@@ -138,9 +139,13 @@ public class EnemyDefault : UnitDefault
             }
             else {
                 //under 0, OR over list size, set 0
-                PatternControllerList[
-                    PatternOrderList[listPointer].PatternOrder[patternPointer]< PatternControllerList.Count?
-                    (PatternOrderList[listPointer].PatternOrder[patternPointer]<0?0: PatternOrderList[listPointer].PatternOrder[patternPointer]) : 0].Run();
+                PatternController now = PatternControllerList[
+                    PatternOrderList[listPointer].PatternOrder[patternPointer] < PatternControllerList.Count ?
+                    (PatternOrderList[listPointer].PatternOrder[patternPointer] < 0 ? 0 : PatternOrderList[listPointer].PatternOrder[patternPointer]) : 0];
+                if (now.IsRunable) {
+                    now.Run();
+                }
+
                 patternPointer++;
                 if (patternPointer >= PatternOrderList[listPointer].PatternOrder.Count) {
 

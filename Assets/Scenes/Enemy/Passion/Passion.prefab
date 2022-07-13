@@ -173,10 +173,9 @@ MonoBehaviour:
   Statement: 
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
-  GlobalDelay: 0
   PatternOrderList:
   - MinimalHP: 0
-    PatternOrder: 0000000001000000
+    PatternOrder: 000000000100000002000000
 --- !u!114 &-4024485561096134384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,8 +234,6 @@ MonoBehaviour:
   Predelay: 0.5
   ExlopsionDelay: 2
   DamageJudgeTime: 0.1
-  timer: 0
-  step: 0
 --- !u!114 &5239864012333907858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,21 +241,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487187792511923785}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ba642fa27e890e46ac62133842affb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 0
+  Cooldown: 8
   Stack: 1
-  MaxDistance: 0
+  MaxDistance: 100
   MinDistance: 0
-  PatternPostDelay: 0
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
-  PatternPositionList: []
+  PatternPositionList:
+  - {x: 14, y: -4, z: 0}
+  - {x: -14, y: -4, z: 0}
   GiantAuraSpawnerModel: {fileID: 5977235011082994025, guid: 0fa8dcccc63f19a41b8c3bc0d6411a21, type: 3}
-  PreDelay: 0
-  SpanwnOffsetPosition: {x: 0, y: 0, z: 0}
+  PreDelay: 2
+  AuraBeginVel: 5
+  AuraAccelVel: 20
+  AuraAccelDelay: 1
+  SpanwnOffsetPosition: {x: 0, y: 2, z: 0}

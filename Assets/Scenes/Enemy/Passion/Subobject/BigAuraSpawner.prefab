@@ -90,6 +90,6 @@ MonoBehaviour:
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
   Speed: 50
-  SpawnedObjectModel: {fileID: 0}
+  SpawnedObjectModel: {fileID: 1074318859612422742, guid: eba34304e6eed234eab62ae3962de55c, type: 3}
   Caster: {fileID: 0}
   IsCollisionTriggerObject: 0
