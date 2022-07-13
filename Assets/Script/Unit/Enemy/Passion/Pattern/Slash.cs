@@ -14,11 +14,9 @@ public class Slash : PatternDefault
 
     private GameObject slashMain = null;
     private GameObject slashJudge = null;
-
-    [SerializeField]
+    private float transparencyDelayRatio=0.9f;
     private float timer = 0;
     private float phisicalTimer = 0;
-    [SerializeField]
     private int step = 0;
     private int direction = 1;
 
@@ -101,6 +99,15 @@ public class Slash : PatternDefault
                     }
                     break;
                 case 1:
+                    if (timer < ExlopsionDelay * transparencyDelayRatio)
+                    {
+
+                        slashJudge.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, (1f - timer / (ExlopsionDelay * transparencyDelayRatio)) * 0.9f + 0.1f);
+                    }
+                    else {
+
+                        slashJudge.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, ((timer- ExlopsionDelay * transparencyDelayRatio) / (ExlopsionDelay * (1f- transparencyDelayRatio))) * 0.9f + 0.1f);
+                    }
                     if (timer > ExlopsionDelay) {
 
                         slashJudge.GetComponent<Damage>().IsEffected = true;
@@ -123,4 +130,6 @@ public class Slash : PatternDefault
             }
         }
     }
+
+
 }
