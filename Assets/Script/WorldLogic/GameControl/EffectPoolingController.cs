@@ -15,10 +15,12 @@ public class EffectPoolingController : MonoBehaviour
     public GameObject ExplosionModel;
     public GameObject PsychicExplosionModel;
     public GameObject LineRendererModel;
+    public GameObject WarningSignModel;
 
-    private List<GameObject> ExplosionList = new List<GameObject>();
-    private List<GameObject> PsychicExplosionList = new List<GameObject>();
-    private List<GameObject> LineRendererList = new List<GameObject>();
+    private List<GameObject> ExplosionList = new();
+    private List<GameObject> PsychicExplosionList = new();
+    private List<GameObject> LineRendererList = new();
+    private List <GameObject> WarningSignList = new();
 
     static public EffectPoolingController Instance {
         get {
@@ -39,23 +41,7 @@ public class EffectPoolingController : MonoBehaviour
     public GameObject GetExplosion(float SoundVolume = 1f, AudioClip audioClip = null)
     {
 
-        GameObject explosion = null;
-        foreach (GameObject obj in ExplosionList)
-        {
-
-            if (!obj.activeSelf)
-            {
-
-                explosion = obj;
-                break;
-            }
-        }
-        if (explosion == null)
-        {
-            explosion = Instantiate(ExplosionModel, gameObject.transform);
-            ExplosionList.Add(explosion);
-        }
-
+        GameObject explosion = CallObject(ref ExplosionList, ExplosionModel);
 
         if (explosion.GetComponent<Explosion>() != null)
         {
@@ -70,23 +56,7 @@ public class EffectPoolingController : MonoBehaviour
     public GameObject GetPsychicExplosion(float SoundVolume = 1f, AudioClip audioClip = null)
     {
 
-        GameObject explosion = null;
-        foreach (GameObject obj in PsychicExplosionList)
-        {
-
-            if (!obj.activeSelf)
-            {
-
-                explosion = obj;
-                break;
-            }
-        }
-        if (explosion == null)
-        {
-            explosion = Instantiate(PsychicExplosionModel, gameObject.transform);
-            PsychicExplosionList.Add(explosion);
-        }
-
+        GameObject explosion = CallObject(ref PsychicExplosionList, PsychicExplosionModel);
 
         if (explosion.GetComponent<Explosion>() != null)
         {
@@ -101,22 +71,7 @@ public class EffectPoolingController : MonoBehaviour
     public GameObject GetLineRenderer(KeyValuePair<Vector3, Vector3>? value=null)
     {
 
-        GameObject lineRenderer = null;
-        foreach (GameObject obj in LineRendererList)
-        {
-
-            if (!obj.activeSelf)
-            {
-
-                lineRenderer = obj;
-                break;
-            }
-        }
-        if (lineRenderer == null)
-        {
-            lineRenderer = Instantiate(LineRendererModel, gameObject.transform);
-            LineRendererList.Add(lineRenderer);
-        }
+        GameObject lineRenderer = CallObject(ref LineRendererList, LineRendererModel);
 
         if (lineRenderer.GetComponent<LineRenderer>() != null) {
 
@@ -130,17 +85,52 @@ public class EffectPoolingController : MonoBehaviour
                 lineRenderer.GetComponent<LineRenderer>().SetPosition(0, Vector3.zero);
                 lineRenderer.GetComponent<LineRenderer>().SetPosition(1, Vector3.zero);
             }
-
         }
-
-
         lineRenderer.SetActive(true);
-
         return lineRenderer;
+    }
+
+    public GameObject GetWarningSign(Vector3 position, Vector3 scale, float solidTime, float blinkTime=0, float BlinkCount=0) { 
+    
+        GameObject warningSign = CallObject(ref WarningSignList, WarningSignModel);
+
+        if (warningSign.GetComponent<WarningObject>() != null) {
+
+            warningSign.GetComponent<WarningObject>().SolidTime = solidTime;
+            warningSign.GetComponent<WarningObject>().BlinkTime = blinkTime;
+            warningSign.GetComponent<WarningObject>().BlinkCount = BlinkCount;
+        }
+        warningSign.transform.position = position;
+        warningSign.transform.localScale = scale;
+
+        return warningSign;
     }
 
 
 
+    private GameObject CallObject(ref List<GameObject> golist, GameObject model)
+    {
+        GameObject gameObj = null;
+
+        foreach (GameObject obj in golist)
+        {
+
+            if (!obj.activeSelf)
+            {
+
+                gameObj = obj;
+                break;
+            }
+        }
+        if (gameObj == null)
+        {
+            gameObj = Instantiate(model, gameObject.transform);
+            golist.Add(gameObj);
+        }
+
+        return gameObj;
+
+    }
 
     public void DestroyAllEffectObject() {
 
