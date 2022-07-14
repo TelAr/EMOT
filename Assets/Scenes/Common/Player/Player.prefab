@@ -280,6 +280,7 @@ MonoBehaviour:
   FireOffsetPosition: {x: 0, y: 0.5, z: 0}
   ParryingJudgeTime: 0.1
   ParryingImmuneTime: 0.5
+  ParryingPostDelay: 1
   IsLimited: 0
 --- !u!114 &-4369695278841071617
 MonoBehaviour:

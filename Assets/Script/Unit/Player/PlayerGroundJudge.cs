@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGroundJedge : MonoBehaviour
+public class PlayerGroundJudge : MonoBehaviour
 {
 
     public bool IsGround

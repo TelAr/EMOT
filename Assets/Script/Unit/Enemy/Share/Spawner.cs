@@ -14,7 +14,6 @@ public class Spawner : UnitDefault
     private bool spawnActive = false;
     private bool isHit = false;
     private GameObject spawnedObject = null;
-    private Rigidbody2D rb = null;
     private Vector2 SpawnPoint;
 
     //function that need to call which need infomation of spawned position
@@ -42,9 +41,9 @@ public class Spawner : UnitDefault
         if (spawnedObject == null) {
 
             spawnedObject=Instantiate(SpawnedObjectModel);
-            spawnedObject.GetComponent<SpawnedObject>().Caster = Caster;
             spawnedObject.SetActive(false);
         }
+        spawnedObject.GetComponent<SpawnedObject>().Caster = Caster;
         isHit = false;
         spawnActive = false;
 

@@ -17,7 +17,7 @@ public class GiantAura : PatternDefault
 
     private void OnCollisionEnter2D(Collision2D collision) {
 
-        if (collision.collider.CompareTag("Ground") && step == 0)  {
+        if (collision.collider.CompareTag("Block") && step == 0)  {
 
             step = 1;
         }

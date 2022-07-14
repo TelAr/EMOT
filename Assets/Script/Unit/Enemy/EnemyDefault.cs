@@ -1,32 +1,40 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-* Pattern Type: Obsever(ibservable)
-* This class has interface that call PatternDefault class.
- * When PatternDefault is attached by Gameobject which this class is already attached,
- * PatternDefault is added by patternList on EnemyDefault, and Run method which is in PatternDefault is called by EnemyDefault.
-*/
+
 public class EnemyDefault : UnitDefault
 {
+    public int SetMaxHealth = 100;
     public string Statement;
     public bool PatternRunning;
     public bool DefaultPhysicalForcedEnable;
-    [Tooltip("Grobal Delay when Pattern is over")]
-    public float GlobalDelay;
+
+    [InfoBox("Pattern number start from 0\n"+
+        "Pattern Order value must be under PatternListSize and non negative value.\n" +
+        "If not, index 0 pattern is called.", EInfoBoxType.Normal)]
+    public List<PatternFormulationContainer> PatternOrderList = new();
+
+    private HealthDefault health = null;
+    private float globalDelay;
+    private int listPointer = 0;
+    private int patternPointer = 0;
+
+    [System.Serializable]
+    public struct PatternFormulationContainer {
+
+        public int MinimalHP;
+        public List<int> PatternOrder;
+    }
 
     //Class to controller pattern
-    public class PatternController { 
-    
+    public class PatternController {
+
         PatternDefault pattern;
-        float cooldown = 10f;
-        float timer = 0;
         float max_distance = 0;
         float min_distance = 0;
         float post_delay = 0;
-        int stack = 1;
-        int stackCounter = 0;
         public bool Is_Enabled;
         readonly EnemyDefault enemy;
 
@@ -34,10 +42,6 @@ public class EnemyDefault : UnitDefault
         public PatternController(PatternDefault pattern)
         {
             this.pattern = pattern;
-            this.cooldown = pattern.Cooldown;
-            this.timer = 0;
-            this.stack = pattern.Stack;
-            this.stackCounter = 0;
             this.enemy = pattern.Caster;
             this.max_distance = pattern.MaxDistance;
             this.min_distance = pattern.MinDistance;
@@ -47,115 +51,109 @@ public class EnemyDefault : UnitDefault
 
         public void PatternReset()
         {
-            this.timer = 0;
-            this.stackCounter = 0;
             pattern.Setting();
         }
 
-        public void Tick() {
-
-            float distance = (enemy.gameObject.transform.position - GameController.GetPlayer.transform.position).magnitude;
-
-            UpdatePatternInfo();
-            
-            if (!Is_Enabled) {
-
-                return;
-            }
-
-            if (timer < cooldown)
+        public bool IsRunable {
+            get
             {
-                this.timer += Time.deltaTime;
-            }
-            else
-            {
-                if (stackCounter < stack)
+                float distance = (enemy.transform.position - GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos).magnitude;
+                if (distance > max_distance ||
+                    distance < min_distance)
                 {
-                    enemy.PatternQueue.Enqueue(this);
-                    stackCounter++;
-                    this.timer = 0;
+
+                    return false;
                 }
-
+                return true;
             }
-        }
-
-        public bool IsRunable() {
-
-            float distance = (enemy.transform.position - GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos).magnitude;
-            if (distance > max_distance ||
-                distance < min_distance) { 
-            
-                return false;
-            }
-            return true;
         }
 
         public void Run() {
 
             pattern.IsMain = true;
             pattern.Run();
-            enemy.GlobalDelay = post_delay;
-            stackCounter--;
+            enemy.globalDelay = post_delay;
         }
 
 
         public void ForcedRun() {
-
             pattern.Run();
         }
 
-
         public void UpdatePatternInfo() {
 
-            this.cooldown = pattern.Cooldown;
-            this.stack = pattern.Stack;
             this.max_distance = pattern.MaxDistance;
             this.min_distance = pattern.MinDistance;
             this.post_delay = pattern.PatternPostDelay;
         }
         public string GetPatternName() {
-
             return pattern.ToString();
         }
     }
 
     //Container for pattern
-    public List<PatternController> PatternList;
-    public Queue<PatternController> PatternQueue = new Queue<PatternController>();
+    public List<PatternController> PatternControllerList;
+    public Queue<PatternController> PatternQueue = new ();
 
     protected override void Update()
     {
 
         base.Update();
         if (!PatternRunning) {
-            GlobalDelay -= Time.deltaTime;
-            //call Run() method which is pattern in queue
-            if (PatternQueue.Count > 0&&GlobalDelay<0)
+            globalDelay -= Time.deltaTime;
+            if (globalDelay > 0) {
+
+                return;
+            }
+
+            if (PatternOrderList.Count == 0) {
+
+                Debug.LogError("ERROR: NO PATTERN ORDER");
+                return;
+            }
+
+            while (listPointer < PatternOrderList.Count &&
+                PatternOrderList[listPointer].MinimalHP < health.GetHealth) {
+
+                listPointer++;
+                patternPointer = 0;
+            }
+            if (listPointer >= PatternOrderList.Count) {
+
+                listPointer = PatternOrderList.Count - 1;
+            }
+
+            if (PatternQueue.Count > 0 && globalDelay < 0)
             {
                 PatternController controller = PatternQueue.Dequeue();
-                if (controller.IsRunable())
+                if (controller.IsRunable)
                 {
                     controller.Run();
                 }
-                else {
+                else
+                {
 
                     PatternQueue.Enqueue(controller);
                 }
-                
             }
+            else {
+                //under 0, OR over list size, set 0
+                PatternControllerList[
+                    PatternOrderList[listPointer].PatternOrder[patternPointer]< PatternControllerList.Count?
+                    (PatternOrderList[listPointer].PatternOrder[patternPointer]<0?0: PatternOrderList[listPointer].PatternOrder[patternPointer]) : 0].Run();
+                patternPointer++;
+                if (patternPointer >= PatternOrderList[listPointer].PatternOrder.Count) {
+
+                    patternPointer = 0;
+                }
+            }
+
         }
-
-        foreach (PatternController patternController in PatternList)
-        {
-
-            patternController.Tick();
-        }
-
     }
 
     private void Awake()
     {
-        PatternList= new List<PatternController>();
+        PatternControllerList= new List<PatternController>();
         foreach (PatternDefault pattern in gameObject.GetComponents<PatternDefault>()) {
 
             if (pattern.enabled) {
@@ -165,21 +163,31 @@ public class EnemyDefault : UnitDefault
 
                     continue;
                 }
-                
+
                 PatternController PC = new(pattern);
-                PatternList.Add(PC);
+                PatternControllerList.Add(PC);
             }
         }
         Statement = "normal";
-        GlobalDelay = 0;
+        globalDelay = 5;
         gameObject.transform.position = DefaultPos;
+
+        health = gameObject.AddComponent<HealthDefault>();
+        health.HealthMax = SetMaxHealth;
+        health.FullHealth();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        listPointer = 0;
+        patternPointer = 0;
+    }
 
     protected virtual void Start()
     {
-        foreach (PatternController pattern in PatternList) {
-            
+        foreach (PatternController pattern in PatternControllerList) {
+
             pattern.PatternReset();
         }
         PatternRunning = false;

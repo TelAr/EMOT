@@ -77,8 +77,9 @@ public class SunkenFearObject : SpawnedObject
                 break;
             case 4:
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("SunkenCloseAnimation") 
-                    && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f) { 
-                
+                    && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f) {
+
+                    Caster.Stop();
                     gameObject.SetActive(false);
                 }
                 break;

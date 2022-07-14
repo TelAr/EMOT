@@ -34,7 +34,10 @@ public class PlayerAction : MonoBehaviour
     [Header("* Parrying")]
     public float ParryingJudgeTime = 0.1f;
     public float ParryingImmuneTime = 0.5f;
+    public float ParryingPostDelay = 1f;
+    public float ParryingHurtUnableDelay = 0.2f;
     private float parryingJudgeTimer = 0f;
+    private float parryingUnableTimer = 0f;
 
     [Header("* Action limit")]
     public bool IsLimited = false;
@@ -83,6 +86,7 @@ public class PlayerAction : MonoBehaviour
         if (parryingJudgeTimer > 0) {
 
             pa.ParryingSuccessPlay();
+            parryingUnableTimer = 0;
             parryingJudgeTimer = 0;
             return true;
         }
@@ -92,18 +96,33 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
+    public float SetParryingUnableTime {
+
+        set {
+
+            parryingUnableTimer = Mathf.Max(parryingUnableTimer, value);
+        }
+    }
+
+    public bool GetParryingEnable
+    {
+        get {
+
+            return parryingUnableTimer <= 0;
+        }
+    }
+
     public void OnFire(InputValue value) {
 
         if (isStop) 
         {
             return;
         }
-        if (bulletAmount <= 0)
+        else if (bulletAmount <= 0)
         {
             pa.NoAmmoPlay();
             return;
         }
-
 
         if (value.isPressed)
         {
@@ -192,7 +211,8 @@ public class PlayerAction : MonoBehaviour
             return;
         }
 
-        if (staminaValue < ParryingCost) {
+        if (staminaValue < ParryingCost
+            || parryingUnableTimer > 0)  {
             pa.ErrorPlay();
             return;
         }
@@ -200,6 +220,7 @@ public class PlayerAction : MonoBehaviour
         staminaValue -= ParryingCost;
 
         parryingJudgeTimer = ParryingImmuneTime;
+        parryingUnableTimer = ParryingPostDelay;
     }
 
 
@@ -223,6 +244,10 @@ public class PlayerAction : MonoBehaviour
         }
         staminaSlider.value = staminaValue;
 
+        if (parryingUnableTimer > 0)
+        {
+            parryingUnableTimer -= Time.deltaTime;
+        }
 
         if (bulletAmount <= 0)
         {

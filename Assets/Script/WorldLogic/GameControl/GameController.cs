@@ -27,7 +27,7 @@ public class GameController : MonoBehaviour
     static private GameObject player;
 
     [SerializeField]
-    private int TimeStopCounter;
+    private int timeStopCounter;
     private float TimeScale = 1f;
     private int eventCounter = 0;
 
@@ -64,7 +64,7 @@ public class GameController : MonoBehaviour
             gameObject.GetComponent<TestMode>().Awake();
         }
 
-        TimeStopCounter = 0;
+        timeStopCounter = 0;
         eventCounter = 0;
         DontDestroyOnLoad(gameObject);
     }
@@ -89,6 +89,14 @@ public class GameController : MonoBehaviour
         get { 
         
             return eventCounter > 0;
+        }
+    }
+
+    public bool IsSystemPause
+    {
+        get {
+
+            return timeStopCounter > 0;
         }
     }
 
@@ -126,7 +134,7 @@ public class GameController : MonoBehaviour
         else
         {
             eventCounter--;
-            if (TimeStopCounter <= 0&& eventCounter<=0)
+            if (timeStopCounter <= 0&& eventCounter<=0)
             {
 
                 TimeSetting(TimeScale);
@@ -139,7 +147,7 @@ public class GameController : MonoBehaviour
 
         if (IsStop)
         {
-            TimeStopCounter++;
+            timeStopCounter++;
             TimeSetting(0);
             if (player != null)
             {
@@ -148,10 +156,10 @@ public class GameController : MonoBehaviour
         }
         else { 
         
-            TimeStopCounter--;
-            if (TimeStopCounter <= 0) {
+            timeStopCounter--;
+            if (timeStopCounter <= 0) {
 
-                if (TimeStopCounter <= 0 && eventCounter <= 0) {
+                if (timeStopCounter <= 0 && eventCounter <= 0) {
                     TimeSetting(TimeScale);
                 }
                 if (player != null) {

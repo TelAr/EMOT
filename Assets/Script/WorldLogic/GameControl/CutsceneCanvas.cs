@@ -9,6 +9,11 @@ public class CutsceneCanvas : MonoBehaviour
     static public CutsceneCanvas instance = null;
     public TextMeshProUGUI Speaker, contents;
     public RawImage Left, Right;
+    public GameObject LogPanel;
+    public ScrollRect LogScrollRect;
+    public TextMeshProUGUI LogTMP;
+    public List<TextMeshProUGUI> Answers;
+    public float AutoTime = 3f;
     private void Awake()
     {
         
@@ -18,6 +23,7 @@ public class CutsceneCanvas : MonoBehaviour
             return;
         }
         instance = this;
+        LogPanel.SetActive(false);
         gameObject.SetActive(false);
     }
 
