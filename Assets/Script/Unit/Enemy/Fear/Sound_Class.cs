@@ -36,7 +36,7 @@ public class Sound_Class : MonoBehaviour
             controller.PlayTime = FULLTIME;
         }
 
-        public void playLoop()
+        public AudioSource playLoop()
         {
             AudioController controller = GetAudioController();
 
@@ -50,6 +50,8 @@ public class Sound_Class : MonoBehaviour
 
             controller.StartTiming = mAudioSource.time;
             controller.PlayTime = FULLTIME;
+
+            return mAudioSource;
         }
 
         public string GetName()

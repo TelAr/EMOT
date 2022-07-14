@@ -18,7 +18,6 @@ public class Sound_manager : MonoBehaviour
         sounds = load_audio(path);
     }
 
-
     private AudioClip[] load_audio(string obj_path)
     {
         Match match = Regex.Match(obj_path, "Assets/Resources/.*");
@@ -54,9 +53,9 @@ public class Sound_manager : MonoBehaviour
         return result;
     }
 
-    public bool PlayLoop(string sound_name)
+    public AudioSource PlayLoop(string sound_name)
     {
-        bool result = false;
+        AudioSource result = null;
 
         GameObject soundObject = gameObject.transform.Find("Sounds").gameObject;
 
@@ -65,8 +64,7 @@ public class Sound_manager : MonoBehaviour
         {
             if (Equals(sound.Name, sound_name))
             {
-                sound.playLoop();
-                result = true;
+                result = sound.playLoop();
             }
         }
 
