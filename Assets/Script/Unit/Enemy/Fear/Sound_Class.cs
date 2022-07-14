@@ -36,6 +36,22 @@ public class Sound_Class : MonoBehaviour
             controller.PlayTime = FULLTIME;
         }
 
+        public void playLoop()
+        {
+            AudioController controller = GetAudioController();
+
+            AudioSource mAudioSource = controller.Audio;
+            mAudioSource.Stop();
+            mAudioSource.clip = this.Clip;
+            mAudioSource.time = this.Time;
+            mAudioSource.volume = this.Volume;
+            mAudioSource.loop = true;
+            mAudioSource.Play();
+
+            controller.StartTiming = mAudioSource.time;
+            controller.PlayTime = FULLTIME;
+        }
+
         public string GetName()
         {
             return Name;

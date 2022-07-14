@@ -53,5 +53,24 @@ public class Sound_manager : MonoBehaviour
 
         return result;
     }
+
+    public bool PlayLoop(string sound_name)
+    {
+        bool result = false;
+
+        GameObject soundObject = gameObject.transform.Find("Sounds").gameObject;
+
+        Sound_Class.Sound_subClass[] sound_list = soundObject.GetComponents<Sound_Class.Sound_subClass>();
+        foreach (Sound_Class.Sound_subClass sound in sound_list)
+        {
+            if (Equals(sound.Name, sound_name))
+            {
+                sound.playLoop();
+                result = true;
+            }
+        }
+
+        return result;
+    }
 }
  
