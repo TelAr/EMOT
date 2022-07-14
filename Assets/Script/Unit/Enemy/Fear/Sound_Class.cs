@@ -21,7 +21,7 @@ public class Sound_Class : MonoBehaviour
             this.Volume = Volume * MasterVolume * EffectVolume * VolumeOffset;
         }
 
-        public void play()
+        public AudioSource play()
         {
             AudioController controller = GetAudioController();
 
@@ -34,6 +34,8 @@ public class Sound_Class : MonoBehaviour
 
             controller.StartTiming = mAudioSource.time;
             controller.PlayTime = FULLTIME;
+
+            return mAudioSource;
         }
 
         public AudioSource playLoop()

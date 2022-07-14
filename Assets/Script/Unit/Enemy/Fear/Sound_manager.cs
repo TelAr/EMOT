@@ -15,10 +15,10 @@ public class Sound_manager : MonoBehaviour
     void Start()
     {
         string path = AssetDatabase.GetAssetPath(sound_path);
-        sounds = load_audio(path);
+        sounds = Load_audio(path);
     }
 
-    private AudioClip[] load_audio(string obj_path)
+    private AudioClip[] Load_audio(string obj_path)
     {
         Match match = Regex.Match(obj_path, "Assets/Resources/.*");
         if (match.Success)
@@ -34,22 +34,15 @@ public class Sound_manager : MonoBehaviour
         return Resources.LoadAll<AudioClip>(obj_path);
     }
 
-    public bool Play(string sound_name)
+    public AudioSource Play(string sound_name)
     {
-        bool result = false;
+        AudioSource result = null;
 
-        GameObject soundObject = gameObject.transform.Find("Sounds").gameObject;
-
-        Sound_Class.Sound_subClass[] sound_list = soundObject.GetComponents<Sound_Class.Sound_subClass>();
-        foreach (Sound_Class.Sound_subClass sound in sound_list)
+        Sound_Class.Sound_subClass subClass = GetSubClass(sound_name);
+        if (subClass != null)
         {
-            if(Equals(sound.Name, sound_name))
-            {
-                sound.play();
-                result = true;
-            }
+            result = subClass.play();
         }
-
         return result;
     }
 
@@ -57,14 +50,43 @@ public class Sound_manager : MonoBehaviour
     {
         AudioSource result = null;
 
-        GameObject soundObject = gameObject.transform.Find("Sounds").gameObject;
+        Sound_Class.Sound_subClass subClass = GetSubClass(sound_name);
+        if (subClass != null)
+        {
+            result = subClass.playLoop();
+        }
+        return result;
+    }
 
-        Sound_Class.Sound_subClass[] sound_list = soundObject.GetComponents<Sound_Class.Sound_subClass>();
+    public bool IsSound(string sound_name)
+    {
+        bool result = false;
+
+        if (GetSubClass(sound_name))
+        {
+            result = true;
+        }
+
+        return result;
+    }
+
+    public Sound_Class.Sound_subClass[] GetSubClassList()
+    {
+        GameObject soundObject = gameObject.transform.Find("Sounds").gameObject;
+        return soundObject.GetComponents<Sound_Class.Sound_subClass>();
+    }
+
+    public Sound_Class.Sound_subClass GetSubClass(string sound_name)
+    {
+        Sound_Class.Sound_subClass result = null;
+
+        Sound_Class.Sound_subClass[] sound_list = GetSubClassList();
+
         foreach (Sound_Class.Sound_subClass sound in sound_list)
         {
             if (Equals(sound.Name, sound_name))
             {
-                result = sound.playLoop();
+                result = sound;
             }
         }
 
