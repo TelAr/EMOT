@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using System.Text.RegularExpressions;
 
 public class Sound_manager : MonoBehaviour
 {
     public Object sound_path;
 
-    public List<Sound_Class> sounds;
+    public AudioClip[] sounds;
 
     // Start is called before the first frame update
     void Start()
@@ -17,45 +18,39 @@ public class Sound_manager : MonoBehaviour
         sounds = load_audio(path);
     }
 
-    private List<Sound_Class> load_audio(string obj_path)
+
+    private AudioClip[] load_audio(string obj_path)
     {
-        string[] folders = Directory.GetFiles(obj_path);
-        List<Sound_Class> list = new();
-
-        foreach (string folder in folders)
+        Match match = Regex.Match(obj_path, "Assets/Resources/.*");
+        if (match.Success)
         {
-            int len = folder.Length - 4;
-            if (!Equals(folder[len..], "meta"))
-            {
-                if (Equals(AssetDatabase.GetMainAssetTypeAtPath(folder).Name, "DefaultAsset"))
-                {
-
-                }
-                else if (Equals(AssetDatabase.GetMainAssetTypeAtPath(folder).Name, "AudioClip"))
-                {
-                    string temp_path = folder.Replace("Assets/Resources/", "").Split(".")[0].Replace("\\", "/");
-                    string[] split_path = temp_path.Split("/");
-                    //Sound_Class clip = new Sound_Class(split_path[split_path.Length - 1], Resources.Load<AudioClip>(temp_path)); ;
-                    Sound_Class clip = gameObject.AddComponent<Sound_Class>();
-                    clip.Init(split_path[split_path.Length - 1], Resources.Load<AudioClip>(temp_path));
-                    list.Add(clip);
-                }
-            }
+            obj_path = obj_path[17..];
         }
-        return list;
+        GameObject soundObject = new GameObject("Sounds");
+        soundObject.transform.parent = gameObject.transform;
+
+        Sound_Class sound_Class = soundObject.AddComponent<Sound_Class>();
+        sound_Class.Init(Resources.LoadAll<AudioClip>(obj_path));
+
+        return Resources.LoadAll<AudioClip>(obj_path);
     }
 
     public bool Play(string sound_name)
     {
         bool result = false;
-        foreach(Sound_Class temp_sound_class in sounds)
+
+        GameObject soundObject = gameObject.transform.Find("Sounds").gameObject;
+
+        Sound_Class.Sound_subClass[] sound_list = soundObject.GetComponents<Sound_Class.Sound_subClass>();
+        foreach (Sound_Class.Sound_subClass sound in sound_list)
         {
-            if(Equals(temp_sound_class.GetName(), sound_name))
+            if(Equals(sound.Name, sound_name))
             {
-                temp_sound_class.play();
+                sound.play();
                 result = true;
             }
         }
+
         return result;
     }
 }
