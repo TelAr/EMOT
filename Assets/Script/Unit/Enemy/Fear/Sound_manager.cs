@@ -7,31 +7,44 @@ using System.Text.RegularExpressions;
 
 public class Sound_manager : MonoBehaviour
 {
-    public Object sound_path;
+    public AudioClip[] sound_list;
+    public Object[] sound_path_list;
 
-    public AudioClip[] sounds;
+    private GameObject soundObject;
+    private Sound_Class sound_Class;
 
     // Start is called before the first frame update
     void Start()
     {
-        string path = AssetDatabase.GetAssetPath(sound_path);
-        sounds = Load_audio(path);
+        Init();
     }
 
-    private AudioClip[] Load_audio(string obj_path)
+    private void Init()
+    {
+        soundObject = new("Sounds");
+        soundObject.transform.parent = gameObject.transform;
+
+        sound_Class = soundObject.AddComponent<Sound_Class>();
+            
+        sound_Class.Add(sound_list);
+
+        foreach (Object sound_path in sound_path_list)
+        {
+            Load_audio(AssetDatabase.GetAssetPath(sound_path));
+        }
+    }
+
+    private void Load_audio(string obj_path)
     {
         Match match = Regex.Match(obj_path, "Assets/Resources/.*");
         if (match.Success)
         {
             obj_path = obj_path[17..];
         }
-        GameObject soundObject = new GameObject("Sounds");
-        soundObject.transform.parent = gameObject.transform;
 
-        Sound_Class sound_Class = soundObject.AddComponent<Sound_Class>();
-        sound_Class.Init(Resources.LoadAll<AudioClip>(obj_path));
+        sound_Class.Add(Resources.LoadAll<AudioClip>(obj_path));
 
-        return Resources.LoadAll<AudioClip>(obj_path);
+        return;
     }
 
     public AudioSource Play(string sound_name)
@@ -41,7 +54,7 @@ public class Sound_manager : MonoBehaviour
         Sound_Class.Sound_subClass subClass = GetSubClass(sound_name);
         if (subClass != null)
         {
-            result = subClass.play();
+            result = subClass.Play();
         }
         return result;
     }
@@ -53,7 +66,7 @@ public class Sound_manager : MonoBehaviour
         Sound_Class.Sound_subClass subClass = GetSubClass(sound_name);
         if (subClass != null)
         {
-            result = subClass.playLoop();
+            result = subClass.PlayLoop();
         }
         return result;
     }

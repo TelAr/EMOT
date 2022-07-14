@@ -18,7 +18,6 @@ GameObject:
   - component: {fileID: -1309302787006888206}
   - component: {fileID: 2202508487501896863}
   - component: {fileID: 1975499460036246535}
-  - component: {fileID: 1626075456479159254}
   - component: {fileID: -2403609656240304995}
   m_Layer: 7
   m_Name: Fear
@@ -163,7 +162,6 @@ MonoBehaviour:
   Statement: 
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
-  GlobalDelay: 0
   PatternOrderList:
   - MinimalHP: 0
     PatternOrder: 00000000010000000200000003000000
@@ -301,26 +299,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Normal: {fileID: 21300000, guid: 9152d1a1905b01b41bc0771553000a3d, type: 3}
---- !u!114 &1626075456479159254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8085210604569707331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f92de845875aab143925f3b03b705ee4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Beam_groundAudio: {fileID: 8300000, guid: 8a03bda57891c084785a191d20d37d15, type: 3}
-  Beam_groundAudioVolumeOffset: 1
-  EyebeamAudio: {fileID: 8300000, guid: 669f8848d0ca52743a82c3191dc463e8, type: 3}
-  EyebeamAudioVolumeOffset: 1
-  ExplosionAudio: {fileID: 8300000, guid: 887ef185710975148819486b72b27b76, type: 3}
-  ExplosionAudioVolumeOffset: 1
-  Void_openAudio: {fileID: 8300000, guid: acc0a5af2f8b13c42b72a90ecf710edf, type: 3}
-  Void_openAudioVolumeOffset: 1
 --- !u!114 &-2403609656240304995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,5 +311,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d5c939ac7133a4c95c3220dd1ae7a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sound_path: {fileID: 102900000, guid: 1ec87177ebab89d42884ddcb5c92e11d, type: 3}
-  sounds: []
+  sound_list: []
+  sound_path_list:
+  - {fileID: 102900000, guid: 1ec87177ebab89d42884ddcb5c92e11d, type: 3}

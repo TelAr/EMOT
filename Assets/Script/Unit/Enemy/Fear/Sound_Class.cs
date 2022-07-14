@@ -21,7 +21,7 @@ public class Sound_Class : MonoBehaviour
             this.Volume = Volume * MasterVolume * EffectVolume * VolumeOffset;
         }
 
-        public AudioSource play()
+        public AudioSource Play()
         {
             AudioController controller = GetAudioController();
 
@@ -38,7 +38,7 @@ public class Sound_Class : MonoBehaviour
             return mAudioSource;
         }
 
-        public AudioSource playLoop()
+        public AudioSource PlayLoop()
         {
             AudioController controller = GetAudioController();
 
@@ -62,16 +62,7 @@ public class Sound_Class : MonoBehaviour
         }
     }
 
-    /*public void test()
-    {
-        List<Sound_test> sl = new();
-        for(int i = 0; i < 10; i++)
-        {
-            sl.Add(new Sound_test(i.ToString()));
-        }
-    }*/
-
-    public void Init(AudioClip[] sounds)
+    public void Add(AudioClip[] sounds)
     {
         foreach (AudioClip sound in sounds)
         {
