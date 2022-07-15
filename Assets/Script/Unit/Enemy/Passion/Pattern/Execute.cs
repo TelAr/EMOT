@@ -41,7 +41,7 @@ public class Execute : PatternDefault
 
         if (warningSignObject == null) {
 
-            warningSignObject = EffectPoolingController.Instance.GetWarningSign(Vector3.zero, WarningSignScale, 0, AirHoldTime, 1.5f);
+            warningSignObject = EffectPoolingController.Instance.GetWarningSign(Vector3.zero, WarningSignScale, 0, AirHoldTime*1.2f, 0.5f);
             warningSignObject.SetActive(false);
         }
 
@@ -95,7 +95,7 @@ public class Execute : PatternDefault
                         timer = 0;
                         step = 3;
                         isGround = false;
-                        rb2D.velocity = new Vector2(0,-5);
+                        rb2D.velocity = new Vector2(0,-50);
                     }
                     break;
                 case 3:

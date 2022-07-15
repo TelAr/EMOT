@@ -138,7 +138,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4890602620263064722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +170,7 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
+  isFall: 0
   SetMaxHealth: 0
   Statement: 
   PatternRunning: 0
@@ -288,7 +289,7 @@ MonoBehaviour:
   IsIndependentPattern: 1
   Predelay: 1
   JumpTime: 0.5
-  AirHoldTime: 1
+  AirHoldTime: 0.4
   JumpOffset: {x: 0, y: 35, z: 0}
   DownOffset: {x: 2, y: 0, z: 0}
   TargettingOriginPos: {x: 0, y: 0, z: 0}
