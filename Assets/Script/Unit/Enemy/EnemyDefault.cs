@@ -80,6 +80,10 @@ public class EnemyDefault : UnitDefault
         public void ForcedRun() {
             pattern.Run();
         }
+        public void ForcedStop() { 
+        
+            pattern.Stop();
+        }
 
         public void UpdatePatternInfo() {
 

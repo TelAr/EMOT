@@ -25,7 +25,10 @@ public class Passion : EnemyDefault
         if (isFall)
         {
 
-            //특수 패턴
+            foreach (var pattern in PatternControllerList) { 
+            
+                pattern.ForcedStop();
+            }
 
             isFall = false;
         }

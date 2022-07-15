@@ -61,9 +61,14 @@ public class Spawner : UnitDefault
 
 
 
-    protected override void Update() { 
-    
+    protected override void Update() {
+
+
+        if (GetFall()) { 
         
+            gameObject.SetActive(false);
+        }
+
         if (!isHit) {
             hit = Physics2D.Raycast(transform.position, new Vector2(0, -1),100,LayerMask.GetMask("Environment"));
             

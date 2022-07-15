@@ -9,11 +9,24 @@ public class MissileDefault : MonoBehaviour
     public bool IsDestroy;
     public float MinX, MinY, MaxX, MaxY;
     public ImpactDefault impact;
-    public float MinimumJegdeLoseTime;
+    public float MinimumJugdeLoseTime;
+
+    public bool IsUniqueLimit = false;
 
     private float timer;
 
 
+    protected void OnEnable()
+    {
+        if (!IsUniqueLimit && GameController.GetGameController != null)
+        {
+
+            MinX = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[0].x;
+            MinY = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[0].y;
+            MaxX = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[1].x;
+            MaxY = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[1].y;
+        }
+    }
     protected void OnDisable()
     {
         if (gameObject.GetComponent<Rigidbody2D>() != null) {
@@ -30,7 +43,7 @@ public class MissileDefault : MonoBehaviour
         MaxY = 40;
         IsPlayerPanetrate = false;
         IsCollsionDisappear = true;
-        MinimumJegdeLoseTime = 0.1f;
+        MinimumJugdeLoseTime = 0.1f;
     }
 
     public void ResetTimer() {
@@ -45,7 +58,7 @@ public class MissileDefault : MonoBehaviour
     }
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (timer > MinimumJegdeLoseTime) {
+        if (timer > MinimumJugdeLoseTime) {
             if (impact != null)
             {
 
