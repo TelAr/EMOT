@@ -59,6 +59,12 @@ public class HealthDefault : MonoBehaviour
         immunTimer = value;
     }
 
+    public void UnimmuneHurt(int damage = 0) {
+
+        HealthChange(-damage);
+    }
+
+
     public void Hurt(Damage damage)
     {
 
