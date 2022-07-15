@@ -30,6 +30,8 @@ public class Passion : EnemyDefault
                 pattern.ForcedStop();
             }
 
+            //특수 패턴
+
             isFall = false;
         }
     }

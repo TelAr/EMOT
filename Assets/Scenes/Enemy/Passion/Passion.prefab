@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -4024485561096134384}
   - component: {fileID: 8010227180141399785}
   - component: {fileID: 5239864012333907858}
+  - component: {fileID: 4757639607270227084}
   m_Layer: 7
   m_Name: Passion
   m_TagString: Enemy
@@ -175,7 +176,7 @@ MonoBehaviour:
   DefaultPhysicalForcedEnable: 0
   PatternOrderList:
   - MinimalHP: 0
-    PatternOrder: 000000000100000002000000
+    PatternOrder: 00000000010000000200000003000000
 --- !u!114 &-4024485561096134384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,3 +265,35 @@ MonoBehaviour:
   AuraAccelVel: 20
   AuraAccelDelay: 1
   SpanwnOffsetPosition: {x: 0, y: 2, z: 0}
+--- !u!114 &4757639607270227084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487187792511923785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f07180e3bf99544a925c1126ab52d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0
+  Stack: 1
+  MaxDistance: 100
+  MinDistance: 0
+  PatternPostDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  Predelay: 1
+  JumpTime: 0.5
+  AirHoldTime: 1
+  JumpOffset: {x: 0, y: 35, z: 0}
+  DownOffset: {x: 2, y: 0, z: 0}
+  TargettingOriginPos: {x: 0, y: 0, z: 0}
+  WarningSignScale: {x: 3, y: 3, z: 1}
+  SlashDelay: 0
+  SlashRemainTime: 2
+  SlashPosOffset: {x: 2, y: 1, z: 0}
+  SlashObjectModel: {fileID: 980594030450592356, guid: 4110f376495ae7845b81377218a44681, type: 3}
