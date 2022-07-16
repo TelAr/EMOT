@@ -34,7 +34,11 @@ public class GiantAura : PatternDefault
         timer = 0;
         step = 0;
         animationActive = false;
-        numOfPosition = Random.Range(0, PatternPositionList.Count);
+        numOfPosition++;
+        if (numOfPosition >= PatternPositionList.Count) { 
+        
+            numOfPosition = 0;
+        }
         if (giantAuraSpawner == null) {
 
             giantAuraSpawner = Instantiate(GiantAuraSpawnerModel);
@@ -46,6 +50,12 @@ public class GiantAura : PatternDefault
 
     public override void Run()
     {
+        if (giantAuraSpawner.GetComponent<Spawner>().GetSpawnedObject != null &&
+            giantAuraSpawner.GetComponent<Spawner>().GetSpawnedObject.activeSelf) {
+
+            return;
+        }
+
         base.Run();
         float length = (gameObject.transform.position - PatternPositionList[numOfPosition]).magnitude;
         float vel = Mathf.Sqrt(Mathf.Abs(GameController.GetGameController.GRAVITY * length)) + 5f;
@@ -82,6 +92,8 @@ public class GiantAura : PatternDefault
                         giantAuraSpawner.SetActive(true);
                         giantAuraSpawner.GetComponent<Spawner>().GetSpawnedObject.
                             GetComponent<Aura>().Init(AuraBeginVel, AuraAccelVel, AuraAccelDelay, direction);
+                        giantAuraSpawner.GetComponent<Spawner>().GetSpawnedObject.transform.localScale
+                            = new Vector3(-direction.x, 1);
                         giantAuraSpawner.GetComponent<Spawner>().SetSpawnActive = true;
 
                         if (animationActive) {
