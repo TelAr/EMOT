@@ -59,7 +59,7 @@ public class HealthDefault : MonoBehaviour
         immunTimer = value;
     }
 
-    public void Hurt(Damage damage)
+    public virtual void Hurt(Damage damage)
     {
 
         int damagevalue = damage.DamageValue;
@@ -67,7 +67,7 @@ public class HealthDefault : MonoBehaviour
         Hurt(damagevalue, immuneTime);
     }
 
-    public virtual void Hurt(int damage = 0, float immuneTime = 2f)
+    public void Hurt(int damage = 0, float immuneTime = 2f)
     {
         if (immunTimer <= 0) {
             HealthChange(-damage);
