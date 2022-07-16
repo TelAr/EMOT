@@ -77,7 +77,7 @@ public class BigBoomerang : PatternDefault
         afterDirection = 0;
         startPos = transform.position;
 
-        initiateLine();
+        InitiateLine();
 
     }
 
@@ -133,7 +133,7 @@ public class BigBoomerang : PatternDefault
                     timer = 0;
                     nowLineRenderer = nextLineRendrer;
 
-                    initiateLine();
+                    InitiateLine();
 
                     SetNowFlyTime();
                     counter++;
@@ -201,7 +201,7 @@ public class BigBoomerang : PatternDefault
 
                         if (counter<SwingAmount)
                         {
-                            initiateLine();
+                            InitiateLine();
                             SetNowFlyTime();
                             counter++;
                         }
@@ -474,7 +474,7 @@ public class BigBoomerang : PatternDefault
 
     }
 
-    private void initiateLine() {
+    private void InitiateLine() {
         SetLine();
         KeyValuePair<Vector3, Vector3> sample = new KeyValuePair<Vector3, Vector3>(sp, dp);
         nextLineRendrer = EffectPoolingController.Instance.GetLineRenderer(sample);
@@ -482,6 +482,7 @@ public class BigBoomerang : PatternDefault
         nextLineRendrer.GetComponent<LineRenderer>().endColor = EPColor;
         nextLineRendrer.GetComponent<LineRenderer>().startWidth = 0;
         nextLineRendrer.GetComponent<LineRenderer>().endWidth = 0;
+        nextLineRendrer.GetComponent<LineRenderer>().numCapVertices = 10;
     }
 
 }

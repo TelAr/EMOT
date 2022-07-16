@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8010227180141399785}
   - component: {fileID: 5239864012333907858}
   - component: {fileID: 4757639607270227084}
+  - component: {fileID: 6273603700300576203}
   m_Layer: 7
   m_Name: Passion
   m_TagString: Enemy
@@ -177,7 +178,7 @@ MonoBehaviour:
   DefaultPhysicalForcedEnable: 0
   PatternOrderList:
   - MinimalHP: 0
-    PatternOrder: 00000000010000000200000003000000
+    PatternOrder: 0000000001000000020000000300000004000000
 --- !u!114 &-4024485561096134384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,3 +299,46 @@ MonoBehaviour:
   SlashRemainTime: 2
   SlashPosOffset: {x: 2, y: 1, z: 0}
   SlashObjectModel: {fileID: 980594030450592356, guid: 4110f376495ae7845b81377218a44681, type: 3}
+--- !u!114 &6273603700300576203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487187792511923785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a44df2006f9fb5449cff5a4e0a2c33a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 10
+  Stack: 1
+  MaxDistance: 100
+  MinDistance: 0
+  PatternPostDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  OriginPosition: {x: 0, y: 0, z: 0}
+  JumpPosition: {x: 0, y: 5, z: 0}
+  RepositionTime: 2
+  ShockWaveModel: {fileID: 4169429133632595548, guid: b63fb99cc6f7f394db4d8350e410c7bd, type: 3}
+  LightBeamTime: 2
+  SlashSummonTime: 1
+  SlashJudgeTime: 1
+  SlashEndTime: 1
+  SlashCount: 15
+  BeforeColor: {r: 1, g: 0.78736246, b: 0, a: 1}
+  AfterColor: {r: 1, g: 0.26311314, b: 0, a: 1}
+  SlashDefaultWidth: 1
+  SlashMaxWidth: 1.5
+  BeamMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
+  DefaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  BeamWidth: 5
+  SlashDamage: 20
+  SlashHeigt: 30
+  SlashWeightRange: 50
+  JudgeTime: 0.1
+  slashList: []
+  step: 0
