@@ -17,7 +17,8 @@ public class PlayerPhysical : UnitDefault
     public float DashTime;
     public float DashDistance;
     [Header("* For GroundJudge")]
-    public PlayerGroundJudge Jedge;
+    public PlayerGroundJudge GroundJudge;
+    public PlayerStandJudge StandJudge;
 
     //const
     private const float JUMP_TIME = 0.1f;
@@ -188,8 +189,7 @@ public class PlayerPhysical : UnitDefault
         {
             CollsionBlock(collision);
 
-
-            if (collision_point_avg.y < TargettingPos.y&& Jedge.IsGround)
+            if (collision_point_avg.y < TargettingPos.y&& GroundJudge.IsGround)
             {
                 jumpCounter = JUMPMAX;
                 jumpTimer = 0;
@@ -204,7 +204,7 @@ public class PlayerPhysical : UnitDefault
         {
             CollsionBlock(collision);
 
-            if (collision_point_avg.y < TargettingPos.y && Jedge.IsGround)
+            if (collision_point_avg.y < TargettingPos.y && GroundJudge.IsGround)
             {
 
                 jumpCounter = JUMPMAX;
@@ -248,7 +248,8 @@ public class PlayerPhysical : UnitDefault
 
             accel = new Vector2(0, GameController.GetGameController.GRAVITY);
 
-            rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
+            rb2.velocity = new Vector3(moving * Speed, 
+                rb2.velocity.y + accel.y * Time.fixedDeltaTime);
 
             //jump
             if (isJump)
@@ -297,21 +298,27 @@ public class PlayerPhysical : UnitDefault
                 jumpCounter--;
             }
 
-            if (!isAir && verticalInput < 0)
+            if (!isAir)
             {
-                downState = true;
-                rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
-                colli2D.size = new Vector2(1, 1);
-                colli2D.offset = new Vector2(0, 0.5f);
-                pv.DownSprite();
-            }
-            else {
 
-                downState = false;
-                colli2D.size = new Vector2(1, 2);
-                colli2D.offset = new Vector2(0, 1f);
-                pv.NormalSprite();
+                if (verticalInput < 0 ||StandJudge.GetStuckState)
+                {
+                    downState = true;
+                    rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
+                    colli2D.size = new Vector2(1, 1);
+                    colli2D.offset = new Vector2(0, 0.5f);
+                    pv.DownSprite();
+                }
+                else
+                {
+
+                    downState = false;
+                    colli2D.size = new Vector2(1, 2);
+                    colli2D.offset = new Vector2(0, 1f);
+                    pv.NormalSprite();
+                }
             }
+                
 
         }
         
@@ -346,6 +353,9 @@ public class PlayerPhysical : UnitDefault
         }
 
     }
+
+
+
 
 
     struct PhysicalData
