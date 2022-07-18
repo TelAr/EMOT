@@ -252,7 +252,7 @@ public class PlayerPhysical : UnitDefault
                 rb2.velocity.y + accel.y * Time.fixedDeltaTime);
 
             //jump
-            if (isJump)
+            if (isJump&& !StandJudge.GetStuckState)
             {
 
                 if (jumpCounter == JUMPMAX)

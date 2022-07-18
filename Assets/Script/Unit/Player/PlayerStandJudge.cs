@@ -10,12 +10,12 @@ public class PlayerStandJudge : MonoBehaviour
         get { return StuckCount!=0; }
     }
 
-
+    [SerializeField]
     private int StuckCount = 0;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Block")) {
+        if (collision.CompareTag("Block") && collision.GetComponent<PlatformEffector2D>() == null)  {
 
             StuckCount++;
         }
@@ -23,7 +23,7 @@ public class PlayerStandJudge : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Block"))
+        if (collision.CompareTag("Block") && collision.GetComponent<PlatformEffector2D>() == null)
         {
 
             StuckCount--;
