@@ -331,8 +331,8 @@ MonoBehaviour:
   SlashCount: 15
   BeforeColor: {r: 1, g: 0.78736246, b: 0, a: 1}
   AfterColor: {r: 1, g: 0.26311314, b: 0, a: 1}
-  SlashDefaultWidth: 1
-  SlashMaxWidth: 1.5
+  SlashDefaultWidth: 0.5
+  SlashMaxWidth: 0.75
   BeamMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
   DefaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   BeamWidth: 5
