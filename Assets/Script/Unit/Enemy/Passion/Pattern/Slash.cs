@@ -14,7 +14,7 @@ public class Slash : PatternDefault
 
     private GameObject slashMain = null;
     private GameObject slashJudge = null;
-    private float transparencyDelayRatio=0.9f;
+    private float transparencyDelayRatio=0.95f;
     private float timer = 0;
     private float phisicalTimer = 0;
     private int step = 0;
@@ -106,7 +106,7 @@ public class Slash : PatternDefault
                     }
                     else {
 
-                        slashJudge.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, ((timer- ExlopsionDelay * transparencyDelayRatio) / (ExlopsionDelay * (1f- transparencyDelayRatio))) * 0.9f + 0.1f);
+                        slashJudge.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, (Mathf.Pow((timer- ExlopsionDelay * transparencyDelayRatio) / (ExlopsionDelay * (1f- transparencyDelayRatio)),2) * 0.9f + 0.1f));
                     }
                     if (timer > ExlopsionDelay) {
 

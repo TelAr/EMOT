@@ -974,6 +974,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3399343727158299581, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
+      propertyPath: WarningSignModel
+      value: 
+      objectReference: {fileID: 3391076609456547989, guid: c6376b4d7b12ac347b83eec96bc578f7, type: 3}
+    - target: {fileID: 3399343727158299581, guid: 2264137de4f2a8142abd30f6fa1dbd50, type: 3}
       propertyPath: PsychicExplosionModel
       value: 
       objectReference: {fileID: 4701358685397557323, guid: ec5a244054d653347bfc7e3fde9909b8, type: 3}

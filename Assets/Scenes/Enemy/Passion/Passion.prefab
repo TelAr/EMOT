@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: -4024485561096134384}
   - component: {fileID: 8010227180141399785}
   - component: {fileID: 5239864012333907858}
+  - component: {fileID: 4757639607270227084}
+  - component: {fileID: 6273603700300576203}
   m_Layer: 7
   m_Name: Passion
   m_TagString: Enemy
@@ -137,7 +139,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4890602620263064722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,14 +171,14 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
+  isFall: 0
   SetMaxHealth: 0
   Statement: 
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
-  GlobalDelay: 0
   PatternOrderList:
   - MinimalHP: 0
-    PatternOrder: 0000000001000000
+    PatternOrder: 0000000001000000020000000300000004000000
 --- !u!114 &-4024485561096134384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,8 +237,6 @@ MonoBehaviour:
   Predelay: 0.5
   ExlopsionDelay: 2
   DamageJudgeTime: 0.1
-  timer: 0
-  step: 0
 --- !u!114 &5239864012333907858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,21 +244,101 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1487187792511923785}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ba642fa27e890e46ac62133842affb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 0
+  Cooldown: 8
   Stack: 1
-  MaxDistance: 0
+  MaxDistance: 100
   MinDistance: 0
-  PatternPostDelay: 0
+  PatternPostDelay: 2
   Caster: {fileID: 0}
   IsRun: 0
   IsMain: 1
   IsIndependentPattern: 1
-  PatternPositionList: []
+  PatternPositionList:
+  - {x: 14, y: -4, z: 0}
+  - {x: -14, y: -4, z: 0}
   GiantAuraSpawnerModel: {fileID: 5977235011082994025, guid: 0fa8dcccc63f19a41b8c3bc0d6411a21, type: 3}
-  PreDelay: 0
-  SpanwnOffsetPosition: {x: 0, y: 0, z: 0}
+  PreDelay: 2
+  AuraBeginVel: 5
+  AuraAccelVel: 20
+  AuraAccelDelay: 1
+  SpanwnOffsetPosition: {x: 0, y: 2, z: 0}
+--- !u!114 &4757639607270227084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487187792511923785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f07180e3bf99544a925c1126ab52d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0
+  Stack: 1
+  MaxDistance: 100
+  MinDistance: 0
+  PatternPostDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  Predelay: 1
+  JumpTime: 0.5
+  AirHoldTime: 0.4
+  JumpOffset: {x: 0, y: 35, z: 0}
+  DownOffset: {x: 2, y: 0, z: 0}
+  TargettingOriginPos: {x: 0, y: 0, z: 0}
+  WarningSignScale: {x: 3, y: 3, z: 1}
+  SlashDelay: 0
+  SlashRemainTime: 2
+  SlashPosOffset: {x: 2, y: 1, z: 0}
+  SlashObjectModel: {fileID: 980594030450592356, guid: 4110f376495ae7845b81377218a44681, type: 3}
+--- !u!114 &6273603700300576203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487187792511923785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a44df2006f9fb5449cff5a4e0a2c33a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 10
+  Stack: 1
+  MaxDistance: 100
+  MinDistance: 0
+  PatternPostDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  OriginPosition: {x: 0, y: 0, z: 0}
+  JumpPosition: {x: 0, y: 5, z: 0}
+  RepositionTime: 2
+  ShockWaveModel: {fileID: 4169429133632595548, guid: b63fb99cc6f7f394db4d8350e410c7bd, type: 3}
+  LightBeamTime: 2
+  SlashSummonTime: 1
+  SlashJudgeTime: 1
+  SlashEndTime: 1
+  SlashCount: 15
+  BeforeColor: {r: 1, g: 0.78736246, b: 0, a: 1}
+  AfterColor: {r: 1, g: 0.26311314, b: 0, a: 1}
+  SlashDefaultWidth: 0.5
+  SlashMaxWidth: 0.75
+  BeamMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
+  DefaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  BeamWidth: 5
+  SlashDamage: 20
+  SlashHeigt: 30
+  SlashWeightRange: 50
+  JudgeTime: 0.1
+  slashList: []
+  step: 0

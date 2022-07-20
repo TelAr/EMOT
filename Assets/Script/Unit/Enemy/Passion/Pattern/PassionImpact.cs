@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpperSlash : PatternDefault
+public class PassionImpact : PatternDefault
 {
-
-
-
-    private float timer = 0;
     public override void Setting()
     {
-        timer = 0;
+        throw new System.NotImplementedException();
     }
 
     // Start is called before the first frame update

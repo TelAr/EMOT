@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SunkenFearObject : SpawnedObject
 {
-    public GameObject Hole, Tentacle;
+    public GameObject Hole, Tentacle, Loop;
     public float Predelay, JudgeTime, postDelay;
 
     [SerializeField]
@@ -23,7 +23,9 @@ public class SunkenFearObject : SpawnedObject
         timer = 0;
         step = 0;
         Tentacle.SetActive(false);
+        Loop.SetActive(false);
         animator.SetBool("IsLoop", true);
+        Loop.GetComponent<Animator>().SetBool("IsLoop", true);
     }
 
     void Update()
@@ -45,6 +47,7 @@ public class SunkenFearObject : SpawnedObject
                     step = 2;
                     timer = 0;
                     Tentacle.SetActive(true);
+                    Loop.SetActive(true);
                     if (Tentacle.GetComponent<Damage>())
                     {
 
@@ -70,12 +73,18 @@ public class SunkenFearObject : SpawnedObject
                 if (timer > postDelay) {
 
                     Tentacle.SetActive(false);
+                    Loop.GetComponent<Animator>().SetBool("IsLoop", false);
                     timer = 0;
                     step = 4;
                     animator.SetBool("IsLoop", false);
                 }
                 break;
             case 4:
+
+                if (Loop.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("End")) {
+
+                    Loop.SetActive(false);
+                }
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("SunkenCloseAnimation") 
                     && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.95f) {
 
