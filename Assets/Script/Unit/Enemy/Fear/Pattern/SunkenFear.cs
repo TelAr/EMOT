@@ -57,7 +57,12 @@ public class SunkenFear : PatternDefault
     public override void Run()
     {
         base.Run();
-        spawner.transform.position = GameController.GetPlayer.transform.position + SpawnOffset;
+        if (spawner.activeSelf) { 
+        
+            return;
+        }
+        spawner.transform.position =
+                            new Vector2(GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos.x, spawner.transform.position.y);
         spawner.SetActive(true);
     }
 
@@ -118,6 +123,11 @@ public class SunkenFear : PatternDefault
                     if (LimitedWaittingTime < timer)
                     {
                         Stop();
+                    }
+                    else
+                    {
+                        spawner.transform.position = 
+                            new Vector2(GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos.x, spawner.transform.position.y);
                     }
                     break;
                 case 0:

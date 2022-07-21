@@ -59,7 +59,7 @@ public class HealthDefault : MonoBehaviour
         immunTimer = value;
     }
 
-    public void Hurt(Damage damage)
+    public virtual void Hurt(Damage damage)
     {
 
         int damagevalue = damage.DamageValue;

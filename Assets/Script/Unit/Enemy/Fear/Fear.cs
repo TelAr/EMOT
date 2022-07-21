@@ -24,6 +24,11 @@ public class Fear : EnemyDefault
         base.Update();
         if (isFall)
         {
+            foreach (var pattern in PatternControllerList)
+            {
+
+                pattern.ForcedStop();
+            }
 
             //특수 패턴
 

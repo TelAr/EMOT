@@ -22,7 +22,19 @@ public class Sad : EnemyDefault
     protected override void Update()
     {
         base.Update();
+        if (isFall)
+        {
 
+            foreach (var pattern in PatternControllerList)
+            {
+
+                pattern.ForcedStop();
+            }
+
+            //특수 패턴
+
+            isFall = false;
+        }
     }
 
     private void FixedUpdate()

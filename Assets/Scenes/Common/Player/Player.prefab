@@ -231,6 +231,7 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
+  isFall: 0
   Speed: 8
   JumpPower: 15
   OffsetPosition: {x: 0, y: 0, z: 0}
@@ -281,6 +282,7 @@ MonoBehaviour:
   ParryingJudgeTime: 0.1
   ParryingImmuneTime: 0.5
   ParryingPostDelay: 1
+  ParryingHurtUnableDelay: 0.2
   IsLimited: 0
 --- !u!114 &-4369695278841071617
 MonoBehaviour:

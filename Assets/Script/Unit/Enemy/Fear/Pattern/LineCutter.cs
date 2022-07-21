@@ -52,12 +52,12 @@ public class LineCutter : PatternDefault
         base.Stop();
         foreach (var line in lines) { 
         
-            returnLine(line);
+            ReturnLine(line);
         }
         lines.Clear();
     }
 
-    private GameObject callLine(Vector3 sp, Vector3 ep) { 
+    private GameObject CallLine(Vector3 sp, Vector3 ep) { 
     
         GameObject line;
         KeyValuePair<Vector3, Vector3> pair = new KeyValuePair<Vector3, Vector3>(sp, ep);
@@ -100,7 +100,7 @@ public class LineCutter : PatternDefault
     }
 
 
-    private void returnLine(GameObject line)
+    private void ReturnLine(GameObject line)
     {
         line.GetComponent<EdgeCollider2D>().isTrigger = false;
         line.GetComponent<EdgeCollider2D>().points = new Vector2[] { };
@@ -137,7 +137,7 @@ public class LineCutter : PatternDefault
                     Vector3 sp = MiddlePoint + new Vector3(Mathf.Cos(rotate * Mathf.Deg2Rad), Mathf.Sin(rotate * Mathf.Deg2Rad)) * Radius;
                     Vector3 ep = MiddlePoint + new Vector3(Mathf.Cos(another * Mathf.Deg2Rad), Mathf.Sin(another * Mathf.Deg2Rad)) * Radius;
 
-                    lines.Add(callLine(sp, ep));
+                    lines.Add(CallLine(sp, ep));
                     subtimer = PatternTime/LineNumber;
                 }
                 foreach (var line in lines) { 

@@ -14,6 +14,7 @@ public abstract class UnitDefault : MonoBehaviour
     [Tooltip("Position where object return postiotion when cross the Limited area")]
     public Vector3 DefaultPos;
 
+    [SerializeField]
     protected bool isFall;
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -66,12 +67,13 @@ public abstract class UnitDefault : MonoBehaviour
 
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
+            Debug.Log(gameObject + " is fall");
             isFall = true;
         }
     }
 
-    public bool GetFall() { 
-    
+    public bool GetFall()
+    {
         return isFall;
     }
 
