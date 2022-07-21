@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5529367403174593294}
   - component: {fileID: 4658131107501793892}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7279817256530265837}
   - component: {fileID: 2075785308602226513}
   - component: {fileID: -2483515590106224625}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Targetting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 897fec31e9990994db0cee5f33083ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: -50
+  value: -100
 --- !u!1 &2593935054044656771
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3853283753046852248}
   - component: {fileID: 4041314699165777443}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 3line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5209263090570324202}
   - component: {fileID: 8622955439143412233}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: hud circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,7 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7247946737958771644}
   - component: {fileID: 7169073585048598066}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: mini_circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -486,6 +486,10 @@ PrefabInstance:
     - target: {fileID: 7455907707007524787, guid: bea43840802ed0b46a43bee0bb2bea59, type: 3}
       propertyPath: m_Name
       value: TargettingCircle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7455907707007524787, guid: bea43840802ed0b46a43bee0bb2bea59, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bea43840802ed0b46a43bee0bb2bea59, type: 3}
