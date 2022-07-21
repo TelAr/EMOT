@@ -72,7 +72,7 @@ public class PlayerAction : MonoBehaviour
         autoReloadTimer = 0;
     }
 
-    private bool isStop {
+    private bool IsStop {
 
         get {
 
@@ -114,7 +114,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnFire(InputValue value) {
 
-        if (isStop) 
+        if (IsStop) 
         {
             return;
         }
@@ -140,7 +140,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if (isStop) 
+        if (IsStop) 
         {
             return;
         }
@@ -189,7 +189,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnDash() {
 
-        if (isStop)
+        if (IsStop)
         {
             return;
         }
@@ -206,7 +206,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnParrying() {
 
-        if (isStop )
+        if (IsStop )
         {
             return;
         }
@@ -332,16 +332,16 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    public int Stemina{
+    public int Stamina{
         get {
             return staminaValue;
         }
-        set { 
-        
-            Stemina = value;
-            if (Stemina > StaminaMax) {
+        set {
 
-                Stemina = StaminaMax;
+            staminaValue = value;
+            if (staminaValue > StaminaMax) {
+
+                staminaValue = StaminaMax;
             }
         }
     }
