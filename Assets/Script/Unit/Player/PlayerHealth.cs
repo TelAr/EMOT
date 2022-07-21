@@ -43,12 +43,35 @@ public class PlayerHealth : HealthDefault
 
     public override void Hurt(Damage damage) {
 
+        ParryingMethod(damage);
+        if (immunTimer <= 0)
+        {
+
+            PlayerAudio.HurtPlay();
+        }
+        base.Hurt(damage.DamageValue, damage.ImmuneTime);
+    }
+
+    public override void Hurt(int damage = 0, float immuneTime = 2f)
+    {
+
+        ParryingMethod();
+        if (immunTimer <= 0)
+        {
+
+            PlayerAudio.HurtPlay();
+        }
+        base.Hurt(damage, immuneTime);
+    }
+
+    private void ParryingMethod(Damage damage=null) {
 
         if (playerAction.IsParrying())
         {
 
             immunTimer = playerAction.ParryingImmuneTime > immunTimer ? playerAction.ParryingImmuneTime : immunTimer;
-            if (damage.gameObject.GetComponent<ParryingActiveDefault>() != null) {
+            if (damage != null && damage.gameObject.GetComponent<ParryingActiveDefault>() != null) 
+            {
 
                 damage.gameObject.GetComponent<ParryingActiveDefault>().ActiveFunc();
             }
@@ -59,15 +82,6 @@ public class PlayerHealth : HealthDefault
 
             playerAction.SetParryingUnableTime = playerAction.ParryingHurtUnableDelay;
         }
-
-        if (immunTimer <= 0)
-        {
-
-            PlayerAudio.HurtPlay();
-        }
-
-        base.Hurt(damage);
-
     }
 
 
