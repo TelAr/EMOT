@@ -27,7 +27,7 @@ public abstract class UnitDefault : MonoBehaviour
 
     public float SetActualSpeed
     {
-        set { actualSpeed = value; }
+        set { actualSpeed = value > 0 ? value : 0; }
     }
 
     public float SetActualJumpPower
