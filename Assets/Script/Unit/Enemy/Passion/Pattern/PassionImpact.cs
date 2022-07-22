@@ -18,6 +18,7 @@ public class PassionImpact : PatternDefault
     public float GaugeAmont = 10f;
     public float GaugeRecoverPerSec = 2f;
     public float GaugeDamagePerButton = 0.3f;
+    public float ImpactMaxTime = 10f;
 
     public Color BeamColor;
     public float BeamMaxWidth;
@@ -168,7 +169,10 @@ public class PassionImpact : PatternDefault
                             gaugeObject.transform.position = impactPoint + GaugePosOffset;
                             gaugeObject.SetActive(true);
 
-                            GameController.GetPlayer.GetComponent<PlayerPhysical>().Bind(100);
+                            GameController.GetPlayer
+                                .GetComponent<PlayerPhysical>()
+                                .Bind(100 + ImpactMaxTime);
+                            timer = 0;
                             step = 3;
                         }
                         else
@@ -218,7 +222,7 @@ public class PassionImpact : PatternDefault
                         GameController.GetPlayer.GetComponent<PlayerPhysical>().BindFree();
                         step = 4;
                     }
-                    if (nowGauge > GaugeAmont)
+                    if (nowGauge > GaugeAmont || timer > ImpactMaxTime)
                     {
                         //fail event
                         GameController.GetPlayer.GetComponent<PlayerPhysical>().BindFree();
