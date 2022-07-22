@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BuffDebuff
 {
+    public string BuffName;
+
     public float SpeedRatio = 0;
     public float JumpRatio = 0;
     public float DamagePerSec = 0;
@@ -15,12 +17,32 @@ public class BuffDebuff
 
     public float Timer = 0;
     public bool IsBuff = false;
+    public int FullstackCount = 1;
     public GameObject Attached;
 
     public delegate void DelegateFunc(GameObject Target, BuffDebuff state);
     public List<DelegateFunc> DelegateContainers = new();
 
     private float DamageCalculator = 0;
+    private int stackCounter = 0;
+
+    public BuffDebuff(string name)
+    {
+        BuffName = name;
+    }
+
+    public bool AddStack()
+    {
+        if (stackCounter < FullstackCount)
+        {
+            stackCounter++;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
     //Must to call LateUpdate()
     public bool Tick()

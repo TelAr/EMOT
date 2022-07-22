@@ -4,27 +4,34 @@ using UnityEngine;
 
 public class BuffDebuffApplyer : MonoBehaviour
 {
-    private HashSet<BuffDebuff> buffDebuffs = new();
+    private Dictionary<string, BuffDebuff> buffDebuffs = new();
 
-    public HashSet<BuffDebuff> GetBuffDebuffs
-    {
-        get { return buffDebuffs; }
-    }
+    //    private HashSet<BuffDebuff> buffDebuffs = new();
 
     public void AddBuffDebuff(BuffDebuff input)
     {
         input.Attached = this.gameObject;
-        buffDebuffs.Add(input);
+        if (buffDebuffs.ContainsKey(input.BuffName))
+        {
+            if (!buffDebuffs[input.BuffName].AddStack())
+            {
+                buffDebuffs[input.BuffName] = input;
+            }
+        }
+        else
+        {
+            buffDebuffs.Add(input.BuffName, input);
+        }
     }
 
     private void Update()
     {
         float speedRatio = 1,
             jumpRatio = 1;
-        foreach (BuffDebuff input in buffDebuffs)
+        foreach (var input in buffDebuffs)
         {
-            speedRatio *= 1 + input.SpeedRatio;
-            jumpRatio *= 1 + input.JumpRatio;
+            speedRatio *= 1 + input.Value.SpeedRatio;
+            jumpRatio *= 1 + input.Value.JumpRatio;
         }
         if (gameObject.GetComponent<UnitDefault>() != null)
         {
@@ -37,17 +44,17 @@ public class BuffDebuffApplyer : MonoBehaviour
 
     void LateUpdate()
     {
-        List<BuffDebuff> destoryList = new List<BuffDebuff>();
+        List<string> destoryList = new();
 
-        foreach (BuffDebuff bd in buffDebuffs)
+        foreach (var bd in buffDebuffs)
         {
-            if (!bd.Tick())
+            if (!bd.Value.Tick())
             {
-                destoryList.Add(bd);
+                destoryList.Add(bd.Key);
             }
         }
 
-        foreach (BuffDebuff bd in destoryList)
+        foreach (var bd in destoryList)
         {
             buffDebuffs.Remove(bd);
         }
