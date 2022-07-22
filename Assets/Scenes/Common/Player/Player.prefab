@@ -69,8 +69,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6fb26d0acff8624684a99dae63b70cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &4241799048675597654
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: -4369695278841071617}
   - component: {fileID: -7389247827842631633}
   - component: {fileID: -8200165894482968951}
+  - component: {fileID: -6878488731712099670}
   - component: {fileID: 5391681703418939846}
   m_Layer: 3
   m_Name: Player
@@ -223,17 +224,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b262177ee639e884db39794a2337f3f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   MinX: -40
   MinY: -40
   MaxX: 40
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
-  isFall: 0
-  Speed: 8
-  JumpPower: 15
+  DefaultSettingSpeed: 8
+  DefaultSettingJumpPower: 15
   OffsetPosition: {x: 0, y: 0, z: 0}
   MinimumJumpPowerRatio: 0.5
   DownSpeedRatio: 0.5
@@ -250,8 +250,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 425ede9b7309935469fe0aed3f55952c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   HealthMax: 100
   playerPhysical: {fileID: 0}
   playerAction: {fileID: 0}
@@ -265,8 +265,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01e8a44f7ff5c164a8c66d3bbd6f4012, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   StaminaMax: 100
   StaminaPerSecond: 25
   ParryingCost: 50
@@ -294,8 +294,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d76621fd832725241aaecfb2cf101587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   JumpAudio: {fileID: 8300000, guid: 67d71038b287a0e40bef2196f219e547, type: 3}
   JumpVolumeOffset: 1
   ReloadAudio: {fileID: 8300000, guid: dbce6bc1db19cab46bff3f817508ab5f, type: 3}
@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Actions: {fileID: -944628639613478452, guid: bf0b798c74834aa41911eef21ed9623d, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
@@ -340,7 +340,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -354,12 +354,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30f69aee9be4ffa4681aa6ba17d8da8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   Normal: {fileID: 21300000, guid: 8fb4fb155ff64834db981070df68d85a, type: 3}
   Dash: {fileID: 21300000, guid: c3053eee3b0ac6343baea27c6c527aa5, type: 3}
   Sliding: {fileID: 21300000, guid: 19ced66bca354dd4d86d1c0951ebaaea, type: 3}
   Down: {fileID: 21300000, guid: e8aeeb86018389a44990a5f6b0801818, type: 3}
+--- !u!114 &-6878488731712099670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4241799048675597654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c0ec097dec005743a935f5113b9b65e, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!82 &5391681703418939846
 AudioSource:
   m_ObjectHideFlags: 0
@@ -516,8 +528,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6670f6e1971e4c4e9aad85bdbd08dd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!114 &5985138117897542752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,8 +540,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   m_Actions: {fileID: -944628639613478452, guid: bf0b798c74834aa41911eef21ed9623d, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
@@ -544,7 +556,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
