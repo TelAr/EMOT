@@ -23,6 +23,7 @@ public class PlayerPhysical : UnitDefault
     [Header("* For GroundJudge")]
     public Transform GroundCheck;
     public float GroundCheckRadius;
+    public PlayerStandJudge StandJudge;
 
     [Header("* SetEnvironment")]
     public LayerMask EnvironmentLayer;
@@ -177,29 +178,30 @@ public class PlayerPhysical : UnitDefault
             MovementControll();
             JumpControll();
 
-            if (!isAir && verticalInput < 0)
+            if (!isAir)
             {
-                downState = true;
-                rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
-                colli2D.size = new Vector2(1, 1);
-                colli2D.offset = new Vector2(0, 0.5f);
-                pv.DownSprite();
-            }
-            else
-            {
-                downState = false;
-                colli2D.size = new Vector2(1, 2);
-                colli2D.offset = new Vector2(0, 1f);
-                pv.NormalSprite();
+                if (verticalInput < 0 || StandJudge.GetStuckState)
+                {
+                    downState = true;
+                    rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
+                    colli2D.size = new Vector2(1, 1);
+                    colli2D.offset = new Vector2(0, 0.5f);
+                    pv.DownSprite();
+                }
+                else
+                {
+                    downState = false;
+                    colli2D.size = new Vector2(1, 2);
+                    colli2D.offset = new Vector2(0, 1f);
+                    pv.NormalSprite();
+                }
             }
         }
 
-        //차후 스트라이트, 스파인 작업에 따라 별도의 명령으로 바뀔 수 있음
         gameObject.GetComponent<SpriteRenderer>().flipX = direction > 0;
 
         if (isFall)
         {
-            //추락판정
             ph.Hurt(20);
 
             isFall = false;
@@ -340,7 +342,7 @@ public class PlayerPhysical : UnitDefault
         if (isGrounded && !isOnSlope && !isJump)
         {
             state = 0;
-            nowVelocity.Set(Speed * moving, 0.0f);
+            nowVelocity.Set(Speed * moving, rb2.velocity.y);
         }
         else if (isGrounded && isOnSlope && canWalkOnSlope && !isJump)
         {
@@ -382,6 +384,7 @@ public class PlayerPhysical : UnitDefault
             }
             return;
         }
+
         if (jumpCounter != JUMPMAX)
         {
             if (jumpCounter > 0)

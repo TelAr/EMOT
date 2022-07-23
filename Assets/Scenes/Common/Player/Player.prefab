@@ -31,6 +31,68 @@ Transform:
   m_Father: {fileID: 4241799048675597658}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2725934704480268257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4581828175087250873}
+  - component: {fileID: 1161184291733153939}
+  - component: {fileID: 7995439029799535049}
+  m_Layer: 0
+  m_Name: StandJudge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4581828175087250873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725934704480268257}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4241799048675597658}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1161184291733153939
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725934704480268257}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 1.5}
+  m_Size: {x: 0.8, y: 1}
+  m_Direction: 0
+--- !u!114 &7995439029799535049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725934704480268257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd3831c2ab01c34286f706b26693d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StuckCount: 0
 --- !u!1 &4241799048675597654
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,6 +133,7 @@ Transform:
   m_Children:
   - {fileID: 5980258693548430384}
   - {fileID: 1436100181283971195}
+  - {fileID: 4581828175087250873}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -158,7 +221,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: a96f99aa99ad2fd418aa9609388b2872, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -191,19 +254,23 @@ MonoBehaviour:
   DashDistance: 4.3
   GroundCheck: {fileID: 1436100181283971195}
   GroundCheckRadius: 0.44
+  StandJudge: {fileID: 7995439029799535049}
   EnvironmentLayer:
     serializedVersion: 2
     m_Bits: 64
   MaxSlopeAngle: 50
-  NoFriction: {fileID: 6200000, guid: a96f99aa99ad2fd418aa9609388b2872, type: 2}
+  NoFriction: {fileID: 6200000, guid: 65be7029be74b4a4591fd380eacc4beb, type: 2}
   FullFriction: {fileID: 6200000, guid: f60ef6805c5fc8c48bc73a14010bd2fc, type: 2}
   SlopeCheckDistance: 0.6
   state: 0
+  jumping: 0
+  jumpCounter: 0
   isOnSlope: 0
   slopeDownAngle: 0
   slopeSideAngle: 0
   canWalkOnSlope: 0
   isGrounded: 0
+  isJump: 0
 --- !u!114 &1280117680179468386
 MonoBehaviour:
   m_ObjectHideFlags: 0
