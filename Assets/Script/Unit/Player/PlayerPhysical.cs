@@ -8,14 +8,18 @@ public class PlayerPhysical : UnitDefault
     [Header("* Conrolled Value")]
     public float Speed = 1;
     public float JumpPower = 6f;
+
     [Tooltip("Posiotion where Scene is start")]
     public Vector3 OffsetPosition;
+
     [Tooltip("Minimum guaranteed ratio when button is pressed")]
     public float MinimumJumpPowerRatio;
     public float DownSpeedRatio;
+
     [Header("* Dash")]
     public float DashTime;
     public float DashDistance;
+
     [Header("* For GroundJudge")]
     public PlayerGroundJudge Jedge;
 
@@ -25,7 +29,8 @@ public class PlayerPhysical : UnitDefault
 
     //statement OR effected
     private bool jumping;
-    private float moving, direction;
+    private float moving,
+        direction;
     private Vector2 accel;
     private Vector2 collision_point_avg;
     private float jumpTimer = 0f;
@@ -38,49 +43,53 @@ public class PlayerPhysical : UnitDefault
     private PlayerVisual pv;
     private PlayerAudio playerAudio;
     private float DashTimer;
-    private Vector3 DashSP, DashEP;
+    private Vector3 DashSP,
+        DashEP;
     private float verticalInput;
     private bool downState;
     private float bindTimer = 0f;
 
     //action state
     private bool isJump;
-    public bool IsJump {
-
+    public bool IsJump
+    {
         get { return isJump; }
         set { isJump = value; }
     }
     private bool isUniquAction;
-    public bool IsUniquAction {
-
+    public bool IsUniquAction
+    {
         get { return isUniquAction; }
-        set { 
-        
+        set
+        {
+
             isUniquAction = value;
         }
     }
     private bool isAir;
-    public bool IsAir {
-
+    public bool IsAir
+    {
         get { return isAir; }
     }
 
-    public bool IsBind {
+    public bool IsBind
+    {
+        get
+        {
 
-        get { 
-        
             return bindTimer > 0f;
         }
     }
 
     public Vector3 TargettingPos
     {
-        get {
+        get
+        {
 
-            return gameObject.transform.position + new Vector3(0, transform.localScale.y * colli2D.size.y * 0.5f);
+            return gameObject.transform.position
+                + new Vector3(0, transform.localScale.y * colli2D.size.y * 0.5f);
         }
     }
-
 
     public override void Reset()
     {
@@ -113,31 +122,32 @@ public class PlayerPhysical : UnitDefault
         direction = 1;
     }
 
-    public void Bind(float bindTime) {
+    public void Bind(float bindTime)
+    {
         moving = 0;
         bindTimer = bindTime;
     }
 
-    public void BindFree() {
-
+    public void BindFree()
+    {
         bindTimer = 0;
     }
 
-    public void Moving(float x) {
-
-        if (x > 0.1f) {
-
+    public void Moving(float x)
+    {
+        if (x > 0.1f)
+        {
             direction = 1;
         }
-        if (x < -0.1f) {
-
+        if (x < -0.1f)
+        {
             direction = -1;
         }
         moving = x;
     }
 
-    public void VerticalInput(float y) {
-
+    public void VerticalInput(float y)
+    {
         verticalInput = y;
     }
 
@@ -145,37 +155,44 @@ public class PlayerPhysical : UnitDefault
     {
         DashTimer = 0;
         isUniquAction = true;
-        DashEP = new Vector3(direction, verticalInput < 0 ? (isAir ? verticalInput : 0) : verticalInput, 0).normalized * DashDistance / DashTime;
+
+        Vector3 normalVector = new Vector3(
+            direction,
+            verticalInput < 0 ? (isAir ? verticalInput : 0) : verticalInput,
+            0
+        ).normalized;
+
+        DashEP = normalVector * DashDistance / DashTime;
+
         rb2.velocity = Vector2.zero;
+
         if (downState)
         {
             playerAudio.SlidingPlay();
             pv.SlidingSprite();
         }
-        else {
+        else
+        {
             playerAudio.DashPlay();
             pv.DashSprite();
         }
     }
 
-    public float GetDirection {
-        get {
-            return direction;
-        } 
+    public float GetDirection
+    {
+        get { return direction; }
     }
 
-    public bool GetIsDown {
-        get {
-            return downState;
-        }
+    public bool GetIsDown
+    {
+        get { return downState; }
     }
 
-    private void CollsionBlock(Collision2D collision) {
-
+    private void CollsionBlock(Collision2D collision)
+    {
         collision_point_avg = Vector2.zero;
         foreach (ContactPoint2D point in collision.contacts)
         {
-
             collision_point_avg += point.point;
         }
         collision_point_avg /= collision.contacts.Length;
@@ -183,19 +200,16 @@ public class PlayerPhysical : UnitDefault
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         if (collision.gameObject.CompareTag("Block"))
         {
             CollsionBlock(collision);
 
-
-            if (collision_point_avg.y < TargettingPos.y&& Jedge.IsGround)
+            if (collision_point_avg.y < TargettingPos.y && Jedge.IsGround)
             {
                 jumpCounter = JUMPMAX;
                 jumpTimer = 0;
             }
         }
-
     }
 
     private void OnCollisionStay2D(Collision2D collision)
@@ -206,12 +220,10 @@ public class PlayerPhysical : UnitDefault
 
             if (collision_point_avg.y < TargettingPos.y && Jedge.IsGround)
             {
-
                 jumpCounter = JUMPMAX;
                 jumpTimer = 0;
                 isAir = false;
             }
-
         }
     }
 
@@ -219,83 +231,37 @@ public class PlayerPhysical : UnitDefault
     {
         if (collision.gameObject.CompareTag("Block"))
         {
-            if (!isJump && jumpCounter == JUMPMAX) {
-
+            if (!isJump && jumpCounter == JUMPMAX)
+            {
                 jumpCounter--;
             }
             isAir = true;
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-
-    }
+    private void OnTriggerEnter2D(Collider2D collision) { }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (bindTimer > 0) {
-
+        if (bindTimer > 0)
+        {
             rb2.velocity = Vector2.zero;
             bindTimer -= Time.fixedDeltaTime;
             return;
         }
 
-        if (!isUniquAction) {
-
-
+        if (!isUniquAction)
+        {
             accel = new Vector2(0, GameController.GetGameController.GRAVITY);
 
-            rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
+            rb2.velocity = new Vector3(
+                moving * Speed,
+                rb2.velocity.y + accel.y * Time.fixedDeltaTime
+            );
 
             //jump
-            if (isJump)
-            {
-
-                if (jumpCounter == JUMPMAX)
-                {
-
-                    if (jumpTimer < JUMP_TIME)
-                    {
-                        if (!jumping)
-                        {
-
-                            if (gameObject.GetComponent<PlayerAudio>() != null) gameObject.GetComponent<PlayerAudio>().JumpPlay();
-                            rb2.velocity = new Vector2(rb2.velocity.x, JumpPower * (MinimumJumpPowerRatio - (1f - MinimumJumpPowerRatio) * Time.fixedDeltaTime / JUMP_TIME));
-                        }
-                        else
-                        {
-                            rb2.velocity += new Vector2(0, JumpPower * (1f - MinimumJumpPowerRatio)) * Time.fixedDeltaTime / JUMP_TIME;
-                        }
-                        jumping = true;
-                        jumpTimer += Time.fixedDeltaTime;
-                    }
-                    else
-                    {
-                        jumping = false;
-                        isJump = false;
-                        jumpCounter--;
-                    }
-                }
-                else
-                {
-                    if (jumpCounter > 0)
-                    {
-                        if (gameObject.GetComponent<PlayerAudio>() != null) gameObject.GetComponent<PlayerAudio>().JumpPlay();
-                        rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
-                        jumpCounter--;
-                        isJump = false;
-                    }
-                }
-            }
-            else if (jumping)
-            {
-                jumping = false;
-                isJump = false;
-                jumpCounter--;
-            }
+            JumpControlloer();
 
             if (!isAir && verticalInput < 0)
             {
@@ -305,71 +271,115 @@ public class PlayerPhysical : UnitDefault
                 colli2D.offset = new Vector2(0, 0.5f);
                 pv.DownSprite();
             }
-            else {
-
+            else
+            {
                 downState = false;
                 colli2D.size = new Vector2(1, 2);
                 colli2D.offset = new Vector2(0, 1f);
                 pv.NormalSprite();
             }
-
         }
-        
 
         //차후 스트라이트, 스파인 작업에 따라 별도의 명령으로 바뀔 수 있음
         gameObject.GetComponent<SpriteRenderer>().flipX = direction > 0;
 
-        if (isFall) {
-
+        if (isFall)
+        {
             //추락판정
             ph.Hurt(20);
 
             isFall = false;
         }
 
-
         if (DashTimer < DashTime)
         {
-
             DashTimer += Time.fixedDeltaTime;
             rb2.velocity = DashEP;
         }
-        else {
-
-            if (isUniquAction) {
-
+        else
+        {
+            if (isUniquAction)
+            {
                 isUniquAction = false;
                 pv.NormalSprite();
                 rb2.velocity = Vector2.zero;
             }
-
         }
-
     }
 
+    private void JumpControlloer()
+    {
+        if (!isJump)
+        {
+            if (jumping)
+            {
+                jumping = false;
+                isJump = false;
+                jumpCounter--;
+            }
+            return;
+        }
+        if (jumpCounter != JUMPMAX)
+        {
+            if (jumpCounter > 0)
+            {
+                if (gameObject.GetComponent<PlayerAudio>() != null)
+                    gameObject.GetComponent<PlayerAudio>().JumpPlay();
+                rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
+                jumpCounter--;
+                isJump = false;
+            }
+            return;
+        }
+
+        if (jumpTimer >= JUMP_TIME)
+        {
+            jumping = false;
+            isJump = false;
+            jumpCounter--;
+            return;
+        }
+
+        if (!jumping)
+        {
+            if (gameObject.GetComponent<PlayerAudio>() != null)
+            {
+                gameObject.GetComponent<PlayerAudio>().JumpPlay();
+            }
+
+            float timeDeltaRatio =
+                MinimumJumpPowerRatio
+                - (1f - MinimumJumpPowerRatio) * Time.fixedDeltaTime / JUMP_TIME;
+
+            float velocityY = JumpPower * timeDeltaRatio;
+            rb2.velocity = new Vector2(rb2.velocity.x, velocityY);
+        }
+        else
+        {
+            rb2.velocity +=
+                new Vector2(0, JumpPower * (1f - MinimumJumpPowerRatio))
+                * Time.fixedDeltaTime
+                / JUMP_TIME;
+        }
+        jumping = true;
+        jumpTimer += Time.fixedDeltaTime;
+    }
 
     struct PhysicalData
     {
         public Vector3 pos;
-
-
     }
 
     public string GetJsonData()
     {
-        PhysicalData data = new()
-        {
-            pos = gameObject.transform.position
-        };
+        PhysicalData data = new() { pos = gameObject.transform.position };
         string json = JsonUtility.ToJson(data);
         return json;
     }
 
     public void SetJsonData(string json)
     {
-
         PhysicalData data = JsonUtility.FromJson<PhysicalData>(json);
         gameObject.transform.position = data.pos;
-
     }
 }
