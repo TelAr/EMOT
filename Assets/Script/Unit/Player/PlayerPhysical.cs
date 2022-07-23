@@ -21,7 +21,8 @@ public class PlayerPhysical : UnitDefault
     public float DashDistance;
 
     [Header("* For GroundJudge")]
-    public PlayerGroundJudge Judge;
+    public Transform GroundCheck;
+    public float GroundCheckRadius;
 
     [Header("* SetEnvironment")]
     public LayerMask EnvironmentLayer;
@@ -30,18 +31,25 @@ public class PlayerPhysical : UnitDefault
     public float MaxSlopeAngle;
     public PhysicsMaterial2D NoFriction;
     public PhysicsMaterial2D FullFriction;
+    public float SlopeCheckDistance;
+
+    [SerializeField]
+    private int state = 0;
 
     //const
     private const float JUMP_TIME = 0.1f;
     private const int JUMPMAX = 2;
 
     //statement OR effected
+    [SerializeReference]
     private bool jumping;
     private float moving;
     private float direction;
     private Vector2 accel;
     private Vector2 collision_point_avg;
     private float jumpTimer = 0f;
+
+    [SerializeReference]
     private int jumpCounter;
     private Rigidbody2D rb2;
     private CapsuleCollider2D colli2D;
@@ -56,16 +64,28 @@ public class PlayerPhysical : UnitDefault
     private float verticalInput;
     private bool downState;
     private float bindTimer = 0f;
-
-    private float slopeCheckDistance;
+    private bool isUniquAction;
     private Vector2 slopeNormalPerp;
+    private bool isAir;
 
     [SerializeReference]
     private bool isOnSlope;
+
+    [SerializeField]
     private float slopeDownAngle;
+
+    [SerializeField]
     private float slopeSideAngle;
     private float lastSlopeAngle;
+
+    [SerializeField]
     private bool canWalkOnSlope;
+
+    [SerializeReference]
+    private bool isGrounded;
+
+    [SerializeReference]
+    private bool isJump;
 
     public override void Reset()
     {
@@ -104,7 +124,7 @@ public class PlayerPhysical : UnitDefault
         {
             CollsionBlock(collision);
 
-            if (collision_point_avg.y < TargettingPos.y && Judge.IsGround)
+            if (collision_point_avg.y < TargettingPos.y && isGrounded)
             {
                 jumpCounter = JUMPMAX;
                 jumpTimer = 0;
@@ -118,7 +138,7 @@ public class PlayerPhysical : UnitDefault
         {
             CollsionBlock(collision);
 
-            if (collision_point_avg.y < TargettingPos.y && Judge.IsGround)
+            if (collision_point_avg.y < TargettingPos.y && isGrounded)
             {
                 jumpCounter = JUMPMAX;
                 jumpTimer = 0;
@@ -152,6 +172,7 @@ public class PlayerPhysical : UnitDefault
 
         if (!isUniquAction)
         {
+            CheckGround();
             SlopeCheck();
             MovementControll();
             JumpControll();
@@ -200,24 +221,17 @@ public class PlayerPhysical : UnitDefault
         }
     }
 
-    //action state
-    private bool isJump;
     public bool IsJump
     {
         get { return isJump; }
-        set { isJump = value; }
+        set { isJump = canWalkOnSlope ? value : false; }
     }
-    private bool isUniquAction;
     public bool IsUniquAction
     {
         get { return isUniquAction; }
-        set
-        {
-
-            isUniquAction = value;
-        }
+        set { isUniquAction = value; }
     }
-    private bool isAir;
+
     public bool IsAir
     {
         get { return isAir; }
@@ -323,21 +337,37 @@ public class PlayerPhysical : UnitDefault
         accel = new Vector2(0, GameController.GetGameController.GRAVITY);
         Vector2 nowVelocity = new();
 
-        if (Judge.IsGround && !isOnSlope && !isJump)
+        if (isGrounded && !isOnSlope && !isJump)
         {
+            state = 0;
             nowVelocity.Set(Speed * moving, 0.0f);
         }
-        else if (Judge.IsGround && isOnSlope && canWalkOnSlope && !isJump)
+        else if (isGrounded && isOnSlope && canWalkOnSlope && !isJump)
         {
-            nowVelocity.Set(Speed * moving * slopeNormalPerp.x, Speed * moving * slopeNormalPerp.y);
+            state = 1;
+            nowVelocity.Set(
+                -Speed * moving * slopeNormalPerp.x,
+                -Speed * moving * slopeNormalPerp.y
+            );
+        }
+        else if (!isGrounded)
+        {
+            state = 2;
+            nowVelocity.Set(Speed * moving, rb2.velocity.y);
         }
         else
         {
-            nowVelocity.Set(Speed * moving, rb2.velocity.y);
+            state = 3;
+            nowVelocity.Set(0, rb2.velocity.y);
+            if (!isJump)
+            {
+                nowVelocity += accel * Time.deltaTime * 10;
+            }
         }
 
         //        rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
-        rb2.velocity = nowVelocity + accel * Time.fixedDeltaTime;
+        rb2.velocity = nowVelocity;
+        rb2.velocity += accel * Time.fixedDeltaTime;
     }
 
     private void JumpControll()
@@ -357,7 +387,10 @@ public class PlayerPhysical : UnitDefault
             if (jumpCounter > 0)
             {
                 if (gameObject.GetComponent<PlayerAudio>() != null)
+                {
                     gameObject.GetComponent<PlayerAudio>().JumpPlay();
+                }
+
                 rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
                 jumpCounter--;
                 isJump = false;
@@ -412,13 +445,13 @@ public class PlayerPhysical : UnitDefault
         RaycastHit2D slopeHitFront = Physics2D.Raycast(
             checkPos,
             transform.right,
-            slopeCheckDistance,
+            SlopeCheckDistance,
             EnvironmentLayer
         );
         RaycastHit2D slopeHitBack = Physics2D.Raycast(
             checkPos,
             -transform.right,
-            slopeCheckDistance,
+            SlopeCheckDistance,
             EnvironmentLayer
         );
 
@@ -446,12 +479,13 @@ public class PlayerPhysical : UnitDefault
         RaycastHit2D hit = Physics2D.Raycast(
             checkPos,
             Vector2.down,
-            slopeCheckDistance,
+            SlopeCheckDistance,
             EnvironmentLayer
         );
 
         if (hit)
         {
+            Debug.Log(hit.collider);
             slopeNormalPerp = Vector2.Perpendicular(hit.normal).normalized;
 
             slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
@@ -467,7 +501,7 @@ public class PlayerPhysical : UnitDefault
             Debug.DrawRay(hit.point, hit.normal, Color.green);
         }
 
-        if (slopeDownAngle > MaxSlopeAngle || slopeSideAngle > MaxSlopeAngle)
+        if (slopeDownAngle > MaxSlopeAngle)
         {
             canWalkOnSlope = false;
         }
@@ -476,7 +510,11 @@ public class PlayerPhysical : UnitDefault
             canWalkOnSlope = true;
         }
 
-        if (isOnSlope && canWalkOnSlope && moving == 0.0f)
+        if (
+            isOnSlope
+            && (slopeDownAngle < MaxSlopeAngle && slopeSideAngle < MaxSlopeAngle)
+            && Mathf.Abs(moving) < 0.01f
+        )
         {
             rb2.sharedMaterial = FullFriction;
         }
@@ -484,6 +522,32 @@ public class PlayerPhysical : UnitDefault
         {
             rb2.sharedMaterial = NoFriction;
         }
+    }
+
+    private void CheckGround()
+    {
+        isGrounded = Physics2D.OverlapCircle(
+            GroundCheck.position,
+            GroundCheckRadius,
+            EnvironmentLayer
+        );
+
+        if (isGrounded && !IsJump)
+        {
+            jumpCounter = JUMPMAX;
+        }
+
+        /*
+        if (rb.velocity.y <= 0.0f)
+        {
+            isJumping = false;
+        }
+
+        if (isGrounded && !isJumping && slopeDownAngle <= maxSlopeAngle)
+        {
+            canJump = true;
+        }
+        */
     }
 
     struct PhysicalData
