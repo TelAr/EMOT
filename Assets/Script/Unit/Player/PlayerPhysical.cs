@@ -21,7 +21,15 @@ public class PlayerPhysical : UnitDefault
     public float DashDistance;
 
     [Header("* For GroundJudge")]
-    public PlayerGroundJudge Jedge;
+    public PlayerGroundJudge Judge;
+
+    [Header("* SetEnvironment")]
+    public LayerMask EnvironmentLayer;
+
+    [Header("* Set Slope")]
+    public float MaxSlopeAngle;
+    public PhysicsMaterial2D NoFriction;
+    public PhysicsMaterial2D FullFriction;
 
     //const
     private const float JUMP_TIME = 0.1f;
@@ -29,25 +37,168 @@ public class PlayerPhysical : UnitDefault
 
     //statement OR effected
     private bool jumping;
-    private float moving,
-        direction;
+    private float moving;
+    private float direction;
     private Vector2 accel;
     private Vector2 collision_point_avg;
     private float jumpTimer = 0f;
     private int jumpCounter;
     private Rigidbody2D rb2;
-    private BoxCollider2D colli2D;
+    private CapsuleCollider2D colli2D;
     private GameController gc;
     private PlayerHealth ph;
     private PlayerAction pa;
     private PlayerVisual pv;
     private PlayerAudio playerAudio;
     private float DashTimer;
-    private Vector3 DashSP,
-        DashEP;
+    private Vector3 DashSP;
+    private Vector3 DashEP;
     private float verticalInput;
     private bool downState;
     private float bindTimer = 0f;
+
+    private float slopeCheckDistance;
+    private Vector2 slopeNormalPerp;
+
+    [SerializeReference]
+    private bool isOnSlope;
+    private float slopeDownAngle;
+    private float slopeSideAngle;
+    private float lastSlopeAngle;
+    private bool canWalkOnSlope;
+
+    public override void Reset()
+    {
+        base.Reset();
+        Speed = 5;
+        JumpPower = 8;
+    }
+
+    public void Start()
+    {
+        isAir = true;
+        jumpTimer = 0;
+        jumpCounter = 0;
+        accel = Vector2.zero;
+        moving = 0;
+        rb2.velocity = Vector2.zero;
+        transform.position = OffsetPosition;
+        jumping = false;
+        isUniquAction = false;
+    }
+
+    private void Awake()
+    {
+        rb2 = gameObject.GetComponent<Rigidbody2D>();
+        ph = gameObject.GetComponent<PlayerHealth>();
+        pa = gameObject.GetComponent<PlayerAction>();
+        pv = gameObject.GetComponent<PlayerVisual>();
+        playerAudio = gameObject.GetComponent<PlayerAudio>();
+        colli2D = gameObject.GetComponent<CapsuleCollider2D>();
+        direction = 1;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            CollsionBlock(collision);
+
+            if (collision_point_avg.y < TargettingPos.y && Judge.IsGround)
+            {
+                jumpCounter = JUMPMAX;
+                jumpTimer = 0;
+            }
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            CollsionBlock(collision);
+
+            if (collision_point_avg.y < TargettingPos.y && Judge.IsGround)
+            {
+                jumpCounter = JUMPMAX;
+                jumpTimer = 0;
+                isAir = false;
+            }
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Block"))
+        {
+            if (!isJump && jumpCounter == JUMPMAX)
+            {
+                jumpCounter--;
+            }
+            isAir = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision) { }
+
+    void FixedUpdate()
+    {
+        if (bindTimer > 0)
+        {
+            rb2.velocity = Vector2.zero;
+            bindTimer -= Time.fixedDeltaTime;
+            return;
+        }
+
+        if (!isUniquAction)
+        {
+            SlopeCheck();
+            MovementControll();
+            JumpControll();
+
+            if (!isAir && verticalInput < 0)
+            {
+                downState = true;
+                rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
+                colli2D.size = new Vector2(1, 1);
+                colli2D.offset = new Vector2(0, 0.5f);
+                pv.DownSprite();
+            }
+            else
+            {
+                downState = false;
+                colli2D.size = new Vector2(1, 2);
+                colli2D.offset = new Vector2(0, 1f);
+                pv.NormalSprite();
+            }
+        }
+
+        //차후 스트라이트, 스파인 작업에 따라 별도의 명령으로 바뀔 수 있음
+        gameObject.GetComponent<SpriteRenderer>().flipX = direction > 0;
+
+        if (isFall)
+        {
+            //추락판정
+            ph.Hurt(20);
+
+            isFall = false;
+        }
+
+        if (DashTimer < DashTime)
+        {
+            DashTimer += Time.fixedDeltaTime;
+            rb2.velocity = DashEP;
+        }
+        else
+        {
+            if (isUniquAction)
+            {
+                isUniquAction = false;
+                pv.NormalSprite();
+                rb2.velocity = Vector2.zero;
+            }
+        }
+    }
 
     //action state
     private bool isJump;
@@ -89,37 +240,6 @@ public class PlayerPhysical : UnitDefault
             return gameObject.transform.position
                 + new Vector3(0, transform.localScale.y * colli2D.size.y * 0.5f);
         }
-    }
-
-    public override void Reset()
-    {
-        base.Reset();
-        Speed = 5;
-        JumpPower = 8;
-    }
-
-    public void Start()
-    {
-        isAir = true;
-        jumpTimer = 0;
-        jumpCounter = 0;
-        accel = Vector2.zero;
-        moving = 0;
-        rb2.velocity = Vector2.zero;
-        transform.position = OffsetPosition;
-        jumping = false;
-        isUniquAction = false;
-    }
-
-    private void Awake()
-    {
-        rb2 = gameObject.GetComponent<Rigidbody2D>();
-        ph = gameObject.GetComponent<PlayerHealth>();
-        pa = gameObject.GetComponent<PlayerAction>();
-        pv = gameObject.GetComponent<PlayerVisual>();
-        playerAudio = gameObject.GetComponent<PlayerAudio>();
-        colli2D = gameObject.GetComponent<BoxCollider2D>();
-        direction = 1;
     }
 
     public void Bind(float bindTime)
@@ -198,116 +318,29 @@ public class PlayerPhysical : UnitDefault
         collision_point_avg /= collision.contacts.Length;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void MovementControll()
     {
-        if (collision.gameObject.CompareTag("Block"))
-        {
-            CollsionBlock(collision);
+        accel = new Vector2(0, GameController.GetGameController.GRAVITY);
+        Vector2 nowVelocity = new();
 
-            if (collision_point_avg.y < TargettingPos.y && Jedge.IsGround)
-            {
-                jumpCounter = JUMPMAX;
-                jumpTimer = 0;
-            }
+        if (Judge.IsGround && !isOnSlope && !isJump)
+        {
+            nowVelocity.Set(Speed * moving, 0.0f);
         }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Block"))
+        else if (Judge.IsGround && isOnSlope && canWalkOnSlope && !isJump)
         {
-            CollsionBlock(collision);
-
-            if (collision_point_avg.y < TargettingPos.y && Jedge.IsGround)
-            {
-                jumpCounter = JUMPMAX;
-                jumpTimer = 0;
-                isAir = false;
-            }
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Block"))
-        {
-            if (!isJump && jumpCounter == JUMPMAX)
-            {
-                jumpCounter--;
-            }
-            isAir = true;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) { }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (bindTimer > 0)
-        {
-            rb2.velocity = Vector2.zero;
-            bindTimer -= Time.fixedDeltaTime;
-            return;
-        }
-
-        if (!isUniquAction)
-        {
-            accel = new Vector2(0, GameController.GetGameController.GRAVITY);
-
-            rb2.velocity = new Vector3(
-                moving * Speed,
-                rb2.velocity.y + accel.y * Time.fixedDeltaTime
-            );
-
-            //jump
-            JumpControlloer();
-
-            if (!isAir && verticalInput < 0)
-            {
-                downState = true;
-                rb2.velocity = new Vector2(rb2.velocity.x * DownSpeedRatio, rb2.velocity.y);
-                colli2D.size = new Vector2(1, 1);
-                colli2D.offset = new Vector2(0, 0.5f);
-                pv.DownSprite();
-            }
-            else
-            {
-                downState = false;
-                colli2D.size = new Vector2(1, 2);
-                colli2D.offset = new Vector2(0, 1f);
-                pv.NormalSprite();
-            }
-        }
-
-        //차후 스트라이트, 스파인 작업에 따라 별도의 명령으로 바뀔 수 있음
-        gameObject.GetComponent<SpriteRenderer>().flipX = direction > 0;
-
-        if (isFall)
-        {
-            //추락판정
-            ph.Hurt(20);
-
-            isFall = false;
-        }
-
-        if (DashTimer < DashTime)
-        {
-            DashTimer += Time.fixedDeltaTime;
-            rb2.velocity = DashEP;
+            nowVelocity.Set(Speed * moving * slopeNormalPerp.x, Speed * moving * slopeNormalPerp.y);
         }
         else
         {
-            if (isUniquAction)
-            {
-                isUniquAction = false;
-                pv.NormalSprite();
-                rb2.velocity = Vector2.zero;
-            }
+            nowVelocity.Set(Speed * moving, rb2.velocity.y);
         }
+
+        //        rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
+        rb2.velocity = nowVelocity + accel * Time.fixedDeltaTime;
     }
 
-    private void JumpControlloer()
+    private void JumpControll()
     {
         if (!isJump)
         {
@@ -363,6 +396,94 @@ public class PlayerPhysical : UnitDefault
         }
         jumping = true;
         jumpTimer += Time.fixedDeltaTime;
+    }
+
+    //reference: https://github.com/Bardent/Rigidbody2D-Slopes-Unity
+    private void SlopeCheck()
+    {
+        Vector2 checkPos = transform.position;
+
+        SlopeCheckHorizontal(checkPos);
+        SlopeCheckVertical(checkPos);
+    }
+
+    private void SlopeCheckHorizontal(Vector2 checkPos)
+    {
+        RaycastHit2D slopeHitFront = Physics2D.Raycast(
+            checkPos,
+            transform.right,
+            slopeCheckDistance,
+            EnvironmentLayer
+        );
+        RaycastHit2D slopeHitBack = Physics2D.Raycast(
+            checkPos,
+            -transform.right,
+            slopeCheckDistance,
+            EnvironmentLayer
+        );
+
+        if (slopeHitFront)
+        {
+            isOnSlope = true;
+
+            slopeSideAngle = Vector2.Angle(slopeHitFront.normal, Vector2.up);
+        }
+        else if (slopeHitBack)
+        {
+            isOnSlope = true;
+
+            slopeSideAngle = Vector2.Angle(slopeHitBack.normal, Vector2.up);
+        }
+        else
+        {
+            slopeSideAngle = 0.0f;
+            isOnSlope = false;
+        }
+    }
+
+    private void SlopeCheckVertical(Vector2 checkPos)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(
+            checkPos,
+            Vector2.down,
+            slopeCheckDistance,
+            EnvironmentLayer
+        );
+
+        if (hit)
+        {
+            slopeNormalPerp = Vector2.Perpendicular(hit.normal).normalized;
+
+            slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
+
+            if (slopeDownAngle != lastSlopeAngle)
+            {
+                isOnSlope = true;
+            }
+
+            lastSlopeAngle = slopeDownAngle;
+
+            Debug.DrawRay(hit.point, slopeNormalPerp, Color.blue);
+            Debug.DrawRay(hit.point, hit.normal, Color.green);
+        }
+
+        if (slopeDownAngle > MaxSlopeAngle || slopeSideAngle > MaxSlopeAngle)
+        {
+            canWalkOnSlope = false;
+        }
+        else
+        {
+            canWalkOnSlope = true;
+        }
+
+        if (isOnSlope && canWalkOnSlope && moving == 0.0f)
+        {
+            rb2.sharedMaterial = FullFriction;
+        }
+        else
+        {
+            rb2.sharedMaterial = NoFriction;
+        }
     }
 
     struct PhysicalData
