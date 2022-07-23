@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: -4369695278841071617}
   - component: {fileID: -7389247827842631633}
   - component: {fileID: -8200165894482968951}
+  - component: {fileID: -6878488731712099670}
   - component: {fileID: 5391681703418939846}
   m_Layer: 3
   m_Name: Player
@@ -244,16 +245,15 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
-  isFall: 0
-  Speed: 8
-  JumpPower: 15
+  DefaultSettingSpeed: 8
+  DefaultSettingJumpPower: 15
   OffsetPosition: {x: 0, y: 0, z: 0}
   MinimumJumpPowerRatio: 0.5
   DownSpeedRatio: 0.5
   DashTime: 0.2
   DashDistance: 4.3
   GroundCheck: {fileID: 1436100181283971195}
-  GroundCheckRadius: 0.44
+  GroundCheckRadius: 0.45
   StandJudge: {fileID: 7995439029799535049}
   EnvironmentLayer:
     serializedVersion: 2
@@ -261,7 +261,7 @@ MonoBehaviour:
   MaxSlopeAngle: 50
   NoFriction: {fileID: 6200000, guid: 65be7029be74b4a4591fd380eacc4beb, type: 2}
   FullFriction: {fileID: 6200000, guid: f60ef6805c5fc8c48bc73a14010bd2fc, type: 2}
-  SlopeCheckDistance: 0.6
+  SlopeCheckDistance: 0.4
   state: 0
   jumping: 0
   jumpCounter: 0
@@ -391,6 +391,18 @@ MonoBehaviour:
   Dash: {fileID: 21300000, guid: c3053eee3b0ac6343baea27c6c527aa5, type: 3}
   Sliding: {fileID: 21300000, guid: 19ced66bca354dd4d86d1c0951ebaaea, type: 3}
   Down: {fileID: 21300000, guid: e8aeeb86018389a44990a5f6b0801818, type: 3}
+--- !u!114 &-6878488731712099670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4241799048675597654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c0ec097dec005743a935f5113b9b65e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &5391681703418939846
 AudioSource:
   m_ObjectHideFlags: 0

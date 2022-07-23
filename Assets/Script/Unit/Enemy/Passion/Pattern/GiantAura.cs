@@ -24,7 +24,7 @@ public class GiantAura : PatternDefault
         }
     }
 
-    private void getSpawnerGround(Vector3 vec) {
+    private void GetSpawnerGround(Vector3 vec) {
 
         animationActive = true;
     }
@@ -43,7 +43,7 @@ public class GiantAura : PatternDefault
 
             giantAuraSpawner = Instantiate(GiantAuraSpawnerModel);
             giantAuraSpawner.GetComponent<Spawner>().Caster = this;
-            giantAuraSpawner.GetComponent<Spawner>().SetSpawnPositionFunction = getSpawnerGround;
+            giantAuraSpawner.GetComponent<Spawner>().SetSpawnPositionFunction = GetSpawnerGround;
             giantAuraSpawner.SetActive(false);
         }
     }

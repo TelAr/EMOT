@@ -15,7 +15,6 @@ public class HealthDefault : MonoBehaviour
     }
     public int SetHealth
     {
-
         set { health = value < HealthMax ? value : HealthMax; }
     }
 
@@ -24,12 +23,10 @@ public class HealthDefault : MonoBehaviour
         HealthMax = 100;
     }
 
-
     protected virtual void Awake()
     {
         FullHealth();
     }
-
 
     public virtual void SetMaxHealth(int value)
     {
@@ -42,26 +39,27 @@ public class HealthDefault : MonoBehaviour
 
         if (health > HealthMax)
         {
-
             health = HealthMax;
         }
     }
 
     public void FullHealth()
     {
-
         health = HealthMax;
     }
 
     public void SetImmuneTime(float value)
     {
-
         immunTimer = value;
+    }
+
+    public void UnimmuneHurt(int damage = 0)
+    {
+        HealthChange(-damage);
     }
 
     public virtual void Hurt(Damage damage)
     {
-
         int damagevalue = damage.DamageValue;
         float immuneTime = damage.ImmuneTime;
         Hurt(damagevalue, immuneTime);
@@ -69,11 +67,10 @@ public class HealthDefault : MonoBehaviour
 
     public virtual void Hurt(int damage = 0, float immuneTime = 2f)
     {
-        if (immunTimer <= 0) {
+        if (immunTimer <= 0)
+        {
             HealthChange(-damage);
             SetImmuneTime(immuneTime);
         }
-        
     }
-
 }

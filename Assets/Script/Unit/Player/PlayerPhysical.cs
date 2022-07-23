@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class PlayerPhysical : UnitDefault
 {
-    [Header("* Conrolled Value")]
-    public float Speed = 1;
-    public float JumpPower = 6f;
-
     [Tooltip("Posiotion where Scene is start")]
     public Vector3 OffsetPosition;
 
@@ -91,8 +87,8 @@ public class PlayerPhysical : UnitDefault
     public override void Reset()
     {
         base.Reset();
-        Speed = 5;
-        JumpPower = 8;
+        DefaultSettingSpeed = 5;
+        DefaultSettingJumpPower = 8;
     }
 
     public void Start()
@@ -226,7 +222,7 @@ public class PlayerPhysical : UnitDefault
     public bool IsJump
     {
         get { return isJump; }
-        set { isJump = canWalkOnSlope ? value : false; }
+        set { isJump = canWalkOnSlope || rb2.velocity.magnitude < 0.1f ? value : false; }
     }
     public bool IsUniquAction
     {
@@ -342,28 +338,28 @@ public class PlayerPhysical : UnitDefault
         if (isGrounded && !isOnSlope && !isJump)
         {
             state = 0;
-            nowVelocity.Set(Speed * moving, rb2.velocity.y);
+            nowVelocity.Set(actualSpeed * moving, rb2.velocity.y);
         }
         else if (isGrounded && isOnSlope && canWalkOnSlope && !isJump)
         {
             state = 1;
             nowVelocity.Set(
-                -Speed * moving * slopeNormalPerp.x,
-                -Speed * moving * slopeNormalPerp.y
+                -actualSpeed * moving * slopeNormalPerp.x,
+                -actualSpeed * moving * slopeNormalPerp.y
             );
         }
         else if (!isGrounded)
         {
             state = 2;
-            nowVelocity.Set(Speed * moving, rb2.velocity.y);
+            nowVelocity.Set(actualSpeed * moving, rb2.velocity.y);
         }
         else
         {
             state = 3;
-            nowVelocity.Set(0, rb2.velocity.y);
+            nowVelocity.Set(actualSpeed * moving * 0.3f, rb2.velocity.y);
             if (!isJump)
             {
-                nowVelocity += accel * Time.deltaTime * 10;
+                nowVelocity += accel * Time.deltaTime * 5;
             }
         }
 
@@ -394,7 +390,7 @@ public class PlayerPhysical : UnitDefault
                     gameObject.GetComponent<PlayerAudio>().JumpPlay();
                 }
 
-                rb2.velocity = new Vector2(rb2.velocity.x, JumpPower);
+                rb2.velocity = new Vector2(rb2.velocity.x, actualJumpPower);
                 jumpCounter--;
                 isJump = false;
             }
@@ -420,13 +416,13 @@ public class PlayerPhysical : UnitDefault
                 MinimumJumpPowerRatio
                 - (1f - MinimumJumpPowerRatio) * Time.fixedDeltaTime / JUMP_TIME;
 
-            float velocityY = JumpPower * timeDeltaRatio;
+            float velocityY = actualJumpPower * timeDeltaRatio;
             rb2.velocity = new Vector2(rb2.velocity.x, velocityY);
         }
         else
         {
             rb2.velocity +=
-                new Vector2(0, JumpPower * (1f - MinimumJumpPowerRatio))
+                new Vector2(0, actualJumpPower * (1f - MinimumJumpPowerRatio))
                 * Time.fixedDeltaTime
                 / JUMP_TIME;
         }
@@ -504,7 +500,7 @@ public class PlayerPhysical : UnitDefault
             Debug.DrawRay(hit.point, hit.normal, Color.green);
         }
 
-        if (slopeDownAngle > MaxSlopeAngle)
+        if (slopeDownAngle > MaxSlopeAngle || slopeSideAngle > MaxSlopeAngle)
         {
             canWalkOnSlope = false;
         }

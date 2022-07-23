@@ -9,23 +9,41 @@ public abstract class UnitDefault : MonoBehaviour
     public float MinY;
     public float MaxX;
     public float MaxY;
-    [Tooltip("If this flag is true, You can use own limied area. Else, Limited area set GameController Limited area automaticaly")]
+
+    [Tooltip(
+        "If this flag is true, You can use own limied area. Else, Limited area set GameController Limited area automaticaly"
+    )]
     public bool IsUniqueLimit = false;
+
     [Tooltip("Position where object return postiotion when cross the Limited area")]
     public Vector3 DefaultPos;
 
-    [SerializeField]
+    [Header("* Controlled Value")]
+    public float DefaultSettingSpeed = 1;
+    public float DefaultSettingJumpPower = 6f;
+
+    protected float actualSpeed;
+    protected float actualJumpPower;
+
+    public float SetActualSpeed
+    {
+        set { actualSpeed = value > 0 ? value : 0; }
+    }
+
+    public float SetActualJumpPower
+    {
+        set { actualJumpPower = value; }
+    }
+
     protected bool isFall;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Block")) {
-
+        if (collision.gameObject.CompareTag("Block"))
+        {
             isFall = false;
         }
-
     }
-
 
     public virtual void Reset()
     {
@@ -36,35 +54,40 @@ public abstract class UnitDefault : MonoBehaviour
         DefaultPos = Vector3.zero;
     }
 
-    protected virtual void OnEnable() {
-
+    protected virtual void OnEnable()
+    {
         if (!IsUniqueLimit && GameController.GetGameController != null)
         {
-
-            MinX = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[0].x;
-            MinY = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[0].y;
-            MaxX = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[1].x;
-            MaxY = GameController.GetGameController.GetComponent<GameController>().GlobalLimitArea[1].y;
+            MinX = GameController.GetGameController.GlobalLimitArea[0].x;
+            MinY = GameController.GetGameController.GlobalLimitArea[0].y;
+            MaxX = GameController.GetGameController.GlobalLimitArea[1].x;
+            MaxY = GameController.GetGameController.GlobalLimitArea[1].y;
         }
+        actualSpeed = DefaultSettingSpeed;
+        actualJumpPower = DefaultSettingJumpPower;
     }
 
-//    public abstract void Start();
+    //    public abstract void Start();
 
-    public void Sleep() { 
-    
-
-        //Á¾·á ½Ã È°µ¿
+    public void Sleep()
+    {
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È°ï¿½ï¿½
 
         this.gameObject.SetActive(false);
     }
 
-    virtual protected void Update() {
-
-        if (transform.position.x < MinX || transform.position.x > MaxX || transform.position.y < MinY || transform.position.y > MaxY)
+    virtual protected void Update()
+    {
+        if (
+            transform.position.x < MinX
+            || transform.position.x > MaxX
+            || transform.position.y < MinY
+            || transform.position.y > MaxY
+        )
         {
             transform.position = DefaultPos;
-            if (gameObject.GetComponent<Rigidbody2D>() != null) {
-
+            if (gameObject.GetComponent<Rigidbody2D>() != null)
+            {
                 gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
             Debug.Log(gameObject + " is fall");

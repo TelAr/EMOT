@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1487187792511923784}
   - component: {fileID: 8072045041610839540}
   - component: {fileID: -9086875319186571911}
+  - component: {fileID: -422500597200991288}
   - component: {fileID: 4890602620263064722}
   - component: {fileID: 5340561876547436955}
   - component: {fileID: -4024485561096134384}
@@ -19,6 +20,7 @@ GameObject:
   - component: {fileID: 5239864012333907858}
   - component: {fileID: 4757639607270227084}
   - component: {fileID: 6273603700300576203}
+  - component: {fileID: 1463049876352569804}
   m_Layer: 7
   m_Name: Passion
   m_TagString: Enemy
@@ -138,8 +140,38 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-422500597200991288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487187792511923785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: bf0b798c74834aa41911eef21ed9623d, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &4890602620263064722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +210,7 @@ MonoBehaviour:
   DefaultPhysicalForcedEnable: 0
   PatternOrderList:
   - MinimalHP: 0
-    PatternOrder: 0000000001000000020000000300000004000000
+    PatternOrder: 000000000100000002000000030000000400000005000000
 --- !u!114 &-4024485561096134384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -342,3 +374,42 @@ MonoBehaviour:
   JudgeTime: 0.1
   slashList: []
   step: 0
+--- !u!114 &1463049876352569804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487187792511923785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 169774288a98186448a4ee66c4d9da37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 10
+  Stack: 1
+  MaxDistance: 100
+  MinDistance: 0
+  PatternPostDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  PatternPositionList:
+  - {x: 14, y: -4, z: 0}
+  - {x: -14, y: -4, z: 0}
+  JumpSpeed: 20
+  OriginPosition: {x: 0, y: 0, z: 0}
+  TargettingSignModel: {fileID: 54873637879540431, guid: 30ea14b1129acb540962b8fca93abdc2, type: 3}
+  TargettingSignColor: {r: 0.99215686, g: 0.6392157, b: 0.37254903, a: 1}
+  TargettingTime: 1
+  RushCount: 3
+  RushMaxLength: 20
+  RushSpeed: 300
+  GaugeAmont: 10
+  GaugeRecoverPerSec: 2
+  GaugeDamagePerButton: 0.5
+  BeamColor: {r: 0.99215686, g: 0.6392157, b: 0.37254903, a: 1}
+  BeamMaxWidth: 1
+  GaugeObjectModel: {fileID: 124171225285134545, guid: 6f937777faf164140885521f145b645c, type: 3}
+  GaugePosOffset: {x: 0, y: 3, z: 0}

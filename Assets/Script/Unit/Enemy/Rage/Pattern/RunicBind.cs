@@ -78,7 +78,6 @@ public class RunicBind : PatternDefault
 
     public void OnParrying()
     {
-        Debug.Log("p");
         if (!specialParrying) {
 
             specialParrying = true;
