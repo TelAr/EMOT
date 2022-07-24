@@ -28,6 +28,8 @@ public class PassionImpact : PatternDefault
 
     public float PlayerStunTime = 2f;
 
+    public int DamageValue = 20;
+
     private float timer = 0;
     private float fixedTimer = 0;
     private int step = 0;
@@ -177,7 +179,9 @@ public class PassionImpact : PatternDefault
                         }
                         else
                         {
-                            GameController.GetPlayer.GetComponent<PlayerHealth>().Hurt(20, 0);
+                            GameController.GetPlayer
+                                .GetComponent<PlayerHealth>()
+                                .Hurt(DamageValue, 0);
                             nomalVec = (
                                 GameController.GetPlayer
                                     .GetComponent<PlayerPhysical>()
@@ -226,6 +230,7 @@ public class PassionImpact : PatternDefault
                     {
                         //fail event
                         GameController.GetPlayer.GetComponent<PlayerPhysical>().BindFree();
+                        GameController.GetPlayer.GetComponent<PlayerHealth>().Hurt(DamageValue, 0);
                         Stun stun = new("PassionImpactStun", PlayerStunTime);
                         GameController.GetPlayer
                             .GetComponent<BuffDebuffApplyer>()
