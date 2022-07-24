@@ -29,6 +29,7 @@ public class PlayerPhysical : UnitDefault
     public PhysicsMaterial2D NoFriction;
     public PhysicsMaterial2D FullFriction;
     public float SlopeCheckDistance;
+    public float SlopeSlideSpeed = 5f;
 
     [SerializeField]
     private int state = 0;
@@ -64,6 +65,8 @@ public class PlayerPhysical : UnitDefault
     private bool isUniquAction;
     private Vector2 slopeNormalPerp;
     private bool isAir;
+    private float jumpVelocity;
+    private Vector2 slidingVelocity;
 
     [SerializeReference]
     private bool isOnSlope;
@@ -359,11 +362,10 @@ public class PlayerPhysical : UnitDefault
             nowVelocity.Set(actualSpeed * moving * 0.3f, rb2.velocity.y);
             if (!isJump)
             {
-                nowVelocity += accel * Time.deltaTime * 5;
+                nowVelocity += accel * Time.deltaTime * SlopeSlideSpeed;
             }
         }
 
-        //        rb2.velocity = new Vector3(moving * Speed, rb2.velocity.y + accel.y * Time.fixedDeltaTime);
         rb2.velocity = nowVelocity;
         rb2.velocity += accel * Time.fixedDeltaTime;
     }
@@ -392,6 +394,7 @@ public class PlayerPhysical : UnitDefault
 
                 rb2.velocity = new Vector2(rb2.velocity.x, actualJumpPower);
                 jumpCounter--;
+                jumpVelocity = 0;
                 isJump = false;
             }
             return;
@@ -402,6 +405,7 @@ public class PlayerPhysical : UnitDefault
             jumping = false;
             isJump = false;
             jumpCounter--;
+            jumpVelocity = 0;
             return;
         }
 
@@ -421,10 +425,9 @@ public class PlayerPhysical : UnitDefault
         }
         else
         {
-            rb2.velocity +=
-                new Vector2(0, actualJumpPower * (1f - MinimumJumpPowerRatio))
-                * Time.fixedDeltaTime
-                / JUMP_TIME;
+            jumpVelocity +=
+                actualJumpPower * (1f - MinimumJumpPowerRatio) * Time.fixedDeltaTime / JUMP_TIME;
+            rb2.velocity = new Vector2(rb2.velocity.x, jumpVelocity);
         }
         jumping = true;
         jumpTimer += Time.fixedDeltaTime;
