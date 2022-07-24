@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1436100181283971195}
-  - component: {fileID: 7140959623019430077}
-  - component: {fileID: 7980599854200365267}
   m_Layer: 0
   m_Name: GroundJudge
   m_TagString: Untagged
@@ -26,51 +24,75 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2494595525097997665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4241799048675597658}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &7140959623019430077
-BoxCollider2D:
+--- !u!1 &2725934704480268257
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2494595525097997665}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4581828175087250873}
+  - component: {fileID: 1161184291733153939}
+  - component: {fileID: 7995439029799535049}
+  m_Layer: 0
+  m_Name: StandJudge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4581828175087250873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725934704480268257}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.05, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4241799048675597658}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &1161184291733153939
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725934704480268257}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
-  m_EdgeRadius: 0
---- !u!114 &7980599854200365267
+  m_Offset: {x: 0, y: 1.5}
+  m_Size: {x: 0.8, y: 1}
+  m_Direction: 0
+--- !u!114 &7995439029799535049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2494595525097997665}
+  m_GameObject: {fileID: 2725934704480268257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6fb26d0acff8624684a99dae63b70cb, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Script: {fileID: 11500000, guid: 5bd3831c2ab01c34286f706b26693d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StuckCount: 0
 --- !u!1 &4241799048675597654
 GameObject:
   m_ObjectHideFlags: 0
@@ -81,7 +103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4241799048675597658}
   - component: {fileID: 4241799048675597659}
-  - component: {fileID: 4241799048675597656}
+  - component: {fileID: 1225496899735666183}
   - component: {fileID: 4241799048675597657}
   - component: {fileID: 4241799048675597661}
   - component: {fileID: 1280117680179468386}
@@ -112,6 +134,7 @@ Transform:
   m_Children:
   - {fileID: 5980258693548430384}
   - {fileID: 1436100181283971195}
+  - {fileID: 4581828175087250873}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -167,8 +190,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
---- !u!61 &4241799048675597656
-BoxCollider2D:
+--- !u!70 &1225496899735666183
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -176,23 +199,13 @@ BoxCollider2D:
   m_GameObject: {fileID: 4241799048675597654}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: a96f99aa99ad2fd418aa9609388b2872, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 1}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.01}
-    oldSize: {x: 2.84, y: 4.7}
-    newSize: {x: 1, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 1
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
+  m_Direction: 0
 --- !u!50 &4241799048675597657
 Rigidbody2D:
   serializedVersion: 4
@@ -209,10 +222,10 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: a96f99aa99ad2fd418aa9609388b2872, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &4241799048675597661
 MonoBehaviour:
@@ -224,8 +237,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b262177ee639e884db39794a2337f3f1, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   MinX: -40
   MinY: -40
   MaxX: 40
@@ -239,7 +252,25 @@ MonoBehaviour:
   DownSpeedRatio: 0.5
   DashTime: 0.2
   DashDistance: 4.3
-  Jedge: {fileID: 7980599854200365267}
+  GroundCheck: {fileID: 1436100181283971195}
+  GroundCheckRadius: 0.45
+  StandJudge: {fileID: 7995439029799535049}
+  EnvironmentLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  MaxSlopeAngle: 50
+  NoFriction: {fileID: 6200000, guid: 65be7029be74b4a4591fd380eacc4beb, type: 2}
+  FullFriction: {fileID: 6200000, guid: f60ef6805c5fc8c48bc73a14010bd2fc, type: 2}
+  SlopeCheckDistance: 0.4
+  state: 0
+  jumping: 0
+  jumpCounter: 0
+  isOnSlope: 0
+  slopeDownAngle: 0
+  slopeSideAngle: 0
+  canWalkOnSlope: 0
+  isGrounded: 0
+  isJump: 0
 --- !u!114 &1280117680179468386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -250,8 +281,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 425ede9b7309935469fe0aed3f55952c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   HealthMax: 100
   playerPhysical: {fileID: 0}
   playerAction: {fileID: 0}
@@ -265,8 +296,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01e8a44f7ff5c164a8c66d3bbd6f4012, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   StaminaMax: 100
   StaminaPerSecond: 25
   ParryingCost: 50
@@ -294,8 +325,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d76621fd832725241aaecfb2cf101587, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   JumpAudio: {fileID: 8300000, guid: 67d71038b287a0e40bef2196f219e547, type: 3}
   JumpVolumeOffset: 1
   ReloadAudio: {fileID: 8300000, guid: dbce6bc1db19cab46bff3f817508ab5f, type: 3}
@@ -324,8 +355,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: bf0b798c74834aa41911eef21ed9623d, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
@@ -340,7 +371,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme:
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -354,8 +385,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30f69aee9be4ffa4681aa6ba17d8da8d, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   Normal: {fileID: 21300000, guid: 8fb4fb155ff64834db981070df68d85a, type: 3}
   Dash: {fileID: 21300000, guid: c3053eee3b0ac6343baea27c6c527aa5, type: 3}
   Sliding: {fileID: 21300000, guid: 19ced66bca354dd4d86d1c0951ebaaea, type: 3}
@@ -370,8 +401,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1c0ec097dec005743a935f5113b9b65e, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &5391681703418939846
 AudioSource:
   m_ObjectHideFlags: 0
@@ -528,8 +559,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6670f6e1971e4c4e9aad85bdbd08dd1, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5985138117897542752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -540,8 +571,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: bf0b798c74834aa41911eef21ed9623d, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
@@ -556,7 +587,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme:
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

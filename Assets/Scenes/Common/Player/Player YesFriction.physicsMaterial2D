@@ -6,6 +6,6 @@ PhysicsMaterial2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player Physics Material 2D
-  friction: 0
+  m_Name: Player YesFriction
+  friction: 100000
   bounciness: 0

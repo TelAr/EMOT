@@ -8,6 +8,7 @@ public class TestMode : MonoBehaviour
 {
 
     public TextMeshProUGUI SkillText, CharaText;
+    public GameObject water;
     public bool IsTest = true;
 
     static private GameObject enemy = null;
@@ -182,6 +183,10 @@ public class TestMode : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Home)) {
 
             GameController.GetPlayer.GetComponent<PlayerHealth>().FullHealth();
+        }
+        if (Input.GetKeyDown(KeyCode.Insert)) {
+
+            water.SetActive(water.activeSelf ^ true);
         }
 
 

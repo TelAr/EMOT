@@ -475,7 +475,7 @@ public class CutsceneDefault : MonoBehaviour
             answers.text = "";
         }
 
-        CallFunction(now.function);
+        if (now.function != null) CallFunction(now.function);
 
         step = now.next;
     }

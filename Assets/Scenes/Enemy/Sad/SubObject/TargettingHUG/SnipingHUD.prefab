@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3256862776372751136}
   - component: {fileID: 3441925593578627232}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SP2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3205208368886092789}
   - component: {fileID: 3522818092208587476}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SP1-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 2957972149356054912}
   - component: {fileID: 2196072784470485663}
   - component: {fileID: -2034167138226934763}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SnipingHUD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 897fec31e9990994db0cee5f33083ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: -50
+  value: -100
 --- !u!1 &7243461045352905770
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8539258908696339884}
   - component: {fileID: 4767644706178704666}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: SP3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
