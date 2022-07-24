@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 160659768972676970}
   - component: {fileID: 623951605290180456}
   - component: {fileID: 6367832414310889048}
+  - component: {fileID: 1626075456479159254}
+  - component: {fileID: 1975499460036246535}
   - component: {fileID: 1558149770178814214}
   - component: {fileID: 4048321170301812747}
   - component: {fileID: 165389021791279488}
   - component: {fileID: -1309302787006888206}
   - component: {fileID: 2202508487501896863}
-  - component: {fileID: 1975499460036246535}
-  - component: {fileID: 1626075456479159254}
   m_Layer: 7
   m_Name: Fear
   m_TagString: Enemy
@@ -140,6 +140,39 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1626075456479159254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085210604569707331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f92de845875aab143925f3b03b705ee4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Beam_groundAudio: {fileID: 8300000, guid: 8a03bda57891c084785a191d20d37d15, type: 3}
+  Beam_groundAudioVolumeOffset: 1
+  EyebeamAudio: {fileID: 8300000, guid: 669f8848d0ca52743a82c3191dc463e8, type: 3}
+  EyebeamAudioVolumeOffset: 1
+  ExplosionAudio: {fileID: 8300000, guid: 887ef185710975148819486b72b27b76, type: 3}
+  ExplosionAudioVolumeOffset: 1
+  Void_openAudio: {fileID: 8300000, guid: acc0a5af2f8b13c42b72a90ecf710edf, type: 3}
+  Void_openAudioVolumeOffset: 1
+--- !u!114 &1975499460036246535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085210604569707331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc89f29244edd242a33eda3c6b4d974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Normal: {fileID: 21300000, guid: 9152d1a1905b01b41bc0771553000a3d, type: 3}
 --- !u!114 &1558149770178814214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,11 +191,12 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
+  DefaultSettingSpeed: 1
+  DefaultSettingJumpPower: 6
   SetMaxHealth: 0
   Statement: 
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
-  GlobalDelay: 0
   PatternOrderList:
   - MinimalHP: 0
     PatternOrder: 00000000010000000200000003000000
@@ -287,36 +321,3 @@ MonoBehaviour:
   ReadyColor: {r: 0.44182128, g: 0, b: 0.695, a: 1}
   ExplosionColor: {r: 0.66400003, g: 0, b: 0.24827844, a: 1}
   SoundEffectPreDelay: 1.9
---- !u!114 &1975499460036246535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8085210604569707331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cc89f29244edd242a33eda3c6b4d974, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Normal: {fileID: 21300000, guid: 9152d1a1905b01b41bc0771553000a3d, type: 3}
---- !u!114 &1626075456479159254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8085210604569707331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f92de845875aab143925f3b03b705ee4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Beam_groundAudio: {fileID: 8300000, guid: 8a03bda57891c084785a191d20d37d15, type: 3}
-  Beam_groundAudioVolumeOffset: 1
-  EyebeamAudio: {fileID: 8300000, guid: 669f8848d0ca52743a82c3191dc463e8, type: 3}
-  EyebeamAudioVolumeOffset: 1
-  ExplosionAudio: {fileID: 8300000, guid: 887ef185710975148819486b72b27b76, type: 3}
-  ExplosionAudioVolumeOffset: 1
-  Void_openAudio: {fileID: 8300000, guid: acc0a5af2f8b13c42b72a90ecf710edf, type: 3}
-  Void_openAudioVolumeOffset: 1
