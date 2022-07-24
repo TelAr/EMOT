@@ -13,7 +13,8 @@ public class PlayerAction : MonoBehaviour
     private Slider staminaSlider = null;
     private float staminaTimer;
 
-    public int ParryingCost, DashCost;
+    public int ParryingCost,
+        DashCost;
 
     [Header("* Gun")]
     public GameObject BulletModel;
@@ -21,7 +22,8 @@ public class PlayerAction : MonoBehaviour
     public float BulletSpeed = 20f;
     public int BulletMax = 7;
     private int bulletAmount = 0;
-    public float ChargingDelayPerBullet = 0.52f, ChargingFireDelay = 0.07f;
+    public float ChargingDelayPerBullet = 0.52f,
+        ChargingFireDelay = 0.07f;
     private bool isCharging = false;
     private float chargingTimer = 0;
     private int CharingCounter;
@@ -45,25 +47,24 @@ public class PlayerAction : MonoBehaviour
     private PlayerPhysical pp;
     private PlayerHealth ph;
     private PlayerAudio pa;
-    private BoxCollider2D bc;
+    private CapsuleCollider2D capsuleCollider;
+
     void Awake()
     {
         IsLimited = false;
         pp = GetComponent<PlayerPhysical>();
         ph = GetComponent<PlayerHealth>();
         pa = GetComponent<PlayerAudio>();
-        bc = GetComponent<BoxCollider2D>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
         bulletAmount = BulletMax;
         for (int t = 0; t < BulletMax; t++)
         {
-
             GameObject bullet = Instantiate(BulletModel);
             bullet.SetActive(false);
             bullets.Add(bullet);
-
         }
-        if (GameController.GetGameController.StaminaGraph != null) {
-
+        if (GameController.GetGameController.StaminaGraph != null)
+        {
             staminaSlider = GameController.GetGameController.StaminaGraph;
         }
         staminaSlider.maxValue = StaminaMax;
@@ -72,19 +73,22 @@ public class PlayerAction : MonoBehaviour
         autoReloadTimer = 0;
     }
 
-    private bool IsStop {
+    private bool IsStop
+    {
+        get
+        {
 
-        get {
-
-            return pp.IsBind || pp.IsUniquAction || GameController.GetGameController.IsEvent || IsLimited;
+            return pp.IsBind
+                || pp.IsUniquAction
+                || GameController.GetGameController.IsEvent
+                || IsLimited;
         }
-
     }
 
-    public bool IsParrying() {
-
-        if (parryingJudgeTimer > 0) {
-
+    public bool IsParrying()
+    {
+        if (parryingJudgeTimer > 0)
+        {
             pa.ParryingSuccessPlay();
             parryingUnableTimer = 0;
             parryingJudgeTimer = 0;
@@ -96,9 +100,10 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    public float SetParryingUnableTime {
-
-        set {
+    public float SetParryingUnableTime
+    {
+        set
+        {
 
             parryingUnableTimer = Mathf.Max(parryingUnableTimer, value);
         }
@@ -106,15 +111,16 @@ public class PlayerAction : MonoBehaviour
 
     public bool GetParryingEnable
     {
-        get {
+        get
+        {
 
             return parryingUnableTimer <= 0;
         }
     }
 
-    public void OnFire(InputValue value) {
-
-        if (IsStop) 
+    public void OnFire(InputValue value)
+    {
+        if (IsStop)
         {
             return;
         }
@@ -129,9 +135,9 @@ public class PlayerAction : MonoBehaviour
             chargingTimer = 0;
             CharingCounter = 1;
             isCharging = true;
-
         }
-        else {
+        else
+        {
             autoReloadTimer = 0;
             chargingTimer = ChargingFireDelay;
             isCharging = false;
@@ -140,7 +146,7 @@ public class PlayerAction : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if (IsStop) 
+        if (IsStop)
         {
             return;
         }
@@ -162,24 +168,20 @@ public class PlayerAction : MonoBehaviour
         float moving = value.Get<Vector2>().x;
         if (moving < 0)
         {
-
             moving = -1;
         }
         if (moving > 0)
         {
-
             moving = 1;
         }
 
         float vertical = value.Get<Vector2>().y;
         if (vertical < 0)
         {
-
             vertical = -1;
         }
         if (vertical > 0)
         {
-
             vertical = 1;
         }
 
@@ -187,15 +189,15 @@ public class PlayerAction : MonoBehaviour
         pp.VerticalInput(vertical);
     }
 
-    public void OnDash() {
-
+    public void OnDash()
+    {
         if (IsStop)
         {
             return;
         }
 
-        if (staminaValue < DashCost) {
-
+        if (staminaValue < DashCost)
+        {
             pa.ErrorPlay();
             return;
         }
@@ -204,15 +206,15 @@ public class PlayerAction : MonoBehaviour
         pp.Dash();
     }
 
-    public void OnParrying() {
-
-        if (IsStop )
+    public void OnParrying()
+    {
+        if (IsStop)
         {
             return;
         }
 
-        if (staminaValue < ParryingCost
-            || parryingUnableTimer > 0)  {
+        if (staminaValue < ParryingCost || parryingUnableTimer > 0)
+        {
             pa.ErrorPlay();
             return;
         }
@@ -223,23 +225,20 @@ public class PlayerAction : MonoBehaviour
         parryingUnableTimer = ParryingPostDelay;
     }
 
-
     // Update is called once per frame
     void Update()
     {
         if (staminaValue < StaminaMax)
         {
-
             staminaTimer += Time.deltaTime;
             if (staminaTimer > 1 / StaminaPerSecond)
             {
-
                 staminaValue++;
                 staminaTimer = 0;
             }
         }
-        else if (staminaValue > StaminaMax) {
-
+        else if (staminaValue > StaminaMax)
+        {
             staminaValue = StaminaMax;
         }
         staminaSlider.value = staminaValue;
@@ -251,10 +250,10 @@ public class PlayerAction : MonoBehaviour
 
         if (bulletAmount <= 0)
         {
-            reloadTimer+=Time.deltaTime;
+            reloadTimer += Time.deltaTime;
 
-            if (reloadTimer > BulletReloadDelay) {
-
+            if (reloadTimer > BulletReloadDelay)
+            {
                 pa.ReloadPlay();
                 bulletAmount = BulletMax;
                 reloadTimer = 0;
@@ -263,65 +262,67 @@ public class PlayerAction : MonoBehaviour
 
         if (isCharging)
         {
-
             chargingTimer += Time.deltaTime;
             if (chargingTimer > ChargingDelayPerBullet && CharingCounter < bulletAmount)
             {
-
                 CharingCounter++;
                 chargingTimer = 0f;
             }
         }
-        else {
+        else
+        {
             autoReloadTimer += Time.deltaTime;
 
-            if (autoReloadTimer > AutoReloadDelay
-                && CharingCounter == 0
-                && BulletMax > bulletAmount) {
-
+            if (
+                autoReloadTimer > AutoReloadDelay && CharingCounter == 0 && BulletMax > bulletAmount
+            )
+            {
                 pa.ReloadPlay();
                 bulletAmount = BulletMax;
             }
 
-
             chargingTimer += Time.deltaTime;
 
-            if (chargingTimer >= ChargingFireDelay && CharingCounter > 0) {
-
+            if (chargingTimer >= ChargingFireDelay && CharingCounter > 0)
+            {
                 GameObject fireBullet = null;
-                Vector3 realFireOffset = new Vector3(FireOffsetPosition.x * pp.GetDirection, FireOffsetPosition.y * bc.size.y, FireOffsetPosition.z);
+                Vector3 realFireOffset = new Vector3(
+                    FireOffsetPosition.x * pp.GetDirection,
+                    FireOffsetPosition.y * capsuleCollider.size.y,
+                    FireOffsetPosition.z
+                );
 
                 foreach (GameObject bullet in bullets)
                 {
-                    if (bullet == null) {
-
+                    if (bullet == null)
+                    {
                         fireBullet = bullet;
                         fireBullet = Instantiate(BulletModel);
                         break;
                     }
                     if (!bullet.activeSelf)
                     {
-
                         fireBullet = bullet;
                         break;
                     }
                 }
                 if (fireBullet == null)
                 {
-
                     fireBullet = Instantiate(BulletModel);
                     bullets.Add(fireBullet);
                 }
                 fireBullet.SetActive(true);
                 fireBullet.transform.position = gameObject.transform.position + realFireOffset;
-                fireBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(BulletSpeed * pp.GetDirection, 0);
+                fireBullet.GetComponent<Rigidbody2D>().velocity = new Vector2(
+                    BulletSpeed * pp.GetDirection,
+                    0
+                );
                 chargingTimer = 0;
                 bulletAmount--;
                 CharingCounter--;
                 pa.FirePlay(0.5f);
             }
         }
-
     }
 
     private void FixedUpdate()
@@ -332,15 +333,14 @@ public class PlayerAction : MonoBehaviour
         }
     }
 
-    public int Stamina{
-        get {
-            return staminaValue;
-        }
-        set {
-
+    public int Stamina
+    {
+        get { return staminaValue; }
+        set
+        {
             staminaValue = value;
-            if (staminaValue > StaminaMax) {
-
+            if (staminaValue > StaminaMax)
+            {
                 staminaValue = StaminaMax;
             }
         }

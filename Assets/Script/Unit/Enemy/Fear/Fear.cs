@@ -5,7 +5,13 @@ using UnityEngine;
 public class Fear : EnemyDefault
 {
     private Rigidbody2D rb2d;
-    public Vector3 BeamEyePosOffset;
+    public Transform EyeBeamTransform;
+
+    public Vector3 BeamEyePosOffset
+    {
+        get { return EyeBeamTransform.position; }
+    }
+
     public override void Reset()
     {
         base.Reset();
@@ -26,7 +32,6 @@ public class Fear : EnemyDefault
         {
             foreach (var pattern in PatternControllerList)
             {
-
                 pattern.ForcedStop();
             }
 
@@ -40,7 +45,10 @@ public class Fear : EnemyDefault
     {
         if (!PatternRunning)
         {
-            rb2d.velocity += new Vector2(0, GameController.GetGameController.GRAVITY * Time.fixedDeltaTime);
+            rb2d.velocity += new Vector2(
+                0,
+                GameController.GetGameController.GRAVITY * Time.fixedDeltaTime
+            );
         }
     }
 }

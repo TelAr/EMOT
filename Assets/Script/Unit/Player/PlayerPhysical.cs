@@ -487,7 +487,6 @@ public class PlayerPhysical : UnitDefault
 
         if (hit)
         {
-            Debug.Log(hit.collider);
             slopeNormalPerp = Vector2.Perpendicular(hit.normal).normalized;
 
             slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);

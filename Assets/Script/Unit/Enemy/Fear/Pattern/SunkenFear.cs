@@ -6,18 +6,22 @@ public class SunkenFear : PatternDefault
 {
     [Header("* MultipleShadowCatch Pattern Value")]
     public GameObject SpawnerModel;
+
     [Tooltip("Based on the player's position where spawner is spawned")]
     public Vector3 SpawnOffset;
+
     [Tooltip("If time is over, pattern is stop forced")]
     public float LimitedWaittingTime;
+
     [Header("* Eyebeam Value")]
     public Color EyeBeamColor;
     public Material EyeBeamMaterial;
-    public float BeamPreDelay, BeamTime, BeamOutTime;
+    public float BeamPreDelay,
+        BeamTime,
+        BeamOutTime;
     public float BeamWidth;
     public float BeamHalfLength;
     public GameObject StrokeModel;
-
 
     private GameObject spawner = null;
     private Material defaultMaterial = null;
@@ -28,27 +32,25 @@ public class SunkenFear : PatternDefault
     private float direction;
     private GameObject stroke = null;
 
-
-    public int GetStep{
-    
-    
-        get{ return step; }
+    public int GetStep
+    {
+        get { return step; }
     }
 
     public override void Setting()
     {
         timer = 0;
         step = -1;
-        if (spawner == null) { 
-        
+        if (spawner == null)
+        {
             spawner = Instantiate(SpawnerModel);
             spawner.GetComponent<Spawner>().Caster = this;
             spawner.GetComponent<Spawner>().SetSpawnPositionFunction = EyebeamCall;
             spawner.SetActive(false);
         }
 
-        if (stroke == null) { 
-        
+        if (stroke == null)
+        {
             stroke = Instantiate(StrokeModel);
             stroke.SetActive(false);
         }
@@ -57,50 +59,55 @@ public class SunkenFear : PatternDefault
     public override void Run()
     {
         base.Run();
-        if (spawner.activeSelf) { 
-        
+        if (spawner.activeSelf)
+        {
             return;
         }
-        spawner.transform.position =
-                            new Vector2(GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos.x, spawner.transform.position.y);
+        spawner.transform.position = new Vector2(
+            GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos.x,
+            spawner.transform.position.y
+        );
         spawner.SetActive(true);
     }
 
-    public void EyebeamCall(Vector3 target) {
-
+    public void EyebeamCall(Vector3 target)
+    {
         if (eyeBeam == null)
         {
-
             eyeBeam = EffectPoolingController.Instance.GetLineRenderer();
         }
-        else { 
-        
+        else
+        {
             eyeBeam.gameObject.SetActive(true);
         }
-        if (defaultMaterial == null) {
-
+        if (defaultMaterial == null)
+        {
             defaultMaterial = eyeBeam.GetComponent<LineRenderer>().material;
         }
         eyeBeam.GetComponent<LineRenderer>().material = EyeBeamMaterial;
-        eyeBeam.GetComponent<LineRenderer>().startWidth = eyeBeam.GetComponent<LineRenderer>().endWidth = BeamWidth;
-        eyeBeam.GetComponent<LineRenderer>().startColor = eyeBeam.GetComponent<LineRenderer>().endColor = EyeBeamColor;
+        eyeBeam.GetComponent<LineRenderer>().startWidth = eyeBeam
+            .GetComponent<LineRenderer>()
+            .endWidth = BeamWidth;
+        eyeBeam.GetComponent<LineRenderer>().startColor = eyeBeam
+            .GetComponent<LineRenderer>()
+            .endColor = EyeBeamColor;
         step = 0;
         Caster.GetComponent<FearAudio>().Beam_groundPlay();
         eyeBeamTarget = target;
         if (transform.position.x > target.x)
         {
-
             direction = 1;
         }
-        else {
-
+        else
+        {
             direction = -1;
         }
     }
 
     public void EyebeamReturn()
     {
-        if (eyeBeam != null) {
+        if (eyeBeam != null)
+        {
             eyeBeam.GetComponent<LineRenderer>().material = defaultMaterial;
             eyeBeam.SetActive(false);
             eyeBeam = null;
@@ -109,12 +116,15 @@ public class SunkenFear : PatternDefault
 
     private void Update()
     {
-
-        if (IsRun) {
+        if (IsRun)
+        {
             timer += Time.deltaTime;
 
-            if (step != -1 && eyeBeam != null)  {
-                eyeBeam.GetComponent<LineRenderer>().SetPosition(0, transform.position + ((Fear)Caster).BeamEyePosOffset);
+            if (step != -1 && eyeBeam != null)
+            {
+                eyeBeam
+                    .GetComponent<LineRenderer>()
+                    .SetPosition(0, ((Fear)Caster).BeamEyePosOffset);
             }
 
             switch (step)
@@ -126,29 +136,39 @@ public class SunkenFear : PatternDefault
                     }
                     else
                     {
-                        spawner.transform.position = 
-                            new Vector2(GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos.x, spawner.transform.position.y);
+                        spawner.transform.position = new Vector2(
+                            GameController.GetPlayer.GetComponent<PlayerPhysical>().TargettingPos.x,
+                            spawner.transform.position.y
+                        );
                     }
                     break;
                 case 0:
                     if (timer < BeamPreDelay)
                     {
-                        eyeBeam.GetComponent<LineRenderer>().SetPosition(1,
-                            (transform.position + ((Fear)Caster).BeamEyePosOffset) * (1 - timer / BeamPreDelay) 
-                            + (timer / BeamPreDelay) * (eyeBeamTarget + direction * new Vector3(BeamHalfLength, 0, 0)));
+                        eyeBeam
+                            .GetComponent<LineRenderer>()
+                            .SetPosition(
+                                1,
+                                (((Fear)Caster).BeamEyePosOffset) * (1 - timer / BeamPreDelay)
+                                    + (timer / BeamPreDelay)
+                                        * (
+                                            eyeBeamTarget
+                                            + direction * new Vector3(BeamHalfLength, 0, 0)
+                                        )
+                            );
                     }
-                    else{
-
+                    else
+                    {
                         step = 1;
                         timer = 0;
-                        stroke.transform.position = eyeBeamTarget + direction * new Vector3(BeamHalfLength, 0, 0);
+                        stroke.transform.position =
+                            eyeBeamTarget + direction * new Vector3(BeamHalfLength, 0, 0);
                         if (direction > 0)
                         {
-
                             stroke.GetComponent<SpriteRenderer>().flipX = false;
                         }
-                        else {
-
+                        else
+                        {
                             stroke.GetComponent<SpriteRenderer>().flipX = true;
                         }
                         stroke.SetActive(true);
@@ -157,23 +177,37 @@ public class SunkenFear : PatternDefault
                 case 1:
                     if (timer < BeamTime)
                     {
-                        eyeBeam.GetComponent<LineRenderer>().SetPosition(1,
-                            eyeBeamTarget + 2 * (0.5f - timer / BeamTime) * direction * new Vector3(BeamHalfLength, 0, 0));
-                        stroke.transform.position = eyeBeamTarget + 2 * (0.5f - timer / BeamTime) * direction * new Vector3(BeamHalfLength, 0, 0);
+                        eyeBeam
+                            .GetComponent<LineRenderer>()
+                            .SetPosition(
+                                1,
+                                eyeBeamTarget
+                                    + 2
+                                        * (0.5f - timer / BeamTime)
+                                        * direction
+                                        * new Vector3(BeamHalfLength, 0, 0)
+                            );
+                        stroke.transform.position =
+                            eyeBeamTarget
+                            + 2
+                                * (0.5f - timer / BeamTime)
+                                * direction
+                                * new Vector3(BeamHalfLength, 0, 0);
                     }
-                    else {
-
+                    else
+                    {
                         step = 2;
                         timer = 0;
-
                     }
                     break;
                 case 2:
                     if (timer < BeamOutTime)
                     {
-                        eyeBeam.GetComponent<LineRenderer>().startWidth = eyeBeam.GetComponent<LineRenderer>().endWidth 
-                            = BeamWidth * (1 - timer / BeamOutTime);
-                        stroke.GetComponent<SpriteRenderer>().color = Color.white - new Color(0, 0, 0, 1) * (Time.deltaTime / BeamOutTime);
+                        eyeBeam.GetComponent<LineRenderer>().startWidth = eyeBeam
+                            .GetComponent<LineRenderer>()
+                            .endWidth = BeamWidth * (1 - timer / BeamOutTime);
+                        stroke.GetComponent<SpriteRenderer>().color =
+                            Color.white - new Color(0, 0, 0, 1) * (Time.deltaTime / BeamOutTime);
                     }
                     else
                     {
@@ -196,7 +230,5 @@ public class SunkenFear : PatternDefault
                     break;
             }
         }
-
     }
-
 }

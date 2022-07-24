@@ -4,33 +4,32 @@ using UnityEngine;
 
 public class PlayerVisual : VisualDefault
 {
-    public Sprite Dash, Sliding, Down;
+    public Sprite Dash,
+        Sliding,
+        Down;
 
-
-    public void NormalSprite() { 
-    
+    public void NormalSprite()
+    {
         sr.sprite = Normal;
         SpriteResize();
     }
 
-    public void DashSprite() { 
-    
+    public void DashSprite()
+    {
         sr.sprite = Dash;
         SpriteResize();
-
     }
 
-    public void SlidingSprite() { 
-    
+    public void SlidingSprite()
+    {
         sr.sprite = Sliding;
         SpriteResize();
     }
 
-    public void DownSprite() {
-
+    public void DownSprite()
+    {
         sr.sprite = Down;
         SpriteResize();
         sr.size *= 1.5f;
     }
-
 }

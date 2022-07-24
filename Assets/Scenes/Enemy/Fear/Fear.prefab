@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &61669550496653682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 528392919968850688}
+  m_Layer: 0
+  m_Name: BeamEye
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &528392919968850688
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61669550496653682}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1, y: 0.61, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4048050417791967475}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8085210604569707331
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,6 +50,7 @@ GameObject:
   - component: {fileID: 165389021791279488}
   - component: {fileID: -1309302787006888206}
   - component: {fileID: 2202508487501896863}
+  - component: {fileID: 1836859953910088956}
   m_Layer: 7
   m_Name: Fear
   m_TagString: Enemy
@@ -37,7 +69,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 528392919968850688}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -199,8 +232,8 @@ MonoBehaviour:
   DefaultPhysicalForcedEnable: 0
   PatternOrderList:
   - MinimalHP: 0
-    PatternOrder: 00000000010000000200000003000000
-  BeamEyePosOffset: {x: 0.15, y: 0.9, z: 0}
+    PatternOrder: 0000000001000000020000000300000004000000
+  EyeBeamTransform: {fileID: 528392919968850688}
 --- !u!114 &4048321170301812747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,3 +354,50 @@ MonoBehaviour:
   ReadyColor: {r: 0.44182128, g: 0, b: 0.695, a: 1}
   ExplosionColor: {r: 0.66400003, g: 0, b: 0.24827844, a: 1}
   SoundEffectPreDelay: 1.9
+--- !u!114 &1836859953910088956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8085210604569707331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f4892de501f8954fb7bb8288e8e65a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0
+  Stack: 1
+  MaxDistance: 100
+  MinDistance: 0
+  PatternPostDelay: 2
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  PositioningDelay: 0.5
+  AnchorPosition: {x: 0, y: 4, z: 0}
+  DefaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  LazerLength: 50
+  PreTransitionDelay: 1
+  PreDelay: 1
+  PreColor: {r: 1, g: 0, b: 0.3727808, a: 1}
+  PreWidth: 0.03
+  PreMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
+  TransitionDelay: 0.5
+  ActiveTime: 10
+  ActiveColor: {r: 0.78431374, g: 0.41960785, b: 1, a: 1}
+  ActiveWidth: 0.15
+  ActiveMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
+  ActiveRotatePerSec: 30
+  DisapearTime: 1
+  LazerCount: 4
+  DamagePerImmuneTime: 10
+  ImmuneTime: 0.5
+  EnvironmentSet:
+    serializedVersion: 2
+    m_Bits: 64
+  ObstacleModel: {fileID: 0}
+  ObstacleCount: 0
+  ObstacleRadius: 0
+  ObstacleRotatePerSec: 0
