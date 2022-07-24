@@ -29,7 +29,7 @@ public class LazerSpin : PatternDefault
     public int LazerCount = 0;
     public int DamagePerImmuneTime = 10;
     public float ImmuneTime = 0.5f;
-    public LayerMask EnvironmentSet;
+    public LayerMask BlockLayer;
 
     public GameObject ObstacleModel;
     public int ObstacleCount;
@@ -209,7 +209,7 @@ public class LazerSpin : PatternDefault
                 ((Fear)Caster).BeamEyePosOffset,
                 DegreeToVector2(rotation + t * (360f / LazerCount)),
                 LazerLength * ratio,
-                EnvironmentSet
+                BlockLayer
             );
         }
 

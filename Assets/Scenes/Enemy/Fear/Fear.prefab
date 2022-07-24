@@ -394,9 +394,9 @@ MonoBehaviour:
   LazerCount: 4
   DamagePerImmuneTime: 10
   ImmuneTime: 0.5
-  EnvironmentSet:
+  BlockLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
   ObstacleModel: {fileID: 0}
   ObstacleCount: 0
   ObstacleRadius: 0
