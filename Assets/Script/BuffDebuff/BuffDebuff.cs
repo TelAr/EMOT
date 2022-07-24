@@ -26,9 +26,10 @@ public class BuffDebuff
     private float DamageCalculator = 0;
     private int stackCounter = 0;
 
-    public BuffDebuff(string name)
+    public BuffDebuff(string name, float time)
     {
         BuffName = name;
+        Timer = time;
     }
 
     public bool AddStack()
@@ -50,10 +51,28 @@ public class BuffDebuff
         Timer -= Time.deltaTime;
         //cycle is over, return false
         if (Timer < 0)
+        {
+            foreach (var container in DelegateContainers)
+            {
+                container(Attached, this);
+            }
             return false;
+        }
 
+        PutDamagePerSec();
+        PutSpeed();
+        foreach (var container in DelegateContainers)
+        {
+            container(Attached, this);
+        }
+
+        return true;
+    }
+
+    private void PutDamagePerSec()
+    {
         DamageCalculator += DamagePerSec * Time.deltaTime;
-        if (DamageCalculator > 1)
+        while (DamageCalculator > 1)
         {
             DamageCalculator -= 1;
             if (Attached.GetComponent<HealthDefault>() != null)
@@ -61,7 +80,10 @@ public class BuffDebuff
                 Attached.GetComponent<HealthDefault>().UnimmuneHurt(1);
             }
         }
+    }
 
+    private void PutSpeed()
+    {
         if (Attached.GetComponent<Rigidbody2D>() != null)
         {
             Vector2 originVal = Attached.GetComponent<Rigidbody2D>().velocity;
@@ -70,12 +92,5 @@ public class BuffDebuff
                 originVal.y
             );
         }
-
-        foreach (var container in DelegateContainers)
-        {
-            container(Attached, this);
-        }
-
-        return true;
     }
 }

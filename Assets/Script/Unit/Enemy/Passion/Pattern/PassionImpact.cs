@@ -226,9 +226,7 @@ public class PassionImpact : PatternDefault
                     {
                         //fail event
                         GameController.GetPlayer.GetComponent<PlayerPhysical>().BindFree();
-                        BuffDebuff stun = new("Stun");
-                        stun.Timer = PlayerStunTime;
-                        stun.SpeedRatio = -1;
+                        Stun stun = new("PassionImpactStun", PlayerStunTime);
                         GameController.GetPlayer
                             .GetComponent<BuffDebuffApplyer>()
                             .AddBuffDebuff(stun);
