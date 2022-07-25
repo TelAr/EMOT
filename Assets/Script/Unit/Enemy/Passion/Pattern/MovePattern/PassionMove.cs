@@ -16,23 +16,27 @@ public class PassionMove : PatternDefault
     public float AfterImageWidth;
 
     private float timer;
+    private float fixedTimer;
     private int step;
     private GameObject point3LineRenderer = null;
     private GameObject effectObject = null;
     private Vector3 rushTargetting;
     private Vector3 beginPos;
     private float ratio;
+    private float fixedRatio;
 
     public override void Stop()
     {
         base.Stop();
         ((Passion)Caster).BodyBlowDamage.IsEffected = false;
         point3LineRenderer.SetActive(false);
+        effectObject.SetActive(false);
     }
 
     public override void Setting()
     {
         timer = 0;
+        fixedTimer = 0;
         step = 0;
 
         if (point3LineRenderer == null)
@@ -55,14 +59,20 @@ public class PassionMove : PatternDefault
             effectObject = Instantiate(EffectModel);
         }
         effectObject.transform.position = transform.position;
+        effectObject.SetActive(false);
+    }
+
+    public override void Run()
+    {
+        base.Run();
         effectObject.SetActive(true);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (IsRun)
         {
-            timer += Time.fixedDeltaTime;
+            timer += Time.deltaTime;
             switch (step)
             {
                 case 0:
@@ -73,9 +83,40 @@ public class PassionMove : PatternDefault
                         EffectModel.transform.localScale * Mathf.Pow(ratio, 2);
                     effectObject.transform.position = transform.position;
 
+                    break;
+                case 1:
+
+                    ratio = timer / ((rushTargetting - beginPos).magnitude / Speed);
+
+                    Vector3 linearPos = beginPos * (1 - ratio) + rushTargetting * ratio;
+                    LineRenderer lr = point3LineRenderer.GetComponent<LineRenderer>();
+                    lr.SetPosition(0, linearPos);
+                    lr.SetPosition(1, (linearPos + transform.position) * 0.5f);
+                    lr.SetPosition(2, transform.position);
+
                     if (ratio > 1)
                     {
+                        Stop();
+                    }
+                    break;
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsRun)
+        {
+            fixedTimer += Time.fixedDeltaTime;
+            switch (step)
+            {
+                case 0:
+                    fixedRatio = fixedTimer / PreDelay;
+
+                    if (fixedRatio > 1)
+                    {
                         step = 1;
+                        fixedTimer = 0;
                         timer = 0;
                         point3LineRenderer.SetActive(true);
                         effectObject.SetActive(false);
@@ -85,19 +126,11 @@ public class PassionMove : PatternDefault
                     break;
                 case 1:
 
-                    ratio = timer / ((rushTargetting - beginPos).magnitude / Speed);
-
-                    float squRatio = 1 - Mathf.Pow(1 - ratio, 2);
-
+                    fixedRatio = fixedTimer / ((rushTargetting - beginPos).magnitude / Speed);
+                    float squRatio = 1 - Mathf.Pow(1 - fixedRatio, 2);
                     transform.position = beginPos * (1 - squRatio) + rushTargetting * squRatio;
 
-                    Vector3 linearPos = beginPos * (1 - ratio) + rushTargetting * ratio;
-                    LineRenderer lr = point3LineRenderer.GetComponent<LineRenderer>();
-                    lr.SetPosition(0, linearPos);
-                    lr.SetPosition(1, (linearPos + transform.position) * 0.5f);
-                    lr.SetPosition(2, transform.position);
-
-                    if (ratio > 1)
+                    if (fixedRatio > 1)
                     {
                         Stop();
                     }
