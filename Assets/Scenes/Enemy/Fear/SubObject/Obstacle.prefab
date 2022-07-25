@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5935969908207609129}
   - component: {fileID: -5465912623754507255}
   - component: {fileID: -3487288555182501732}
-  m_Layer: 6
+  m_Layer: 8
   m_Name: Obstacle
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 3857581854485929908}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

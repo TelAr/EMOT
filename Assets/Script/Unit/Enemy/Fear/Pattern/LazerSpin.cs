@@ -35,20 +35,38 @@ public class LazerSpin : PatternDefault
     public int ObstacleCount;
     public float ObstacleRadius;
     public float ObstacleRotatePerSec;
+    public int ObstacleDamage = 10;
 
     private float timer = 0;
     private int step = 0;
+    private float ratio;
     private List<GameObject> lazers = new();
+    private List<GameObject> obstacles = new();
     private List<RaycastHit2D> hit2Ds = new();
-    private float rotation;
+    private float lazerRotation;
+    private float obstacleRotation;
     private Vector3 dampVel;
 
     public override void Setting()
     {
         timer = 0;
         step = 0;
-        rotation = Random.Range(0, 360);
+        lazerRotation = Random.Range(0, 360);
+        obstacleRotation = Random.Range(0, 360);
         SetRayCastHit2DOnList();
+
+        while (obstacles.Count < ObstacleCount)
+        {
+            GameObject ob = Instantiate(ObstacleModel);
+            obstacles.Add(ob);
+        }
+
+        foreach (GameObject obstacle in obstacles)
+        {
+            obstacle.GetComponent<Damage>().DamageValue = ObstacleDamage;
+            obstacle.GetComponent<Damage>().IsEffected = false;
+            obstacle.SetActive(false);
+        }
     }
 
     public override void Run()
@@ -61,6 +79,10 @@ public class LazerSpin : PatternDefault
     {
         base.Stop();
         ReturnLazer();
+        foreach (GameObject obstacle in obstacles)
+        {
+            obstacle.SetActive(false);
+        }
     }
 
     private void Update()
@@ -68,7 +90,7 @@ public class LazerSpin : PatternDefault
         if (IsRun)
         {
             timer += Time.deltaTime;
-            float ratio;
+
             switch (step)
             {
                 case 0:
@@ -81,6 +103,7 @@ public class LazerSpin : PatternDefault
                     );
                     if (ratio > 1)
                     {
+                        ObstacleAppearFlag(true);
                         timer = 0;
                         step = 1;
                     }
@@ -113,7 +136,7 @@ public class LazerSpin : PatternDefault
                     break;
                 case 3:
                     ratio = timer / TransitionDelay;
-
+                    UpdateLazerTransform();
                     foreach (var lazer in lazers)
                     {
                         LineRenderer lr = lazer.GetComponent<LineRenderer>();
@@ -126,6 +149,7 @@ public class LazerSpin : PatternDefault
                         {
                             lazer.GetComponent<Damage>().IsEffected = true;
                         }
+                        ObstacleDamageFlag(true);
                         timer = 0;
                         step = 4;
                     }
@@ -133,7 +157,7 @@ public class LazerSpin : PatternDefault
                 case 4:
                     ratio = timer / ActiveTime;
 
-                    rotation += ActiveRotatePerSec * Time.deltaTime;
+                    lazerRotation += ActiveRotatePerSec * Time.deltaTime;
                     UpdateLazerTransform();
                     if (ratio > 1)
                     {
@@ -143,6 +167,10 @@ public class LazerSpin : PatternDefault
                     break;
                 case 5:
                     ratio = timer / DisapearTime;
+
+                    lazerRotation += ActiveRotatePerSec * Time.deltaTime;
+                    UpdateLazerTransform();
+
                     foreach (var lazer in lazers)
                     {
                         LineRenderer lr = lazer.GetComponent<LineRenderer>();
@@ -154,6 +182,7 @@ public class LazerSpin : PatternDefault
                     }
                     break;
             }
+            ObtacleLogic();
         }
     }
 
@@ -201,14 +230,14 @@ public class LazerSpin : PatternDefault
         }
     }
 
-    private void UpdateLazerTransform(float ratio = 1f)
+    private void UpdateLazerTransform(float lazerLengthratio = 1f)
     {
         for (int t = 0; t < LazerCount; t++)
         {
             hit2Ds[t] = Physics2D.Raycast(
                 ((Fear)Caster).BeamEyePosOffset,
-                DegreeToVector2(rotation + t * (360f / LazerCount)),
-                LazerLength * ratio,
+                DegreeToVector2(lazerRotation + t * (360f / LazerCount)),
+                LazerLength * lazerLengthratio,
                 BlockLayer
             );
         }
@@ -226,7 +255,9 @@ public class LazerSpin : PatternDefault
             {
                 EndPoint =
                     (Vector2)((Fear)Caster).BeamEyePosOffset
-                    + DegreeToVector2(rotation + t * (360f / LazerCount)) * LazerLength * ratio;
+                    + DegreeToVector2(lazerRotation + t * (360f / LazerCount))
+                        * LazerLength
+                        * lazerLengthratio;
             }
             lazers[t].GetComponent<LineRenderer>().SetPosition(1, EndPoint);
             lazers[t].GetComponent<EdgeCollider2D>().points = new Vector2[]
@@ -259,6 +290,63 @@ public class LazerSpin : PatternDefault
             l.GetComponent<EdgeCollider2D>().enabled = false;
             l.tag = "Untagged";
             l.SetActive(false);
+        }
+    }
+
+    private void ObtacleLogic()
+    {
+        ObstaclePositioning();
+        switch (step)
+        {
+            case 0:
+                break;
+            case 1:
+                foreach (var obs in obstacles)
+                {
+                    obs.transform.localScale = ObstacleModel.transform.localScale * ratio;
+                }
+                break;
+            case 2:
+            case 3:
+                break;
+            case 4:
+            case 5:
+                obstacleRotation += ObstacleRotatePerSec * Time.deltaTime;
+                if (step == 5)
+                {
+                    foreach (var obs in obstacles)
+                    {
+                        obs.transform.localScale = ObstacleModel.transform.localScale * (1 - ratio);
+                    }
+                }
+                break;
+        }
+    }
+
+    private void ObstaclePositioning()
+    {
+        for (int t = 0; t < obstacles.Count; t++)
+        {
+            obstacles[t].transform.position =
+                ((Fear)Caster).BeamEyePosOffset
+                + (Vector3)DegreeToVector2(obstacleRotation + (360f / obstacles.Count) * t)
+                    * ObstacleRadius;
+        }
+    }
+
+    private void ObstacleDamageFlag(bool isDamage)
+    {
+        foreach (var obs in obstacles)
+        {
+            obs.GetComponent<Damage>().IsEffected = isDamage;
+        }
+    }
+
+    private void ObstacleAppearFlag(bool isAppear)
+    {
+        foreach (var obs in obstacles)
+        {
+            obs.SetActive(isAppear);
         }
     }
 

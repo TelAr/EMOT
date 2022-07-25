@@ -379,8 +379,8 @@ MonoBehaviour:
   AnchorPosition: {x: 0, y: 4, z: 0}
   DefaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   LazerLength: 50
-  PreTransitionDelay: 1
-  PreDelay: 1
+  PreTransitionDelay: 0.5
+  PreDelay: 0.5
   PreColor: {r: 1, g: 0, b: 0.3727808, a: 1}
   PreWidth: 0.03
   PreMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
@@ -397,7 +397,8 @@ MonoBehaviour:
   BlockLayer:
     serializedVersion: 2
     m_Bits: 320
-  ObstacleModel: {fileID: 0}
-  ObstacleCount: 0
-  ObstacleRadius: 0
-  ObstacleRotatePerSec: 0
+  ObstacleModel: {fileID: 3857581854485929908, guid: f19f6dd009bf80a47bdc7f4b056a3bab, type: 3}
+  ObstacleCount: 6
+  ObstacleRadius: 7
+  ObstacleRotatePerSec: -30
+  ObstacleDamage: 10
