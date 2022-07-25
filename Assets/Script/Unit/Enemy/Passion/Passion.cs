@@ -6,6 +6,8 @@ public class Passion : EnemyDefault
 {
     private Rigidbody2D rb2d;
 
+    public EnemyBodyBlowDamage BodyBlowDamage;
+
     public override void Reset()
     {
         base.Reset();
@@ -16,6 +18,7 @@ public class Passion : EnemyDefault
     {
         base.Start();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+        BodyBlowDamage.IsEffected = false;
     }
 
     // Update is called once per frame
@@ -24,9 +27,8 @@ public class Passion : EnemyDefault
         base.Update();
         if (isFall)
         {
-
-            foreach (var pattern in PatternControllerList) { 
-            
+            foreach (var pattern in PatternControllerList)
+            {
                 pattern.ForcedStop();
             }
 
@@ -40,8 +42,10 @@ public class Passion : EnemyDefault
     {
         if (!PatternRunning)
         {
-
-            rb2d.velocity += new Vector2(0, GameController.GetGameController.GRAVITY * Time.fixedDeltaTime);
+            rb2d.velocity += new Vector2(
+                0,
+                GameController.GetGameController.GRAVITY * Time.fixedDeltaTime
+            );
         }
     }
 }

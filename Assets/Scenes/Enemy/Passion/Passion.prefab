@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4757639607270227084}
   - component: {fileID: 6273603700300576203}
   - component: {fileID: 1463049876352569804}
+  - component: {fileID: 7605840972567212151}
   m_Layer: 7
   m_Name: Passion
   m_TagString: Enemy
@@ -39,7 +40,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2160598406588349827}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -203,14 +205,16 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
-  isFall: 0
+  DefaultSettingSpeed: 1
+  DefaultSettingJumpPower: 6
   SetMaxHealth: 0
   Statement: 
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
   PatternOrderList:
   - MinimalHP: 0
-    PatternOrder: 000000000100000002000000030000000400000005000000
+    PatternOrder: 00000000010000000200000003000000040000000500000006000000
+  BodyBlowDamage: {fileID: 2905734982770516440}
 --- !u!114 &-4024485561096134384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,7 +413,87 @@ MonoBehaviour:
   GaugeAmont: 10
   GaugeRecoverPerSec: 2
   GaugeDamagePerButton: 0.5
+  ImpactMaxTime: 10
   BeamColor: {r: 0.99215686, g: 0.6392157, b: 0.37254903, a: 1}
   BeamMaxWidth: 1
   GaugeObjectModel: {fileID: 124171225285134545, guid: 6f937777faf164140885521f145b645c, type: 3}
   GaugePosOffset: {x: 0, y: 3, z: 0}
+  PlayerStunTime: 2
+  DamageValue: 20
+--- !u!114 &7605840972567212151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487187792511923785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bfad4d4e32bd464582fc1aafaa92449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Cooldown: 0
+  Stack: 1
+  MaxDistance: 1000
+  MinDistance: 0
+  PatternPostDelay: 0
+  Caster: {fileID: 0}
+  IsRun: 0
+  IsMain: 1
+  IsIndependentPattern: 1
+  PreDelay: 1
+  Speed: 40
+  RushLengthAfterPlayer: 4
+  EffectModel: {fileID: 54873637879540431, guid: 30ea14b1129acb540962b8fca93abdc2, type: 3}
+  Point3LineRendererModel: {fileID: 2333534614209611203, guid: 9d2e1d005543eb94390fb54a6a5d59c5, type: 3}
+  AfterImageColor: {r: 0.99215686, g: 0.6392157, b: 0.37254903, a: 1}
+  AfterImageMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
+  AfterImageWidth: 0.1
+--- !u!1 &6213339515283894218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2160598406588349827}
+  - component: {fileID: 2905734982770516440}
+  m_Layer: 8
+  m_Name: BodyBlowJudge
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2160598406588349827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6213339515283894218}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1487187792511923787}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2905734982770516440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6213339515283894218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecedd4f9357b4ab47b5b3eb6b273a657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageValue: 20
+  ImmuneTime: 2
+  isTeamKill: 0
+  IsEffected: 1
