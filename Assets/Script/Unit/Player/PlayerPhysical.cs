@@ -31,23 +31,17 @@ public class PlayerPhysical : UnitDefault
     public float SlopeCheckDistance;
     public float SlopeSlideSpeed = 5f;
 
-    [SerializeField]
-    private int state = 0;
-
     //const
     private const float JUMP_TIME = 0.1f;
     private const int JUMPMAX = 2;
 
     //statement OR effected
-    [SerializeReference]
     private bool jumping;
     private float moving;
     private float direction;
     private Vector2 accel;
     private Vector2 collision_point_avg;
     private float jumpTimer = 0f;
-
-    [SerializeReference]
     private int jumpCounter;
     private Rigidbody2D rb2;
     private CapsuleCollider2D colli2D;
@@ -67,25 +61,14 @@ public class PlayerPhysical : UnitDefault
     private bool isAir;
     private float jumpVelocity;
     private Vector2 slidingVelocity;
-
-    [SerializeReference]
     private bool isOnSlope;
-
-    [SerializeField]
     private float slopeDownAngle;
-
-    [SerializeField]
     private float slopeSideAngle;
     private float lastSlopeAngle;
-
-    [SerializeField]
     private bool canWalkOnSlope;
-
-    [SerializeReference]
     private bool isGrounded;
-
-    [SerializeReference]
     private bool isJump;
+    private int slopeState = 0;
 
     public override void Reset()
     {
@@ -340,12 +323,12 @@ public class PlayerPhysical : UnitDefault
 
         if (isGrounded && !isOnSlope && !isJump)
         {
-            state = 0;
+            slopeState = 0;
             nowVelocity.Set(actualSpeed * moving, rb2.velocity.y);
         }
         else if (isGrounded && isOnSlope && canWalkOnSlope && !isJump)
         {
-            state = 1;
+            slopeState = 1;
             nowVelocity.Set(
                 -actualSpeed * moving * slopeNormalPerp.x,
                 -actualSpeed * moving * slopeNormalPerp.y
@@ -353,12 +336,12 @@ public class PlayerPhysical : UnitDefault
         }
         else if (!isGrounded)
         {
-            state = 2;
+            slopeState = 2;
             nowVelocity.Set(actualSpeed * moving, rb2.velocity.y);
         }
         else
         {
-            state = 3;
+            slopeState = 3;
             nowVelocity.Set(actualSpeed * moving * 0.3f, rb2.velocity.y);
             if (!isJump)
             {
