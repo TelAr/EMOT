@@ -54,7 +54,7 @@ public class PassionMove : PatternDefault
         {
             effectObject = Instantiate(EffectModel);
         }
-        effectObject.transform.localScale = transform.position;
+        effectObject.transform.position = transform.position;
         effectObject.SetActive(true);
     }
 
