@@ -112,14 +112,15 @@ MonoBehaviour:
   MaxY: 40
   IsUniqueLimit: 0
   DefaultPos: {x: 0, y: 0, z: 0}
+  DefaultSettingSpeed: 1
+  DefaultSettingJumpPower: 6
   SetMaxHealth: 0
   Statement: 
   PatternRunning: 0
   DefaultPhysicalForcedEnable: 0
-  GlobalDelay: 0
   PatternOrderList:
   - MinimalHP: 0
-    PatternOrder: 00000000010000000200000003000000
+    PatternOrder: 0000000001000000020000000300000004000000
 --- !u!114 &2188110120337716798
 MonoBehaviour:
   m_ObjectHideFlags: 0
