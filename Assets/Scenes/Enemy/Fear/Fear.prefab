@@ -382,12 +382,12 @@ MonoBehaviour:
   PreTransitionDelay: 0.5
   PreDelay: 0.5
   PreColor: {r: 1, g: 0, b: 0.3727808, a: 1}
-  PreWidth: 0.03
+  PreWidth: 0.015
   PreMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
   TransitionDelay: 0.5
   ActiveTime: 10
   ActiveColor: {r: 0.78431374, g: 0.41960785, b: 1, a: 1}
-  ActiveWidth: 0.15
+  ActiveWidth: 0.075
   ActiveMaterial: {fileID: 2100000, guid: 4b720203240071142bf6ad095626d746, type: 2}
   ActiveRotatePerSec: 30
   DisapearTime: 1
