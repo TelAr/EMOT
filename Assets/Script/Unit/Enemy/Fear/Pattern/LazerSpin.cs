@@ -6,6 +6,7 @@ public class LazerSpin : PatternDefault
 {
     public float PositioningDelay;
     public Vector3 AnchorPosition;
+    public GameObject MidSparkleModel;
 
     public Material DefaultMaterial;
     public float LazerLength = 30f;
@@ -47,6 +48,8 @@ public class LazerSpin : PatternDefault
     private float obstacleRotation;
     private Vector3 dampVel;
 
+    private GameObject midSparkle = null;
+
     public override void Setting()
     {
         timer = 0;
@@ -67,6 +70,13 @@ public class LazerSpin : PatternDefault
             obstacle.GetComponent<Damage>().IsEffected = false;
             obstacle.SetActive(false);
         }
+
+        if (midSparkle == null)
+        {
+            midSparkle = Instantiate(MidSparkleModel);
+        }
+        midSparkle.GetComponent<Animator>().SetBool("IsLoop", true);
+        midSparkle.SetActive(false);
     }
 
     public override void Run()
@@ -87,10 +97,18 @@ public class LazerSpin : PatternDefault
 
     private void Update()
     {
+        if (
+            midSparkle.activeSelf
+            && midSparkle.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("End")
+        )
+        {
+            midSparkle.SetActive(false);
+        }
+
+        midSparkle.transform.position = ((Fear)Caster).BeamEyePosOffset;
         if (IsRun)
         {
             timer += Time.deltaTime;
-
             switch (step)
             {
                 case 0:
@@ -110,9 +128,11 @@ public class LazerSpin : PatternDefault
                     break;
                 case 1:
                     ratio = timer / PreTransitionDelay;
+
                     UpdateLazerTransform(ratio);
                     if (ratio > 1)
                     {
+                        midSparkle.SetActive(true);
                         timer = 0;
                         step = 2;
                     }
@@ -161,6 +181,7 @@ public class LazerSpin : PatternDefault
                     UpdateLazerTransform();
                     if (ratio > 1)
                     {
+                        midSparkle.GetComponent<Animator>().SetBool("IsLoop", false);
                         step = 5;
                         timer = 0;
                     }

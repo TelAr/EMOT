@@ -377,6 +377,7 @@ MonoBehaviour:
   IsIndependentPattern: 1
   PositioningDelay: 0.5
   AnchorPosition: {x: 0, y: 4, z: 0}
+  MidSparkleModel: {fileID: 3180353063671536543, guid: 4e0caa145189e4a40965d18f7e25d657, type: 3}
   DefaultMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   LazerLength: 50
   PreTransitionDelay: 0.5
